@@ -4,14 +4,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="/Anyeale_proyecto/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link href="/Anyeale_proyecto/css/all.min.css" rel="stylesheet">
-    <link rel="/anyeale_proyecto/css/estilosAnyeale.css">
-    <script src="/Anyeale_proyecto/js/bootstrap.min.js"></script>
-    <script src="/Anyeale_proyecto/js/popper.min.js"></script>
-    <script src="/Anyeale_proyecto/js/jquery-3.6.0.min.js"></script>
-    <script src="/Anyeale_proyecto/js/validacion.js"></script>
-    <link rel="shortcut icon" href="/Anyeale_proyecto/img/PNG LOGO.png" type="image/x-icon">
+    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/all.min.css" rel="stylesheet">
+    <link rel="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosAnyeale.css">
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/bootstrap.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/popper.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
+    <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" type="image/x-icon">
     <title>STYLUSH ANYEALE</title>
 </head>
 
@@ -20,8 +19,8 @@
         <div style="background-color:rgb(119,167,191); height:auto">
             <button type="button" style="background-color:rgb(119,167,191); border: 2px solid rgb(249,201,242); font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:25px; position:relative; left:690px;"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</button>
             <button type="button" style="background-color:rgb(119,167,191); border: 2px solid rgb(249,201,242); font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:25px; position:relative; left:690px;"><i class="fas fa-book-open"></i> Registrarse</button>
-            <img src="/Anyeale_proyecto/img/PNG LOGO.png" style="width:220px; height:auto; position:relative; top:15px; right: 355px;">
-            <h1 style="font-family:'Times New Roman', Times, serif; -webkit-text-stroke: 2px rgb(249,201,242); -webkit-text-fill-color: rgb(119,167,191); font-weigh; font-size:90px; position:relative; left:260px; bottom: 80px;">STYLUSH ANYEALE</h1>
+            <img src="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" style="width:220px; height:auto; position:relative; top:15px; right: 355px;">
+            <h1 style="font-family:'Times New Roman', Times, serif; -webkit-text-stroke: 2px rgb(249,201,242); -webkit-text-fill-color: rgb(119,167,191); font-size:90px; position:relative; left:260px; bottom: 80px;">STYLUSH ANYEALE</h1>
         </div>
         <div>
             <nav class="navbar navbar-expand-lg" style="background-color: rgb(249,201,242); position:relative; bottom:60px; height:auto;">
