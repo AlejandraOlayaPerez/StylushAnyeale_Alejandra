@@ -110,6 +110,23 @@ $oEmpleado = $oUsuarioController->consultarEmpleadoPorId($_GET['idEmpleado']);
 
             <div class="row">
                 <div class="col-md-6">
+                    <label for="" class="form-label">Hoja de vida</label>
+                    <select class="form-select" id=""  name="hojaDeVida" required>
+                        <option value="" disabled selected>Selecciones una opción</option>
+                        <option value="SI" <?php if($oEmpleado->nivelEstudio=="SI"){ echo "selected";} ?> >SI</option>
+                        <option value="NO" <?php if($oEmpleado->nivelEstudio=="NO"){ echo "selected";} ?> >NO</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="formFile" class="form-label">Adjunto Hoja de vida</label>
+                    <input class="form-control" type="file" id="formFile" name="hojaVidaDocumento">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
                     <label for="" class="form-label">Nivel de Estudio</label>
                     <select class="form-select" id="" name="nivelEstudio" required>
                         <option value="" disabled selected>Selecciones una opción</option>
@@ -120,10 +137,16 @@ $oEmpleado = $oUsuarioController->consultarEmpleadoPorId($_GET['idEmpleado']);
                     </select>
                 </div>
 
-                <div class="col-md-6">
-                    <label for="" class="form-label">Experiencia laboral</label>
-                    <input type="text" class="form-control" id="" name="experienciaLaboral" placeholder="Experiencia Laboral" value="<?php echo $oEmpleado->experienciaLaboral; ?>" required>
-                </div>
+                div class="col-md-6">
+            <label for="" class="form-label">Experiencia laboral</label>
+            <select class="form-select" id=""  name="experienciaLaboral" required>
+                <option value="" disabled selected>Selecciones una opción</option>
+                <option value="Menos de un 1 año" <?php if($oEmpleado->estadoCivil=="Menos de un 1 año" ){ echo "selected";} ?> >Menos de un 1 año</option>
+                <option value="Menos de 2 años" <?php if($oEmpleado->estadoCivil=="Menos de 2 años"){ echo "selected";} ?> >Menos de 2 años</option>
+                <option value="Mas de 2 años" <?php if($oEmpleado->estadoCivil=="Mas de 2 años"){ echo "selected";} ?> >Mas de 2 años</option>
+                <option value="5 años" <?php if($oEmpleado->estadoCivil=="5 años"){ echo "selected";} ?> >5 años </option>
+            </select>
+        </div>
             </div>
 
             <div class="row">

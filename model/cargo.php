@@ -6,6 +6,7 @@ class cargo{
     //atributos de la tabla de cargo
     public $idCargo=0;
     public $cargo="";
+    public $descripcionCargo="";
 
     //funcion encargada de insertar un nuevo cargo
     function nuevoCargo(){
@@ -15,7 +16,7 @@ class cargo{
         $conexion=$oConexion->conexion();
 
         //sentencia para insertar un nuevo cargo
-        $sql="INSERT INTO cargo (cargo, eliminado) VALUES ('$this->cargo', false)";
+        $sql="INSERT INTO cargo (cargo, descripcionCargo, eliminado) VALUES ('$this->cargo', '$this->descripcionCargo', false)";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -56,6 +57,7 @@ class cargo{
         //se registra la consulta en los parametros
         $this->idCargo=$registro['idCargo'];
         $this->cargo=$registro['cargo'];
+        $this->descripcionCargo=$registro['descripcionCargo'];
         }
     }
 
@@ -67,7 +69,8 @@ class cargo{
         $conexion=$oConexion->conexion();
 
         //sentencia que permite actualizar un  cargo
-        $sql="UPDATE cargo SET cargo='$this->cargo'
+        $sql="UPDATE cargo SET cargo='$this->cargo',
+        '$this->descripcionCargo';
         WHERE idCargo=$this->idCargo";
             
         //se ejecuta la consulta

@@ -19,6 +19,7 @@ class empleado{
     public $direccion="";
     public $barrio="";
     public $email="";
+    public $hojaDeVida=""; 
     public $telefono="";
     public $nivelEstudio="";
     public $experienciaLaboral="";
@@ -31,17 +32,17 @@ class empleado{
         //se establece la conexión con la base datos
         $conexion=$oConexion->conexion();
 
-        //me permite saber si la funcion es diferente a cero
-         if(sizeof($this->consultarIdDiferenteDeEmpleado())!=0){
-             return "empleado existe";
-        }else{
+        // //me permite saber si la funcion es diferente a cero
+        //  if(sizeof($this->consultarIdDiferenteDeEmpleado())!=0){
+        //      return "empleado existe";
+        // }else{
             //sentencia para insertar un nuevo empleado
             $sql="INSERT INTO empleado (idCargo, Tipodocumento, Documentoidentidad, primerNombre, segundoNombre, 
-            primerApellido, segundoApellido, fechaNacimiento, genero, direccion, barrio, email, telefono, nivelEstudio, experienciaLaboral, estadoCivil, eliminado) 
+            primerApellido, segundoApellido, fechaNacimiento, genero, direccion, barrio, email, hojaDeVida, telefono, nivelEstudio, experienciaLaboral, estadoCivil, eliminado) 
             VALUES ($this->idCargo, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
-            '$this->segundoApellido', $this->fechaNacimiento, '$this->genero', '$this->direccion', '$this->barrio', '$this->email', $this->telefono, '$this->nivelEstudio',
+            '$this->segundoApellido', $this->fechaNacimiento, '$this->genero', '$this->direccion', '$this->barrio', '$this->email', '$this->hojaDeVida', $this->telefono, '$this->nivelEstudio',
             '$this->experienciaLaboral', '$this->estadoCivil', false)";
-        }
+        // }
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -49,21 +50,21 @@ class empleado{
     }
 
     //esta funcion me permite consultar un empleado con numero documento, con idempleado distinto.
-    function consultarIdDiferenteDeEmpleado(){
-        //se instancia el objeto conectar
-        $oConexion=new conectar();
-        //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
+    // function consultarIdDiferenteDeEmpleado(){
+    //     //se instancia el objeto conectar
+    //     $oConexion=new conectar();
+    //     //se establece conexión con la base datos
+    //     $conexion=$oConexion->conexion();
 
-        //sentencia para seleccionar empleados con  idempleado diferentes.
-       $sql="SELECT * FROM empleado WHERE idEmpleado!=$this->idEmpleado AND tipoDocumento='$this->tipoDocumento' AND documentoIdentidad=$this->documentoIdentidad";
+    //     //sentencia para seleccionar empleados con  idempleado diferentes.
+    //    $sql="SELECT * FROM empleado WHERE idEmpleado!=$this->idEmpleado AND tipoDocumento='$this->tipoDocumento' AND documentoIdentidad=$this->documentoIdentidad";
 
-       //se ejecuta la consulta en la base de datos
-       $result=mysqli_query($conexion,$sql);
-       echo $sql;
-       //organiza resultado de la consulta y lo retorna
-       return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
+    //    //se ejecuta la consulta en la base de datos
+    //    $result=mysqli_query($conexion,$sql);
+    //    echo $sql;
+    //    //organiza resultado de la consulta y lo retorna
+    //    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // }
 
     //esta funcion me permitira mostrar toda la informacion
     function listarEmpleado($idCargo){
@@ -110,6 +111,7 @@ class empleado{
         $this->direccion=$registro['direccion'];
         $this->barrio=$registro['barrio'];
         $this->email=$registro['email']; 
+        $this->hojaDeVida=$registro['hojaDeVida'];
         $this->telefono=$registro['telefono'];
         $this->nivelEstudio=$registro['nivelEstudio'];
         $this->experienciaLaboral=$registro['experienciaLaboral'];
@@ -136,6 +138,7 @@ class empleado{
         direccion='$this->direccion',
         barrio='$this->barrio',
         email='$this->email',
+        hojaDeVida=$this->hojaDeVida,
         telefono=$this->telefono,
         nivelEstudio='$this->nivelEstudio',
         experienciaLaboral='$this->experienciaLaboral',

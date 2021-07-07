@@ -102,6 +102,18 @@ $idCargo = $_GET['idCargo'];
 
         <div class="row">
             <div class="col-md-6">
+                <label for="" class="form-label">Hoja de vida</label>
+                <input type="text" class="form-control" id="" name="" value="<?php if ($oEmpleado->hojaDeVida) echo "SI"; else echo "NO"; ?>" disabled>
+            </div>
+
+            <div class="col-md-6">
+                <label for="formFile" class="form-label">Adjunto Hoja de vida</label>
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
                 <label for="" class="form-label">Nivel Academico</label>
                 <input type="text" class="form-control" id="" name="" value="<?php echo $oEmpleado->nivelEstudio ?>" disabled>
             </div>

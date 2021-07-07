@@ -1,0 +1,107 @@
+<?php
+require 'headGerente.php';
+require_once '../model/pagina.php';
+require_once '../model/conexionDB.php';
+require_once '../model/modulo.php';
+
+$idModulo = $_GET['idModulo'];
+
+?>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
+    <title>Listar Pagina</title>
+</head>
+
+<body>
+    <div class="container">
+        <br>
+
+        <?php
+        require_once '../controller/usuarioController.php';
+        $oUsuarioController = new usuarioController();
+        $oModulo = $oUsuarioController->consultarModuloId($idModulo);
+        ?>
+
+        <div class="row">
+            <div class="col">
+                <h1>Modulo: </h1>
+                <input class="form-control" type="text" value="<?php echo $oModulo->nombreModulo; ?> " disabled>
+            </div>
+        </div>
+
+        <br>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre_Pagina</th>
+                    <th>Enlace</th>
+                    <th>¿Se requiere inicio de sesion?</th>
+                    <th><a class="btn btn-info" href="nuevaPagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                require_once '../model/pagina.php';
+                require_once '../model/conexionDB.php';
+                $oPagina = new Pagina();
+                $oPagina->idModulo = $_GET['idModulo'];
+                $consulta = $oPagina->listarPagina();
+                foreach ($consulta as $registro) {
+                ?>
+                    <tr>
+                        <input type="text" name="idPagina" value="<?php echo $oPagina->idPagina; ?>" style="display:none;">
+                        <td><?php echo $registro['nombrePagina']; ?></td>
+                        <td><?php echo $registro['enlace']; ?></td>
+                        <td><?php if ($registro['requireSession']) echo "SI";
+                            else echo "NO"; ?></td>
+                        <td>
+                            <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                        </td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+        <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+    </div>
+</body>
+
+</html>
+
+<?php
+require_once 'footerGerente.php';
+?>
+
+<div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Label">Eliminar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Esta seguro que desea eliminar la pagina?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="../controller/usuarioController.php" method="GET">
+                    <input type="text" name="idPagina" id="eliminarModulo" style="display:none;">
+                    <input type="text" name="idModulo" id="eliminarPagina" style="display:none;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarPagina"><i class="fas fa-trash-alt"></i>Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

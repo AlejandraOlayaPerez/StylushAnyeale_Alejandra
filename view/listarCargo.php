@@ -18,7 +18,8 @@ require_once 'headGerente.php';
             <thead>
                 <tr class="table-primary">
                     <td>Cargo</td>
-                    <th><a class="btn btn-info" href="nuevoCargo.php"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+                    <td>Descripcion_Cargo</td>
+                    <td><a class="btn btn-info" href="nuevoCargo.php"><i class="fas fa-user-plus"></i> Nuevo</a></td>
                 </tr>
             </thead>
             <tbody>
@@ -35,16 +36,17 @@ require_once 'headGerente.php';
                 ?>
                     <tr>
                         <td><?php echo $registro['cargo']; ?></td>
-                        <th>
+                        <td><?php echo $registro['descripcionCargo']; ?></td>
+                        <td>
                         <a href="listarEmpleado.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-user-edit"></i> Detalle</a>
                         <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                        </th>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
-        <a href="paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
         <br>
     </div>
 </body>
@@ -68,7 +70,7 @@ require_once 'footerGerente.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/usuarioController.php" method="GET">
-                    <input type="text" name="idCargo" id="eliminarCargo" >
+                    <input type="text" name="idCargo" id="eliminarCargo" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarCargo"><i class="fas fa-trash-alt"></i>Eliminar</button>
                 </form>

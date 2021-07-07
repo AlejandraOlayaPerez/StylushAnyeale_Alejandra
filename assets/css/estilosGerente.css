@@ -12,6 +12,16 @@ input{
     font-size: 20px;
 }
 
+label{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
+option{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
 #imgLogo {
     width: 220px;
     position: relative;
@@ -32,8 +42,8 @@ input{
 #footerStylushAnyeale {
     font-family: 'Times New Roman', Times, serif;
     font-size: 50px;
-    -webkit-text-stroke: rgb(249, 201, 242);
-    -webkit-text-fill-color: rgb(249, 201, 242);
+    -webkit-text-stroke: rgb(119, 167, 191);
+    -webkit-text-fill-color: rgb(119, 167, 191);
     text-align: right;
 }
 

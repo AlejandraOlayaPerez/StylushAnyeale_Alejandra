@@ -96,12 +96,28 @@ $idCargo=$_GET['idCargo'];
     <div class="row">
         <div class="col-md-6">
             <label for="" class="form-label">Correo Electronico</label>
-            <input type="text" class="form-control" id="" name="email" placeholder="Correo Electronico" value="<?php echo $oEmpleado->email; ?>" required>
+            <input type="email" class="form-control" id="" name="email" placeholder="name@example.com" value="<?php echo $oEmpleado->email; ?>" required>
         </div>
 
         <div class="col-md-6">
             <label for="" class="form-label">Telefono</label>
             <input type="number" class="form-control" id="" name="telefono" placeholder="Telefono" value="<?php echo $oEmpleado->telefono; ?>" required>
+        </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-6">
+            <label for="" class="form-label">Hoja de vida</label>
+            <select class="form-select" id=""  name="hojaDeVida" required>
+                <option value="" disabled selected>Selecciones una opción</option>
+                <option value="SI" <?php if($oEmpleado->hojaDeVida=="SI"){ echo "selected";} ?> >SI</option>
+                <option value="NO" <?php if($oEmpleado->hojaDeVida=="NO"){ echo "selected";} ?> >NO</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="formFile" class="form-label">Adjunto Hoja de vida</label>
+            <input class="form-control" type="file" id="formFile" name="hojaVidaDocumento">
         </div>
     </div>
 
@@ -119,7 +135,13 @@ $idCargo=$_GET['idCargo'];
 
         <div class="col-md-6">
             <label for="" class="form-label">Experiencia laboral</label>
-            <input type="text" class="form-control" id="" name="experienciaLaboral" placeholder="Experiencia Laboral" value="<?php echo $oEmpleado->experienciaLaboral; ?>" required>
+            <select class="form-select" id=""  name="experienciaLaboral" required>
+                <option value="" disabled selected>Selecciones una opción</option>
+                <option value="Menos de un 1 año" <?php if($oEmpleado->experienciaLaboral=="Menos de un 1 año" ){ echo "selected";} ?> >Menos de un 1 año</option>
+                <option value="Menos de 2 años" <?php if($oEmpleado->experienciaLaboral=="Menos de 2 años"){ echo "selected";} ?> >Menos de 2 años</option>
+                <option value="Mas de 2 años" <?php if($oEmpleado->experienciaLaboral=="Mas de 2 años"){ echo "selected";} ?> >Mas de 2 años</option>
+                <option value="5 años" <?php if($oEmpleado->experienciaLaboral=="5 años"){ echo "selected";} ?> >5 años </option>
+            </select>
         </div>
     </div>
 
@@ -128,10 +150,10 @@ $idCargo=$_GET['idCargo'];
             <label for="" class="form-label">Estado Civil</label>
             <select class="form-select" id=""  name="estadoCivil" required>
                 <option value="" disabled selected>Selecciones una opción</option>
-                <option value="soltero" <?php if($oEmpleado->estadoCivil=="soltero" ){ echo "selected";} ?> >Soltero</option>
-                <option value="casado" <?php if($oEmpleado->estadoCivil=="casado"){ echo "selected";} ?> >Casado</option>
-                <option value="divorciado" <?php if($oEmpleado->estadoCivil=="divorciado"){ echo "selected";} ?> >Divorciado</option>
-                <option value="viudo" <?php if($oEmpleado->estadoCivil=="viudo"){ echo "selected";} ?> >viudo</option>
+                <option value="Soltero" <?php if($oEmpleado->estadoCivil=="Soltero" ){ echo "selected";} ?> >Soltero</option>
+                <option value="Casado" <?php if($oEmpleado->estadoCivil=="Casado"){ echo "selected";} ?> >Casado</option>
+                <option value="Divorciado" <?php if($oEmpleado->estadoCivil=="Divorciado"){ echo "selected";} ?> >Divorciado</option>
+                <option value="Viudo" <?php if($oEmpleado->estadoCivil=="Viudo"){ echo "selected";} ?> >viudo</option>
             </select>
         </div>
     </div>

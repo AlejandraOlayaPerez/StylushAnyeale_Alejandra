@@ -24,7 +24,7 @@
         <div>
             <nav class="navbar navbar-expand-lg" id="navbar">
                 <div class="container-fluid" id="container-fluid">
-                    <a class="nav-link active" id="Anyeale" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php"><i class="fas fa-home"></i> INICIO</a>
+                    <a class="nav-link active" id="Anyeale" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php"><i class="fas fa-home"></i> INICIO</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
