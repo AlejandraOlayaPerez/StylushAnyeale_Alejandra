@@ -17,7 +17,7 @@ $oCargo = new cargo();
 <body>
     <div class="container">
 
-        <h1>NUEVO CARGO</h1>
+        <h1 class="tituloGrande">NUEVO CARGO</h1>
         <br>
 
         <form action="../controller/usuarioController.php" method="GET">

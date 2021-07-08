@@ -21,7 +21,7 @@ $oRol = $oUsuarioController->consultarRolId($_GET['idRol']); //la consultaRolId 
 <body>
     <form action="../controller/usuarioController.php" method="GET">
         <div class="container">
-            <h1>EDITAR ROL</h1>
+            <h1 class="tituloGrande">EDITAR ROL</h1>
             <div class="row">
                 <div class="col col-xl-3 col-md-6 col-12">
                     <label for="">Nombre_Rol</label>

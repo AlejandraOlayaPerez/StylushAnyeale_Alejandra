@@ -83,6 +83,9 @@ class usuarioController{
         $correoElectronico=$_POST['correoElectronico'];
         $contrasena=$_POST['contrasena'];
         $confirmarContrasena=$_POST['confirmarContrasena'];
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
         
         if($contrasena==$confirmarContrasena){
             //si son iguales la contraseña y confirmar contraseña se va a general un registro
@@ -90,20 +93,20 @@ class usuarioController{
             //se registra usuario
             $result=$oUsuario->nuevoUsuario($nombreUser, $correoElectronico,$contrasena);
                 if($result){
-                    // header("location: ../view/home/paginaPrincipalGerente.php");
-                    echo "Se registro correctamente";
+                    header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+fue+registrado+correctamente");
+                    // echo "Se registro correctamente";
                 }else{
-                    // header("location: ../view/home/paginaPrincipalGerente.php");
-                    echo "error";
+                    header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+produjo+un+error+al+registrar+el+usuario");
+                    // echo "error";
                 }
             }else{
-                // header("location: ../view/home/paginaPrincipalGerente.php");
-                echo "Ya existe un registro con este correo electronico";
+                header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Este+correo+electronico+ya+existe");
+                // echo "Ya existe un registro con este correo electronico";
                 //existe un registro con este correo electronico
             }
         }else{
-             // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "La contraseña y confirmacion de la contraseña no coincide";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden");
+            // echo "La contraseña y confirmacion de la contraseña no coincide";
             //si no son diferentes, indicamos al usuario que son iguales
             //no genera registro
         }
@@ -115,13 +118,17 @@ class usuarioController{
         $idUser=$_GET['idUser'];
 
         require_once '../model/usuario.php'; //esta importando el contenido del archivo para ser accesible las funciones y atributos.
-
+        
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+        
         $oUser=new usuario(); //se define y se instancia el objeto user
         if ($oUser->comprobarEliminado($habilitar, $idUser)){ //si se va por la parte del si es correcta
-            if($habilitar==true) echo "habilitado";//si habilitado es verdadero, se habilitara el usuario, siendo al contrario, se deshabilitara
-            else echo "deshabilitado";
+            if($habilitar==true) header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+habilitado+correctamente"); //echo "habilitado";//si habilitado es verdadero, se habilitara el usuario, siendo al contrario, se deshabilitara
+            else header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+deshabilitado+correctamente"); //echo "deshabilitado";
         }else{ //si se va por la parte del no,  la funcion presento algun error
-            echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            // echo "error";
         }
     }
 
@@ -131,13 +138,16 @@ class usuarioController{
         $oRol=new rol();
         $oRol->nombreRol=$_GET['nombreRol'];
         $result=$oRol->nuevoRol();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
         
         if ($result) {
-            //header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "registro";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");
+            // echo "registro";
         }else{
-            echo "error";
-            //header("location: ../view/home/paginaPrincipalGerente.php");
+            // echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -158,12 +168,15 @@ class usuarioController{
         $oRol->nombreRol=$_GET['nombreRol'];
         $oRol->actualizarRol();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oRol->actualizarRol()) {
-            //header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "actualizar";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+el+rol");
+            //echo "actualizar";
         }else{
-            echo "error";
-            //header("location: ../view/home/paginaPrincipalGerente.php");
+            //echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -174,12 +187,15 @@ class usuarioController{
         $oRol->idRol=$_GET['idRol'];
         $oRol->eliminarRol();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oRol->eliminarRol()) {
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "elimino rol";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+correctamente+el+rol");
+            //echo "elimino rol";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            //echo "error";
         }
     }
 
@@ -191,12 +207,15 @@ class usuarioController{
         $oModulo->nombreModulo=$_GET['nombreModulo'];
         $result=$oModulo->nuevoModulo($idModulo);
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($result) {
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "registro modulo";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
+            //echo "registro modulo";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            //echo "error";
         }
     }
 
@@ -216,13 +235,16 @@ class usuarioController{
         $oModulo=new modulo();
         $oModulo->idModulo=$_GET['idModulo'];
         $oModulo->nombreModulo=$_GET['nombreModulo'];
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
         
         if($oModulo->actualizarModulo()){
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "actualizo modulo";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+modulo+correctamente");
+            //echo "actualizo modulo";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            //echo "error";
         }
     }
 
@@ -233,12 +255,15 @@ class usuarioController{
         $oModulo->idModulo=$_GET['idModulo'];
         $oModulo->eliminarModulo();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oModulo->eliminarModulo()) {
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "elimino modulo";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+modulo+correctamente");
+            //echo "elimino modulo";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            //echo "error";
         }
     }
 
@@ -252,11 +277,15 @@ class usuarioController{
         $oPagina->requireSession=$_GET['requireSession'];
         $result=$oPagina->nuevoPagina();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if($result){
-           // header("location: ../view/listarPagina.php");
-           echo "nueva pagina";
+           header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+creo+correctamente+una+nueva+pagina"."&idModulo=".$_GET['idModulo']);
+           //echo "nueva pagina";
         }else {
-            echo "Error al registrar la pagina";
+            header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idModulo=".$_GET['idModulo']);
+            //echo "Error al registrar la pagina";
         }
     }
 
@@ -279,12 +308,15 @@ class usuarioController{
         $oPagina->enlace=$_GET['enlace'];
         $oPagina->requireSession=$_GET['requireSession'];
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if($oPagina->actualizarPagina()){
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "actualizoPagina";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+edito+correctamente+la+pagina"."&idModulo=".$_GET['idModulo']);
+            //echo "actualizoPagina";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php");
-            echo "error";
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idModulo=".$_GET['idModulo']);
+            //echo "error";
         }
     }
 
@@ -295,12 +327,15 @@ class usuarioController{
         $oPagina->idPagina=$_GET['idPagina'];
         $oPagina->eliminarPagina();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oPagina->eliminarPagina()) {
-            // header("location: ../view/listarPagina.php");
-            echo "pagina eliminada";
+            header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+elimino+correctamente+la+pagina"."&idModulo=".$_GET['idModulo']);
+            //echo "pagina eliminada";
         }else{
-            // header("location: ../view/listarPagina.php");
-            echo "error";
+            header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idModulo=".$_GET['idModulo']);
+            //echo "error";
         }
     }
 
@@ -311,11 +346,14 @@ class usuarioController{
         $oCargo->cargo=$_GET['cargo'];
         $oCargo->descripcionCargo=$_GET['descripcionCargo'];
         $result=$oCargo->nuevoCargo();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
         
         if ($result) {
-            header("location: ../view/listarCargo.php");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+un+nuevo+cargo");
         }else{
-            header("location: ../view/listarCargo.php");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -336,10 +374,13 @@ class usuarioController{
         $oCargo->cargo=$_GET['cargo'];
         $oCargo->actualizarCargo();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oCargo->actualizarCargo()) {
-            header("location: ../view/listarCargo.php");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
         }else{
-            header("location: ../view/listarCargo.php");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -350,10 +391,13 @@ class usuarioController{
         $oCargo->idCargo=$_GET['idCargo'];
         $oCargo->eliminarCargo();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oCargo->eliminarCargo()) {
-            header("location: ../view/listarCargo.php");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+registro+del+cargo");
         }else{
-            header("location: ../view/listarCargo.php");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -381,14 +425,18 @@ class usuarioController{
         $oEmpleado->estadoCivil=$_GET['estadoCivil'];
         $result=$oEmpleado->nuevoEmpleado();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($result==1) {
-            // header("location: ../view/listarEmpleado.php?idCargo=$idCargo");
-            echo "se registro";
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+creado+el+registro+del+empleado+correctamente"."&idCargo=".$_GET['idCargo']);
+            //echo "se registro";
         }else if($result=="empleado existe"){
-            echo "ya existe";
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Ya+existe+un+registro+del+empleado"."&idCargo=".$_GET['idCargo']);
+            //echo "ya existe";
         }else{
-            // header("location: ../view/listarEmpleado.php");
-            echo "error";
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idCargo=".$_GET['idCargo']);
+            //echo "error";
         }
     }
 
@@ -425,10 +473,13 @@ class usuarioController{
         $oEmpleado->estadoCivil=$_GET['estadoCivil'];
         $oEmpleado->actualizarEmpleado();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if($oEmpleado->actualizarEmpleado()){
-            header("location: ../view/listarEmpleado.php?idCargo=$idCargo");
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+empleado+correctamente"."&idCargo=".$_GET['idCargo']);
         }else{
-            header("location: ../view/listarEmpleado.php");
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idCargo=".$_GET['idCargo']);
         }
     }
 
@@ -440,10 +491,13 @@ class usuarioController{
         $oEmpleado->idEmpleado=$_GET['idEmpleado'];
         $oEmpleado->eliminarEmpleado();
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         if ($oEmpleado->eliminarEmpleado()) {
-            header("location: ../view/listarEmpleado.php?idCargo=$idCargo");
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+registro+del+empleado+correctamente"."&idCargo=".$_GET['idCargo']);
         }else{
-            header("location: ../view/listarEmpleado.php");
+            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idCargo=".$_GET['idCargo']);
         }
     }
 

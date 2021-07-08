@@ -9,13 +9,17 @@ $oModulo = new modulo();
 <html>
 
 <head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <title>Nuevo Modulo</title>
 </head>
 
 <body>
     <div class="container">
 
-        <H1>NUEVO MODULO</H1>
+        <H1 class="tituloGrande">NUEVO MODULO</H1>
         <form action="../controller/usuarioController.php" method="GET">
             <div class="row">
                 <div class="col col-6">

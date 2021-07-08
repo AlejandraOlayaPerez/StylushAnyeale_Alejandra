@@ -20,7 +20,7 @@ $idModulo = $_GET['idModulo'];
 <body>
     <div class="container">
 
-        <H1>NUEVA PAGINA</H1>
+        <H1 class="tituloGrande">NUEVA PAGINA</H1>
         <form action="../controller/usuarioController.php" method="GET">
             <div class="row">
                 <div class="col col-6">

@@ -23,7 +23,7 @@ $oPagina = $oUsuarioController->consultarPaginaId($_GET['idPagina']);
 
     <form action="../controller/usuarioController.php" method="GET">
         <div class="container">
-            <H1>EDITAR PAGINA</H1>
+            <H1 class="tituloGrande">EDITAR PAGINA</H1>
             <div class="row">
                 <div class="col col-xl-3 col-md-6 col-12">
                     <label for="">Nombre_Pagina</label>

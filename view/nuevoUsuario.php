@@ -14,7 +14,7 @@ require_once '../model/usuario.php';
 <body>
     <div class="container">
 
-        <H1>NUEVO USUARIO</H1>
+        <H1 class="tituloGrande">NUEVO USUARIO</H1>
         <form action="../controller/usuarioController.php" method="POST">
             <div class="row">
                 <div class="col col-6">

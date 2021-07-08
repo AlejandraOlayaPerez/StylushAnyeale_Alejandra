@@ -17,6 +17,15 @@ require_once '../headGerente.php';
 <body>
     <div class="container">
 
+        <?php 
+        require_once '../../controller/mensajeController.php';
+        
+        if(isset($_GET['mensaje'])){
+            $oMensaje=new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'],$_GET['mensaje']);
+        }
+        ?>
+
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Pagina Principal</button>
@@ -38,7 +47,7 @@ require_once '../headGerente.php';
 
             <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <br>
-                <table class="table">
+                <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
                         <tr class="table-primary">
                             <th>Nombre</th>
@@ -102,7 +111,7 @@ require_once '../headGerente.php';
 
             <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
                 <br>
-                <table class="table">
+                <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
                         <tr class="table-primary">
                             <th>Nombre_Rol</th>
@@ -157,7 +166,7 @@ require_once '../headGerente.php';
 
             <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 <br>
-                <table class="table">
+                <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
                         <tr class="table-primary">
                             <th>Nombre_Modulo</th>

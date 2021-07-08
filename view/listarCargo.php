@@ -13,8 +13,16 @@ require_once 'headGerente.php';
 
 <body>
     <div class="container">
+        <?php 
+        require_once '../controller/mensajeController.php';
+        
+        if(isset($_GET['mensaje'])){
+            $oMensaje=new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'],$_GET['mensaje']);
+        }
+        ?>
 
-        <table class="table">
+        <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
             <thead>
                 <tr class="table-primary">
                     <td>Cargo</td>
@@ -38,9 +46,9 @@ require_once 'headGerente.php';
                         <td><?php echo $registro['cargo']; ?></td>
                         <td><?php echo $registro['descripcionCargo']; ?></td>
                         <td>
-                        <a href="listarEmpleado.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-user-edit"></i> Detalle</a>
-                        <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
-                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                            <a href="listarEmpleado.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-user-edit"></i> Detalle</a>
+                            <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                         </td>
                     </tr>
                 <?php } ?>

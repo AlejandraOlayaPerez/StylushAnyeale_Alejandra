@@ -19,11 +19,17 @@ $idCargo = $_GET['idCargo'];
 
 <body>
     <div class="container">
+        <?php
+        require_once '../controller/mensajeController.php';
 
-        <h1 class="tituloGrande">INFORMACION DEL EMPLEADO</h1>
+        if (isset($_GET['mensaje'])) {
+            $oMensaje = new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+        }
+        ?>
         <br>
 
-        <table class="table">
+        <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
             <thead>
                 <tr class="table-primary">
                     <td>Tipo Documento</td>
@@ -62,9 +68,9 @@ $idCargo = $_GET['idCargo'];
 
 </html>
 
- <?php
-    require_once 'footerGerente.php';
-        ?>
+<?php
+require_once 'footerGerente.php';
+?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">

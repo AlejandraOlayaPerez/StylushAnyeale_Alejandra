@@ -31,14 +31,14 @@ $idModulo = $_GET['idModulo'];
 
         <div class="row">
             <div class="col">
-                <h1>Modulo: </h1>
+                <h1 class="tituloGrande">Modulo: </h1>
                 <input class="form-control" type="text" value="<?php echo $oModulo->nombreModulo; ?> " disabled>
             </div>
         </div>
 
         <br>
 
-        <table class="table table-striped">
+        <table class="table table-striped" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
             <thead>
                 <tr>
                     <th>Nombre_Pagina</th>

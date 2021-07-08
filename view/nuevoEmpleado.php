@@ -18,7 +18,7 @@ $idCargo=$_GET['idCargo'];
 <body>
     <div class="container">
 
-        <h1>NUEVO EMPLEADO</h1>
+        <h1 class="tituloGrande">NUEVO EMPLEADO</h1>
         <br>
 
         <form action="../controller/usuarioController.php" method="GET">
