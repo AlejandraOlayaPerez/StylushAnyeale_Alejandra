@@ -91,6 +91,64 @@ class usuario{
         return $result;
     }
 
+    function mostrarUsuariosPorIdRol($idRol){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        //Esta consulta nos permite conocer los usuarios registrados en un rol
+        $sql="SELECT * FROM usuario WHERE idRol=$idRol AND eliminado=false";
+        
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        //arreglo asosiativo de la base de datos
+        }
+    
+    function mostrarUsuariosPorIdDiferente($idRol){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+            
+        //esta consulta nos permite conocer a los usuarios que no estan registrados en ese tol
+        $sql="SELECT * FROM usuario WHERE idRol IS NULL OR idRol!=$idRol AND eliminado=false";
+                
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC); 
+        }
+
+        function actualiazadoEliminadoUsuario($idUser){
+            //Instancia clase conectar
+            $oConexion=new conectar();
+            //Establece conexion con la base de datos.
+            $conexion=$oConexion->conexion();
+    
+            //esta consulta nos permite actualizar el idRol, volviendola Nulo
+            $sql="UPDATE usuario SET idRol=NULL WHERE idUser=$idUser";
+            
+            //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
+            $result=mysqli_query($conexion,$sql);
+            //retorna el resultado de la consulta.
+            return $result;
+            }
+
+        function actualizarUsuarioDeRol($idRol, $idUser){
+            //Instancia clase conectar
+            $oConexion=new conectar();
+            //Establece conexion con la base de datos.
+            $conexion=$oConexion->conexion();
+    
+            $sql="UPDATE usuario SET idRol=$idRol WHERE idUser=$idUser";
+            //se ejecuta la consulta
+            $result=mysqli_query($conexion,$sql);
+            return $result;
+        }
+
     function listarUsuario(){
         //Instancia clase conectar
         $oConexion=new conectar();

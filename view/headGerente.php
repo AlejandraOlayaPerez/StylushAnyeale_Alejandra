@@ -12,6 +12,7 @@
     <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/popper.min.js"></script>
     <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
     <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" type="image/x-icon">
 </head>
 
@@ -24,18 +25,19 @@
         <div>
             <nav class="navbar navbar-expand-lg" id="navbar">
                 <div class="container-fluid" id="container-fluid">
-                    <a class="nav-link active" id="Anyeale" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php"><i class="fas fa-home"></i> INICIO</a>
+                    <a class="nav-link active" id="Anyeale" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php"><i class="fas fa-home"></i></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" id="nav1" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php"><i class="fas fa-calendar-day"></i> Personal</a></li>
-                        <li class="nav-item"><a class="nav-link active" id="nav2" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/inventarioContabilidadGerente.php"><i class="fas fa-calculator"></i> Inventario y contabilidad</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="texto1" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php"><i class="fas fa-users"></i> Personal</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="texto2" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/reservaciones.php"><i class="fas fa-calendar-day"></i> Reservaciones</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="texto3" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/inventarioContabilidadGerente.php"><i class="fas fa-calculator"></i> Inventario</a></li>
                     </ul>
 
-                    <!--<form class="d-flex">
-                    <a href="" class="btn btn-ligth"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
-                    </form>-->
+                    <form class="d-flex">
+                    <a href="" class="btn btn-ligth" id="texto4"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
+                    </form>
                 </div>
             </nav>
         </div>

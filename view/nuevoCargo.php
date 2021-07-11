@@ -26,7 +26,7 @@ $oCargo = new cargo();
                     <label for="" class="form-label">Cargo</label>
                     <select class="form-select" id="" name="cargo" required>
                         <option value="" disabled selected>Selecciones una opción</option>
-                        <option value="Pecepcionista" <?php if ($oCargo->cargo == "Recepcionista") {echo "selected";} ?>>Recepcionista</option>
+                        <option value="Recepcionista" <?php if ($oCargo->cargo == "Recepcionista") {echo "selected";} ?>>Recepcionista</option>
                         <option value="Vendedor" <?php if ($oCargo->cargo == "vendedor") {echo "selected";} ?>>Vendedor</option>
                         <option value="Cajero" <?php if ($oCargo->cargo == "cajero") {echo "selected";} ?>>Cajero</option>
                         <option value="Estetica" <?php if ($oCargo->cargo == "estetica") {echo "selected";} ?>>Asesor de imagen</option>

@@ -1,5 +1,10 @@
 <?php
 require_once '../headGerente.php';
+if (isset($_GET['ventana'])){ //
+    $ventana=$_GET['ventana'];
+}else{
+    $ventana="paginaPrincipal";
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,24 +33,24 @@ require_once '../headGerente.php';
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Pagina Principal</button>
+                <button class="nav-link <?php if($ventana=="paginaPrincipal") echo "active"; ?>" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Pagina Principal</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuario</button>
+                <button class="nav-link <?php if($ventana=="usuario") echo "active"; ?>" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuario</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Rol</button>
+                <button class="nav-link <?php if($ventana=="rol") echo "active"; ?>" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Rol</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modulo</button>
+                <button class="nav-link <?php if($ventana=="modulo") echo "active"; ?>" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modulo</button>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane <?php if($ventana=="paginaPrincipal") echo "active"; ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
             </div>
 
-            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane <?php if($ventana=="usuario") echo "active"; ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <br>
                 <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
@@ -109,7 +114,7 @@ require_once '../headGerente.php';
                 </div>
             </div>
 
-            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+            <div class="tab-pane <?php if($ventana=="rol") echo "active"; ?>" id="messages" role="tabpanel" aria-labelledby="messages-tab">
                 <br>
                 <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
@@ -131,7 +136,7 @@ require_once '../headGerente.php';
                                 <td>
                                     <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
                                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario2" onclick="eliminarRol(<?php echo $registro['idRol']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                    <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detalleRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-light"><i class="fas fa-address-card"></i> Detalle</a>
+                                    <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarDetalleRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-light"><i class="fas fa-address-card"></i> Detalle</a>
                                 </td>
                             </tr>
                         <?php
@@ -164,7 +169,7 @@ require_once '../headGerente.php';
 
             </div>
 
-            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="tab-pane <?php if($ventana=="modulo") echo "active"; ?>" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 <br>
                 <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
@@ -216,7 +221,6 @@ require_once '../headGerente.php';
                     </div>
                 </div>
             </div>
-
         </div>
 
         <script>

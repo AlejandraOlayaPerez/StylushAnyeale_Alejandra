@@ -14,7 +14,7 @@ input{
 
 label{
     font-family: 'Times New Roman', Times, serif;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
 option{
@@ -78,29 +78,44 @@ a{
     margin-left: 5px;
 }
 
-#nav1 {
+#texto1 {
     background-color: rgb(249, 201, 242);
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 20px;
     color: black;
     margin-right: 2px;
     margin-left: 2px;
 }
 
-#nav2 {
+#texto2 {
     background-color: rgb(249, 201, 242);
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 20px;
     color: black;
     margin-right: 2px;
     margin-left: 2px;
 }
 
-#tableListarEmpleado{
+#texto3 {
+    background-color: rgb(249, 201, 242);
     font-family: 'Times New Roman', Times, serif;
-    font-size: 110px;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+#texto4 {
+    background-color: rgb(249, 201, 242);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 .tituloGrande{

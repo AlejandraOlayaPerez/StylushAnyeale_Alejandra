@@ -38,7 +38,7 @@ require_once '../model/usuario.php';
             </div>
             <br>
             <button type="submit" class="btn btn-success" name="funcion" value="registro">Registrar usuario</button>
-            <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+            <a href="home/paginaPrincipalGerente.php?ventana=usuario" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
         </form>
     </div>
 </body>

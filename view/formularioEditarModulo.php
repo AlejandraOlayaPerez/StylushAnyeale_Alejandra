@@ -34,5 +34,5 @@ $oModulo = $oUsuarioController->consultarModuloId($_GET['idModulo']); //la consu
             <br>
             <button type="submit" class="btn btn-success" name="funcion" value="actualizarModulo">Guardar</button>
     </form>
-    <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+    <a href="home/paginaPrincipalGerente.php?ventana=modulo" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 </body>

@@ -24,3 +24,7 @@ function eliminarPagina(idPagina, idModulo){
     document.getElementById("eliminarPagina").value=idPagina;
     document.getElementById("eliminarModulo").value=idModulo;
 }
+
+function eliminarUsuarioRol(idUser){
+    document.getElementById("eliminarUsuarioRol").value=idUser;
+}

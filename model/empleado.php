@@ -40,7 +40,7 @@ class empleado{
             $sql="INSERT INTO empleado (idCargo, Tipodocumento, Documentoidentidad, primerNombre, segundoNombre, 
             primerApellido, segundoApellido, fechaNacimiento, genero, direccion, barrio, email, hojaDeVida, telefono, nivelEstudio, experienciaLaboral, estadoCivil, eliminado) 
             VALUES ($this->idCargo, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
-            '$this->segundoApellido', $this->fechaNacimiento, '$this->genero', '$this->direccion', '$this->barrio', '$this->email', '$this->hojaDeVida', $this->telefono, '$this->nivelEstudio',
+            '$this->segundoApellido', '$this->fechaNacimiento', '$this->genero', '$this->direccion', '$this->barrio', '$this->email', '$this->hojaDeVida', $this->telefono, '$this->nivelEstudio',
             '$this->experienciaLaboral', '$this->estadoCivil', false)";
         // }
 

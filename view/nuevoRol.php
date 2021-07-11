@@ -37,7 +37,7 @@ $oRol = new rol();
             </div>
             <br>
             <button type="submit" class="btn btn-success" name="funcion" value="crearRol">Guardar</button>
-            <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+            <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
         </form>
     </div>
 </body>

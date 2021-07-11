@@ -70,10 +70,10 @@ $idCargo = $_GET['idCargo'];
                 <input type="text" class="form-control" id="" name="" value="<?php echo $oEmpleado->estadoCivil ?>" disabled>
             </div>
 
-            <!-- <div class="col-md-6">
-                <label for="" class="form-label">Estado Civil</label>
-                <input type="text" class="form-control" id="" name="" value="<?php echo $oEmpleado->estadoCivil ?>" disabled>
-            </div> -->
+            <div class="col-md-6">
+                <label for="" class="form-label">Hoja de vida</label>
+                <input type="text" class="form-control" id="" name="" value="<?php if ($oEmpleado->hojaDeVida) echo "SI"; else echo "NO"; ?>" disabled>
+            </div>
         </div>
 
         <div class="row">
@@ -97,18 +97,6 @@ $idCargo = $_GET['idCargo'];
             <div class="col-md-6">
                 <label for="" class="form-label">Telefono</label>
                 <input type="text" class="form-control" id="" name="" value="<?php echo $oEmpleado->telefono ?>" disabled>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <label for="" class="form-label">Hoja de vida</label>
-                <input type="text" class="form-control" id="" name="" value="<?php if ($oEmpleado->hojaDeVida) echo "SI"; else echo "NO"; ?>" disabled>
-            </div>
-
-            <div class="col-md-6">
-                <label for="formFile" class="form-label">Adjunto Hoja de vida</label>
-                
             </div>
         </div>
 
