@@ -80,6 +80,10 @@ $oUsuarioController=new usuarioController();
         case "ActualizarPermisoDePagina":
         $oUsuarioController->ActualizarPermisoDePagina();
         break;
+
+        case "validarReservacion":
+        $oUsuarioController->validarReservacion();
+        break;
     }
 
 class usuarioController{
@@ -606,7 +610,26 @@ class usuarioController{
             header("location: ../view/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=permiso");   
             // echo "error";
         }
+    }
+
+    public function validarReservacion(){
+        require_once '../model/reservaciones.php';
+
+        $oReservacion=new reservacion();
+        $oReservacion->idReservacion=$_GET['idReservacion'];
+        $oReservacion->validarReservacion();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($oReservacion->validarReservacion()) {
+            //header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
+            echo "valido";
+        }else{
+            //header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            echo "error";
         }
+    }
 
 }
 

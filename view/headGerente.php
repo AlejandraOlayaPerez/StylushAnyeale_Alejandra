@@ -31,7 +31,7 @@
                     </button>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" id="texto1" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php"><i class="fas fa-users"></i> Personal</a></li>
-                        <li class="nav-item"><a class="nav-link active" id="texto2" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/reservaciones.php"><i class="fas fa-calendar-day"></i> Reservaciones</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="texto2" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/mostrarReservacion.php"><i class="fas fa-calendar-day"></i> Reservaciones</a></li>
                         <li class="nav-item"><a class="nav-link active" id="texto3" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/inventarioContabilidadGerente.php"><i class="fas fa-calculator"></i> Inventario</a></li>
                     </ul>
 

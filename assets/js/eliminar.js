@@ -28,3 +28,7 @@ function eliminarPagina(idPagina, idModulo){
 function eliminarUsuarioRol(idUser){
     document.getElementById("eliminarUsuarioRol").value=idUser;
 }
+
+function validarReservacion(idReservacion){
+    document.getElementById("validarReservacion").value=idReservacion;
+}
