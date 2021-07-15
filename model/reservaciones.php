@@ -14,6 +14,8 @@ class reservacion{
     public $domicilio="";
     public $direccion="";
     public $validar="";
+    public $primerNombre="";
+    public $primerApellido="";
 
     //funcion para crear una reservacion
     function nuevaReservacion(){
@@ -48,6 +50,7 @@ class reservacion{
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    //esta funcion me trae las reservaciones que existen con el nombre del cliente
     function mostrarReservacion(){
         //instancia la clase conectar
         $oConexion=new conectar();
@@ -55,7 +58,8 @@ class reservacion{
         $conexion=$oConexion->conexion();
 
         $sql="SELECT c.primerNombre, c.primerApellido,
-        r.servicio, r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
+        r.servicio, r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar 
+        FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
         WHERE r.idReservacion=$this->idReservacion";
 
         //se ejecuta la consulta en la base de datos
@@ -72,10 +76,7 @@ class reservacion{
         $this->fechaReservacion=$registro['fechaReservacion'];
         $this->horaReservacion=$registro['horaReservacion'];
         $this->validar=$registro['validar'];
-        } 
-
-
-        
+        }
     }
 
     //esta funcion me permite consultar un empleado

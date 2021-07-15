@@ -32,3 +32,7 @@ function eliminarUsuarioRol(idUser){
 function validarReservacion(idReservacion){
     document.getElementById("validarReservacion").value=idReservacion;
 }
+
+function validarPedido(idPedido){
+    document.getElementById("validarPedido").value=idPedido;
+}

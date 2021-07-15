@@ -7,10 +7,10 @@ require_once '../model/modulo.php';
 require_once '../model/permiso.php';
 require_once '../model/pagina.php';
 
-if (isset($_GET['ventana'])){ //Esto nos permitira conocer a que ventana se redirije
-    $ventana=$_GET['ventana'];
-}else{
-    $ventana="empleado";
+if (isset($_GET['ventana'])) { //Esto nos permitira conocer a que ventana se redirije
+    $ventana = $_GET['ventana'];
+} else {
+    $ventana = "empleado";
 }
 
 $idRol = $_GET['idRol'];
@@ -53,15 +53,15 @@ $idRol = $_GET['idRol'];
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link <?php if($ventana=="empleado") echo "active"; ?>" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
+                <button class="nav-link <?php if ($ventana == "empleado") echo "active"; ?>" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
             </li>
-            <li class="nav-item <?php if($ventana=="permiso") echo "active"; ?>" role="presentation">
+            <li class="nav-item <?php if ($ventana == "permiso") echo "active"; ?>" role="presentation">
                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Permisos</button>
             </li>
         </ul>
 
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show <?php if($ventana=="empleado") echo "active"; ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show <?php if ($ventana == "empleado") echo "active"; ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -120,7 +120,7 @@ $idRol = $_GET['idRol'];
             </div>
         </div>
 
-        <div class="tab-pane fade <?php if($ventana=="permiso") echo "active"; ?>" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade <?php if ($ventana == "permiso") echo "active"; ?>" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <form action="../controller/usuarioController.php" method="GET">
                 <input type="hidden" name="idRol" value="<?php echo $_GET['idRol']; ?>">
 

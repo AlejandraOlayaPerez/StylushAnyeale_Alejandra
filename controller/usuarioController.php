@@ -84,6 +84,10 @@ $oUsuarioController=new usuarioController();
         case "validarReservacion":
         $oUsuarioController->validarReservacion();
         break;
+
+        case "validarPedido":
+        $oUsuarioController->validarPedido();
+        break;
     }
 
 class usuarioController{
@@ -623,14 +627,40 @@ class usuarioController{
         $oMensaje=new mensajes();
 
         if ($oReservacion->validarReservacion()) {
-            //header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
-            echo "valido";
+            header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
+            // echo "valido";
         }else{
-            //header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            echo "error";
+            header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            // echo "error";
         }
     }
 
+    public function mostrarReservacion(){
+        require_once '../model/reservaciones.php';
+
+        $oReservacion=new reservacion();
+        $result=$oReservacion->mostrarReservacion();
+        return $result; 
+    }
+
+    public function validarPedido(){
+        require_once '../model/pedido.php';
+
+        $oPedido=new pedido();
+        $oPedido->idPedido=$_GET['idPedido'];
+        $oPedido->validarPedido();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($oPedido->validarPedido()) {
+            header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
+            // echo "valido";
+        }else{
+            header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            // echo "error";
+        }
+    }
 }
 
 ?>

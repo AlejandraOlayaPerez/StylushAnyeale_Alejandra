@@ -21,6 +21,7 @@ class permiso{
     return $result;
     }
 
+    //esta funcion nos permite consultar un permiso por medio de la URL
     function consultarPermisoUrl($idUser, $url){
     //Instancia clase conectar
     $oConexion=new conectar();

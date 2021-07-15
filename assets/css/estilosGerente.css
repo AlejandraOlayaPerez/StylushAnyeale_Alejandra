@@ -99,7 +99,7 @@ a{
 }
 
 #texto3 {
-    background-color: rgb(249, 201, 242);
+    background-color: rgb(249, 201, 242); 
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: 20px;
@@ -109,7 +109,24 @@ a{
 }
 
 #texto4 {
-    background-color: rgb(249, 201, 242);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+#texto5 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+#texto6 {
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
     font-size: 20px;

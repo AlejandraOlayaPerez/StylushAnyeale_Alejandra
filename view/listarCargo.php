@@ -46,7 +46,7 @@ require_once 'headGerente.php';
                         <td><?php echo $registro['cargo']; ?></td>
                         <td><?php echo $registro['descripcionCargo']; ?></td>
                         <td>
-                            <a href="listarEmpleado.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-user-edit"></i> Detalle</a>
+                            <a href="listarEmpleado.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-info-circle"></i> Detalle</a>
                             <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
                             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                         </td>

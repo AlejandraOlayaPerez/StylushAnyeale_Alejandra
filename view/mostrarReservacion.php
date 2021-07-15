@@ -3,6 +3,8 @@
 require_once 'headGerente.php';
 require_once '../model/reservaciones.php';
 require_once '../model/conexionDB.php';
+
+$oReservacion = new reservacion();
 ?>
 
 <!DOCTYPE html>
@@ -17,47 +19,55 @@ require_once '../model/conexionDB.php';
 <body>
     <div class="container">
 
+        <?php
+        require_once '../controller/mensajeController.php';
+
+        if (isset($_GET['mensaje'])) {
+            $oMensaje = new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+        }
+        ?>
+
 
 
         <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
             <thead>
                 <tr class="table-primary">
-                    <td>Cliente</td>
+                    <!-- <td>Cliente</td> -->
                     <td>Servicio</td>
                     <td>Fecha</td>
                     <td>Hora</td>
                     <td>Domicilio</td>
                     <td>Direccion</td>
                     <td>¿Reservacion realizada?</td>
-                    <td><a class="btn btn-info" href="HistorialReservaciones.php"><i class="fas fa-file-alt"></i> Historial</a></td>
+                    <td><a class="btn btn-info" href=""><i class="fas fa-file-alt"></i> Historial</a></td>
                 </tr>
             </thead>
+
             <tbody>
                 <?php
-               
-                $oReservacion=new reservacion();
-                $consulta=$oReservacion->mostrarReservacion();
-                
-        print_r($consulta);
+                $oReservacion = new reservacion();
+                $consulta = $oReservacion->listarReservaciones();
                 foreach ($consulta as $registro) {
                 ?>
                     <tr>
-                        <td><?php echo $registro['primerNombre']." ".$registro['primerApellido']; ?></td>
                         <td><?php echo $registro['servicio']; ?></td>
                         <td><?php echo $registro['fechaReservacion']; ?></td>
                         <td><?php echo $registro['horaReservacion']; ?></td>
-                        <td><?php if ($registro['domicilio']) echo "SI"; else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
-                        <td><?php if ($registro['domicilio']==0) echo "NO"; else echo $registro['direccion']; ?>
-                        <td><?php if ($registro['validar']) echo "SI"; else echo "NO"; ?><?php if ($registro['validar']== 0) ?></td>
+                        <td><?php if ($registro['domicilio']) echo "SI";
+                            else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
+                        <td><?php if ($registro['domicilio'] == 0) echo "NO";
+                            else echo $registro['direccion'] ?>
+                        <td><?php if ($registro['validar']) echo "SI";
+                            else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
                         <td>
                             <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                            <a href="detalleReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-light"><i class="fas fa-address-card"></i> Detalle</a>
                         </td>
                     </tr>
-                    <?php } ?>
+                <?php } ?>
             </tbody>
         </table>
-        <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 

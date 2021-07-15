@@ -13,6 +13,7 @@
     <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/fontawesome-free/css/all.min.css">
     <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" type="image/x-icon">
 </head>
 
@@ -32,13 +33,32 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" id="texto1" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php"><i class="fas fa-users"></i> Personal</a></li>
                         <li class="nav-item"><a class="nav-link active" id="texto2" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/mostrarReservacion.php"><i class="fas fa-calendar-day"></i> Reservaciones</a></li>
-                        <li class="nav-item"><a class="nav-link active" id="texto3" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/inventarioContabilidadGerente.php"><i class="fas fa-calculator"></i> Inventario</a></li>
+                        <li class="nav-item"><a class="nav-link active" id="texto3" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/mostrarVentas.php"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
                     </ul>
 
-                    <form class="d-flex">
-                    <a href="" class="btn btn-ligth" id="texto4"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
-                    </form>
-                </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <nav>
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link active dropdown-toggle" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" id="navbarDarkDropdownMenuLink"  role="button" data-bs-toggle="dropdown" aria-expanded="false"><strong><i class="fas fa-dolly-flatbed"></i> Inventario</strong></a>
+                                            <ul class="dropdown-menu dropdown-menu-ligth" aria-labelledby="navbarDarkDropdownMenuLink">
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" class="nav-link" aria-current="page"><i class="fas fa-dolly-flatbed"></i> Inventario</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php" class="nav-link" aria-current="page"><i class="fas fa-clipboard-list"></i> Pedido</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarFacturas.php" class="nav-link"  aria-current="page"><i class="fas fa-file-invoice-dollar"></i> Factura</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarContabilidad.php" class="nav-link"  aria-current="page"><i class="fas fa-comment-dollar"></i></i> Contabilidad</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+                        <form class="d-flex">
+                            <a href="" class="btn btn-ligth" id="texto4"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
+                        </form>
+                    </div>
             </nav>
         </div>
 </body>
