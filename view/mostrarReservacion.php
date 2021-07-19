@@ -28,45 +28,53 @@ $oReservacion = new reservacion();
         }
         ?>
 
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">Reservacion Actuales</h3>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
+                        <thead>
+                            <tr class="table-primary">
+                                <!-- <td>Cliente</td> -->
+                                <td>Servicio</td>
+                                <td>Fecha</td>
+                                <td>Hora</td>
+                                <td>Domicilio</td>
+                                <td>Direccion</td>
+                                <td>¿Reservacion realizada?</td>
+                                <td><a class="btn btn-info" href=""><i class="fas fa-file-alt"></i> Historial</a></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tbody>
+                            <?php
+                            $oReservacion = new reservacion();
+                            $consulta = $oReservacion->listarReservaciones();
+                            foreach ($consulta as $registro) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $registro['servicio']; ?></td>
+                                    <td><?php echo $registro['fechaReservacion']; ?></td>
+                                    <td><?php echo $registro['horaReservacion']; ?></td>
+                                    <td><?php if ($registro['domicilio']) echo "SI";
+                                        else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
+                                    <td><?php if ($registro['domicilio'] == 0) echo "NO";
+                                        else echo $registro['direccion'] ?>
+                                    <td><?php if ($registro['validar']) echo "SI";
+                                        else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
+                                    <td>
+                                        <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
-
-        <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
-            <thead>
-                <tr class="table-primary">
-                    <!-- <td>Cliente</td> -->
-                    <td>Servicio</td>
-                    <td>Fecha</td>
-                    <td>Hora</td>
-                    <td>Domicilio</td>
-                    <td>Direccion</td>
-                    <td>¿Reservacion realizada?</td>
-                    <td><a class="btn btn-info" href=""><i class="fas fa-file-alt"></i> Historial</a></td>
-                </tr>
-            </thead>
-
-            <tbody>
-                <?php
-                $oReservacion = new reservacion();
-                $consulta = $oReservacion->listarReservaciones();
-                foreach ($consulta as $registro) {
-                ?>
-                    <tr>
-                        <td><?php echo $registro['servicio']; ?></td>
-                        <td><?php echo $registro['fechaReservacion']; ?></td>
-                        <td><?php echo $registro['horaReservacion']; ?></td>
-                        <td><?php if ($registro['domicilio']) echo "SI";
-                            else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
-                        <td><?php if ($registro['domicilio'] == 0) echo "NO";
-                            else echo $registro['direccion'] ?>
-                        <td><?php if ($registro['validar']) echo "SI";
-                            else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
-                        <td>
-                            <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
         <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>

@@ -8,17 +8,15 @@
     <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/bootstrap.min.js"></script>
-    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/popper.min.js"></script>
-    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" type="image/x-icon">
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" >
         <div id="head">
             <img src="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" id="imgLogo">
             <h1 id="headStylushAnyeale">STYLUSH ANYEALE</h1>

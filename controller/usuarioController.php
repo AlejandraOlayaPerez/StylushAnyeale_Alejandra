@@ -88,6 +88,9 @@ $oUsuarioController=new usuarioController();
         case "validarPedido":
         $oUsuarioController->validarPedido();
         break;
+        case "nuevoPedido":
+        $oUsuarioController->nuevoPedido();
+        break;
     }
 
 class usuarioController{
@@ -114,7 +117,7 @@ class usuarioController{
                     header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+fue+registrado+correctamente"."&ventana=usuario");
                     // echo "Se registro correctamente";
                 }else{
-                    header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+produjo+un+error+al+registrar+el+usuario"."&ventana=usuario");
+                    header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
                     // echo "error";
                 }
             }else{
@@ -659,6 +662,34 @@ class usuarioController{
         }else{
             header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             // echo "error";
+        }
+    }
+
+    public function nuevoPedido(){
+        require_once '../model/pedido.php';
+
+        $oPedido=new pedido();
+        $oPedido->idPedido=$_GET['idPedido'];
+        $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
+        $oPedido->responsablePedido=$_GET['responsablePedido'];
+        $oPedido->empresa=$_GET['empresa'];
+        $oPedido->direccion=$_GET['direccion'];
+        $oPedido->codigoPedido=$_GET['codigoPedido'];
+        $oPedido->codigoProducto=$_GET['codigoProducto'];
+        $oPedido->producto=$_GET['producto'];
+        $oPedido->cantidad=$_GET['cantidad'];
+        $oPedido->fechaPedido=$_GET['fechaPedido'];
+        $result=$oPedido->nuevoPedido();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($result==1) {
+            //header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+el+pedido+correctamente");
+            echo "se registro";
+        }else{
+            //header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            echo "error";
         }
     }
 }

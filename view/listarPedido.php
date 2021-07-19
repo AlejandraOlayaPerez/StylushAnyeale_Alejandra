@@ -34,7 +34,7 @@ require 'headGerente.php';
                     <th>Codigo Pedido</th>
                     <th>Fecha Pedido</th>
                     <th>¿Pedido recibido?</th>
-                    <th><a class="btn btn-info" href=""><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
+                    <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
                 </tr>
             </thead>
 

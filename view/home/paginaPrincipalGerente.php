@@ -1,9 +1,9 @@
 <?php
 require_once '../headGerente.php';
-if (isset($_GET['ventana'])){ //
-    $ventana=$_GET['ventana'];
-}else{
-    $ventana="paginaPrincipal";
+if (isset($_GET['ventana'])) { //
+    $ventana = $_GET['ventana'];
+} else {
+    $ventana = "paginaPrincipal";
 }
 ?>
 
@@ -22,35 +22,36 @@ if (isset($_GET['ventana'])){ //
 <body>
     <div class="container">
 
-        <?php 
+        <?php
         require_once '../../controller/mensajeController.php';
-        
-        if(isset($_GET['mensaje'])){
-            $oMensaje=new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'],$_GET['mensaje']);
+
+        if (isset($_GET['mensaje'])) {
+            $oMensaje = new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
         }
         ?>
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link <?php if($ventana=="paginaPrincipal") echo "active"; ?>" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Pagina Principal</button>
+                <button class="nav-link <?php if ($ventana == "paginaPrincipal") echo "active"; ?>" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Pagina Principal</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link <?php if($ventana=="usuario") echo "active"; ?>" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuario</button>
+                <button class="nav-link <?php if ($ventana == "usuario") echo "active"; ?>" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Usuario</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link <?php if($ventana=="rol") echo "active"; ?>" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Rol</button>
+                <button class="nav-link <?php if ($ventana == "rol") echo "active"; ?>" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Rol</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link <?php if($ventana=="modulo") echo "active"; ?>" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modulo</button>
+                <button class="nav-link <?php if ($ventana == "modulo") echo "active"; ?>" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Modulo</button>
             </li>
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane <?php if($ventana=="paginaPrincipal") echo "active"; ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane <?php if ($ventana == "paginaPrincipal") echo "active"; ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
+            
             </div>
 
-            <div class="tab-pane <?php if($ventana=="usuario") echo "active"; ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="tab-pane <?php if ($ventana == "usuario") echo "active"; ?>" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <br>
                 <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
@@ -114,13 +115,13 @@ if (isset($_GET['ventana'])){ //
                 </div>
             </div>
 
-            <div class="tab-pane <?php if($ventana=="rol") echo "active"; ?>" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+            <div class="tab-pane <?php if ($ventana == "rol") echo "active"; ?>" id="messages" role="tabpanel" aria-labelledby="messages-tab">
                 <br>
                 <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>
                         <tr class="table-primary">
                             <th>Nombre_Rol</th>
-                            <th><a class="btn btn-info" href="../nuevoRol.php"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+                            <th><a class="btn btn-info" href="../nuevoRol.php"><i class="fas fa-user-plus"></i> Nuevo Rol</a></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -169,7 +170,7 @@ if (isset($_GET['ventana'])){ //
 
             </div>
 
-            <div class="tab-pane <?php if($ventana=="modulo") echo "active"; ?>" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="tab-pane <?php if ($ventana == "modulo") echo "active"; ?>" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 <br>
                 <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                     <thead>

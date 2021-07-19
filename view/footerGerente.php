@@ -7,6 +7,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG LOGO.png" type="image/x-icon">
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/bootstrap.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/popper.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
+
 </head>
 
 <body>
@@ -20,3 +36,4 @@
 </body>
 
 </html>
+

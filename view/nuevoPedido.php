@@ -1,7 +1,8 @@
 <?php
 require 'headGerente.php';
 require_once '../model/conexionDB.php';
-require_once '../model/usuario.php';
+require_once '../model/pedido.php';
+require_once '../model/producto.php';
 ?>
 
 <html>
@@ -10,45 +11,55 @@ require_once '../model/usuario.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>NUEVO USUARIO</title>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
+    <title>NUEVO PEDIDO</title>
 </head>
 
 <body>
     <div class="container">
         <section class="content">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="card" style="background-color: rgb(119, 167, 191);">
                         <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO USUARIO</h1>
+                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO PEDIDO</h1>
                         </div>
-                        <form id="quickForm" action="../controller/usuarioController.php" method="POST">
+                        <form id="quickForm" action="../controller/usuarioController.php" method="GET">
 
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="">Usuario_Nombre</label>
-                                    <input class="form-control" type="text" name="nombreUser" placeholder="Usuario_Nombre" requied minlength="5" maxlength="30">
+                                    <label for="">Documento Identidad</label>
+                                    <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Correo electronico</label>
-                                    <input class="form-control" type="email" name="correoElectronico" placeholder="Correo Electronico" minlength="15" maxlength="50">
+                                    <label for="">Responsable del pedido</label>
+                                    <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="">Contraseña</label>
-                                    <input class="form-control" type="password" name="contrasena" placeholder="Contraseña" minlength="5" maxlength="30">
+                                    <label for="">Empresa</label>
+                                    <input class="form-control" type="text" name="empresa" placeholder="Empresa">
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Confirmar contraseña</label>
-                                    <input class="form-control" type="password" name="confirmarContrasena" placeholder="Confirmar Contraseña" minlength="5" maxlength="30">
+                                    <label for="">Direccion</label>
+                                    <input class="form-control" type="text" name="direccion" placeholder="Direccion">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="">Fecha Pedido</label>
+                                    <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido">
                                 </div>
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-success" name="funcion" value="registro">Registrar usuario</button>
-                            <a href="home/paginaPrincipalGerente.php?ventana=usuario" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                            <button type="submit" class="btn btn-success" name="funcion" value="nuevoPedido"><i class="far fa-save"></i> Guardar</button>
+                            <a href="listarPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                         </form>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    
                 </div>
             </div>
         </section>
@@ -61,7 +72,7 @@ require_once '../model/usuario.php';
 require_once 'footerGerente.php';
 ?>
 
-<script>
+<!-- <script>
     $(function() {
         $.validator.setDefaults({
             submitHandler: function() {
@@ -115,4 +126,4 @@ require_once 'footerGerente.php';
             }
         });
     });
-</script>
+</script> -->

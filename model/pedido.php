@@ -6,6 +6,10 @@ class pedido{
     //atributos de la tabla pedido
     public $idPedido=0;
     public $idProducto="";
+    public $documentoIdentidad="";
+    public $responsablePedido="";
+    public $empresa="";
+    public $direccion="";
     public $codigoPedido="";
     public $codigoProducto="";
     public $producto="";
@@ -21,8 +25,8 @@ class pedido{
         $conexion=$oConexion->conexion();
 
         //sentencia para insertar un nuevo pedido
-        $sql="INSERT INTO pedido (idProducto, codigoPedido, codigoProducto, producto, cantidad, fechaPedido, entregaPedido, eliminado) VALUES
-        ($this->idProducto, '$this->codigoPedido', '$this->codigoProducto', '$this->producto', $this->cantidad, '$this->fechaPedido', false, false)";
+        $sql="INSERT INTO pedido (idProducto, documentoIdentidad, responsablePedido, empresa, direccion, codigoPedido, codigoProducto, producto, cantidad, fechaPedido, entregaPedido, eliminado) VALUES
+        ($this->idProducto, $this->documentoIdentidad, '$this->responsablePedido', '$this->empresa', '$this->direcion', '$this->codigoPedido', '$this->codigoProducto', '$this->producto', $this->cantidad, '$this->fechaPedido', false, false)";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
