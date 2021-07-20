@@ -49,6 +49,35 @@ class empleado{
         return $result;
     }
 
+    function nuevoEmpleadoPorCargo($idCargo, $idEmpleado){
+        //instancia la clase conectar
+        $oConexion=new conectar();
+        //se establece la conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        $sql="UPDATE empleado SET idCargo=$idCargo WHERE idEmpleado=$idEmpleado";
+
+        $result=mysqli_query($conexion,$sql);
+        echo $sql;
+        return $result;
+    }
+
+    function eliminarEmpleadoCargo(){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+
+        //esta consulta nos permite actualizar el idCargo, volviendola Nulo
+        $sql="UPDATE empleado SET idCargo=NULL WHERE idEmpleado=$this->idEmpleado";
+        
+        //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
+        $result=mysqli_query($conexion,$sql);
+        echo $sql;
+        //retorna el resultado de la consulta.
+        return $result;
+        }
+
     //esta funcion me permite consultar un empleado con numero documento, con idempleado distinto.
     // function consultarIdDiferenteDeEmpleado(){
     //     //se instancia el objeto conectar
@@ -75,6 +104,21 @@ class empleado{
 
         //sentencia para seleccionar un empleado 
         $sql="SELECT * FROM empleado WHERE idCargo=$idCargo AND eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function mostrarEmpleado(){
+        //se instancia el objeto conectar
+        $oConexion=new conectar();
+        //se establece conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        //sentencia para seleccionar un empleado 
+        $sql="SELECT * FROM empleado WHERE eliminado=false";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

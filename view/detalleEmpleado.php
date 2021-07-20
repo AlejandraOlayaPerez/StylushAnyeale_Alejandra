@@ -14,7 +14,7 @@ $idCargo = $_GET['idCargo'];
 
 <head>
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>Informacion Empleado</title>
+    <title>INFORMACION</title>
 </head>
 
 <body>

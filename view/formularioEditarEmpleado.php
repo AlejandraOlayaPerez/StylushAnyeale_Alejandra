@@ -14,7 +14,7 @@ $oEmpleado = $oUsuarioController->consultarEmpleadoPorId($_GET['idEmpleado']);
 
 <head>
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>Editar Empleado</title>
+    <title>EDITAR EMPLEADO</title>
 </head>
 
 <body>

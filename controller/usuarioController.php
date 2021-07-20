@@ -23,6 +23,9 @@ $oUsuarioController=new usuarioController();
         case "registrarUsuarioEnRol":
         $oUsuarioController->registrarUsuarioEnRol();
         break;
+        case "actualizarUsuario":
+        $oUsuarioController->actualizarUsuario();
+        break;
         case "eliminarUsuarioDeRol":
         $oUsuarioController->eliminarUsuarioDeRol();
         break;
@@ -75,6 +78,12 @@ $oUsuarioController=new usuarioController();
         break;
         case "eliminarEmpleado":
         $oUsuarioController->eliminarEmpleado();
+        break;
+        case "actualizarCargoEnEmpleado":
+        $oUsuarioController->actualizarCargoEnEmpleado();
+        break;
+        case "eliminarEmpleadoCargo":
+        $oUsuarioController->eliminarEmpleadoCargo();
         break;
 
         case "ActualizarPermisoDePagina":
@@ -210,6 +219,39 @@ class usuarioController{
         }
     }
 
+    public function consultarUsuarioId(){
+        require_once '../model/usuario.php';
+        $idUser=$_GET['idUser'];
+
+        $oUsuario=new usuario();
+        $oUsuario->consultarUsuario($idUser);
+
+        return $oUsuario;
+    }
+
+    public function actualizarUsuario(){
+        require_once '../model/usuario.php';
+
+        $oUsuario=new usuario();
+        $oUsuario->idUser=$_GET['idUser'];
+        $oUsuario->nombreUser=$_GET['nombreUser'];
+        $oUsuario->correoElectronico=$_GET['correoElectronico'];
+        $oUsuario->contrasena=$_GET['contrasena'];
+        $confirmarContrasena=$_POST['confirmarContrasena'];
+        $oUsuario->actualizarUsuario();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($oUsuario->actualizarUsuario()) {
+            //header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+el+usuario"."&ventana=usuario");
+            echo "actualizar";
+        }else{
+            echo "error";
+            //header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
+        }
+    }
+
     public function nuevoRol(){
         require_once '../model/rol.php';
 
@@ -269,7 +311,7 @@ class usuarioController{
         $oMensaje=new mensajes();
 
         if ($oRol->eliminarRol()) {
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+correctamente+el+rol"."&ventana=rol");
+            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+rol"."&ventana=rol");
             //echo "elimino rol";
         }else{
             header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=rol");
@@ -297,7 +339,6 @@ class usuarioController{
         }
     }
 
-    //Funcion me permite consulta el modulo por Id.
     public function consultarModuloId($idModulo){
         require_once '../model/modulo.php'; //esta importando el contendio del archivo para ser usado.
         
@@ -367,7 +408,6 @@ class usuarioController{
         }
     }
 
-    //Funcion me permite consulta el pagina por Id.
     public function consultarPaginaId($idPagina){
         require_once '../model/pagina.php'; //esta importando el contendio del archivo para ser usado.
         
@@ -420,19 +460,27 @@ class usuarioController{
     public function nuevoCargo(){
         require_once '../model/cargo.php';
 
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
         $oCargo=new cargo();
         $oCargo->cargo=$_GET['cargo'];
         $oCargo->descripcionCargo=$_GET['descripcionCargo'];
+        //este if me permite conocer su el campo esta vacio o trae informacion
+        if ($_GET['cargo'] && $_GET['descripcionCargo']!= ""){// en caso de que traiga informacion, ejecutara la funcion nuevoCargo()
         $result=$oCargo->nuevoCargo();
 
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-        
         if ($result) {
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+un+nuevo+cargo");
         }else{
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
+
+        }else{//en caso de que este vacio, mostrara un mensaje de advertencia
+            header("location: ../view/nuevoCargo.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Campo+vacio,+por+favor+complete+la+informacion");
+            //echo "Campo vacio";
+        }
+        
     }
 
     public function consultarCargoPorId($idCargo){
@@ -450,15 +498,16 @@ class usuarioController{
         $oCargo=new cargo();
         $oCargo->idCargo=$_GET['idCargo'];
         $oCargo->cargo=$_GET['cargo'];
+        $oCargo->descripcionCargo=$_GET['descripcionCargo'];
         $oCargo->actualizarCargo();
 
         require_once 'mensajeController.php';
         $oMensaje=new mensajes();
 
         if ($oCargo->actualizarCargo()) {
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
+           header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
         }else{
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+           header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -473,7 +522,7 @@ class usuarioController{
         $oMensaje=new mensajes();
 
         if ($oCargo->eliminarCargo()) {
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+registro+del+cargo");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+el+registro+del+cargo");
         }else{
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
@@ -579,6 +628,47 @@ class usuarioController{
         }
     }
 
+    public function actualizarCargoEnEmpleado(){
+            require_once '../model/empleado.php';
+    
+            $idCargo=$_GET['idCargo'];
+            $idEmpleado=$_GET['idEmpleado'];
+    
+            $oEmpleado=new empleado();
+            $result=$oEmpleado->nuevoEmpleadoPorCargo($idCargo, $idEmpleado);
+    
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+    
+            if ($result){
+                header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+agregado+el+empleado+al+cargo");
+                //echo "nuevo";
+            }else{
+                header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                //echo "Error";
+            }
+    }
+
+    public function eliminarEmpleadoCargo(){
+        require_once '../model/empleado.php';
+        $idCargo=$_GET['idCargo'];
+
+        $oEmpleado=new empleado();
+        $oEmpleado->idEmpleado=$_GET['idEmpleado'];
+        $result=$oEmpleado->eliminarEmpleadoCargo();
+    
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+    
+        if ($result){
+            //header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+empleado+al+cargo");
+            echo "eliminar";
+        }else{
+            //header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            echo "Error";
+        }
+    }
+
     public function verificarPermiso($idPagina,$idRol){
         require_once '../model/permiso.php';
 
@@ -638,14 +728,6 @@ class usuarioController{
         }
     }
 
-    public function mostrarReservacion(){
-        require_once '../model/reservaciones.php';
-
-        $oReservacion=new reservacion();
-        $result=$oReservacion->mostrarReservacion();
-        return $result; 
-    }
-
     public function validarPedido(){
         require_once '../model/pedido.php';
 
@@ -691,6 +773,15 @@ class usuarioController{
             //header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             echo "error";
         }
+    }
+
+    public function consultarPedidoId(){
+        require_once '../model/pedido.php';
+
+        $oPedido=new pedido();
+        $oPedido->consultarPedido($idPedido);
+
+        return $oPedido;
     }
 }
 

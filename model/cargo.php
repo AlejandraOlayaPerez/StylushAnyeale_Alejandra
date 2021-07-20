@@ -70,7 +70,7 @@ class cargo{
 
         //sentencia que permite actualizar un  cargo
         $sql="UPDATE cargo SET cargo='$this->cargo',
-        '$this->descripcionCargo';
+        descripcionCargo='$this->descripcionCargo'
         WHERE idCargo=$this->idCargo";
             
         //se ejecuta la consulta

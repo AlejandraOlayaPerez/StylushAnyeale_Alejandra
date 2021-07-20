@@ -51,7 +51,7 @@ class reservacion{
     }
 
     //esta funcion me trae las reservaciones que existen con el nombre del cliente
-    function mostrarReservacion(){
+    function mostrarReservacion($filtroFecha){
         //instancia la clase conectar
         $oConexion=new conectar();
         //se establece la conexión con la base datos
@@ -60,23 +60,12 @@ class reservacion{
         $sql="SELECT c.primerNombre, c.primerApellido,
         r.servicio, r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar 
         FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
-        WHERE r.idReservacion=$this->idReservacion";
+        WHERE r.eliminado=false AND r.fechaReservacion='$filtroFecha'";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion, $sql);
         $result= mysqli_fetch_all($result, MYSQLI_ASSOC);
-        
-
-        foreach ($result as $registro){
-        $this->primerNombre=$registro['primerNombre'];
-        $this->primerApellido=$registro['primerApellido'];
-        $this->servicio=$registro['servicio'];
-        $this->domicilio=$registro['domicilio'];
-        $this->direccion=$registro['direccion'];
-        $this->fechaReservacion=$registro['fechaReservacion'];
-        $this->horaReservacion=$registro['horaReservacion'];
-        $this->validar=$registro['validar'];
-        }
+        return $result;
     }
 
     //esta funcion me permite consultar un empleado

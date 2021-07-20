@@ -4,7 +4,12 @@ require_once 'headGerente.php';
 require_once '../model/reservaciones.php';
 require_once '../model/conexionDB.php';
 
-$oReservacion = new reservacion();
+date_default_timezone_set('America/Bogota');
+if (isset($_GET['filtroFecha'])){
+    $filtroFecha=$_GET['filtroFecha'];
+ }else{
+    $filtroFecha=Date("Y-m-d");
+ }
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +18,7 @@ $oReservacion = new reservacion();
 <head>
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
-    <title>Reservaciones</title>
+    <title>RESERVACIONES</title>
 </head>
 
 <body>
@@ -28,33 +33,38 @@ $oReservacion = new reservacion();
         }
         ?>
 
-        <div class="col-md-12">
+        <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">Reservacion Actuales</h3>
+                <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservaciones</h1>
+                        <form action="" method="GET">
+                            <label>Reservacion por fecha</label>
+                            <input type="date" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>"> 
+                        </form>
                 </div>
-                <div class="card-body p-0">
+                <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
                     <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                         <thead>
-                            <tr class="table-primary">
-                                <!-- <td>Cliente</td> -->
-                                <td>Servicio</td>
-                                <td>Fecha</td>
-                                <td>Hora</td>
-                                <td>Domicilio</td>
-                                <td>Direccion</td>
-                                <td>¿Reservacion realizada?</td>
-                                <td><a class="btn btn-info" href=""><i class="fas fa-file-alt"></i> Historial</a></td>
+                            <tr style="background-color: rgb(249, 201, 242);">
+                                <th>Cliente</th>
+                                <th>Servicio</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Domicilio</th>
+                                <th>Direccion</th>
+                                <th>¿Reservacion realizada?</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         <tbody>
                             <?php
                             $oReservacion = new reservacion();
-                            $consulta = $oReservacion->listarReservaciones();
+                            $consulta = $oReservacion->mostrarReservacion($filtroFecha);
                             foreach ($consulta as $registro) {
                             ?>
                                 <tr>
+                                    <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
                                     <td><?php echo $registro['servicio']; ?></td>
                                     <td><?php echo $registro['fechaReservacion']; ?></td>
                                     <td><?php echo $registro['horaReservacion']; ?></td>
@@ -65,7 +75,7 @@ $oReservacion = new reservacion();
                                     <td><?php if ($registro['validar']) echo "SI";
                                         else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
                                     <td>
-                                        <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                        <!--<a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>-->
                                     </td>
                                 </tr>
                             <?php } ?>

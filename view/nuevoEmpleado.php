@@ -12,7 +12,7 @@ $idCargo = $_GET['idCargo'];
 
 <head>
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>Nuevo Empleado</title>
+    <title>NUEVO EMPLEADO</title>
 </head>
 
 <body>
@@ -294,6 +294,7 @@ require_once 'footerGerente.php';
                 },
                 email: {
                     required: "Ingrese un corro valido",
+                    email: "Ingrese un correo electronico valido",
                 },
                 telefono: {
                     required: "Ingrese un numero de telefono valido",

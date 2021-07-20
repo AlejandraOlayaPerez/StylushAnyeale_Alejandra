@@ -16,7 +16,7 @@ $idModulo = $_GET['idModulo'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
-    <title>Listar Pagina</title>
+    <title>PAGINAS</title>
 </head>
 
 <body>
@@ -38,42 +38,51 @@ $idModulo = $_GET['idModulo'];
 
         <br>
 
-        <table class="table table-striped" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
-            <thead>
-                <tr>
-                    <th>Nombre_Pagina</th>
-                    <th>Enlace</th>
-                    <th>¿Se requiere inicio de sesion?</th>
-                    <th><a class="btn btn-info" href="nuevaPagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+        <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
+            <div class="card">
+                <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Paginas</h1>
+                </div>
+                <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
+                    <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
+                        <thead>
+                            <tr style="background-color: rgb(249, 201, 242);">
+                                <th>Nombre_Pagina</th>
+                                <th>Enlace</th>
+                                <th>¿Se requiere inicio de sesion?</th>
+                                <th><a class="btn btn-info" href="nuevaPagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
 
-                </tr>
-            </thead>
+                            </tr>
+                        </thead>
 
-            <tbody>
-                <?php
-                require_once '../model/pagina.php';
-                require_once '../model/conexionDB.php';
-                $oPagina = new Pagina();
-                $oPagina->idModulo = $_GET['idModulo'];
-                $consulta = $oPagina->listarPagina();
-                foreach ($consulta as $registro) {
-                ?>
-                    <tr>
-                        <input type="text" name="idPagina" value="<?php echo $oPagina->idPagina; ?>" style="display:none;">
-                        <td><?php echo $registro['nombrePagina']; ?></td>
-                        <td><?php echo $registro['enlace']; ?></td>
-                        <td><?php if ($registro['requireSession']) echo "SI";
-                            else echo "NO"; ?></td>
-                        <td>
-                            <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                        </td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </tbody>
-        </table>
+                        <tbody>
+                            <?php
+                            require_once '../model/pagina.php';
+                            require_once '../model/conexionDB.php';
+                            $oPagina = new Pagina();
+                            $oPagina->idModulo = $_GET['idModulo'];
+                            $consulta = $oPagina->listarPagina();
+                            foreach ($consulta as $registro) {
+                            ?>
+                                <tr>
+                                    <input type="text" name="idPagina" value="<?php echo $oPagina->idPagina; ?>" style="display:none;">
+                                    <td><?php echo $registro['nombrePagina']; ?></td>
+                                    <td><?php echo $registro['enlace']; ?></td>
+                                    <td><?php if ($registro['requireSession']) echo "SI";
+                                        else echo "NO"; ?></td>
+                                    <td>
+                                        <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
+                                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <a href="home/paginaPrincipalGerente.php?ventana=modulo" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>

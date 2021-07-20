@@ -17,7 +17,7 @@ if (isset($_GET['ventana'])) { //
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/contarTabla.js"></script>
-    <title>Listar Empleado</title>
+    <title>INVENTARIO</title>
 </head>
 
 <body>
@@ -75,60 +75,78 @@ if (isset($_GET['ventana'])) { //
         <br>
 
         <div class="row">
-            <div class="col-12">
+
+            <div class="col-md-6" style="background-color: rgb(249, 201, 242);">
                 <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title" style="font-family:'Times New Roman', Times, serif;  font-size: 30px; font-weight: 600;">Productos</h2>
-
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="submit" name="table_search" class="form-control float-right"  placeholder="Buscar producto" value="Imprimir">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-print"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
+                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                        <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Ventas del dia</h1>
                     </div>
-
-                    <div class="card-body table-responsive p-0" style="height: 300px; font-family:'Times New Roman', Times, serif; font-size: 20px;">
-                        <table class="table table-head-fixed text-nowrap" id="miTabla">
+                    <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
+                        <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                             <thead>
-                                <tr>
-                                    <th>Codigo</th>
-                                    <th>Categoria_Producto</th>
+                                <tr style="background-color: rgb(249, 201, 242);">
                                     <th>Producto</th>
                                     <th>Cantidad</th>
-                                    <th>Costo Producto</th>
-                                    <th>Valor Unitario</th>
+                                    <th>Precio</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                <?php
-                                require_once '../model/producto.php';
-                                $oProducto = new producto();
-                                $consulta = $oProducto->listarProducto();
-                                foreach ($consulta as $registro) {
-                                ?>
-                                    <tr>
-                                        <td><?php echo $registro['codigoProducto']; ?></td>
-                                        <td><?php echo $registro['tipoProducto']; ?></td>
-                                        <td><?php echo $registro['nombreProducto']; ?></td>
-                                        <td><?php echo $registro['cantidad']; ?></td>
-                                        <td><?php echo $registro['costoProducto']; ?></td>
-                                        <td><?php echo $registro['valorUnitario']; ?></td>
-                                    </tr>
-                                <?php } ?>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <br>
+    <br>
+
+        <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
+            <div class="card">
+                <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Inventario</h1>
+                </div>
+                <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
+                    <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
+                        <thead>
+                            <tr style="background-color: rgb(249, 201, 242);">
+                                <th>Codigo</th>
+                                <th>Categoria_Producto</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Costo Producto</th>
+                                <th>Valor Unitario</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <?php
+                            require_once '../model/producto.php';
+                            $oProducto = new producto();
+                            $consulta = $oProducto->listarProducto();
+                            foreach ($consulta as $registro) {
+                            ?>
+                                <tr>
+                                    <td><?php echo $registro['codigoProducto']; ?></td>
+                                    <td><?php echo $registro['tipoProducto']; ?></td>
+                                    <td><?php echo $registro['nombreProducto']; ?></td>
+                                    <td><?php echo $registro['cantidad']; ?></td>
+                                    <td><?php echo $registro['costoProducto']; ?></td>
+                                    <td><?php echo $registro['valorUnitario']; ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </body>
 

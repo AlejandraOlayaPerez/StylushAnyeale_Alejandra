@@ -22,7 +22,7 @@ $idRol = $_GET['idRol'];
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
-    <title>Rol Empleado</title>
+    <title>DETALLE ROL</title>
 </head>
 
 <body>
@@ -53,74 +53,86 @@ $idRol = $_GET['idRol'];
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link <?php if ($ventana == "empleado") echo "active"; ?>" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
+                <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
             </li>
-            <li class="nav-item <?php if ($ventana == "permiso") echo "active"; ?>" role="presentation">
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Permisos</button>
             </li>
         </ul>
 
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show <?php if ($ventana == "empleado") echo "active"; ?>" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre_Usuario</th>
-                            <th>Correo Electronico</th>
-                            <th><a class="btn btn-info" href="nuevoUsuarioRol.php?idRol=<?php echo $_GET['idRol']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
-                        </tr>
-                    </thead>
+        <br>
 
-                    <tbody>
+        <div class="tab-content">
+            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
+                    <div class="card">
+                        <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                            <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion Actuales</h1>
+                        </div>
+                        <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
+                            <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
+                                <thead>
+                                    <tr style="background-color: rgb(249, 201, 242);">
+                                        <th>Nombre_Usuario</th>
+                                        <th>Correo Electronico</th>
+                                        <th><a class="btn btn-info" href="nuevoUsuarioRol.php?idRol=<?php echo $_GET['idRol']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+                                    </tr>
+                                </thead>
 
-                        <?php
+                                <tbody>
 
-                        $oUsuarioController = new usuarioController();
-                        $registro = $oUsuarioController->mostrarUsuarioPorIdRol($_GET['idRol']); //la mostrarUsuarioConId  retorna la instancia completa, la esta almacenando en la variable $oRol
+                                    <?php
 
-                        foreach ($registro as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
-                        ?>
-                            <tr>
-                                <td><?php echo $registro['nombreUser']; ?></td>
-                                <td><?php echo $registro['correoElectronico']; ?></td>
+                                    $oUsuarioController = new usuarioController();
+                                    $registro = $oUsuarioController->mostrarUsuarioPorIdRol($_GET['idRol']); //la mostrarUsuarioConId  retorna la instancia completa, la esta almacenando en la variable $oRol
 
-                                <td>
-                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" value="" onclick="eliminarUsuarioRol(<?php echo $registro['idUser']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                </td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-            </div>
-            </table>
-            <a href="home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-        </div>
+                                    foreach ($registro as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $registro['nombreUser']; ?></td>
+                                            <td><?php echo $registro['correoElectronico']; ?></td>
 
-        <!-- Modal -->
-        <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="Label">Eliminar</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <td>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" value="" onclick="eliminarUsuarioRol(<?php echo $registro['idUser']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                        </div>
+                        </table>
                     </div>
-                    <div class="modal-body">
-                        <p>¿Esta seguro que desea eliminar el usuario rol?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="../controller/usuarioController.php" method="GET">
-                            <input type="text" name="idUser" id="eliminarUsuarioRol" style="display: none;">
-                            <input type="text" name="idRol" value="<?php echo $idRol ?> " style="display:none;">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-danger" name="funcion" value="eliminarUsuarioDeRol"><i class="fas fa-trash-alt"></i>Eliminar</button>
-                        </form>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="Label">Eliminar</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>¿Esta seguro que desea eliminar el usuario rol?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="../controller/usuarioController.php" method="GET">
+                                    <input type="text" name="idUser" id="eliminarUsuarioRol" style="display: none;">
+                                    <input type="text" name="idRol" value="<?php echo $idRol ?> " style="display:none;">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarUsuarioDeRol"><i class="fas fa-trash-alt"></i>Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <a href="home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
         </div>
 
-        <div class="tab-pane fade <?php if ($ventana == "permiso") echo "active"; ?>" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <form action="../controller/usuarioController.php" method="GET">
                 <input type="hidden" name="idRol" value="<?php echo $_GET['idRol']; ?>">
 
@@ -180,6 +192,7 @@ $idRol = $_GET['idRol'];
                 <a href="listarDetalleRol.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
             </form>
         </div>
+    </div>
     </div>
 </body>
 

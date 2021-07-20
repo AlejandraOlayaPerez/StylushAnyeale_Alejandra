@@ -67,6 +67,10 @@ class pedido{
         //se registra la consulta en los parametros
         $this->idPedido=$registro['idPedido'];
         $this->idProducto=$registro['idProducto'];
+        $this->documentoIdentidad=$registro['documentoIdentidad'];
+        $this->responsablePedido=$registro['responsablePedido'];
+        $this->empresa=$registro['empresa'];
+        $this->direccion=$registro['direccion'];
         $this->codigoPedido=$registro['codigoPedido'];
         $this->codigoProducto=$registro['codigoProducto'];
         $this->producto=$registro['producto'];

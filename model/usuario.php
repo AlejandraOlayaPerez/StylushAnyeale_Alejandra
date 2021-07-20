@@ -162,13 +162,13 @@ class usuario{
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function consultarUsuario(){
+    function consultarUsuario($idUser){
         //Instancia clase conectar
         $oConexion=new conectar();
         //Establece conexion con la base de datos.
         $conexion=$oConexion->conexion();
 
-        $sql="SELECT * FROM usuario WHERE idUser=$this->idUser";
+        $sql="SELECT * FROM usuario WHERE idUser=$idUser";
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
         $result=mysqli_fetch_all($result,MYSQLI_ASSOC);

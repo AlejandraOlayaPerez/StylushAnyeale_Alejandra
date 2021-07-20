@@ -13,7 +13,7 @@ $oModulo = new modulo();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>Nuevo Modulo</title>
+    <title>NUEVO MODULO</title>
 </head>
 
 <body>
