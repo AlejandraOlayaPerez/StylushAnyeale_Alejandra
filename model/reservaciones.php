@@ -64,6 +64,7 @@ class reservacion{
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion, $sql);
+        echo $sql;
         $result= mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
     }

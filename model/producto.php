@@ -14,13 +14,13 @@ class producto{
     public $costoProducto="";
 
     //funcion para mostrar los productos
-    function listarProducto(){
+    function listarProducto($filtroCodigoProducto){
     //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="SELECT * FROM producto WHERE eliminado=false";
+    $sql="SELECT * FROM producto WHERE eliminado=false AND codigoProducto='$filtroCodigoProducto'";
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);

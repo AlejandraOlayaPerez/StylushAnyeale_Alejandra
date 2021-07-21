@@ -23,7 +23,7 @@ $idCargo = $_GET['idCargo'];
         <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
             <div class="card">
                 <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Usuarios en este cargo</h1>
+                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Usuarios</h1>
                 </div>
                 <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
                     <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
@@ -34,7 +34,7 @@ $idCargo = $_GET['idCargo'];
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Telefono</th>
-                                <th><a class="btn btn-info" href="nuevoUsuarioCargo.php?idCargo=<?php echo $_GET['idCargo']; ?>"><i class="fas fa-plus-square"></i> Agregar Usuario</a></th>
+                                <th><a class="btn btn-info" href="nuevoUsuarioCargo.php?idCargo=<?php echo $_GET['idCargo']; ?>"><i class="fas fa-user-plus"></i> Agregar Usuario</a></th>
                             </tr>
                         </thead>
                         <tbody>

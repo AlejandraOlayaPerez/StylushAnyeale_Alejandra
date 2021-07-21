@@ -154,7 +154,7 @@ if (isset($_GET['ventana'])) { //
                                             <td>
                                                 <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario2" onclick="eliminarRol(<?php echo $registro['idRol']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarDetalleRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-light"><i class="fas fa-address-card"></i> Detalle</a>
+                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarDetalleRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-light"><i class="far fa-user"></i> Ver.Usuario</a>
                                             </td>
                                         </tr>
                                     <?php
@@ -201,7 +201,7 @@ if (isset($_GET['ventana'])) { //
                                 <thead>
                                     <tr style="background-color: rgb(249, 201, 242);">
                                         <th>Nombre_Modulo</th>
-                                        <th><a class="btn btn-info" href="../nuevoModulo.php"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+                                        <th><a class="btn btn-info" href="../nuevoModulo.php"><i class="fas fa-plus-square"></i> Nuevo Modulo</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -215,9 +215,9 @@ if (isset($_GET['ventana'])) { //
                                         <tr>
                                             <td><?php echo $registro['nombreModulo']; ?></td>
                                             <td>
-                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarModulo.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
+                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarModulo.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario3" onclick="eliminarModulo(<?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPagina.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-light"><i class="fas fa-address-card"></i> Detalle</a>
+                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPagina.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-light"><i class="fas fa-file"></i> Ver. Pagina</a>
                                             </td>
                                         </tr>
                                     <?php

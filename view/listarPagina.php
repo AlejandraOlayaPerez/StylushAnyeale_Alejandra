@@ -50,7 +50,7 @@ $idModulo = $_GET['idModulo'];
                                 <th>Nombre_Pagina</th>
                                 <th>Enlace</th>
                                 <th>¿Se requiere inicio de sesion?</th>
-                                <th><a class="btn btn-info" href="nuevaPagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+                                <th><a class="btn btn-info" href="nuevaPagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-plus-square"></i> Nuevo Pagina</a></th>
 
                             </tr>
                         </thead>
@@ -71,7 +71,7 @@ $idModulo = $_GET['idModulo'];
                                     <td><?php if ($registro['requireSession']) echo "SI";
                                         else echo "NO"; ?></td>
                                     <td>
-                                        <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-user-edit"></i> Editar</a>
+                                        <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                     </td>
                                 </tr>

@@ -212,7 +212,7 @@ class usuarioController{
         $oMensaje=new mensajes();
 
         if($result){
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+eliminado+del+rol");
+            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=El+usuario+ha+sido+eliminado+del+rol");
         }else{
             header("location: ../view/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             //echo "Error al eliminar el usuario de rol";
@@ -255,20 +255,26 @@ class usuarioController{
     public function nuevoRol(){
         require_once '../model/rol.php';
 
-        $oRol=new rol();
-        $oRol->nombreRol=$_GET['nombreRol'];
-        $result=$oRol->nuevoRol();
-
         require_once 'mensajeController.php';
         $oMensaje=new mensajes();
-        
-        if ($result) {
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol"."&ventana=rol");
-            // echo "registro";
+
+        $oRol=new rol();
+        $oRol->nombreRol=$_GET['nombreRol'];
+        if ($_GET['nombreRol']!=""){
+            $result=$oRol->nuevoRol();
+
+            if ($result) {
+                header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol"."&ventana=rol");
+                // echo "registro";
+            }else{
+                // echo "error";
+                header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=rol");
+            }
         }else{
-            // echo "error";
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=rol");
+            header("location: ../view/nuevoRol.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Campo+vacio,+por+favor+complete+la+informacion"."&ventana=rol");
         }
+        
+    
     }
 
     public function consultarRolId($idRol){

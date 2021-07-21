@@ -5,11 +5,11 @@ require_once '../model/reservaciones.php';
 require_once '../model/conexionDB.php';
 
 date_default_timezone_set('America/Bogota');
-if (isset($_GET['filtroFecha'])){
-    $filtroFecha=$_GET['filtroFecha'];
- }else{
-    $filtroFecha=Date("Y-m-d");
- }
+if (isset($_GET['filtroFecha'])) {
+    $filtroFecha = $_GET['filtroFecha'];
+} else {
+    $filtroFecha = Date("Y-m-d");
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,12 +36,12 @@ if (isset($_GET['filtroFecha'])){
         <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
             <div class="card">
                 <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservaciones</h1>
-                        <form action="" method="GET">
-                            <label>Reservacion por fecha</label>
-                            <input type="date" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>"> 
-                        </form>
+                    <form action="" method="GET">
+                        <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
+                        <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                    </form>
                 </div>
+
                 <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
                     <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
                         <thead>

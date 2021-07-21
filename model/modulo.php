@@ -10,7 +10,6 @@ class modulo{
 
     //esta funcion nos permitira crear un nuevo registro en modulo
     function nuevoModulo(){
-
     //instancia la clase conectar
     $oConexion=new conectar();
     //se establece la conexión con la base datos

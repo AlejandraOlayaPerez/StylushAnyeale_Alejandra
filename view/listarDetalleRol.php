@@ -67,7 +67,7 @@ $idRol = $_GET['idRol'];
                 <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
                     <div class="card">
                         <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                            <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion Actuales</h1>
+                            <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Usuarios</h1>
                         </div>
                         <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
                             <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
@@ -75,7 +75,7 @@ $idRol = $_GET['idRol'];
                                     <tr style="background-color: rgb(249, 201, 242);">
                                         <th>Nombre_Usuario</th>
                                         <th>Correo Electronico</th>
-                                        <th><a class="btn btn-info" href="nuevoUsuarioRol.php?idRol=<?php echo $_GET['idRol']; ?>"><i class="fas fa-user-plus"></i> Nuevo</a></th>
+                                        <th><a class="btn btn-info" href="nuevoUsuarioRol.php?idRol=<?php echo $_GET['idRol']; ?>"><i class="fas fa-user-plus"></i> Agregar Usuario</a></th>
                                     </tr>
                                 </thead>
 
@@ -85,20 +85,27 @@ $idRol = $_GET['idRol'];
 
                                     $oUsuarioController = new usuarioController();
                                     $registro = $oUsuarioController->mostrarUsuarioPorIdRol($_GET['idRol']); //la mostrarUsuarioConId  retorna la instancia completa, la esta almacenando en la variable $oRol
-
+                                    if(count($registro)>0){
                                     foreach ($registro as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
                                     ?>
                                         <tr>
                                             <td><?php echo $registro['nombreUser']; ?></td>
                                             <td><?php echo $registro['correoElectronico']; ?></td>
-
                                             <td>
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" value="" onclick="eliminarUsuarioRol(<?php echo $registro['idUser']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" value="" onclick="eliminarUsuarioRol(<?php echo $registro['idUser']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar usuario</a>
                                             </td>
                                         </tr>
-                                    <?php
-                                    }
-                                    ?>
+                                    <?php }
+
+                                    }else{ //en caso de que no tengo informacion, mostrara un mensaje
+                                        ?>
+                                            <!-- no hay ningun registro -->
+                                            <tr>
+                                                <td style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay usuarios registrados en este rol</td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
                                 </tbody>
                         </div>
                         </table>

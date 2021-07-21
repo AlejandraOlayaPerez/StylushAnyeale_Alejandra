@@ -18,6 +18,16 @@ $oRol = new rol();
 
 <body>
     <div class="container">
+
+        <?php
+        require_once '../controller/mensajeController.php';
+
+        if (isset($_GET['mensaje'])) {
+            $oMensaje = new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+        }
+        ?>
+        
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
