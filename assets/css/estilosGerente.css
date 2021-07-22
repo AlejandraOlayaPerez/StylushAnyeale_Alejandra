@@ -140,3 +140,6 @@ a{
     font-size: 30px;
     font-weight: 600;
 }
+a:link{
+    text-decoration: none;
+}

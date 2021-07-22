@@ -9,6 +9,7 @@
     <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/css/bs-stepper.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -39,12 +40,12 @@
                                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                                     <ul class="navbar-nav">
                                         <li class="nav-item dropdown">
-                                            <a class="nav-link active dropdown-toggle" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" id="navbarDarkDropdownMenuLink"  role="button" data-bs-toggle="dropdown" aria-expanded="false"><strong><i class="fas fa-dolly-flatbed"></i> Inventario</strong></a>
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"  role="button" data-bs-toggle="dropdown" aria-expanded="false"><strong><i class="fas fa-dolly-flatbed"></i> Inventario</strong></a>
                                             <ul class="dropdown-menu dropdown-menu-ligth" aria-labelledby="navbarDarkDropdownMenuLink">
-                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" class="nav-link" aria-current="page"><i class="fas fa-dolly-flatbed"></i> Inventario</a></li>
-                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php" class="nav-link" aria-current="page"><i class="fas fa-clipboard-list"></i> Pedido</a></li>
-                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarFacturas.php" class="nav-link"  aria-current="page"><i class="fas fa-file-invoice-dollar"></i> Factura</a></li>
-                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarContabilidad.php" class="nav-link"  aria-current="page"><i class="fas fa-comment-dollar"></i></i> Contabilidad</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" class="dropdown-item" aria-current="page"><i class="fas fa-dolly-flatbed"></i> Inventario</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php" class="dropdown-item" aria-current="page"><i class="fas fa-clipboard-list"></i> Pedido</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarFacturas.php" class="dropdown-item"  aria-current="page"><i class="fas fa-file-invoice-dollar"></i> Factura</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarContabilidad.php" class="dropdown-item"  aria-current="page"><i class="fas fa-comment-dollar"></i></i> Contabilidad</a></li>
                                             </ul>
                                         </li>
                                     </ul>

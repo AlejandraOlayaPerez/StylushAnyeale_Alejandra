@@ -97,6 +97,9 @@ $oUsuarioController=new usuarioController();
         case "validarPedido":
         $oUsuarioController->validarPedido();
         break;
+        case "guardarProducto":
+        $oUsuarioController->guardarProducto();
+        break;
         case "nuevoPedido":
         $oUsuarioController->nuevoPedido();
         break;
@@ -753,6 +756,10 @@ class usuarioController{
         }
     }
 
+    public function guardarProducto(){
+        $listaProducto=$_GET['productos'];
+    }
+
     public function nuevoPedido(){
         require_once '../model/pedido.php';
 
@@ -762,9 +769,9 @@ class usuarioController{
         $oPedido->responsablePedido=$_GET['responsablePedido'];
         $oPedido->empresa=$_GET['empresa'];
         $oPedido->direccion=$_GET['direccion'];
-        $oPedido->codigoPedido=$_GET['codigoPedido'];
-        $oPedido->codigoProducto=$_GET['codigoProducto'];
-        $oPedido->producto=$_GET['producto'];
+        
+
+
         $oPedido->cantidad=$_GET['cantidad'];
         $oPedido->fechaPedido=$_GET['fechaPedido'];
         $result=$oPedido->nuevoPedido();

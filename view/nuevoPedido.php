@@ -17,113 +17,120 @@ require_once '../model/producto.php';
 
 <body>
     <div class="container">
-        <section class="content">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card" style="background-color: rgb(119, 167, 191);">
-                        <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO PEDIDO</h1>
-                        </div>
-                        <form id="quickForm" action="../controller/usuarioController.php" method="GET">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">NUEVO PEDIDO</h3>
+                    </div>
 
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="">Documento Identidad</label>
-                                    <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad">
+                    <div class="card-body p-0">
+                        <div class="bs-stepper">
+                            <div class="bs-stepper-header" role="tablist">
+                                <div class="step" data-target="#logins-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">Formulario</span>
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Responsable del pedido</label>
-                                    <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="">Empresa</label>
-                                    <input class="form-control" type="text" name="empresa" placeholder="Empresa">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Direccion</label>
-                                    <input class="form-control" type="text" name="direccion" placeholder="Direccion">
+                                <div class="line"></div>
+                                <div class="step" data-target="#information-part">
+                                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">Productos</span>
+                                    </button>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="">Fecha Pedido</label>
-                                    <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido">
+
+                            <div class="bs-stepper-content">
+
+                                <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                                    <div class="row" style="margin: 5px;">
+                                        <div class="col-md-6">
+                                            <label for="">Documento Identidad</label>
+                                            <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="">Responsable del pedido</label>
+                                            <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 5px;">
+                                        <div class="col-md-6">
+                                            <label for="">Empresa</label>
+                                            <input class="form-control" type="text" name="empresa" placeholder="Empresa">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="">Direccion</label>
+                                            <input class="form-control" type="text" name="direccion" placeholder="Direccion">
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 5px;">
+                                        <div class="col-md-6">
+                                            <label for="">Fecha Pedido</label>
+                                            <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <button class="btn btn-primary" onclick="stepper.next()">Next</button>
+                                </div>
+
+                                <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                                    <form action="../controller/usuarioController.php" Method="GET">
+                                        <table class="table align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>Selección</th>
+                                                    <th>Codigo</th>
+                                                    <th>Producto</th>
+                                                    <th>Cantidad</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                require_once '../model/producto.php';
+                                                require_once '../model/conexiondb.php';
+
+                                                $oProducto = new producto();
+                                                ?><input type="text" name="idProducto" value="<?php echo $oProducto->idProducto; ?>" style="display:none;"><?php
+                                                $Consulta = $oProducto->mostrarProducto();
+                                                foreach ($Consulta as $registro) {
+                                                ?>
+                                                    <tr>
+                                                        <td><input type="checkbox" name="productos[]" value="<?php echo $oProducto->idProducto; ?>"></td>
+                                                        <td><?php echo $registro['codigoProducto']; ?></td>
+                                                        <td><?php echo $registro['nombreProducto']; ?></td>
+                                                        <td><input class="form-control" type="number" name="cantidadProducto" placeholder="Cantidad"></td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                    <br>
+                                    <button class="btn btn-primary" onclick="stepper.previous()">Previous</button>
+                                    <button class="btn btn-primary" onclick="stepper.next()">Next</button>
                                 </div>
                             </div>
-                            <br>
-                            <button type="submit" class="btn btn-success" name="funcion" value="nuevoPedido"><i class="far fa-save"></i> Guardar</button>
-                            <a href="listarPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                        </form>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    
-                </div>
             </div>
-        </section>
+        </div>
     </div>
 </body>
 
 </html>
 
+
 <?php
 require_once 'footerGerente.php';
 ?>
 
-<!-- <script>
-    $(function() {
-        $.validator.setDefaults({
-            submitHandler: function() {
-                alert("Formulacion enviado de forma correcta");
-            }
-        });
-        $('#quickForm').validate({
-            rules: {
-                nombreUser: {
-                    required: true,
-                    nombreUser: true,
-                },
-                correoElectronico: {
-                    required: true,
-                    correoElectronico: true,
-                },
-                contrasena: {
-                    required: true,
-                    contrasena: true
-                },
-                confirmarContrasena: {
-                    required: true,
-                    confirmarContrasena: true
-                },
-            },
-            messages: {
-                nombreUser: {
-                    required: "Ingrese el nombre del Usuario",
-                },
-                correoElectronico: {
-                    required: "Ingrese el correo electronico",
-                    correoElectronico: "Ingrese un correo electronico valido"
-                },
-                contrasena: {
-                    required: "Dijite la contraseña",
-                },
-                confirmarContrasena: {
-                    required: "Dijite la confirmacion de contraseña",
-                },
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-    });
-</script> -->
+<script>
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function() {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+</script>

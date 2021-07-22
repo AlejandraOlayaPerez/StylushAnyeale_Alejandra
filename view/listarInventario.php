@@ -2,19 +2,20 @@
 require_once 'headGerente.php';
 require_once '../model/producto.php';
 
-if ($filtroFecha!=""){
-    date_default_timezone_set('America/Bogota');
-    if (isset($_GET['filtroFecha'])) {
-        $filtroFecha = $_GET['filtroFecha'];
-    } else {
-        $filtroFecha = Date("Y-m-d");
-    }
-}else{
-    if (isset($_GET['filtroCodigoProducto'])) {
-        $filtroCodigoProducto = $_GET['filtroCodigoProducto'];
-    } else {
-        
-    }
+
+date_default_timezone_set('America/Bogota');
+if (isset($_GET['filtroFecha'])) {
+    $filtroFecha = $_GET['filtroFecha'];
+} else {
+    $filtroFecha = Date("Y-m-d");
+}
+
+
+
+if (isset($_GET['filtroCodigoProducto'])) {
+    $filtroCodigoProducto = $_GET['filtroCodigoProducto'];
+} else {
+    $filtroCodigoProducto = "";
 }
 
 ?>
@@ -107,10 +108,11 @@ if ($filtroFecha!=""){
             <div class="col-md-6" style="background-color: rgb(249, 201, 242);">
                 <div class="card">
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                    <form action="" method="GET">
-                        <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Ventas por fecha: </label>
-                        <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
-                    </form>
+                        <form action="" method="GET">
+                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Ventas por fecha: </label>
+                            <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                            <!-- <button type="submit" data-bs-toggle="tooltip" data-bs-placement="right" title="Hola"> -->
+                        </form>
                     </div>
                     <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
                         <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
@@ -123,19 +125,19 @@ if ($filtroFecha!=""){
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            require_once '../model/ventas.php';
-                            $oVenta = new venta();
-                            $result = $oVenta->listarVenta($filtroFecha);
-                            foreach ($result as $registro) {
-                            ?>
-                                <tr>
-                                    <td><?php echo $registro['fechaVenta']; ?></td>
-                                    <td><?php echo $registro['nombreProducto']; ?></td>
-                                    <td><?php echo $registro['cantidadProducto']; ?></td>
-                                    <td><?php echo $registro['costoProducto']; ?></td>
-                                </tr>
-                            <?php } ?>
+                                <?php
+                                require_once '../model/ventas.php';
+                                $oVenta = new venta();
+                                $result = $oVenta->listarVenta($filtroFecha);
+                                foreach ($result as $registro) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $registro['fechaVenta']; ?></td>
+                                        <td><?php echo $registro['nombreProducto']; ?></td>
+                                        <td><?php echo $registro['cantidadProducto']; ?></td>
+                                        <td><?php echo $registro['costoProducto']; ?></td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -152,7 +154,7 @@ if ($filtroFecha!=""){
             <div class="card-header" style="background-color: rgb(249, 201, 242);">
                 <form action="" method="GET">
                     <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Busca un producto: </label>
-                    <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroCodigoProducto" onchange="this.form.submit()" value="<?php echo $filtroCodigoProducto; ?>">
+                    <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Puedes buscar por codigo o nombre del producto" name="filtroCodigoProducto" onchange="this.form.submit()" value="<?php echo $filtroCodigoProducto; ?>">
                 </form>
             </div>
             <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">

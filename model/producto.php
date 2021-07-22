@@ -20,12 +20,32 @@ class producto{
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="SELECT * FROM producto WHERE eliminado=false AND codigoProducto='$filtroCodigoProducto'";
+    if ($filtroCodigoProducto!=""){
+        $sql="SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$filtroCodigoProducto%' OR nombreProducto LIKE '%$filtroCodigoProducto%')"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
+    }else{
+        $sql="SELECT * FROM producto WHERE eliminado=false";
+    }
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);
     //organiza resultado de la consulta y lo retorna
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+
+    function mostrarProducto(){
+        //Instancia clase conectar
+    $oConexion=new conectar();
+    //Establece conexion con la base de datos.
+    $conexion=$oConexion->conexion();
+
+    $sql="SELECT * FROM producto WHERE eliminado=false";
+
+    //se ejecuta la consulta en la base de datos
+    $result=mysqli_query($conexion,$sql);
+    //organiza resultado de la consulta y lo retorna
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+
     }
 
     function consultarProducto(){
@@ -57,4 +77,3 @@ class producto{
 
     
 }
-?>
