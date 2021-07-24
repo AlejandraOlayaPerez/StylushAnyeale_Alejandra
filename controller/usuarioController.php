@@ -760,42 +760,32 @@ class usuarioController{
         $listaProducto=$_GET['productos'];
     }
 
+
     public function nuevoPedido(){
         require_once '../model/pedido.php';
 
-        $oPedido=new pedido();
-        $oPedido->idPedido=$_GET['idPedido'];
-        $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
-        $oPedido->responsablePedido=$_GET['responsablePedido'];
-        $oPedido->empresa=$_GET['empresa'];
-        $oPedido->direccion=$_GET['direccion'];
+            $productoLista=$_GET['productos'];
+            $cantidadProductoLista=$_GET['cantidadProducto'];
+            $idPedido=$GET['idPedido'];
+            do {
+                $oPedido=new pedido();
+                $oPedido->idPedido=$_GET['idPedido'];
+                $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
+                $oPedido->responsablePedido=$_GET['responsablePedido'];
+                $oPedido->empresa=$_GET['empresa'];
+                $oPedido->direccion=$_GET['direccion'];
+                $oPedido->fechaPedido=$_GET['fechaPedido'];
+            }While($oPedido->consultarIdPedido($idPedido)!=0);
+                for ($i=0; $i<10; $i++){
+                $oPedido->productoLista=$_GET['productos'];
+                $oPedido->cantidadProductoLista=$_GET['cantidadProducto'];
+                }
+                $result=$oPedido->nuevoPedido();
+                
+                
+            }
         
-
-
-        $oPedido->cantidad=$_GET['cantidad'];
-        $oPedido->fechaPedido=$_GET['fechaPedido'];
-        $result=$oPedido->nuevoPedido();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($result==1) {
-            //header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+el+pedido+correctamente");
-            echo "se registro";
-        }else{
-            //header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            echo "error";
-        }
-    }
-
-    public function consultarPedidoId(){
-        require_once '../model/pedido.php';
-
-        $oPedido=new pedido();
-        $oPedido->consultarPedido($idPedido);
-
-        return $oPedido;
-    }
+    
 }
 
 ?>

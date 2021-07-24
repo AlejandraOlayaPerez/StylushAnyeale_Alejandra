@@ -16,7 +16,7 @@ if (isset($_GET['ventana'])) { //
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
-    <title>Gerente</title>
+    <title>GERENTE</title>
 </head>
 
 <body>

@@ -93,7 +93,7 @@ $idPedido = $_GET['idPedido'];
                             ?>
                                 <tr>
                                     <input type="text" value="<?php echo $registro['idPedido']; ?>" style="display:none;">
-                                    <td><?php echo $registro['codigoPedido']; ?></td>
+                                    <td><?php echo $registro['idPedido']; ?></td>
                                     <td><?php echo $registro['codigoProducto']; ?></td>
                                     <td><?php echo $registro['producto'] ?></td>
                                     <td><?php echo $registro['cantidad'] ?></td>

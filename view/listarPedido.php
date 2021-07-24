@@ -54,7 +54,7 @@ require 'headGerente.php';
                             ?>
                                 <tr>
                                     <input type="text" value="<?php echo $registro['idPedido']; ?>" style="display:none;">
-                                    <td><?php echo $registro['codigoPedido']; ?></td>
+                                    <td><?php echo $registro['idPedido']; ?></td>
                                     <td><?php echo $registro['fechaPedido']; ?></td>
                                     <td><?php if ($registro['entregaPedido']) echo "SI";
                                         else echo "NO"; ?></td>
