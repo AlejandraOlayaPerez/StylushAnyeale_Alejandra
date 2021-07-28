@@ -10,6 +10,18 @@ if (isset($_GET['filtroFecha'])) {
 } else {
     $filtroFecha = Date("Y-m-d");
 }
+
+if (isset($_GET['filtroDomicilio'])=="SI" ){
+    $filtroDomicilio = 1;
+} else {
+    $filtroDomicilio = 0;
+}
+
+if (isset($_GET['filtroReservaciones'])=="SI") {
+    $filtroReservaciones = 1; 
+} else {
+    $filtroReservaciones = 0;
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +49,20 @@ if (isset($_GET['filtroFecha'])) {
             <div class="card">
                 <div class="card-header" style="background-color: rgb(249, 201, 242);">
                     <form action="" method="GET">
-                        <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
-                        <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                        <div class="row">
+                            <div class="col col-xl-4 col-md-6 col-12">
+                                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
+                                <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                            </div>
+                            <div class="col col-xl-4 col-md-6 col-12">
+                                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
+                                <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroDomicilio" onchange="this.form.submit()" value="<?php echo $filtroDomicilio; ?>">
+                            </div>
+                            <div class="col col-xl-4 col-md-6 col-12">
+                                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
+                                <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroReservaciones" onchange="this.form.submit()" value="<?php echo $filtroReservaciones; ?>">
+                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -60,25 +84,35 @@ if (isset($_GET['filtroFecha'])) {
                         <tbody>
                             <?php
                             $oReservacion = new reservacion();
-                            $consulta = $oReservacion->mostrarReservacion($filtroFecha);
-                            foreach ($consulta as $registro) {
+                            $consulta = $oReservacion->mostrarReservacion($filtroFecha, $filtroDomicilio, $filtroReservaciones);
+                            if (count($consulta) > 0) {
+                                foreach ($consulta as $registro) {
                             ?>
+                                    <tr>
+                                        <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
+                                        <td><?php echo $registro['servicio']; ?></td>
+                                        <td><?php echo $registro['fechaReservacion']; ?></td>
+                                        <td><?php echo $registro['horaReservacion']; ?></td>
+                                        <td><?php if ($registro['domicilio']) echo "SI";
+                                            else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
+                                        <td><?php if ($registro['domicilio'] == 0) echo "NO";
+                                            else echo $registro['direccion'] ?>
+                                        <td><?php if ($registro['validar']) echo "SI";
+                                            else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
+                                        <td>
+                                            <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                ?>
+                                <!-- no hay ningun registro -->
                                 <tr>
-                                    <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
-                                    <td><?php echo $registro['servicio']; ?></td>
-                                    <td><?php echo $registro['fechaReservacion']; ?></td>
-                                    <td><?php echo $registro['horaReservacion']; ?></td>
-                                    <td><?php if ($registro['domicilio']) echo "SI";
-                                        else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
-                                    <td><?php if ($registro['domicilio'] == 0) echo "NO";
-                                        else echo $registro['direccion'] ?>
-                                    <td><?php if ($registro['validar']) echo "SI";
-                                        else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
-                                    <td>
-                                        <!--<a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>-->
-                                    </td>
+                                    <td style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay registro de reservaciones.</td>
                                 </tr>
-                            <?php } ?>
+                            <?php
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -106,7 +140,7 @@ require_once 'footerGerente.php';
                 <p>¿La reservacion ya fue realizada?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/usuarioController.php" method="GET">
+                <form action="../controller/reservacionController.php" method="GET">
                     <input type="text" name="idReservacion" id="validarReservacion" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="funcion" value="validarReservacion"><i class="fas fa-check-circle"></i> Reservacion relizada</button>

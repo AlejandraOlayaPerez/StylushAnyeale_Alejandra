@@ -86,10 +86,10 @@ require_once 'footerGerente.php';
                 <p>¿Esta seguro que desea eliminar el cargo?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/usuarioController.php" method="GET">
+                <form action="../controller/cargoController.php" method="GET">
                     <input type="text" name="idCargo" id="eliminarCargo" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarCargo"><i class="fas fa-trash-alt"></i>Eliminar</button>
+                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarCargo"><i class="fas fa-trash-alt"></i> Eliminar</button>
                 </form>
             </div>
         </div>

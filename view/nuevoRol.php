@@ -27,26 +27,23 @@ $oRol = new rol();
             echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
         }
         ?>
-        
+
         <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card" style="background-color: rgb(119, 167, 191);">
-                        <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO ROL</h1>
-                        </div>
-                        <form action="../controller/usuarioController.php" method="GET">
-                            <div class="row" style="margin: 5px; ">
-                                <div class="col col-6">
-                                    <label for="" class="form-label">Nombre_Rol</label>
-                                    <input class="form-control" type="text" name="nombreRol" placeholder="Nombre del Rol" minlength="5" maxlength="20">
-                                </div>
-                            </div> <br>
-                            <button type="submit" class="btn btn-success" name="funcion" value="crearRol">Guardar</button>
-                            <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                        </form>
-                    </div>
+
+            <div class="card" style="background-color: rgb(119, 167, 191);">
+                <div class="card-header">
+                    <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO ROL</h1>
                 </div>
+                <form action="../controller/gestionController.php" method="GET">
+                    <div class="row" style="margin: 5px; ">
+                        <div class="col col-xl-4 col-md-6 col-12">
+                            <label for="" class="form-label">Nombre_Rol</label>
+                            <input class="form-control" type="text" name="nombreRol" placeholder="Nombre del Rol" minlength="10" maxlength="20">
+                        </div>
+                    </div> <br>
+                    <button type="submit" class="btn btn-success" name="funcion" value="crearRol"><i class="far fa-save"></i> Guardar</button>
+                    <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                </form>
             </div>
         </section>
 
@@ -54,3 +51,7 @@ $oRol = new rol();
 </body>
 
 </html>
+
+<?php
+require_once 'footerGerente.php';
+?>

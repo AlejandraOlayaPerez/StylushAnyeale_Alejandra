@@ -33,7 +33,7 @@ class contar{
         $conexion=$oConexion->conexion();
         //sentencia SQL para instertar estudiante
     
-        $sql="SELECT COUNT(primerNombre) AS totalPersonal FROM empleado WHERE eliminado=false";
+        $sql="SELECT COUNT(primerNombre) AS totalPersonal FROM usuario WHERE eliminado=false";
     
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

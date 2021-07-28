@@ -13,6 +13,7 @@ if (isset($_GET['ventana'])) { //Esto nos permitira conocer a que ventana se red
     $ventana = "empleado";
 }
 
+
 $idRol = $_GET['idRol'];
 ?>
 
@@ -36,7 +37,7 @@ $idRol = $_GET['idRol'];
         ?>
 
         <?php
-        require_once '../controller/usuarioController.php';
+        require_once '../controller/gestionController.php';
 
         $oUsuarioController = new usuarioController();
         $oRol = $oUsuarioController->consultarRolId($idRol);
@@ -53,7 +54,7 @@ $idRol = $_GET['idRol'];
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Empleado</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Permisos</button>
@@ -89,7 +90,7 @@ $idRol = $_GET['idRol'];
                                     foreach ($registro as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
                                     ?>
                                         <tr>
-                                            <td><?php echo $registro['nombreUser']; ?></td>
+                                            <td><?php echo $registro['primerNombre']." ".$registro['primerApellido']; ?></td>
                                             <td><?php echo $registro['correoElectronico']; ?></td>
                                             <td>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" value="" onclick="eliminarUsuarioRol(<?php echo $registro['idUser']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar usuario</a>
@@ -124,11 +125,11 @@ $idRol = $_GET['idRol'];
                                 <p>¿Esta seguro que desea eliminar el usuario rol?</p>
                             </div>
                             <div class="modal-footer">
-                                <form action="../controller/usuarioController.php" method="GET">
+                                <form action="../controller/gestionController.php" method="GET">
                                     <input type="text" name="idUser" id="eliminarUsuarioRol" style="display: none;">
                                     <input type="text" name="idRol" value="<?php echo $idRol ?> " style="display:none;">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarUsuarioDeRol"><i class="fas fa-trash-alt"></i>Eliminar</button>
+                                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarUsuarioDeRol"><i class="fas fa-trash-alt"></i> Eliminar</button>
                                 </form>
                             </div>
                         </div>
@@ -196,7 +197,7 @@ $idRol = $_GET['idRol'];
                     </tbody>
                 </table>
                 <button type="submit" class="btn btn-success" name="funcion" value="ActualizarPermisoDePagina">Actualizar cambios</button>
-                <a href="listarDetalleRol.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                <a href="listarDetalleRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
             </form>
         </div>
     </div>

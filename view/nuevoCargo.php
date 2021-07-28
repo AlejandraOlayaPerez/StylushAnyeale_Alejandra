@@ -33,16 +33,16 @@ $oCargo = new cargo();
                         <div class="card-header">
                             <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO CARGO</h1>
                         </div>
-                        <form id="quickForm" action="../controller/usuarioController.php" method="GET">
+                        <form id="quickForm" action="../controller/cargoController.php" method="GET">
 
                             <div class="row" style="margin: 5px;">
-                                <div class="col-6">
+                                <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Cargo</label>
-                                    <input class="form-control" type="text" name="cargo" placeholder="Cargo" maxlength="20">
+                                    <input class="form-control" type="text" name="cargo" placeholder="Cargo" minlength="10" maxlength="20">
                                 </div>
-                                <div class="col-6">
+                                <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Descripcion_Cargo</label>
-                                    <input class="form-control" type="text" name="descripcionCargo" placeholder="Descripcion del cargo" maxlength="100">
+                                    <input class="form-control" type="text" name="descripcionCargo" placeholder="Descripcion del cargo" minlength="10" maxlength="100">
                                 </div>
                             </div>
                             <br>

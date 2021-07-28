@@ -74,7 +74,7 @@ if (isset($_GET['filtroCodigoProducto'])) {
                     <div class="icon">
                         <i class="fas fa-user-friends"></i>
                     </div>
-                    <a href="listarCargo.php" class="small-box-footer">
+                    <a href="home/paginaPrincipalGerente.php?ventana=usuario" class="small-box-footer">
                         Personal de trabajo <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>

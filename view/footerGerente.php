@@ -35,13 +35,19 @@
 
 <body>
     <div class="container">
-    <br>
-    <br>
+        <br>
+        <br>
+        <!-- <div class="row">
+            <div class="col col-xl-4 col-md-6 col-12">
+                
+            </div>
+        </div> -->
+
         <div id="footer">
-            <h1 id="footerStylushAnyeale">STYLUSH ANYEALE</h1>
-        </div>
+                    <h1 id="footerStylushAnyeale">STYLUSH ANYEALE</h1>
+                </div>
+
     </div>
 </body>
 
 </html>
-

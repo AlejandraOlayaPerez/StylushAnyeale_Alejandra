@@ -1,7 +1,7 @@
 <?php
 require 'headGerente.php';
 require_once '../model/conexionDB.php';
-require_once '../model/empleado.php';
+require_once '../model/usuario.php';
 
 $idCargo = $_GET['idCargo'];
 
@@ -26,28 +26,28 @@ $idCargo = $_GET['idCargo'];
                         <div class="card-header">
                             <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO USUARIO EN ESTE CARGO</h1>
                         </div>
-                        <form action="../controller/usuarioController.php" method="GET">
+                        <form action="../controller/cargoController.php" method="GET">
                         <input name="idCargo" value="<?php echo $idCargo; ?>" style="display:none">
                             <?php
-                            require_once '../model/empleado.php';
-                            $oEmpleado = new empleado();
-                            $result = $oEmpleado->mostrarEmpleado();
+                            require_once '../model/usuario.php';
+                            $oUsuario = new usuario();
+                            $result = $oUsuario->mostrarUsuario();
                             ?>
                             <div class="row" style="margin: 5px;">
-                                <div class="form-group">
+                                <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="">Nombre Usuario</label>
-                                    <select class="form-select" name="idEmpleado" id="" required>
+                                    <select select class="form-select" name="idUser" id="" required>
                                         <option value="" disabled selected>Selecciones una opción</option>
                                         <?php foreach ($result as $registro) {
                                         ?>
-                                            <option value="<?php echo $registro['idEmpleado']; ?>"><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></option>
+                                            <option value="<?php echo $registro['idUser']; ?>"><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></option>
                                         <?php
                                         }
                                         ?>
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarCargoEnEmpleado">Registrar usuario</button>
+                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarCargoEnEmpleado"> <i class="far fa-save"></i>Registrar usuario</button>
                             <a href="mostrarUsuarioCargo.php?idCargo=<?php echo $_GET['idCargo']; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                         </form>
                     </div>

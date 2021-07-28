@@ -2,7 +2,7 @@
 require 'headGerente.php';
 require_once '../model/conexionDB.php';
 require_once '../model/rol.php';
-require_once '../controller/usuarioController.php';;
+require_once '../controller/gestionController.php';;
 
 $idRol = $_GET['idRol'];
 
@@ -19,24 +19,30 @@ $listarDeUsuarioDiferente = $oUsuarioController->usuarioDiferenteEnRol($idRol);
 
 <body>
     <div class="container">
+        <div class="row">
+            <div class="col col-xl-4 col-md-6 col-12">
 
-        <form action="../controller/usuarioController.php" method="GET">
-            <h3 class="tituloGrande">Empleados: </h3>
-            <input name="idRol" value="<?php echo $idRol; ?>" style="display:none">
+                <form action="../controller/gestionController.php" method="GET">
+                    <h3 class="tituloGrande">Empleados: </h3>
+                    <input name="idRol" value="<?php echo $idRol; ?>" style="display:none">
 
-            <select class="form-select" name="idUser" id="" required>
-                <option value="" disabled selected>Selecciones una opción</option>
-                <?php foreach ($listarDeUsuarioDiferente as $registro) {
-                ?>
-                    <option value="<?php echo $registro['idUser']; ?>"><?php echo $registro['nombreUser']; ?></option>
-                <?php
-                }
-                ?>
-            </select>
-            <br>
-            <button type="submit" class="btn btn-success" name="funcion" value="registrarUsuarioEnRol">Guardar</button>
-            <a href="listarDetalleRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-        </form>
+
+                    <select class="form-select" name="idUser" id="" required>
+                        <option value="" disabled selected>Selecciones una opción</option>
+                        <?php foreach ($listarDeUsuarioDiferente as $registro) {
+                        ?>
+                            <option value="<?php echo $registro['idUser']; ?>"><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-success" name="funcion" value="registrarUsuarioEnRol"><i class="far fa-save"></i> Guardar</button>
+                    <a href="listarDetalleRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                </form>
+            </div>
+        </div>
+
     </div>
 </body>
 

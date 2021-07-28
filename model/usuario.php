@@ -6,48 +6,43 @@ class usuario{
     //el modificador private no permite acceder a los atributos fuera de la clase
     //atributos del modelo usuario
     //$idUser almacenara el id del usuario en la base de datos
-    private $idUser="";
-    private $nombreUser="";
-    private $correoElectronico="";
-    private $contrasena="";
+    public $idUser=0;
     public $idRol="";
+    public $idCargo="";
+    public $tipoDocumento="";
+    public $documentoIdentidad="";
+    public $primerNombre="";
+    public $segundoNombre="";
+    public $primerApellido="";
+    public $segundoApellido="";
+    public $fechaNacimiento="";
+    public $correoElectronico="";
+    public $contrasena="";
+    public $telefono="";
+    public $genero="";
+    public $estadoCivil="";
+    public $direccion="";
+    public $barrio="";
     public $eliminado="";
 
-    //estas funciones permitian obtener la informacion de la variable privada
-    //funcion get: para obtener o capturar la informacion de la variable, idUser y nombre
-    //funcion set: para configurar la informacion de la variable
-    public function getIdUser(){
-        return $this->idUser;
-    }
 
-    public function getNombreUser(){
-        return $this->nombreUser;
-    }
-
-    public function setIdUsers($idUser){
-        $this->idUser=$idUser;
-    }
-
-    public function setNombre($nombreUser){
-        $this->nombreUser=$nombreUser;
-    }
-    //funcion que gestiona el registro de los usuarios
-    //las variables dentro de los parentesis son parametros que se requieren al utilizar la funcion
-
-    public function nuevoUsuario($nombreUser,$correoElectronico,$contrasena){
+    public function nuevoUsuario(){
         //funcion para encriptar la contraseña utilizando el metodo md5
-        $contrasena=md5($contrasena);
-        //instancia la clase conectar
+        $this->contrasena=md5($this->contrasena);
+        //instancia la clase conecta    r
         $oConexion=new conectar();
         //se establece la conexión con la base datos
         $conexion=$oConexion->conexion();
 
         //se crea la sentencia sql para registrar el usuario
-        $sql="INSERT INTO usuario (nombreUser, correoElectronico, contrasena, idRol, eliminado) 
-        VALUES ('$nombreUser', '$correoElectronico', '$contrasena', null, false)";
+        $sql="INSERT INTO usuario (idRol, idCargo, tipoDocumento, documentoIdentidad, primerNombre, segundoNombre, primerApellido, segundoApellido,
+        fechaNacimiento, correoElectronico, contrasena, telefono, genero, estadoCivil, direccion, barrio, eliminado) 
+        VALUES (9, NULL, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
+        '$this->segundoApellido', '$this->fechaNacimiento', '$this->correoElectronico', '$this->contrasena', $this->telefono, '$this->genero', '$this->estadoCivil', '$this->direccion', '$this->barrio', false)";
 
         //ejecuta secuencia, solo cuando es insert.
         $result=mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 
@@ -65,7 +60,6 @@ class usuario{
         //retorna el numero de los registros
         foreach($result as $registro){
             $this->idUser=$registro['idUser'];
-            $this->nombreUser=$registro['nombreUser'];
             $this->correoElectronico=$registro['correoElectronico'];
         }
 
@@ -105,7 +99,35 @@ class usuario{
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
         //arreglo asosiativo de la base de datos
-        }
+    }
+    
+    function nuevoUsuarioPorCargo($idCargo, $idUser){
+        //instancia la clase conectar
+         $oConexion=new conectar();
+        //se establece la conexión con la base datos
+        $conexion=$oConexion->conexion();
+    
+        $sql="UPDATE usuario SET idCargo=$idCargo WHERE idUser=$idUser";
+    
+        $result=mysqli_query($conexion,$sql);
+        echo $sql;
+        return $result;
+    }
+
+    function eliminarUsuarioCargo(){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+
+        //esta consulta nos permite actualizar el idCargo, volviendola Nulo
+        $sql="UPDATE usuario SET idCargo=NULL WHERE idUser=$this->idUser";
+        
+        //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
+        $result=mysqli_query($conexion,$sql);
+        //retorna el resultado de la consulta.
+        return $result;
+    }
     
     function mostrarUsuariosPorIdDiferente($idRol){
         //Instancia clase conectar
@@ -120,33 +142,64 @@ class usuario{
         $result=mysqli_query($conexion,$sql);
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC); 
+    }
+
+    function mostrarUsuario(){
+        //se instancia el objeto conectar
+        $oConexion=new conectar();
+        //se establece conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        //sentencia para seleccionar un empleado 
+        $sql="SELECT * FROM usuario WHERE eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function actualiazadoEliminadoUsuario($idUser){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        //esta consulta nos permite actualizar el idRol, volviendola Nulo
+        $sql="UPDATE usuario SET idRol=NULL WHERE idUser=$idUser";
+            
+        //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
+        $result=mysqli_query($conexion,$sql);
+        //retorna el resultado de la consulta.
+        return $result;
+    }
+
+    function actualizarUsuarioDeRol($idRol, $idUser){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        $sql="UPDATE usuario SET idRol=$idRol WHERE idUser=$idUser";
+            
+        //se ejecuta la consulta
+        $result=mysqli_query($conexion,$sql);
+        return $result;
         }
 
-        function actualiazadoEliminadoUsuario($idUser){
-            //Instancia clase conectar
+        function listarUsuarioPorCargo($idCargo){
+            //se instancia el objeto conectar
             $oConexion=new conectar();
-            //Establece conexion con la base de datos.
+            //se establece conexión con la base datos
             $conexion=$oConexion->conexion();
     
-            //esta consulta nos permite actualizar el idRol, volviendola Nulo
-            $sql="UPDATE usuario SET idRol=NULL WHERE idUser=$idUser";
-            
-            //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
-            $result=mysqli_query($conexion,$sql);
-            //retorna el resultado de la consulta.
-            return $result;
-            }
-
-        function actualizarUsuarioDeRol($idRol, $idUser){
-            //Instancia clase conectar
-            $oConexion=new conectar();
-            //Establece conexion con la base de datos.
-            $conexion=$oConexion->conexion();
+            //sentencia para seleccionar un empleado 
+            $sql="SELECT * FROM usuario WHERE idCargo=$idCargo AND eliminado=false";
     
-            $sql="UPDATE usuario SET idRol=$idRol WHERE idUser=$idUser";
-            //se ejecuta la consulta
+            //se ejecuta la consulta en la base de datos
             $result=mysqli_query($conexion,$sql);
-            return $result;
+            //organiza resultado de la consulta y lo retorna
+            return mysqli_fetch_all($result, MYSQLI_ASSOC);
         }
 
     function listarUsuario(){
@@ -155,7 +208,8 @@ class usuario{
         //Establece conexion con la base de datos.
         $conexion=$oConexion->conexion();
 
-        $sql="SELECT u.idUser, u.nombreUser, u.correoElectronico, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
+        $sql="SELECT u.idUser, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
+        
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
         //organiza resultado de la consulta y lo retorna
@@ -175,10 +229,20 @@ class usuario{
 
         foreach($result as $registro){
             $this->idUser=$registro['idUser'];
-            $this->nombre=$registro['nombreUser'];
+            $this->idRol=$registro['idRol'];
+            $this->idCargo=$registro['idCargo'];
+            $this->tipoDocumento=$registro['tipoDocumento'];
+            $this->documentoIdentidad=$registro['documentoIdentidad'];
+            $this->primerNombre=$registro['primerNombre'];
+            $this->segundoNombre=$registro['segundoNombre'];
+            $this->primerApellido=$registro['primerApellido'];
+            $this->segundoApellido=$registro['segundoApellido'];
             $this->correoElectronico=$registro['correoElectronico'];
             $this->contrasena=$registro['contrasena'];
-            $this->idRol=$registro['idRol'];
+            $this->telefono=$registro['telefono'];
+            $this->genero=$registro['genero'];
+            $this->direccion=$registro['direccion'];
+            $this->barrio=$registro['barrio'];
             $this->eliminado=$registro['eliminado'];
         }
     }
@@ -190,10 +254,19 @@ class usuario{
         $conexion=$oConexion->conexion();
 
         //consulta para actualizar el registro
-        $sql="UPDATE usuario SET nombre='$this->nombre',
+        $sql="UPDATE usuario SET idRol='$this->idRol',
+        documentoIdentidad=$this->documentoIdentidad,
+        primerNombre='$this->primerNombre',
+        segundoApellido='$this->segundoApellido',
+        primerApellido='$this->primerApellido',
+        segundoApellido='$this->segundoApellido',
         correoElectronico='$this->correoElectronico',
         contrasena='$this->contrasena',
-        idRol='$this->idRol',
+        telefono=$this->telefono,
+        genero='$this->genero',
+        direccion='$this->direccion',
+        barrio='$this->barrio',
+        
         WHERE idUser=$this->idUser";
 
         //se ejecuta la consulta

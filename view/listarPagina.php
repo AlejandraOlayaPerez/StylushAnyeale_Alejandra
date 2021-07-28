@@ -21,10 +21,17 @@ $idModulo = $_GET['idModulo'];
 
 <body>
     <div class="container">
-        <br>
+        <?php
+        require_once '../controller/mensajeController.php';
+
+        if (isset($_GET['mensaje'])) {
+            $oMensaje = new mensajes();
+            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+        }
+        ?>
 
         <?php
-        require_once '../controller/usuarioController.php';
+        require_once '../controller/gestionController.php';
         $oUsuarioController = new usuarioController();
         $oModulo = $oUsuarioController->consultarModuloId($idModulo);
         ?>
@@ -104,11 +111,11 @@ require_once 'footerGerente.php';
                 <p>¿Esta seguro que desea eliminar la pagina?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/usuarioController.php" method="GET">
+                <form action="../controller/gestionController.php" method="GET">
                     <input type="text" name="idPagina" id="eliminarModulo" style="display:none;">
                     <input type="text" name="idModulo" id="eliminarPagina" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarPagina"><i class="fas fa-trash-alt"></i>Eliminar</button>
+                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarPagina"><i class="fas fa-trash-alt"></i> Eliminar</button>
                 </form>
             </div>
         </div>

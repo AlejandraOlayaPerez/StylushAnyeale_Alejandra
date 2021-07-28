@@ -1,6 +1,6 @@
 <?php
 require 'headGerente.php';
-require_once '../controller/usuarioController.php';
+require_once '../controller/gestionController.php';
 //se hace referencia a los archivos estudiante y conexiondb
 
 
@@ -21,18 +21,30 @@ $oModulo = $oUsuarioController->consultarModuloId($_GET['idModulo']); //la consu
 
 
 <body>
-    <form action="../controller/usuarioController.php" method="GET">
-        <div class="container">
-            <h1 class="tituloGrande">EDITAR MODULO</h1>
+    <div class="container">
+        <section class="content">
             <div class="row">
-                <div class="col col-xl-3 col-md-6 col-12">
-                    <label for="">Nombre_Modulo</label>
-                    <input type="text" name="idModulo" value="<?php echo $oModulo->idModulo; ?>" style="display:none;">
-                    <input class="form-control" type="text" name="nombreModulo" value="<?php echo $oModulo->nombreModulo; ?>" required>
+                <div class="col-md-12">
+                    <div class="card" style="background-color: rgb(119, 167, 191);">
+                        <div class="card-header">
+                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">EDITAR MODULO</h1>
+                        </div>
+                        <form action="../controller/gestionController.php" method="GET">
+                            <div class="row" style="margin: 5px;">
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label for="">Nombre_Modulo</label>
+                                    <input type="text" name="idModulo" value="<?php echo $oModulo->idModulo; ?>" style="display:none;">
+                                    <input class="form-control" type="text" name="nombreModulo" value="<?php echo $oModulo->nombreModulo; ?>" required>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarModulo">Guardar</button>
+                            <a href="home/paginaPrincipalGerente.php?ventana=modulo" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                        </form>
+                        
+                    </div>
                 </div>
             </div>
-            <br>
-            <button type="submit" class="btn btn-success" name="funcion" value="actualizarModulo">Guardar</button>
-    </form>
-    <a href="home/paginaPrincipalGerente.php?ventana=modulo" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        </section>
+    </div>
 </body>

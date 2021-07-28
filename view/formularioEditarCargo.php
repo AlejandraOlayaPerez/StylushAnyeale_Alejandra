@@ -2,7 +2,7 @@
 require_once 'headGerente.php';
 require_once '../model/cargo.php';
 require_once '../model/conexionDB.php';
-require_once '../controller/usuarioController.php';
+require_once '../controller/cargoController.php';
 
 $oUsuarioController = new usuarioController();
 $oCargo = $oUsuarioController->consultarCargoPorId($_GET['idCargo']);
@@ -27,15 +27,15 @@ $oCargo = $oUsuarioController->consultarCargoPorId($_GET['idCargo']);
                         <div class="card-header">
                             <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">EDITAR CARGO</h1>
                         </div>
-                        <form id="quickForm" action="../controller/usuarioController.php" method="GET">
+                        <form id="quickForm" action="../controller/cargoController.php" method="GET">
                             <input type="text" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
 
                             <div class="row" style="margin: 5px;">
-                                <div class="col-6">
+                                <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Cargo</label>
                                     <input class="form-control" type="text" name="cargo" placeholder="Cargo" maxlength="20" value="<?php echo $oCargo->cargo; ?>">
                                 </div>
-                                <div class="col-6">
+                                <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Descripcion_Cargo</label>
                                     <input class="form-control" type="text" name="descripcionCargo" placeholder="Descripcion del cargo" maxlength="100" value="<?php echo $oCargo->descripcionCargo; ?>">
                                 </div>

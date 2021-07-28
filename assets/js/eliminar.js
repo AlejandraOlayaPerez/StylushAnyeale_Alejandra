@@ -37,7 +37,7 @@ function validarPedido(idPedido){
     document.getElementById("validarPedido").value=idPedido;
 }
 
-function eliminarEmpleadoCargo(idEmpleado, idCargo){
-    document.getElementById("eliminarEmpleado").value=idEmpleado;
+function eliminarEmpleadoCargo(idUser, idCargo){
+    document.getElementById("eliminarEmpleado").value=idUser;
     document.getElementById("eliminarCargo").value=idCargo;
 }

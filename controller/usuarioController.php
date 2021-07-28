@@ -30,79 +30,6 @@ $oUsuarioController=new usuarioController();
         $oUsuarioController->eliminarUsuarioDeRol();
         break;
 
-        case "crearRol":
-        $oUsuarioController->nuevoRol();
-        break;
-        case "actualizarRol":
-        $oUsuarioController->actualizarRol();
-        break; 
-        case "eliminarRol":
-        $oUsuarioController->eliminarRol();
-        break; 
-
-        case "crearModulo":
-        $oUsuarioController->nuevoModulo();
-        break;
-        case "actualizarModulo":
-        $oUsuarioController->actualizarModulo();
-        break;
-        case "eliminarModulo":
-        $oUsuarioController->eliminarModulo();
-        break;
-
-        case "crearPagina":
-        $oUsuarioController->nuevaPagina();
-        break;
-        case "actualizarPagina":
-        $oUsuarioController->actualizarPagina();
-        break;
-        case "eliminarPagina":
-        $oUsuarioController->eliminarPagina();
-        break;
-
-        case "nuevoCargo":
-        $oUsuarioController->nuevoCargo();
-        break;
-        case "actualizarCargo":
-        $oUsuarioController->actualizarCargo();
-        break;
-        case "eliminarCargo":
-        $oUsuarioController->eliminarCargo();
-        break;
-
-        case "nuevoEmpleado":
-        $oUsuarioController->nuevoEmpleado();
-        break;
-        case "actualizarModulo":
-        $oUsuarioController->actualizarEmpleado();
-        break;
-        case "eliminarEmpleado":
-        $oUsuarioController->eliminarEmpleado();
-        break;
-        case "actualizarCargoEnEmpleado":
-        $oUsuarioController->actualizarCargoEnEmpleado();
-        break;
-        case "eliminarEmpleadoCargo":
-        $oUsuarioController->eliminarEmpleadoCargo();
-        break;
-
-        case "ActualizarPermisoDePagina":
-        $oUsuarioController->ActualizarPermisoDePagina();
-        break;
-
-        case "validarReservacion":
-        $oUsuarioController->validarReservacion();
-        break;
-
-        case "validarPedido":
-        $oUsuarioController->validarPedido();
-        break;
-        case "guardarProducto":
-        $oUsuarioController->guardarProducto();
-        break;
-        case "nuevoPedido":
-        $oUsuarioController->nuevoPedido();
-        break;
     }
 
 class usuarioController{
@@ -112,33 +39,45 @@ class usuarioController{
         
         require_once '../model/usuario.php';
         $oUsuario=new usuario();
-        $nombreUser=$_POST['nombreUser'];
-        $correoElectronico=$_POST['correoElectronico'];
-        $contrasena=$_POST['contrasena'];
-        $confirmarContrasena=$_POST['confirmarContrasena'];
+        $oUsuario->tipoDocumento=$_GET['tipoDocumento'];
+        $oUsuario->documentoIdentidad=$_GET['documentoIdentidad'];
+        $oUsuario->primerNombre=$_GET['primerNombre'];
+        $oUsuario->segundoNombre=$_GET['segundoNombre'];
+        $oUsuario->primerApellido=$_GET['primerApellido'];
+        $oUsuario->segundoApellido=$_GET['segundoApellido'];
+        $oUsuario->fechaNacimiento=$_GET['fechaNacimiento'];
+        $oUsuario->genero=$_GET['genero'];
+        $oUsuario->direccion=$_GET['direccion'];
+        $oUsuario->barrio=$_GET['barrio'];
+        $oUsuario->telefono=$_GET['telefono'];
+        $oUsuario->estadoCivil=$_GET['estadoCivil'];
+        $oUsuario->correoElectronico=$_GET['correoElectronico'];
+        $oUsuario->contrasena=$_GET['contrasena'];
+        $confirmarContrasena=$_GET['confirmarContrasena'];
 
         require_once 'mensajeController.php';
         $oMensaje=new mensajes();
         
-        if($contrasena==$confirmarContrasena){
+        if($oUsuario->contrasena==$confirmarContrasena){
+            
             //si son iguales la contraseña y confirmar contraseña se va a general un registro
-            if ($oUsuario->consultarCorreoElectronico($correoElectronico)==0){
+            if ($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico)==0){
             //se registra usuario
-            $result=$oUsuario->nuevoUsuario($nombreUser, $correoElectronico,$contrasena);
+            $result=$oUsuario->nuevoUsuario();
                 if($result){
                     header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+fue+registrado+correctamente"."&ventana=usuario");
                     // echo "Se registro correctamente";
                 }else{
-                    header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
+                    header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
                     // echo "error";
                 }
             }else{
-                header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Este+correo+electronico+ya+existe"."&ventana=usuario");
+                header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Este+correo+electronico+ya+existe"."&ventana=usuario");
                 // echo "Ya existe un registro con este correo electronico";
                 //existe un registro con este correo electronico
             }
         }else{
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden"."&ventana=usuario");
+            header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden"."&ventana=usuario");
             // echo "La contraseña y confirmacion de la contraseña no coincide";
             //si no son diferentes, indicamos al usuario que son iguales
             //no genera registro
@@ -233,559 +172,27 @@ class usuarioController{
     }
 
     public function actualizarUsuario(){
-        require_once '../model/usuario.php';
+        // require_once '../model/usuario.php';
 
-        $oUsuario=new usuario();
-        $oUsuario->idUser=$_GET['idUser'];
-        $oUsuario->nombreUser=$_GET['nombreUser'];
-        $oUsuario->correoElectronico=$_GET['correoElectronico'];
-        $oUsuario->contrasena=$_GET['contrasena'];
-        $confirmarContrasena=$_POST['confirmarContrasena'];
-        $oUsuario->actualizarUsuario();
+        // $oUsuario=new usuario();
+        // $oUsuario->idUser=$_GET['idUser'];
+        // $oUsuario->nombreUser=$_GET['nombreUser'];
+        // $oUsuario->correoElectronico=$_GET['correoElectronico'];
+        // $oUsuario->contrasena=$_GET['contrasena'];
+        // $confirmarContrasena=$_POST['confirmarContrasena'];
+        // $oUsuario->actualizarUsuario();
 
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
+        // require_once 'mensajeController.php';
+        // $oMensaje=new mensajes();
 
-        if ($oUsuario->actualizarUsuario()) {
-            //header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+el+usuario"."&ventana=usuario");
-            echo "actualizar";
-        }else{
-            echo "error";
-            //header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
-        }
+        // if ($oUsuario->actualizarUsuario()) {
+        //     //header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+el+usuario"."&ventana=usuario");
+        //     echo "actualizar";
+        // }else{
+        //     echo "error";
+        //     //header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
+        // }
     }
-
-    public function nuevoRol(){
-        require_once '../model/rol.php';
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        $oRol=new rol();
-        $oRol->nombreRol=$_GET['nombreRol'];
-        if ($_GET['nombreRol']!=""){
-            $result=$oRol->nuevoRol();
-
-            if ($result) {
-                header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol"."&ventana=rol");
-                // echo "registro";
-            }else{
-                // echo "error";
-                header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=rol");
-            }
-        }else{
-            header("location: ../view/nuevoRol.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Campo+vacio,+por+favor+complete+la+informacion"."&ventana=rol");
-        }
-        
-    
-    }
-
-    public function consultarRolId($idRol){
-        require_once '../model/rol.php';
-
-        $oRol=new rol();
-        $oRol->consultarRol($idRol);
-
-        return $oRol;
-    }
-
-    public function actualizarRol(){
-        require_once '../model/rol.php';
-
-        $oRol=new rol();
-        $oRol->idRol=$_GET['idRol'];
-        $oRol->nombreRol=$_GET['nombreRol'];
-        $oRol->actualizarRol();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oRol->actualizarRol()) {
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+el+rol"."&ventana=rol");
-            //echo "actualizar";
-        }else{
-            //echo "error";
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=rol");
-        }
-    }
-
-    public function eliminarRol(){
-        require_once '../model/rol.php';
-
-        $oRol=new rol();
-        $oRol->idRol=$_GET['idRol'];
-        $oRol->eliminarRol();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oRol->eliminarRol()) {
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+rol"."&ventana=rol");
-            //echo "elimino rol";
-        }else{
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=rol");
-            //echo "error";
-        }
-    }
-
-    public function nuevoModulo(){
-        require_once '../model/modulo.php';
-        $idModulo=$_GET['idModulo'];
-
-        $oModulo=new modulo();
-        $oModulo->nombreModulo=$_GET['nombreModulo'];
-        $result=$oModulo->nuevoModulo($idModulo);
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($result) {
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente"."&ventana=modulo");
-            //echo "registro modulo";
-        }else{
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=modulo");
-            //echo "error";
-        }
-    }
-
-    public function consultarModuloId($idModulo){
-        require_once '../model/modulo.php'; //esta importando el contendio del archivo para ser usado.
-        
-        $oModulo=new modulo(); //define e instancia el objeto oModulo
-        $oModulo->consultarModulo($idModulo); //Se ejecuta la funcion ActualizarModulo de modulo.php
-
-        return $oModulo; //se esta retornando la instancia de usuario que tiene la informacion
-    }
-
-    public function actualizarModulo(){
-        require_once '../model/modulo.php';
-        
-        $oModulo=new modulo();
-        $oModulo->idModulo=$_GET['idModulo'];
-        $oModulo->nombreModulo=$_GET['nombreModulo'];
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-        
-        if($oModulo->actualizarModulo()){
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+modulo+correctamente"."&ventana=modulo");
-            //echo "actualizo modulo";
-        }else{
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=modulo");
-            //echo "error";
-        }
-    }
-
-    public function eliminarModulo(){
-        require_once '../model/modulo.php';
-
-        $oModulo=new modulo();
-        $oModulo->idModulo=$_GET['idModulo'];
-        $oModulo->eliminarModulo();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oModulo->eliminarModulo()) {
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+modulo+correctamente"."&ventana=modulo");
-            //echo "elimino modulo";
-        }else{
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=modulo");
-            //echo "error";
-        }
-    }
-
-    public function nuevaPagina(){
-        require_once '../model/pagina.php';
-
-        $oPagina=new Pagina();
-        $oPagina->idModulo=$_GET['idModulo'];
-        $oPagina->nombrePagina=$_GET['nombrePagina'];
-        $oPagina->enlace=$_GET['enlace'];
-        $oPagina->requireSession=$_GET['requireSession'];
-        $result=$oPagina->nuevoPagina();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if($result){
-           header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+creo+correctamente+una+nueva+pagina"."&idModulo=".$_GET['idModulo']."&ventana=pagina");
-           //echo "nueva pagina";
-        }else {
-            header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idModulo=".$_GET['idModulo']."&ventana=pagina");
-            //echo "Error al registrar la pagina";
-        }
-    }
-
-    public function consultarPaginaId($idPagina){
-        require_once '../model/pagina.php'; //esta importando el contendio del archivo para ser usado.
-        
-        $oPagina=new pagina(); //define e instancia el objeto oModulo
-        $oPagina->consultarPagina($idPagina); //Se ejecuta la funcion ActualizarModulo de modulo.php
-
-        return $oPagina; //se esta retornando la instancia de usuario que tiene la informacion
-    }
-    
-    public function actualizarPagina(){
-        require_once '../model/pagina.php';
-        
-        $oPagina=new pagina();
-        $oPagina->idPagina=$_GET['idPagina'];
-        $oPagina->nombrePagina=$_GET['nombrePagina'];
-        $oPagina->enlace=$_GET['enlace'];
-        $oPagina->requireSession=$_GET['requireSession'];
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if($oPagina->actualizarPagina()){
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+edito+correctamente+la+pagina"."&idModulo=".$_GET['idModulo']."&ventana=pagina");
-            //echo "actualizoPagina";
-        }else{
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idModulo=".$_GET['idModulo']."&ventana=pagina");
-            //echo "error";
-        }
-    }
-
-    public function eliminarPagina(){
-        require_once '../model/pagina.php';
-        
-        $oPagina=new pagina();
-        $oPagina->idPagina=$_GET['idPagina'];
-        $oPagina->eliminarPagina();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oPagina->eliminarPagina()) {
-            header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+elimino+correctamente+la+pagina"."&idModulo=".$_GET['idModulo']."&ventana=pagina");
-            //echo "pagina eliminada";
-        }else{
-            header("location: ../view/listarPagina.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idModulo=".$_GET['idModulo']."&ventana=pagina");
-            //echo "error";
-        }
-    }
-
-    public function nuevoCargo(){
-        require_once '../model/cargo.php';
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        $oCargo=new cargo();
-        $oCargo->cargo=$_GET['cargo'];
-        $oCargo->descripcionCargo=$_GET['descripcionCargo'];
-        //este if me permite conocer su el campo esta vacio o trae informacion
-        if ($_GET['cargo'] && $_GET['descripcionCargo']!= ""){// en caso de que traiga informacion, ejecutara la funcion nuevoCargo()
-        $result=$oCargo->nuevoCargo();
-
-        if ($result) {
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+un+nuevo+cargo");
-        }else{
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-        }
-
-        }else{//en caso de que este vacio, mostrara un mensaje de advertencia
-            header("location: ../view/nuevoCargo.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Campo+vacio,+por+favor+complete+la+informacion");
-            //echo "Campo vacio";
-        }
-        
-    }
-
-    public function consultarCargoPorId($idCargo){
-        require_once '../model/cargo.php';
-
-        $oCargo=new cargo();
-        $oCargo->consultarCargo($idCargo);
-
-        return $oCargo;
-    }
-
-    public function actualizarCargo(){
-        require_once '../model/cargo.php';
-
-        $oCargo=new cargo();
-        $oCargo->idCargo=$_GET['idCargo'];
-        $oCargo->cargo=$_GET['cargo'];
-        $oCargo->descripcionCargo=$_GET['descripcionCargo'];
-        $oCargo->actualizarCargo();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oCargo->actualizarCargo()) {
-           header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
-        }else{
-           header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-        }
-    }
-
-    public function eliminarCargo(){
-        require_once '../model/cargo.php';
-        
-        $oCargo=new cargo();
-        $oCargo->idCargo=$_GET['idCargo'];
-        $oCargo->eliminarCargo();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oCargo->eliminarCargo()) {
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+el+registro+del+cargo");
-        }else{
-            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-        }
-    }
-
-    public function nuevoEmpleado(){
-        require_once '../model/empleado.php';
-        $idCargo=$_GET['idCargo'];
-
-        $oEmpleado=new empleado();
-        $oEmpleado->idCargo=$_GET['idCargo'];
-        $oEmpleado->tipoDocumento=$_GET['tipoDocumento'];
-        $oEmpleado->documentoIdentidad=$_GET['documentoIdentidad'];
-        $oEmpleado->primerNombre=$_GET['primerNombre'];
-        $oEmpleado->segundoNombre=$_GET['segundoNombre'];
-        $oEmpleado->primerApellido=$_GET['primerApellido'];
-        $oEmpleado->segundoApellido=$_GET['segundoApellido'];
-        $oEmpleado->fechaNacimiento=$_GET['fechaNacimiento'];
-        $oEmpleado->genero=$_GET['genero'];
-        $oEmpleado->direccion=$_GET['direccion'];
-        $oEmpleado->barrio=$_GET['barrio'];
-        $oEmpleado->email=$_GET['email']; 
-        $oEmpleado->hojaDeVida=$_GET['hojaDeVida'];
-        $oEmpleado->telefono=$_GET['telefono'];
-        $oEmpleado->nivelEstudio=$_GET['nivelEstudio'];
-        $oEmpleado->experienciaLaboral=$_GET['experienciaLaboral'];
-        $oEmpleado->estadoCivil=$_GET['estadoCivil'];
-        $result=$oEmpleado->nuevoEmpleado();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($result==1) {
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+el+registro+del+empleado+correctamente"."&idCargo=".$_GET['idCargo']);
-            //echo "se registro";
-        }else if($result=="empleado existe"){
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Ya+existe+un+registro+del+empleado"."&idCargo=".$_GET['idCargo']);
-            //echo "ya existe";
-        }else{
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idCargo=".$_GET['idCargo']);
-            //echo "error";
-        }
-    }
-
-    public function consultarEmpleadoPorId($idEmpleado){
-        require_once '../model/empleado.php';
-
-        $oEmpleado=new empleado();
-        $oEmpleado->consultarEmpleado($idEmpleado);
-
-        return $oEmpleado;
-    }
-
-    public function actualizarEmpleado(){
-        require_once '../model/empleado.php';
-        $idCargo=$_GET['idCargo'];
-
-        $oEmpleado=new empleado();
-        $oEmpleado->idEmpleado=$_GET['idEmpleado'];
-        $oEmpleado->tipoDocumento=$_GET['tipoDocumento'];
-        $oEmpleado->documentoIdentidad=$_GET['documentoIdentidad'];
-        $oEmpleado->primerNombre=$_GET['primerNombre'];
-        $oEmpleado->segundoNombre=$_GET['segundoNombre'];
-        $oEmpleado->primerApellido=$_GET['primerApellido'];
-        $oEmpleado->segundoApellido=$_GET['segundoApellido'];
-        $oEmpleado->fechaNacimiento=$_GET['fechaNacimiento'];
-        $oEmpleado->genero=$_GET['genero'];
-        $oEmpleado->direccion=$_GET['direccion'];
-        $oEmpleado->barrio=$_GET['barrio'];
-        $oEmpleado->email=$_GET['email']; 
-        $oEmpleado->hojaDeVida=$_GET['hojaDeVida'];
-        $oEmpleado->telefono=$_GET['telefono'];
-        $oEmpleado->nivelEstudio=$_GET['nivelEstudio'];
-        $oEmpleado->experienciaLaboral=$_GET['experienciaLaboral'];
-        $oEmpleado->estadoCivil=$_GET['estadoCivil'];
-        $oEmpleado->actualizarEmpleado();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if($oEmpleado->actualizarEmpleado()){
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+empleado+correctamente"."&idCargo=".$_GET['idCargo']);
-        }else{
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idCargo=".$_GET['idCargo']);
-        }
-    }
-
-    public function eliminarEmpleado(){
-        require_once '../model/empleado.php';
-        $idCargo=$_GET['idCargo'];
-        
-        $oEmpleado=new empleado();
-        $oEmpleado->idEmpleado=$_GET['idEmpleado'];
-        $oEmpleado->eliminarEmpleado();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oEmpleado->eliminarEmpleado()) {
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+registro+del+empleado+correctamente"."&idCargo=".$_GET['idCargo']);
-        }else{
-            header("location: ../view/listarEmpleado.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&idCargo=".$_GET['idCargo']);
-        }
-    }
-
-    public function actualizarCargoEnEmpleado(){
-            require_once '../model/empleado.php';
-    
-            $idCargo=$_GET['idCargo'];
-            $idEmpleado=$_GET['idEmpleado'];
-    
-            $oEmpleado=new empleado();
-            $result=$oEmpleado->nuevoEmpleadoPorCargo($idCargo, $idEmpleado);
-    
-            require_once 'mensajeController.php';
-            $oMensaje=new mensajes();
-    
-            if ($result){
-                header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+agregado+el+empleado+al+cargo");
-                //echo "nuevo";
-            }else{
-                header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                //echo "Error";
-            }
-    }
-
-    public function eliminarEmpleadoCargo(){
-        require_once '../model/empleado.php';
-        $idCargo=$_GET['idCargo'];
-
-        $oEmpleado=new empleado();
-        $oEmpleado->idEmpleado=$_GET['idEmpleado'];
-        $result=$oEmpleado->eliminarEmpleadoCargo();
-    
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-    
-        if ($result){
-            //header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+el+empleado+al+cargo");
-            echo "eliminar";
-        }else{
-            //header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            echo "Error";
-        }
-    }
-
-    public function verificarPermiso($idPagina,$idRol){
-        require_once '../model/permiso.php';
-
-        $oPermiso=new permiso();
-        $result=$oPermiso->consultarPermiso($idRol, $idPagina);
-        if(sizeof($result)>0){
-           return true;
-        }else{
-            return false;
-        }
-    }
-
-    public function ActualizarPermisoDePagina(){
-    
-        $arregloPagina=$_GET['arregloPagina'];
-        $idRol=$_GET['idRol'];
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-        
-        require_once '../model/permiso.php';
-        $oPermiso=new permiso();
-        $result=$oPermiso->eliminarPermisoDeRol($idRol);
-        if ($result==true){
-            
-        require_once '../model/pagina.php';
-        $oPagina=new pagina();
-        foreach($arregloPagina as $idPagina){
-        $oPagina->consultarPagina($idPagina);
-        $idModulo=$oPagina->idModulo; //Se retorna toda la consulta y solo escoge el idModulo
-        $result=$oPermiso->insertarPermisoDeRol($idRol,$idModulo,$idPagina);  
-        }
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Los+permisos+del+rol+han+sido+actualizados+correctamente"."&ventana=permiso");
-            // echo "permiso";
-        }else{
-            header("location: ../view/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=permiso");   
-            // echo "error";
-        }
-    }
-
-    public function validarReservacion(){
-        require_once '../model/reservaciones.php';
-
-        $oReservacion=new reservacion();
-        $oReservacion->idReservacion=$_GET['idReservacion'];
-        $oReservacion->validarReservacion();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oReservacion->validarReservacion()) {
-            header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
-            // echo "valido";
-        }else{
-            header("location: ../view/mostrarReservacion.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            // echo "error";
-        }
-    }
-
-    public function validarPedido(){
-        require_once '../model/pedido.php';
-
-        $oPedido=new pedido();
-        $oPedido->idPedido=$_GET['idPedido'];
-        $oPedido->validarPedido();
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($oPedido->validarPedido()) {
-            header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
-            // echo "valido";
-        }else{
-            header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            // echo "error";
-        }
-    }
-
-    public function guardarProducto(){
-        $listaProducto=$_GET['productos'];
-    }
-
-
-    public function nuevoPedido(){
-        require_once '../model/pedido.php';
-
-            $productoLista=$_GET['productos'];
-            $cantidadProductoLista=$_GET['cantidadProducto'];
-            $idPedido=$GET['idPedido'];
-            do {
-                $oPedido=new pedido();
-                $oPedido->idPedido=$_GET['idPedido'];
-                $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
-                $oPedido->responsablePedido=$_GET['responsablePedido'];
-                $oPedido->empresa=$_GET['empresa'];
-                $oPedido->direccion=$_GET['direccion'];
-                $oPedido->fechaPedido=$_GET['fechaPedido'];
-            }While($oPedido->consultarIdPedido($idPedido)!=0);
-                for ($i=0; $i<10; $i++){
-                $oPedido->productoLista=$_GET['productos'];
-                $oPedido->cantidadProductoLista=$_GET['cantidadProducto'];
-                }
-                $result=$oPedido->nuevoPedido();
-                
-                
-            }
-        
-    
 }
 
 ?>

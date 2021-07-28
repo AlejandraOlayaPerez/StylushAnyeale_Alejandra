@@ -1,6 +1,6 @@
 <?php
 require_once 'headGerente.php';
-require_once '../controller/usuarioController.php';
+require_once '../controller/gestionController.php';
 
 $oUsuarioController = new usuarioController();
 $oRol = $oUsuarioController->consultarRolId($_GET['idRol']); //la consultaRolId retorna la instancia completa del rol, la esta almacenando en la variable $oRol
@@ -19,29 +19,28 @@ $oRol = $oUsuarioController->consultarRolId($_GET['idRol']); //la consultaRolId 
 </head>
 
 <body>
-    <form action="../controller/usuarioController.php" method="GET">
-        <div class="container">
-            <h1 class="tituloGrande">EDITAR ROL</h1>
-
-
+    <div class="container">
+        <section class="content">
             <div class="row">
-                <div class="col col-6">
-                    <label for="" class="form-label">Nombre_Rol</label>
-                    <input type="text" name="idRol" value="<?php echo $oRol->idRol; ?>" style="display:none;">
-                    <select class="form-select" id="" name="nombreRol" required>
-                        <option value="" disabled selected>Selecciones una opción</option>
-                        <option value="Gerente" <?php if ($oRol->nombreRol == "Gerente") {echo "selected";} ?>>Gerente</option>
-                        <option value="Recepcionista" <?php if ($oRol->nombreRol == "Recepcionista") {echo "selected";} ?>>Recepcionista</option>
-                        <option value="Cajero" <?php if ($oRol->nombreRol == "Cajero") {echo "selected";} ?>>Cajero</option>
-                        <option value="Vendedor" <?php if ($oRol->nombreRol == "Vendedor") {echo "selected";} ?>>Vendedor</option>
-                        <option value="Personal" <?php if ($oRol->nombreRol == "Personal") {echo "selected";} ?>>Personal</option>
-                        <option value="Tecnicos" <?php if ($oRol->nombreRol == "Tecnicos") {echo "selected";} ?>>Tecnicos</option>
-                    </select>
+                <div class="col col-xl-4 col-md-6 col-12">
+                    <div class="card" style="background-color: rgb(119, 167, 191);">
+                        <div class="card-header">
+                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">EDITAR ROL</h1>
+                        </div>
+                        <form action="../controller/gestionController.php" method="GET">
+                            <input type="text" name="idRol" value="<?php echo $oRol->idRol; ?>" style="display:none;">
+                            <div class="row" style="margin: 5px; ">
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label for="" class="form-label">Nombre_Rol</label>
+                                    <input class="form-control" type="text" name="nombreRol" placeholder="Nombre del Rol" value="<?php echo $oRol->nombreRol ?>">
+                                </div>
+                            </div> <br>
+                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarRol">Guardar</button>
+                            <a href="home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            <br>
-            <button type="submit" class="btn btn-success" name="funcion" value="actualizarRol">Guardar</button>
-    </form>
-    <a href="home/paginaPrincipalGerente.php?ventana=rol" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        </section>
+    </div>
 </body>

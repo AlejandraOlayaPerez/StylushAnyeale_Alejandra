@@ -10,12 +10,9 @@ class pedido{
     public $responsablePedido="";
     public $empresa="";
     public $direccion="";
-    public $codigoPedido="";
-    public $codigoProducto="";
-    public $producto="";
-    public $cantidad="";
     public $fechaPedido="";
     public $entregaPedido="";
+
 
     //funcion encargada de insertar un nuevo pedido
     function nuevoPedido(){
@@ -25,21 +22,21 @@ class pedido{
         $conexion=$oConexion->conexion();
 
         //sentencia para insertar un nuevo pedido
-        $sql="INSERT INTO pedido (idProducto, documentoIdentidad, responsablePedido, empresa, direccion, codigoProducto, producto, cantidad, fechaPedido, entregaPedido, eliminado) VALUES
-        ($this->idProducto, $this->documentoIdentidad, '$this->responsablePedido', '$this->empresa', '$this->direcion', '$this->codigoProducto', '$this->producto', $this->cantidad, '$this->fechaPedido', false, false)";
+        $sql="INSERT INTO pedido (idPedido, documentoIdentidad, responsablePedido, empresa, direccion, fechaPedido, entregaPedido, eliminado) VALUES
+        ($this->idPedido, $this->documentoIdentidad, '$this->responsablePedido', '$this->empresa', '$this->direccion', '$this->fechaPedido', false, false)";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
         return $result;
     }
 
-    function consultarIdPedido($idPedido){
+    function consultarExistePedido($idPedido){
         //se instancia el objeto conectar
         $oConexion=new conectar();
         //se establece conexión con la base datos
         $conexion=$oConexion->conexion();
 
-        $sql="SELECT * FROM pedido WHERE idPedido=$idPedido";
+        $sql="SELECT * FROM pedido WHERE idPedido='$idPedido'";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

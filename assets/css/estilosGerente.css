@@ -12,6 +12,11 @@ input{
     font-size: 20px;
 }
 
+option{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+}
+
 label{
     font-family: 'Times New Roman', Times, serif;
     /* font-size: 20px; */
