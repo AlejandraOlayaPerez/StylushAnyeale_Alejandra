@@ -19,10 +19,11 @@ class producto{
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="INSERT INTO producto (codigoProducto, tipoProducto, nombreProducto, cantidad, detalle, recomendaciones, valorUnitario, costroProducto, eliminado)
-    VALUES ('$this->codigoProducto', '$this->tipoProducto', '$this->nombreProducto', $this->cantidad, '$this->recomendaciones' $this->valorUnitarios, $this->costoProducto', false)";
+    $sql="INSERT INTO producto (codigoProducto, tipoProducto, nombreProducto, cantidad, recomendaciones, valorUnitario, costoProducto, eliminado)
+    VALUES ('$this->codigoProducto', '$this->tipoProducto', '$this->nombreProducto', $this->cantidad, '$this->recomendaciones', $this->valorUnitario, $this->costoProducto, false)";
     
     $result=mysqli_query($conexion,$sql);
+    echo $sql;
     return $result;
     }
 
@@ -61,14 +62,14 @@ class producto{
 
     }
 
-    function consultarProducto($idProducto){
+    function consultarProducto($IdProducto){
     //se instancia el objeto conectar
     $oConexion= new conectar();
     //se establece conexión con la base de datos
     $conexion=$oConexion->conexion();
     //consulta para retornar un solo registro
 
-    $sql="SELECT * FROM producto WHERE IdProducto=$idProducto";
+    $sql="SELECT * FROM producto WHERE IdProducto=$IdProducto";
 
     //se ejecuta la consulta
     $result=mysqli_query($conexion,$sql);
@@ -76,12 +77,10 @@ class producto{
     foreach($result as $registro){ 
         //se registra la consulta en los parametros
         $this->IdProducto=$registro['IdProducto'];
-        $this->idCategoria=$registro['idCategoria'];
         $this->codigoProducto=$registro['codigoProducto'];
         $this->tipoProducto=$registro['tipoProducto'];
         $this->nombreProducto=$registro['nombreProducto'];
         $this->cantidad=$registro['cantidad'];
-        $this->detalle=$registro['detalle'];
         $this->recomendaciones=$registro['recomendaciones'];
         $this->valorUnitario=$registro['valorUnitario'];
         $this->costoProducto=$registro['costoProducto'];
@@ -96,18 +95,18 @@ class producto{
         //consulta para actualizar el registro
 
         //sentencia para actualizar un producto
-        $sql="UPDATE producto SET idCategoria=$this->idCategoria,
-        codigoProducto='$this->codigoProducto',
+        $sql="UPDATE producto SET codigoProducto='$this->codigoProducto',
         tipoProducto='$this->tipoProducto',
         nombreProducto='$this->nombreProducto',
         cantidad=$this->cantidad,
-        detalle='$this->detalle',
         recomendaciones='$this->recomendaciones',
-        valorUnitario='$this->costoProducto'
+        valorUnitario=$this->valorUnitario,
+        costoProducto=$this->costoProducto
         WHERE IdProducto=$this->IdProducto";
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
+        echo $sql;
         return $result;
     }
 

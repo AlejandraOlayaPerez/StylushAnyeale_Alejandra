@@ -41,3 +41,7 @@ function eliminarEmpleadoCargo(idUser, idCargo){
     document.getElementById("eliminarEmpleado").value=idUser;
     document.getElementById("eliminarCargo").value=idCargo;
 }
+
+function eliminarProducto(IdProducto){
+    document.getElementById("eliminarProducto").value=IdProducto;
+}

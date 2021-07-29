@@ -11,16 +11,15 @@ if (isset($_GET['filtroFecha'])) {
     $filtroFecha = Date("Y-m-d");
 }
 
-if (isset($_GET['filtroDomicilio'])=="SI" ){
-    $filtroDomicilio = 1;
-} else {
-    $filtroDomicilio = 0;
+$filtroDomicilio="";
+$filtroReservaciones="";
+
+if (isset($_GET['filtroDomicilio'])) {
+    $filtroDomicilio=$_GET['filtroDomicilio'];
 }
 
-if (isset($_GET['filtroReservaciones'])=="SI") {
-    $filtroReservaciones = 1; 
-} else {
-    $filtroReservaciones = 0;
+if (isset($_GET['filtroReservaciones'])){
+    $filtroReservaciones=$_GET['filtroReservaciones'];
 }
 ?>
 
@@ -56,11 +55,19 @@ if (isset($_GET['filtroReservaciones'])=="SI") {
                             </div>
                             <div class="col col-xl-4 col-md-6 col-12">
                                 <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
-                                <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroDomicilio" onchange="this.form.submit()" value="<?php echo $filtroDomicilio; ?>">
+                                <select class="form-select" id="" name="filtroDomicilio" onchange="this.form.submit()">
+                                        <option value="" disabled selected>Selecciones una opción</option>
+                                        <option value="true" <?php if ($filtroDomicilio) {echo "selected";} ?>>SI</option>
+                                        <option value="false" <?php if (!$filtroDomicilio) {echo "selected";} ?>>NO</option>
+                                    </select>
                             </div>
                             <div class="col col-xl-4 col-md-6 col-12">
                                 <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
-                                <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroReservaciones" onchange="this.form.submit()" value="<?php echo $filtroReservaciones; ?>">
+                                <select class="form-select" id="" name="filtroReservaciones" onchange="this.form.submit()">
+                                        <option value="" disabled selected>Selecciones una opción</option>
+                                        <option value="true" <?php if ($filtroReservaciones) {echo "selected";} ?>>SI</option>
+                                        <option value="false" <?php if (!$filtroReservaciones) {echo "selected";} ?>>NO</option>
+                                    </select>
                             </div>
                         </div>
                     </form>

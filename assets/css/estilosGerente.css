@@ -10,6 +10,7 @@ body {
 input{
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
+    margin: 2px;
 }
 
 option{
@@ -19,12 +20,14 @@ option{
 
 label{
     font-family: 'Times New Roman', Times, serif;
+    margin: 2px;
     /* font-size: 20px; */
 }
 
 option{
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
+    margin: 2px;
 }
 
 button{
@@ -53,6 +56,8 @@ a{
     position: relative;
     bottom: 100px;
 }
+
+
 
 #footerStylushAnyeale {
     font-family: 'Times New Roman', Times, serif;

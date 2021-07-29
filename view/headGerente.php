@@ -40,6 +40,25 @@
                                 <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                                     <ul class="navbar-nav">
                                         <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarVenta.php" id="navbarDarkDropdownMenuLink"  role="button" data-bs-toggle="dropdown" aria-expanded="false"><strong><i class="fas fa-shopping-cart"></i> Ventas</strong></a>
+                                            <ul class="dropdown-menu dropdown-menu-ligth" aria-labelledby="navbarDarkDropdownMenuLink">
+                                                <li class="nav-item"><a class="nav-link active" id="texto2" aria-current="page" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarVenta.php"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarProducto.php" class="dropdown-item" aria-current="page"><i class="fas fa-clipboard-list"></i> Productos</a></li>
+                                                <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarServicios.php" class="dropdown-item"  aria-current="page"><i class="fas fa-file-invoice-dollar"></i> Servicios</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <nav>
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"  role="button" data-bs-toggle="dropdown" aria-expanded="false"><strong><i class="fas fa-dolly-flatbed"></i> Inventario</strong></a>
                                             <ul class="dropdown-menu dropdown-menu-ligth" aria-labelledby="navbarDarkDropdownMenuLink">
                                                 <li><a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" class="dropdown-item" aria-current="page"><i class="fas fa-dolly-flatbed"></i> Inventario</a></li>
@@ -57,8 +76,10 @@
                             <a href="" class="btn btn-ligth" id="texto4"><i class="fas fa-sign-out-alt"></i>Cerrar Sesion</a>
                         </form>
                     </div>
+                </div>
             </nav>
         </div>
+    </div>
 </body>
 
 </html>
