@@ -65,19 +65,19 @@ class usuarioController{
             //se registra usuario
             $result=$oUsuario->nuevoUsuario();
                 if($result){
-                    header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+fue+registrado+correctamente"."&ventana=usuario");
+                    header("location: ../view/listarUsuario.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+fue+registrado+correctamente");
                     // echo "Se registro correctamente";
                 }else{
-                    header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
+                    header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
                     // echo "error";
                 }
             }else{
-                header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Este+correo+electronico+ya+existe"."&ventana=usuario");
+                header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Este+correo+electronico+ya+existe");
                 // echo "Ya existe un registro con este correo electronico";
                 //existe un registro con este correo electronico
             }
         }else{
-            header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden"."&ventana=usuario");
+            header("location: ../view/nuevoUsuario.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden");
             // echo "La contraseña y confirmacion de la contraseña no coincide";
             //si no son diferentes, indicamos al usuario que son iguales
             //no genera registro
@@ -96,10 +96,10 @@ class usuarioController{
         
         $oUser=new usuario(); //se define y se instancia el objeto user
         if ($oUser->comprobarEliminado($habilitar, $idUser)){ //si se va por la parte del si es correcta
-            if($habilitar==true) header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+habilitado+correctamente"."&ventana=usuario"); //ventana: me permite saber cual ventana se esta trabajando//echo "habilitado";//si habilitado es verdadero, se habilitara el usuario, siendo al contrario, se deshabilitara
-            else header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+deshabilitado+correctamente"."&ventana=usuario"); //echo "deshabilitado";
+            if($habilitar==true) header("location: ../view/listarUsuario.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+habilitado+correctamente"); //ventana: me permite saber cual ventana se esta trabajando//echo "habilitado";//si habilitado es verdadero, se habilitara el usuario, siendo al contrario, se deshabilitara
+            else header("location: ../view/listarUsuario.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=El+usuario+ha+sido+deshabilitado+correctamente"); //echo "deshabilitado";
         }else{ //si se va por la parte del no,  la funcion presento algun error
-            header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error"."&ventana=usuario");
+            header("location: ../view/listarUsuario.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -137,7 +137,7 @@ class usuarioController{
         if ($result){
             header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+agregado+el+empleado+al+rol");
         }else{
-            header("location: ../CRUD_roles/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             // echo "Error al registrar el usuario";
         }
     }

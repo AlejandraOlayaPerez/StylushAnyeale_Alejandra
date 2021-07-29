@@ -13,6 +13,12 @@ input{
     margin: 2px;
 }
 
+span{
+    font-family: 'Times New Roman', Times, serif;
+    margin: 2px;
+    font-size: 20px;
+}
+
 option{
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;

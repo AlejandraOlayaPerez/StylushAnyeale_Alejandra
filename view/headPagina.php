@@ -47,7 +47,7 @@ require_once 'head.php';
 
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
+            <li class="nav-item menu-open">
               <a href="" class="nav-link">
                 <i class="fas fa-user-cog"></i>
                 <p>Administrador
@@ -56,7 +56,7 @@ require_once 'head.php';
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="listarUsuario.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Usuario</p>
                   </a>
@@ -90,7 +90,7 @@ require_once 'head.php';
               </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item menu-open">
               <a href="" class="nav-link">
                 <i class="fas fa-shopping-cart"></i>
                 <p>Ventas
@@ -119,7 +119,7 @@ require_once 'head.php';
               </ul>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item menu-open">
               <a href="" class="nav-link">
                 <i class="fas fa-user-cog"></i>
                 <p>Inventario

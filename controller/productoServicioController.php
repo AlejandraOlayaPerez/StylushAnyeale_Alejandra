@@ -20,6 +20,13 @@ $oUsuarioController=new usuarioController();
     case "eliminarProducto":
     $oUsuarioController->eliminarProducto();
     break;
+
+    case "crearServicio":
+    $oUsuarioController->crearServicio();
+    break;
+    case "actualizarServicio":
+    $oUsuarioController->actualizarServicio();
+    break;
     }
 
 
@@ -103,4 +110,78 @@ class usuarioController{
             echo "error";
         }
     }
+
+    public function crearServicio(){
+        require_once '../model/servicio.php';
+
+        $oServicio=new servicio();
+        $oServicio->codigoServicio=$_GET['codigoServicio'];
+        $oServicio->nombreServicio=$_GET['nombreServicio'];
+        $oServicio->detalleServicio=$_GET['detalleServicio'];
+        $oServicio->costo=$_GET['costo'];
+        $result=$oServicio->nuevoServicio();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($result) {
+            header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+correctamente+el+servicio");
+            //echo "registro";
+        }else{
+            // echo "error";
+            header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+        }
+    }
+
+    public function consultarServicio($idServicio){
+        require_once '../model/servicio.php';
+
+        $oServicio=new servicio();
+        $oServicio->consultarServicio($idServicio);
+
+        return $oServicio;
+    }
+
+    public function actualizarServicio(){
+        require_once '../model/servicio.php';
+
+        $oServicio=new servicio();
+        $oServicio->IdServicio=$_GET['IdServicio'];
+        $oServicio->codigoServicio=$_GET['codigoServicio'];
+        $oServicio->nombreServicio=$_GET['nombreServicio'];
+        $oServicio->detalleServicio=$_GET['detalleServicio'];
+        $oServicio->costo=$_GET['costo'];
+        $result=$oServicio->actualizarServicio();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($result) {
+            header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+el+servicio");
+            // echo "registro";
+        }else{
+            //  echo "error";
+            header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+        }
+    }
+
+    public function eliminarServicio(){
+        require_once '../model/servicio.php';
+
+        $oServicio=new servicio();
+        $oServicio->IdServicio=$_GET['IdServicio'];
+        $result=$oServicio->eliminarServicio();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($result) {
+            // header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            echo "elimino";
+        }else{
+            // header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            echo "error";
+        }
+    }
+
 }

@@ -1,27 +1,33 @@
 <?php
-require_once '../model/conexionDB.php';
+require_once 'conexionDB.php';
 
-class producto{
-    public $IdProducto=0;
-    public $idCategoria="";
-    public $codigoProducto="";
-    public $tipoProducto="";
-    public $nombreProducto="";
-    public $cantidad="";
-    public $detalle="";
-    public $recomendaciones="";
-    public $valorUnitario="";
-    public $costoProducto="";
+class servicio{
+    public $idServicio=0;
+    public $codigoServicio="";
+    public $nombreServicio="";
+    public $detalleServicio="";
+    public $costo="";
 
-    
-
-    function listarServicio(){
-        //Instancia clase conectar
+    function nuevoServicio(){
+    //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="SELECT * FROM servicio WHERE eliminado=false";
+    $sql="INSERT INTO servicios (codigoServicio, nombreServicio, detalleServicio, costo, eliminado)
+    VALUES ('$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->costo, false)";
+    
+    $result=mysqli_query($conexion,$sql);
+    return $result;
+}
+
+    function listarServicio(){
+    //Instancia clase conectar
+    $oConexion=new conectar();
+    //Establece conexion con la base de datos.
+    $conexion=$oConexion->conexion();
+
+    $sql="SELECT * FROM servicios WHERE eliminado=false";
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);
@@ -30,55 +36,47 @@ class producto{
 
     }
 
-    // function consultarProducto($idProducto){
-    // //se instancia el objeto conectar
-    // $oConexion= new conectar();
-    // //se establece conexión con la base de datos
-    // $conexion=$oConexion->conexion();
-    // //consulta para retornar un solo registro
+    function consultarServicio($idServicio){
+    //se instancia el objeto conectar
+    $oConexion= new conectar();
+    //se establece conexión con la base de datos
+    $conexion=$oConexion->conexion();
+    //consulta para retornar un solo registro
 
-    // $sql="SELECT * FROM producto WHERE IdProducto=$idProducto";
+    $sql="SELECT * FROM servicios WHERE IdServicio=$idServicio";
 
-    // //se ejecuta la consulta
-    // $result=mysqli_query($conexion,$sql);
-    // $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    // foreach($result as $registro){ 
-    //     //se registra la consulta en los parametros
-    //     $this->IdProducto=$registro['IdProducto'];
-    //     $this->idCategoria=$registro['idCategoria'];
-    //     $this->codigoProducto=$registro['codigoProducto'];
-    //     $this->tipoProducto=$registro['tipoProducto'];
-    //     $this->nombreProducto=$registro['nombreProducto'];
-    //     $this->cantidad=$registro['cantidad'];
-    //     $this->detalle=$registro['detalle'];
-    //     $this->recomendaciones=$registro['recomendaciones'];
-    //     $this->valorUnitario=$registro['valorUnitario'];
-    //     $this->costoProducto=$registro['costoProducto'];
-    //     }
-    // }
+    //se ejecuta la consulta
+    $result=mysqli_query($conexion,$sql);
+    $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
+    foreach($result as $registro){ 
+        //se registra la consulta en los parametros
+        $this->idServicio=$registro['IdServicio'];
+        $this->codigoServicio=$registro['codigoServicio'];
+        $this->nombreServicio=$registro['nombreServicio'];
+        $this->detalleServicio=$registro['detalleServicio'];
+        $this->costo=$registro['costo'];
+        }
+    }
 
-    // function actualizarProducto(){
-    //     //se instancia el objeto conectar
-    //     $oConexion= new conectar();
-    //     //se establece conexión con la base de datos
-    //     $conexion=$oConexion->conexion();
-    //     //consulta para actualizar el registro
+    function actualizarServicio(){
+        //se instancia el objeto conectar
+        $oConexion= new conectar();
+        //se establece conexión con la base de datos
+        $conexion=$oConexion->conexion();
+        //consulta para actualizar el registro
 
-    //     //sentencia para actualizar un producto
-    //     $sql="UPDATE producto SET idCategoria=$this->idCategoria,
-    //     codigoProducto='$this->codigoProducto',
-    //     tipoProducto='$this->tipoProducto',
-    //     nombreProducto='$this->nombreProducto',
-    //     cantidad=$this->cantidad,
-    //     detalle='$this->detalle',
-    //     recomendaciones='$this->recomendaciones',
-    //     valorUnitario='$this->costoProducto'
-    //     WHERE IdProducto=$this->IdProducto";
+        //sentencia para actualizar un producto
+        $sql="UPDATE servicios SET codigoServicio='$this->codigoServicio',
+        nombreServicio='$this->nombreServicio',
+        detalleServicio='$this->detalleServicio',
+        costo=$this->costo
+        WHERE IdServicio=$this->IdServicio";
         
-    //     //se ejecuta la consulta
-    //     $result=mysqli_query($conexion,$sql);
-    //     return $result;
-    // }
+        //se ejecuta la consulta
+        $result=mysqli_query($conexion,$sql);
+        echo $sql;
+        return $result;
+    }
 
     function eliminarServicio(){
         //se instancia el objeto conectar
@@ -87,12 +85,17 @@ class producto{
         $conexion=$oConexion->conexion();
         
         //consulta para eliminar el registro
-        $sql="UPDATE servicio SET eliminado=1 WHERE idServicio=$this->idServicio";
+        $sql="UPDATE servicios SET eliminado=1 WHERE IdServicio=$this->idServicio";
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
+        
         return $result;
         }
 
     
 }
+
+
+
+    

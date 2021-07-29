@@ -1,5 +1,5 @@
 <?php
-require_once '../model/conexionDB.php';
+require_once 'conexionDB.php';
 
 class producto{
     public $IdProducto=0;
@@ -23,7 +23,6 @@ class producto{
     VALUES ('$this->codigoProducto', '$this->tipoProducto', '$this->nombreProducto', $this->cantidad, '$this->recomendaciones', $this->valorUnitario, $this->costoProducto, false)";
     
     $result=mysqli_query($conexion,$sql);
-    echo $sql;
     return $result;
     }
 
