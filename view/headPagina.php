@@ -1,7 +1,3 @@
-<?php
-require_once 'head.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +5,23 @@ require_once 'head.php';
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/css/bs-stepper.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jqvmap/jqvmap.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/summernote/summernote-bs4.min.css">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed" style="background-color: rgba(255, 255, 204, 255);">
@@ -29,7 +42,7 @@ require_once 'head.php';
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="" class="brand-link">
+      <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/home/paginaPrincipalGerente.php" class="brand-link">
         <img src="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">INICIO</span>
       </a>
@@ -50,25 +63,31 @@ require_once 'head.php';
             <li class="nav-item menu-open">
               <a href="" class="nav-link">
                 <i class="fas fa-user-cog"></i>
-                <p>Administrador
+                <p>Configuraciones
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="listarUsuario.php" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/configuracionPerfil.php" class="nav-link">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Perfil</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarUsuario.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Usuario</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarRol.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Rol</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarModulo.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Modulo</p>
                   </a>
@@ -90,7 +109,7 @@ require_once 'head.php';
               </a>
             </li>
 
-            <li class="nav-item menu-open">
+            <li class="nav-item">
               <a href="" class="nav-link">
                 <i class="fas fa-shopping-cart"></i>
                 <p>Ventas
@@ -101,7 +120,7 @@ require_once 'head.php';
                 <li class="nav-item">
                   <a href="" class="nav-link">
                     <i class="fas fa-check-circle"></i>
-                    <p>Ventas</p>
+                    <p>Factura</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -119,7 +138,7 @@ require_once 'head.php';
               </ul>
             </li>
 
-            <li class="nav-item menu-open">
+            <li class="nav-item">
               <a href="" class="nav-link">
                 <i class="fas fa-user-cog"></i>
                 <p>Inventario

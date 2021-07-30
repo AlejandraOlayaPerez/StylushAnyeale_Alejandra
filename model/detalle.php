@@ -23,6 +23,20 @@ class detalle{
     echo $sql;
     return $result;
     }
+
+    function listarProductoPorPedido($idPedido){
+    //Instancia clase conectar
+    $oConexion=new conectar();
+    //Establece conexion con la base de datos.
+    $conexion=$oConexion->conexion();
+    
+    $sql="SELECT * FROM detalle WHERE idPedido=$idPedido";
+
+    //se ejecuta la consulta en la base de datos
+    $result=mysqli_query($conexion,$sql);
+    //organiza resultado de la consulta y lo retorna
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
 }
 
 ?>

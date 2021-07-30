@@ -1,5 +1,5 @@
 <?php
-require 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../model/pagina.php';
 require_once '../model/conexiondb.php';
 
@@ -7,36 +7,36 @@ $oPagina = new pagina();
 $idModulo = $_GET['idModulo'];
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>NUEVA PAGINA</title>
+    <title>USUARIO</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
 
-        <?php
-        require_once '../controller/mensajeController.php';
+                <?php
+                require_once '../controller/mensajeController.php';
 
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
+                if (isset($_GET['mensaje'])) {
+                    $oMensaje = new mensajes();
+                    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+                }
+                ?>
 
-        <section class="content">
-            <div class="row">
-                <div class="">
-                    <div class="card" style="background-color: rgb(119, 167, 191);">
-                        <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVA PAGINA</h1>
-                        </div>
-                        <form action="../controller/gestionController.php" method="GET">
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVA PAGINA</label>
+                    </div>
+                    <form action="../controller/gestionController.php" method="GET">
+                        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <div class="row" style="margin: 5px;">
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Nombre_Pagina</label>
@@ -61,19 +61,21 @@ $idModulo = $_GET['idModulo'];
                                     </select>
                                 </div>
                             </div>
-                            <br>
-                            <button type="submit" class="btn btn-success" name="funcion" value="crearPagina">Guardar</button>
+                        </div>
+                        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
                             <a href="listarPagina.php?idModulo=<?php echo $idModulo; ?>" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
-                        </form>
-                    </div>
+                            <button type="submit" class="btn btn-success" name="funcion" value="crearPagina"><i class="fas fa-save"></i> Registrar Pagina</button>
+                        </div>
+                    </form>
                 </div>
+
             </div>
-        </section>
+        </div>
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>

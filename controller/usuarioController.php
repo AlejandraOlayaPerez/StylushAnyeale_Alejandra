@@ -20,16 +20,9 @@ $oUsuarioController=new usuarioController();
         case "habilitarDeshabilitarUsuario":
         $oUsuarioController->habilitarDeshabilitarUsuario();
         break;
-        case "registrarUsuarioEnRol":
-        $oUsuarioController->registrarUsuarioEnRol();
-        break;
         case "actualizarUsuario":
         $oUsuarioController->actualizarUsuario();
         break;
-        case "eliminarUsuarioDeRol":
-        $oUsuarioController->eliminarUsuarioDeRol();
-        break;
-
     }
 
 class usuarioController{
@@ -120,45 +113,6 @@ class usuarioController{
         $listarDeUsuarioDiferente=$oRol->mostrarUsuariosPorIdDiferente($idRol);
 
         return $listarDeUsuarioDiferente;
-    }
-
-    public function registrarUsuarioEnRol(){
-        require_once '../model/usuario.php';
-
-        $idRol=$_GET['idRol'];
-        $idUser=$_GET['idUser'];
-
-        $oUsuario=new usuario();
-        $result=$oUsuario->actualizarUsuarioDeRol($idRol, $idUser);
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if ($result){
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+agregado+el+empleado+al+rol");
-        }else{
-            header("location: ../view/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            // echo "Error al registrar el usuario";
-        }
-    }
-
-    public function eliminarUsuarioDeRol(){
-        $idUser=$_GET['idUser'];
-        $idRol=$_GET['idRol'];
-
-        require_once '../model/usuario.php';
-        $oUsuario=new usuario();
-        $result=$oUsuario->actualiazadoEliminadoUsuario($idUser);
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if($result){
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=El+usuario+ha+sido+eliminado+del+rol");
-        }else{
-            header("location: ../view/listarDetalleRol.php"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            //echo "Error al eliminar el usuario de rol";
-        }
     }
 
     public function consultarUsuarioId(){

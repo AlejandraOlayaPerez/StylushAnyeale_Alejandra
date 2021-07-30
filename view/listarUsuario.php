@@ -1,5 +1,4 @@
 <?php
-require_once 'head.php';
 require_once 'headPagina.php';
 ?>
 
@@ -88,7 +87,7 @@ require_once 'footer.php';
                 <p>¿Esta seguro que desea Deshabilitar el usuario?</p>
             </div>
             <div class="modal-footer">
-                <form action="../../controller/usuarioController.php" method="GET">
+                <form action="../controller/usuarioController.php" method="GET">
                     <input type="text" name="idUser" id="eliminarUser" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" name="funcion" value="habilitarDeshabilitarUsuario" class="btn btn-danger"><i class="fas fa-user-slash"></i> Deshabilitar</button>

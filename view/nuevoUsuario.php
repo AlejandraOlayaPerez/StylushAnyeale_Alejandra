@@ -1,5 +1,4 @@
 <?php
-require_once 'head.php';
 require_once 'headPagina.php';
 require_once '../model/usuario.php';
 $oUsuario = new usuario();
@@ -15,13 +14,6 @@ $oUsuario = new usuario();
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <title>NUEVO USUARIO</title>
 </head>
-
-<script>
-    $(document).on('ready', function() {
-        // initialization of form validation
-        $.HSCore.components.HSValidation.init('.js-validate');
-    });
-</script>
 
 <body>
     <div class="content-wrapper">

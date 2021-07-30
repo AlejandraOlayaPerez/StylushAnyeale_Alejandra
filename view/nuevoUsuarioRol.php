@@ -1,5 +1,5 @@
 <?php
-require 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../model/conexionDB.php';
 require_once '../model/rol.php';
 require_once '../controller/gestionController.php';;
@@ -10,44 +10,58 @@ $oUsuarioController = new usuarioController();
 $listarDeUsuarioDiferente = $oUsuarioController->usuarioDiferenteEnRol($idRol);
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>NUEVO EMPLEADO</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USUARIO</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col col-xl-4 col-md-6 col-12">
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
 
-                <form action="../controller/gestionController.php" method="GET">
-                    <h3 class="tituloGrande">Empleados: </h3>
-                    <input name="idRol" value="<?php echo $idRol; ?>" style="display:none">
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO USUARIO</label>
+                    </div>
+                    <form action="../controller/gestionController.php" method="GET">
+                        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                            <div class="row">
+                                <div class="col col-xl-4 col-md-6 col-12">
 
 
-                    <select class="form-select" name="idUser" id="" required>
-                        <option value="" disabled selected>Selecciones una opción</option>
-                        <?php foreach ($listarDeUsuarioDiferente as $registro) {
-                        ?>
-                            <option value="<?php echo $registro['idUser']; ?>"><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                    <br>
-                    <button type="submit" class="btn btn-success" name="funcion" value="registrarUsuarioEnRol"><i class="far fa-save"></i> Guardar</button>
-                    <a href="listarDetalleRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                </form>
+                                    <label for="">Empleados: </label>
+                                    <input name="idRol" value="<?php echo $idRol; ?>" style="display:none">
+                                    <select class="form-select" name="idUser" id="" required>
+                                        <option value="" disabled selected>Selecciones una opción</option>
+                                        <?php foreach ($listarDeUsuarioDiferente as $registro) {
+                                        ?>
+                                            <option value="<?php echo $registro['idUser']; ?>"><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                            <a href="listarDetalleRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                            <button type="submit" class="btn btn-success" name="funcion" value="registrarUsuarioEnRol"><i class="far fa-save"></i> Registrar Usuario</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>

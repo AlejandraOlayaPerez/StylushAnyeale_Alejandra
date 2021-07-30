@@ -166,7 +166,7 @@ class usuario{
         $conexion=$oConexion->conexion();
     
         //esta consulta nos permite actualizar el idRol, volviendola Nulo
-        $sql="UPDATE usuario SET idRol=NULL WHERE idUser=$idUser";
+        $sql="UPDATE usuario SET idRol=16 WHERE idUser=$idUser";
             
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result=mysqli_query($conexion,$sql);
@@ -208,7 +208,7 @@ class usuario{
         //Establece conexion con la base de datos.
         $conexion=$oConexion->conexion();
 
-        $sql="SELECT u.idUser, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
+        $sql="SELECT u.idUser, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
         
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

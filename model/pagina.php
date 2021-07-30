@@ -111,7 +111,7 @@ class pagina{
     $conexion=$oConexion->conexion();
     
     //consulta para eliminar el registro
-    $sql="UPDATE pagina SET eliminado=1 WHERE idPagina=$this->idPagina";
+    $sql="UPDATE pagina SET idModulo=8 WHERE idPagina=$this->idPagina";
     
     //se ejecuta la consulta
     $result=mysqli_query($conexion,$sql);

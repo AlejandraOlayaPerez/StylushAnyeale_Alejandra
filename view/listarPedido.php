@@ -59,8 +59,9 @@ require 'headGerente.php';
                                     <td><?php if ($registro['entregaPedido']) echo "SI";
                                         else echo "NO"; ?></td>
                                     <td>
-                                        <a href="detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-info-circle"></i> Detalle</a>
-                                        <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
+                                        <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
+                                        <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                        <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
                                     </td>
                                 </tr>
                             <?php

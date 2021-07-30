@@ -29,7 +29,7 @@ $idPedido = $_GET['idPedido'];
         ?>
 
         <?php
-        require_once '../model/pedido.php';
+        require_once '../model/detalle.php';
         $oPedido = new pedido();
         $oPedido->consultarPedido($idPedido);
         ?>
@@ -76,7 +76,6 @@ $idPedido = $_GET['idPedido'];
                         <thead>
                             <tr style="background-color: rgb(249, 201, 242);">
                                 <th>Codigo Pedido</th>
-                                <Th>Codigo producto</Th>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
                                 <th></th>
@@ -87,14 +86,13 @@ $idPedido = $_GET['idPedido'];
                             <?php
                             require_once '../model/pedido.php';
                             require_once '../model/conexionDB.php';
-                            $oPedido = new pedido();
-                            $consulta = $oPedido->listarPedido();
+                            $oDetalle=new detalle();
+                            $consulta = $oDetalle->listarProductoPorPedido($idPedido);
                             foreach ($consulta as $registro) {
                             ?>
                                 <tr>
                                     <input type="text" value="<?php echo $registro['idPedido']; ?>" style="display:none;">
                                     <td><?php echo $registro['idPedido']; ?></td>
-                                    <td><?php echo $registro['codigoProducto']; ?></td>
                                     <td><?php echo $registro['producto'] ?></td>
                                     <td><?php echo $registro['cantidad'] ?></td>
                                     <td>

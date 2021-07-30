@@ -126,15 +126,15 @@ if (isset($_GET['filtroCodigoProducto'])) {
                             </thead>
                             <tbody>
                                 <?php
-                                require_once '../model/ventas.php';
-                                $oVenta = new venta();
-                                $result = $oVenta->listarVenta($filtroFecha);
+                                require_once '../model/factura.php';
+                                $oFactura=new factura();
+                                $result = $oFactura->mostrarFactura($filtroFecha);
                                 foreach ($result as $registro) {
                                 ?>
                                     <tr>
-                                        <td><?php echo $registro['fechaVenta']; ?></td>
+                                        <td><?php echo $registro['fechaFactura']; ?></td>
                                         <td><?php echo $registro['nombreProducto']; ?></td>
-                                        <td><?php echo $registro['cantidadProducto']; ?></td>
+                                        <td><?php echo $registro['cantidad']; ?></td>
                                         <td><?php echo $registro['costoProducto']; ?></td>
                                     </tr>
                                 <?php } ?>

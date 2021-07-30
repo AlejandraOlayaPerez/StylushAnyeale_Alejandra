@@ -77,14 +77,10 @@ class pedido{
         foreach($result as $registro){ 
         //se registra la consulta en los parametros
         $this->idPedido=$registro['idPedido'];
-        $this->idProducto=$registro['idProducto'];
         $this->documentoIdentidad=$registro['documentoIdentidad'];
         $this->responsablePedido=$registro['responsablePedido'];
         $this->empresa=$registro['empresa'];
         $this->direccion=$registro['direccion'];
-        $this->codigoProducto=$registro['codigoProducto'];
-        $this->producto=$registro['producto'];
-        $this->cantidad=$registro['cantidad'];
         $this->fechaPedido=$registro['fechaPedido'];
         $this->entregaPedido=$registro['entregaPedido'];
         }
