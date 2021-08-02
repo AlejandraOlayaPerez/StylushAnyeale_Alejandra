@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jqvmap/jqvmap.min.css">
@@ -21,7 +22,9 @@
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/summernote/summernote-bs4.min.css">
-
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/sweetalert2/sweetalert2.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed" style="background-color: rgba(255, 255, 204, 255);">
@@ -96,46 +99,31 @@
             </li>
 
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php" class="nav-link">
                 <i class="fas fa-sitemap"></i>
                 <p>Cargos</p>
               </a>
             </li>
 
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/mostrarReservacion.php" class="nav-link">
                 <i class="fas fa-calendar-day"></i>
                 <p>Reservaciones</p>
               </a>
             </li>
 
             <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="fas fa-shopping-cart"></i>
-                <p>Ventas
-                  <i class="fas fa-angle-left right"></i>
-                </p>
+              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarProducto.php" class="nav-link">
+                <i class="fas fa-dolly-flatbed"></i>
+                <p>Productos</p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Factura</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Productos</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Servicios</p>
-                  </a>
-                </li>
-              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarServicio.php" class="nav-link">
+                <i class="fas fa-cash-register"></i>
+                <p>Servicios</p>
+              </a>
             </li>
 
             <li class="nav-item">
@@ -147,25 +135,25 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Inventario</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Pedido</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarFacturas.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Factura</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarContabilidad.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Contabilidad</p>
                   </a>

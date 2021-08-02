@@ -255,18 +255,19 @@ class usuario{
 
         //consulta para actualizar el registro
         $sql="UPDATE usuario SET idRol='$this->idRol',
+        tipoDocumento='$this->tipoDocumento',
         documentoIdentidad=$this->documentoIdentidad,
         primerNombre='$this->primerNombre',
         segundoApellido='$this->segundoApellido',
         primerApellido='$this->primerApellido',
         segundoApellido='$this->segundoApellido',
+        fechaNacimiento='$this->fechaNacimiento',
         correoElectronico='$this->correoElectronico',
         contrasena='$this->contrasena',
         telefono=$this->telefono,
         genero='$this->genero',
         direccion='$this->direccion',
-        barrio='$this->barrio',
-        
+        barrio='$this->barrio'
         WHERE idUser=$this->idUser";
 
         //se ejecuta la consulta

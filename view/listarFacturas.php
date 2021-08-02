@@ -1,5 +1,5 @@
 <?php
-require_once 'headGerente.php';
+require_once 'headPagina.php';
 
 if (isset($_GET['filtroFactura'])) {
     $filtroFactura = $_GET['filtroFactura'];
@@ -8,38 +8,42 @@ if (isset($_GET['filtroFactura'])) {
 }
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
-    <title>FACTURA</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FACTURAS</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
-            <div class="card">
-                <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                <form action="" method="GET">
-                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Buscar factura: </label>
-                    <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Puedes buscar por el codigo de la factura" name="filtroFactura" onchange="this.form.submit()" value="<?php echo $filtroFactura; ?>">
-                </form>
-                </div>
-                <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
-                    <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
-                        <thead>
-                            <tr style="background-color: rgb(249, 201, 242);">
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <form action="" method="GET">
+                            <div class="row">
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Buscar factura: </label>
+                                    <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Puedes buscar por el codigo de la factura" name="filtroFactura" onchange="this.form.submit()" value="<?php echo $filtroFactura; ?>">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-striped table-valign-middle">
+                            <thead>
+                                <tr style="background-color: rgb(249, 201, 242);">
                                 <th>Codigo Factura</th>
                                 <th>Fecha Factura</th>
                                 <th>Responsable Factura</th>
                                 <th></th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
+                                </tr>
+                            </thead>
+                            <tbody>
                             <?php
                             require_once '../model/factura.php';
                             require_once '../model/conexionDB.php';
@@ -58,7 +62,8 @@ if (isset($_GET['filtroFactura'])) {
                             }
                             ?>
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,7 +72,6 @@ if (isset($_GET['filtroFactura'])) {
 
 </html>
 
-
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>

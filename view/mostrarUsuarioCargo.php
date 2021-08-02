@@ -1,6 +1,5 @@
 <?php
-//referenciamos archivos de la carpeta Model
-require_once 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../model/usuario.php';
 require_once '../model/conexionDB.php';
 require_once '../model/cargo.php';
@@ -9,84 +8,82 @@ $idCargo = $_GET['idCargo'];
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USUARIO EN CARGO</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="content-wrapper">
+        <div class="content-header">
 
-        <?php
-        require_once '../controller/mensajeController.php';
+            <?php
+            require_once '../controller/mensajeController.php';
 
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
+            if (isset($_GET['mensaje'])) {
+                $oMensaje = new mensajes();
+                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+            }
+            ?>
 
-        <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
-            <div class="card">
-                <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                    <h3 class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Usuarios</h1>
-                </div>
-                <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
-                    <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
-                        <thead>
-                            <tr style="background-color: rgb(249, 201, 242);">
-                                <th>Tipo Documento</th>
-                                <th>Documento</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Telefono</th>
-                                <th><a class="btn btn-info" href="nuevoUsuarioCargo.php?idCargo=<?php echo $_GET['idCargo']; ?>"><i class="fas fa-user-plus"></i> Agregar Usuario</a></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <?php
-                            //instanciamos empleado(), referenciamos la funcion listarEmpleado.
-                            $oUsuario = new usuario();
-                            // $oEmpleado->idEmpleado = $_GET['idEmpleado'];
-                            $consulta = $oUsuario->listarUsuarioPorCargo($idCargo);
-                            if (count($consulta) > 0) { //esta funcion me permite saber si la consulta tiene algo que mostrar, en caso de que traiga informacion, mostrara la informacion
-                                foreach ($consulta as $registro) {
-                            ?>
-                                    <tr>
-                                        <td><?php echo $registro['tipoDocumento']; ?></td>
-                                        <td><?php echo $registro['documentoIdentidad']; ?></td>
-                                        <td><?php echo $registro['primerNombre'] . " " . $registro['segundoNombre']; ?></td>
-                                        <td><?php echo $registro['primerApellido'] . " " . $registro['segundoApellido']; ?></td>
-                                        <td><?php echo $registro['telefono']; ?></td>
-                                        <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarEmpleadoCargo(<?php echo $registro['idUser']; ?>, <?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a></td>
-                                    </tr>
-                                <?php }
-                            } else { //en caso de que no tengo informacion, mostrara un mensaje
-                                ?>
-                                <!-- no hay ningun registro -->
-                                <tr>
-                                    <td style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay usuarios registrados en este cargo</td>
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-striped table-valign-middle">
+                            <thead>
+                                <tr style="background-color: rgb(249, 201, 242);">
+                                    <th>Tipo Documento</th>
+                                    <th>Documento</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Telefono</th>
+                                    <th><a class="btn btn-info" href="nuevoUsuarioCargo.php?idCargo=<?php echo $_GET['idCargo']; ?>"><i class="fas fa-user-plus"></i> Agregar Usuario</a></th>
                                 </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+
+                                <?php
+                                $oUsuario = new usuario();
+                                $consulta = $oUsuario->listarUsuarioPorCargo($idCargo);
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
+                                ?>
+                                        <tr>
+                                            <td><?php echo $registro['tipoDocumento']; ?></td>
+                                            <td><?php echo $registro['documentoIdentidad']; ?></td>
+                                            <td><?php echo $registro['primerNombre'] . " " . $registro['segundoNombre']; ?></td>
+                                            <td><?php echo $registro['primerApellido'] . " " . $registro['segundoApellido']; ?></td>
+                                            <td><?php echo $registro['telefono']; ?></td>
+                                            <td><a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarEmpleadoCargo(<?php echo $registro['idUser']; ?>, <?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a></td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="6" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay usuarios registrados en este cargo</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
             </div>
         </div>
-        <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">

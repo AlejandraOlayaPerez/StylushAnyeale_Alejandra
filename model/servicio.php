@@ -89,7 +89,7 @@ class servicio{
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        
+        echo $sql;
         return $result;
         }
 

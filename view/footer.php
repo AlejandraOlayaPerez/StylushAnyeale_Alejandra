@@ -30,16 +30,32 @@
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/dropzone/min/dropzone.min.js"></script>
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/inputmask/jquery.inputmask.min.js"></script>
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/toastr/toastr.min.js"></script>
 
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarProductos.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
+    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/contarTabla.js"></script>
 
-
-</head>
-<body>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     
+</head>
+
+<body>
+    <!-- <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <footer class="main-footer">
+                    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+                    All rights reserved.
+                    <div class="float-right d-none d-sm-inline-block">
+                        <b>Version</b> 3.1.0
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div> -->
 </body>
 
 </html>

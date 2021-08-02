@@ -1,33 +1,32 @@
 <?php
-require 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../model/conexionDB.php';
 require_once '../model/usuario.php';
 
 $idCargo = $_GET['idCargo'];
-
-
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <title>NUEVO USUARIO EN CARGO</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUEVO USUARIO</title>
 </head>
 
 <body>
-    <div class="container">
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card" style="background-color: rgb(119, 167, 191);">
-                        <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO USUARIO EN ESTE CARGO</h1>
-                        </div>
-                        <form action="../controller/cargoController.php" method="GET">
-                        <input name="idCargo" value="<?php echo $idCargo; ?>" style="display:none">
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO ROL</label>
+                    </div>
+                    <form action="../controller/cargoController.php" method="GET">
+                        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                            <input name="idCargo" value="<?php echo $idCargo; ?>" style="display:none">
                             <?php
                             require_once '../model/usuario.php';
                             $oUsuario = new usuario();
@@ -47,18 +46,21 @@ $idCargo = $_GET['idCargo'];
                                     </select>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarCargoEnEmpleado"> <i class="far fa-save"></i>Registrar usuario</button>
+                        </div>
+                        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
                             <a href="mostrarUsuarioCargo.php?idCargo=<?php echo $_GET['idCargo']; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                        </form>
-                    </div>
+                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarCargoEnEmpleado"> <i class="far fa-save"></i>Registrar usuario</button>
+                        </div>
+                    </form>
                 </div>
+
             </div>
-        </section>
+        </div>
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>

@@ -47,6 +47,6 @@ function eliminarProducto(IdProducto){
     document.getElementById("eliminarProducto").value=IdProducto;
 }
 
-function eliminarServicio(IdServicio){
+function eliminarServicio(IdServicio){ 
     document.getElementById("eliminarServicio").value=IdServicio;
 }

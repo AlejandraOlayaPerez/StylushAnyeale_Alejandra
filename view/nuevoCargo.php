@@ -1,5 +1,5 @@
 <?php
-require_once 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../model/cargo.php';
 require_once '../model/conexionDB.php';
 
@@ -7,57 +7,59 @@ $oCargo = new cargo();
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NUEVO CARGO</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="content-wrapper">
+        <div class="content-header">
 
-        <?php
-        require_once '../controller/mensajeController.php';
+            <?php
+            require_once '../controller/mensajeController.php';
 
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
+            if (isset($_GET['mensaje'])) {
+                $oMensaje = new mensajes();
+                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+            }
+            ?>
 
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card" style="background-color: rgb(119, 167, 191);">
-                        <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">NUEVO CARGO</h1>
+            <div class="container-fluid">
+
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="modalProductos"><i class="fa fa-plus"></i> Nuevo</button>
+
+                <div class="modal fade" id="modalPro" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="" method="GET">
+                                <input type="text" name="idProducto" value="<?php echo $oProducto->idProducto; ?>" style="display:none;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalProductoLabel">Seleecione los productos nesesarios</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-success">Crear Pedido</button>
+                                </div>
+                            </form>
                         </div>
-                        <form id="quickForm" action="../controller/cargoController.php" method="GET">
-
-                            <div class="row" style="margin: 5px;">
-                                <div class="col col-xl-4 col-md-6 col-12">
-                                    <label for="" class="form-label">Cargo</label>
-                                    <input class="form-control" type="text" name="cargo" placeholder="Cargo" minlength="10" maxlength="20">
-                                </div>
-                                <div class="col col-xl-4 col-md-6 col-12">
-                                    <label for="" class="form-label">Descripcion_Cargo</label>
-                                    <input class="form-control" type="text" name="descripcionCargo" placeholder="Descripcion del cargo" minlength="10" maxlength="100">
-                                </div>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-success" name="funcion" value="nuevoCargo"><i class="far fa-save"></i> Guardar</button>
-                            <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                        </form>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>

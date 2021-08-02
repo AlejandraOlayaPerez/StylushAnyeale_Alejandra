@@ -116,10 +116,11 @@ class producto{
         $conexion=$oConexion->conexion();
         
         //consulta para eliminar el registro
-        $sql="UPDATE producto SET eliminado=1 WHERE IdPagina=$this->IdProducto";
+        $sql="UPDATE producto SET eliminado=1 WHERE IdProducto=$this->IdProducto";
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
+        echo $sql;
         return $result;
         }
 

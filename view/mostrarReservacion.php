@@ -1,6 +1,5 @@
 <?php
-//referenciamos archivos de la carpeta Model
-require_once 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../model/reservaciones.php';
 require_once '../model/conexionDB.php';
 
@@ -11,129 +10,136 @@ if (isset($_GET['filtroFecha'])) {
     $filtroFecha = Date("Y-m-d");
 }
 
-$filtroDomicilio="";
-$filtroReservaciones="";
+$filtroDomicilio = "";
+$filtroReservaciones = "";
 
 if (isset($_GET['filtroDomicilio'])) {
-    $filtroDomicilio=$_GET['filtroDomicilio'];
+    $filtroDomicilio = $_GET['filtroDomicilio'];
 }
 
-if (isset($_GET['filtroReservaciones'])){
-    $filtroReservaciones=$_GET['filtroReservaciones'];
+if (isset($_GET['filtroReservaciones'])) {
+    $filtroReservaciones = $_GET['filtroReservaciones'];
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RESERVACIONES</title>
 </head>
 
 <body>
-    <div class="container">
+    <div class="content-wrapper">
+        <div class="content-header">
 
-        <?php
-        require_once '../controller/mensajeController.php';
+            <?php
+            require_once '../controller/mensajeController.php';
 
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
+            if (isset($_GET['mensaje'])) {
+                $oMensaje = new mensajes();
+                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+            }
+            ?>
 
-        <div class="col-md-12" style="background-color: rgb(249, 201, 242);">
-            <div class="card">
-                <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                    <form action="" method="GET">
-                        <div class="row">
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
-                                <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
-                            </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
-                                <select class="form-select" id="" name="filtroDomicilio" onchange="this.form.submit()">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <form action="" method="GET">
+                            <div class="row">
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
+                                    <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                                </div>
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
+                                    <select class="form-select" id="" name="filtroDomicilio" onchange="this.form.submit()">
                                         <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="true" <?php if ($filtroDomicilio) {echo "selected";} ?>>SI</option>
-                                        <option value="false" <?php if (!$filtroDomicilio) {echo "selected";} ?>>NO</option>
+                                        <option value="true" <?php if ($filtroDomicilio) {
+                                                                    echo "selected";
+                                                                } ?>>SI</option>
+                                        <option value="false" <?php if (!$filtroDomicilio) {
+                                                                    echo "selected";
+                                                                } ?>>NO</option>
                                     </select>
-                            </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
-                                <select class="form-select" id="" name="filtroReservaciones" onchange="this.form.submit()">
+                                </div>
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
+                                    <select class="form-select" id="" name="filtroReservaciones" onchange="this.form.submit()">
                                         <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="true" <?php if ($filtroReservaciones) {echo "selected";} ?>>SI</option>
-                                        <option value="false" <?php if (!$filtroReservaciones) {echo "selected";} ?>>NO</option>
+                                        <option value="true" <?php if ($filtroReservaciones) {
+                                                                    echo "selected";
+                                                                } ?>>SI</option>
+                                        <option value="false" <?php if (!$filtroReservaciones) {
+                                                                    echo "selected";
+                                                                } ?>>NO</option>
                                     </select>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="card-body p-0" style="background-color: rgb(119, 167, 191);">
-                    <table class="table" style="font-family:'Times New Roman', Times, serif; font-size: 20px;">
-                        <thead>
-                            <tr style="background-color: rgb(249, 201, 242);">
-                                <th>Cliente</th>
-                                <th>Servicio</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Domicilio</th>
-                                <th>Direccion</th>
-                                <th>¿Reservacion realizada?</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <tbody>
-                            <?php
-                            $oReservacion = new reservacion();
-                            $consulta = $oReservacion->mostrarReservacion($filtroFecha, $filtroDomicilio, $filtroReservaciones);
-                            if (count($consulta) > 0) {
-                                foreach ($consulta as $registro) {
-                            ?>
-                                    <tr>
-                                        <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
-                                        <td><?php echo $registro['servicio']; ?></td>
-                                        <td><?php echo $registro['fechaReservacion']; ?></td>
-                                        <td><?php echo $registro['horaReservacion']; ?></td>
-                                        <td><?php if ($registro['domicilio']) echo "SI";
-                                            else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
-                                        <td><?php if ($registro['domicilio'] == 0) echo "NO";
-                                            else echo $registro['direccion'] ?>
-                                        <td><?php if ($registro['validar']) echo "SI";
-                                            else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
-                                        <td>
-                                            <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                                        </td>
-                                    </tr>
-                                <?php }
-                            } else { //en caso de que no tengo informacion, mostrara un mensaje
-                                ?>
-                                <!-- no hay ningun registro -->
-                                <tr>
-                                    <td style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay registro de reservaciones.</td>
+                        </form>
+                    </div>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-striped table-valign-middle">
+                            <thead>
+                                <tr style="background-color: rgb(249, 201, 242);">
+                                    <th>Cliente</th>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Domicilio</th>
+                                    <th>Direccion</th>
+                                    <th>¿Reservacion realizada?</th>
+                                    <th></th>
                                 </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $oReservacion = new reservacion();
+                                $consulta = $oReservacion->mostrarReservacion($filtroFecha, $filtroDomicilio, $filtroReservaciones);
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
+                                ?>
+                                        <tr>
+                                            <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
+                                            <td><?php echo $registro['servicio']; ?></td>
+                                            <td><?php echo $registro['fechaReservacion']; ?></td>
+                                            <td><?php echo $registro['horaReservacion']; ?></td>
+                                            <td><?php if ($registro['domicilio']) echo "SI";
+                                                else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
+                                            <td><?php if ($registro['domicilio'] == 0) echo "NO";
+                                                else echo $registro['direccion'] ?>
+                                            <td><?php if ($registro['validar']) echo "SI";
+                                                else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
+                                            <td>
+                                                <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="9" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay reservaciones disponibles</td>
+                                    <?php
+                                }
+                                    ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
         </div>
-
-        <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">

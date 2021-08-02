@@ -1,32 +1,31 @@
 <?php
-require_once 'headGerente.php';
+require_once 'headPagina.php';
 require_once '../controller/productoServicioController.php';
 
 $oUsuarioController = new usuarioController();
 $oProducto = $oUsuarioController->consultarProducto($_GET['idProducto']);
 ?>
 
-
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EDITAR PRODUCTO</title>
 </head>
 
 <body>
-    <div class="container">
-
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card" style="background-color: rgb(119, 167, 191);">
-                        <div class="card-header">
-                            <h1 class="card-title" style=" font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600;">EDITAR CARGO</h1>
-                        </div>
-                        <form id="quickForm" action="../controller/productoServicioController.php" method="GET">
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO ROL</label>
+                    </div>
+                    <form action="../controller/productoServicioController.php" method="GET">
+                        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <input type="text" name="IdProducto" value="<?php echo $_GET['idProducto']; ?>" style="display: none;">
 
                             <div class="row" style="margin: 5px; ">
@@ -38,8 +37,12 @@ $oProducto = $oUsuarioController->consultarProducto($_GET['idProducto']);
                                     <label for="" class="form-label">Tipo Producto</label>
                                     <select class="form-select" id="" name="tipoProducto">
                                         <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="Venta" <?php if ($oProducto->tipoProducto == "Venta") {echo "selected";} ?>>Venta</option>
-                                        <option value="Uso(Servicios)" <?php if ($oProducto->tipoProducto == "Uso(Servicios)") {echo "selected";} ?>>Uso(Servicio)</option>
+                                        <option value="Venta" <?php if ($oProducto->tipoProducto == "Venta") {
+                                                                    echo "selected";
+                                                                } ?>>Venta</option>
+                                        <option value="Uso(Servicios)" <?php if ($oProducto->tipoProducto == "Uso(Servicios)") {
+                                                                            echo "selected";
+                                                                        } ?>>Uso(Servicio)</option>
                                     </select>
                                 </div>
                                 <div class="col col-xl-4 col-md-6 col-12">
@@ -63,20 +66,20 @@ $oProducto = $oUsuarioController->consultarProducto($_GET['idProducto']);
                                     <input class="form-control" type="text" name="costoProducto" placeholder="Costo Producto" value="<?php echo $oProducto->costoProducto; ?>">
                                 </div>
                             </div>
-
-                            <br>
-                            <button type="submit" class="btn btn-success" name="funcion" value="actualizarProducto"><i class="far fa-save"></i> Guardar</button>
-                            <a href="listarProducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                        <a href="listarProducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                        <button type="submit" class="btn btn-success" name="funcion" value="actualizarProducto"><i class="fas fa-edit"></i> Actualizar Producto</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </body>
 
 </html>
 
 <?php
-require_once 'footerGerente.php';
+require_once 'footer.php';
 ?>

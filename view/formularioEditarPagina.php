@@ -6,6 +6,7 @@ require_once '../model/pagina.php';
 
 $oUsuarioController = new usuarioController();
 $oPagina = $oUsuarioController->consultarPaginaId($_GET['idPagina']);
+
 ?>
 
 <!DOCTYPE html>
@@ -43,12 +44,8 @@ $oPagina = $oUsuarioController->consultarPaginaId($_GET['idPagina']);
                                     <label for="" class="form-label">¿Se requiere inicio de sesion?</label>
                                     <select class="form-select" id="" name="requireSession" required>
                                         <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="true" <?php if ($oPagina->requireSession == "SI") {
-                                                                    echo "selected";
-                                                                } ?>>SI</option>
-                                        <option value="false" <?php if ($oPagina->requireSession == "NO") {
-                                                                    echo "selected";
-                                                                } ?>>NO</option>
+                                        <option value="SI" <?php if ($oPagina->requireSession == "SI") {echo "selected";} ?>>SI</option>
+                                        <option value="NO" <?php if ($oPagina->requireSession == "NO") {echo "selected";} ?>>NO</option>
                                     </select>
                                 </div>
                             </div>

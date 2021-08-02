@@ -100,7 +100,6 @@ class pagina{
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        
         return $result;
     }
 

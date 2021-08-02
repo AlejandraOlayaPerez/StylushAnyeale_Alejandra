@@ -95,6 +95,7 @@ class usuarioController{
     public function eliminarProducto(){
         require_once '../model/producto.php';
 
+      
         $oProducto=new producto();
         $oProducto->IdProducto=$_GET['IdProducto'];
         $result=$oProducto->eliminarProducto();
@@ -103,11 +104,11 @@ class usuarioController{
         $oMensaje=new mensajes();
 
         if ($result) {
-            // header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
-            echo "elimino";
+            header("location: ../view/listarProducto.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            // echo "elimino";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            echo "error";
+            header("location: ../view/listarProducto.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            // echo "error";
         }
     }
 
@@ -176,10 +177,10 @@ class usuarioController{
         $oMensaje=new mensajes();
 
         if ($result) {
-            // header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
-            echo "elimino";
+            // header("location: ../view/listarSerivio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
+             echo "elimino";
         }else{
-            // header("location: ../view/home/paginaPrincipalGerente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            // header("location: ../view/listarSerivio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             echo "error";
         }
     }

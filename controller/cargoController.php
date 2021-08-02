@@ -40,9 +40,9 @@ class usuarioController{
 
         $oCargo=new cargo();
         $oCargo->cargo=$_GET['cargo'];
-        $oCargo->descripcionCargo=$_GET['descripcionCargo'];
+
         //este if me permite conocer su el campo esta vacio o trae informacion
-        if ($_GET['cargo'] && $_GET['descripcionCargo']!= ""){// en caso de que traiga informacion, ejecutara la funcion nuevoCargo()
+        if ($_GET['cargo']!= ""){// en caso de que traiga informacion, ejecutara la funcion nuevoCargo()
         $result=$oCargo->nuevoCargo();
 
         if ($result) {
@@ -73,7 +73,6 @@ class usuarioController{
         $oCargo=new cargo();
         $oCargo->idCargo=$_GET['idCargo'];
         $oCargo->cargo=$_GET['cargo'];
-        $oCargo->descripcionCargo=$_GET['descripcionCargo'];
         $oCargo->actualizarCargo();
 
         require_once 'mensajeController.php';
