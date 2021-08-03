@@ -4,8 +4,8 @@ require_once '../model/cargo.php';
 require_once '../model/conexionDB.php';
 require_once '../controller/cargoController.php';
 
-$oUsuarioController = new usuarioController();
-$oCargo = $oUsuarioController->consultarCargoPorId($_GET['idCargo']);
+$oCargoController = new cargoController();
+$oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
 ?>
 
 <!DOCTYPE html>

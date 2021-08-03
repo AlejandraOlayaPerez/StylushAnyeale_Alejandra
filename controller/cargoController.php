@@ -12,26 +12,26 @@ if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO
 }
 }
 
-$oUsuarioController=new usuarioController();
+$ocargoController=new cargoController();
     switch($funcion){
         case "nuevoCargo":
-        $oUsuarioController->nuevoCargo();
+        $ocargoController->nuevoCargo();
         break;
         case "actualizarCargo":
-        $oUsuarioController->actualizarCargo();
+        $ocargoController->actualizarCargo();
         break;
         case "eliminarCargo":
-        $oUsuarioController->eliminarCargo();
+        $ocargoController->eliminarCargo();
         break;
         case "actualizarCargoEnEmpleado":
-        $oUsuarioController->actualizarCargoEnEmpleado();
+        $ocargoController->actualizarCargoEnEmpleado();
         break;
         case "eliminarEmpleadoCargo":
-        $oUsuarioController->eliminarEmpleadoCargo();
+        $ocargoController->eliminarEmpleadoCargo();
         break;
     }
 
-class usuarioController{
+class cargoController{
     public function nuevoCargo(){
         require_once '../model/cargo.php';
 

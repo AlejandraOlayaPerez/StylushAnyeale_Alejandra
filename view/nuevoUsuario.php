@@ -1,12 +1,16 @@
 <?php
 require_once 'headPagina.php';
 require_once '../model/usuario.php';
+require_once '../controller/usuarioController.php';
 $oUsuario = new usuario();
-?>
 
+if (isset($_GET['documentoIdentidad'])!=""){
+    $oUsuarioController=new usuarioController();
+    $oUsuario=$oUsuarioController->registrarUsuario();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,28 +18,24 @@ $oUsuario = new usuario();
     <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <title>NUEVO USUARIO</title>
 </head>
-
 <body>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <?php
                 require_once '../controller/mensajeController.php';
-
                 if (isset($_GET['mensaje'])) {
                     $oMensaje = new mensajes();
                     echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
                 }
                 ?>
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
                             <div class="card-header" style="background-color: rgb(249, 201, 242);">
                                 <label class="card-title">NUEVO USUARIO</label>
                             </div>
-
-                            <form id="formUsuario'" action="../controller/usuarioController.php" method="GET">
+                            <form action="" method="POST">
                                 <div class="card-body p-0">
                                     <div class="bs-stepper">
                                         <div class="bs-stepper-header" role="tablist">
@@ -60,9 +60,7 @@ $oUsuario = new usuario();
                                                 </button>
                                             </div>
                                         </div>
-
                                         <div class="bs-stepper-content">
-
                                             <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                                                 <div class="row">
                                                     <div class="col col-xl-4 col-md-6 col-12">
@@ -83,7 +81,7 @@ $oUsuario = new usuario();
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Documento Identidad</label>
-                                                        <input type="number" class="form-control" id="" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>"> 
+                                                        <input type="number" class="form-control" id="" name="documentoIdentidad" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>"> 
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
@@ -179,7 +177,7 @@ $oUsuario = new usuario();
                                                     </div>
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="">Correo electronico</label>
-                                                        <input class="form-control" type="email" name="correoElectronico" placeholder="example@gmail.com">
+                                                        <input class="form-control" type="email" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->telefono; ?>">
                                                     </div>
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="">Contraseña</label>
@@ -213,56 +211,3 @@ $oUsuario = new usuario();
 <?php
 require_once 'footer.php';
 ?>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
-</script>
-
-
-<script>
-    $(function() {
-        $.validator.setDefaults({
-            submitHandler: function() {}
-        });
-
-        $('#formUsuario').validate({
-            rules: {
-                email: {
-                    required: true,
-                    email: true,
-                },
-                password: {
-                    required: true,
-                    minlength: 5
-                },
-                terms: {
-                    required: true
-                },
-            },
-            messages: {
-                email: {
-                    required: "Please enter a email address",
-                    email: "Please enter a vaild email address"
-                },
-                password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long"
-                },
-                terms: "Please accept our terms"
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-    });
-</script>

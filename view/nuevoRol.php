@@ -37,7 +37,7 @@ $oRol = new rol();
                             <div class="row" style="margin: 5px; ">
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Nombre_Rol</label>
-                                    <input class="form-control" type="text" name="nombreRol" placeholder="Nombre del Rol" minlength="10" maxlength="20">
+                                    <input class="form-control" type="text" name="nombreRol" placeholder="Nombre del Rol" minlength="5" maxlength="20">
                                 </div>
                             </div>
                             <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">

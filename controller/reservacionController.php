@@ -12,14 +12,14 @@ if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO
 }
 }
 
-$oUsuarioController=new usuarioController();
+$oReservacionController=new reservacionController();
     switch($funcion){
         case "validarReservacion":
-        $oUsuarioController->validarReservacion();
+        $oReservacionController->validarReservacion();
         break;
     }
 
-    class usuarioController{
+    class reservacionController{
     
         public function validarReservacion(){
             require_once '../model/reservaciones.php';

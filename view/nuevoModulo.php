@@ -40,7 +40,7 @@ $oModulo = new modulo();
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Nombre_Modulo</label>
                                     <input type="text" name="idModulo" value="<?php echo $oModulo->idModulo; ?>" style="display:none">
-                                    <input type="text" class="form-control" id="" name="nombreModulo" placeholder="Nombre Modulo" minlength="10" maxlength="20" value="<?php echo $oModulo->nombreModulo; ?>">
+                                    <input type="text" class="form-control" id="" name="nombreModulo" placeholder="Nombre Modulo" minlength="5" maxlength="20" value="<?php echo $oModulo->nombreModulo; ?>">
                                 </div>
                             </div>
                             <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">

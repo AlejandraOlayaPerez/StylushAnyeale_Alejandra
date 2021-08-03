@@ -2,8 +2,8 @@
 require_once 'headPagina.php';
 require_once '../controller/gestionController.php';
 
-$oUsuarioController = new usuarioController();
-$oRol = $oUsuarioController->consultarRolId($_GET['idRol']); //la consultaRolId retorna la instancia completa del rol, la esta almacenando en la variable $oRol
+$oGestionController = new gestionController();
+$oRol = $oGestionController->consultarRolId($_GET['idRol']); //la consultaRolId retorna la instancia completa del rol, la esta almacenando en la variable $oRol
 ?>
 
 <!DOCTYPE html>

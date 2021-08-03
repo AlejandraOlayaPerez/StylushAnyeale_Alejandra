@@ -12,17 +12,17 @@ if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO
 }
 }
 
-$oUsuarioController=new usuarioController();
+$oPedidoController=new pedidoController();
     switch($funcion){
         case "validarPedido":
-        $oUsuarioController->validarPedido();
+        $oPedidoController->validarPedido();
         break;
         case "nuevoPedido":
-        $oUsuarioController->nuevoPedido();
+        $oPedidoController->nuevoPedido();
         break;
     }
 
-    class usuarioController{
+    class pedidoController{
         public function validarPedido(){
             require_once '../model/pedido.php';
     

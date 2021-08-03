@@ -6,7 +6,7 @@ class usuario{
     //el modificador private no permite acceder a los atributos fuera de la clase
     //atributos del modelo usuario
     //$idUser almacenara el id del usuario en la base de datos
-    public $idUser=0;
+    private $idUser=0;
     public $idRol="";
     public $idCargo="";
     public $tipoDocumento="";
@@ -24,6 +24,27 @@ class usuario{
     public $direccion="";
     public $barrio="";
     public $eliminado="";
+
+    //estas funciones permitian obtener la informacion de la variable privada
+    //funcion get: para obtener o capturar la informacion de la variable, idUser y nombre
+    //funcion set: para configurar la informacion de la variable
+    public function getIdUser(){
+        return $this->idUser;
+    }
+
+    public function getNombreUser(){
+        return $this->primerNombre;
+    }
+
+    public function setIdUsers($idUser){
+        $this->idUser=$idUser;
+    }
+
+    public function setNombre($primerNombre){
+        $this->primerNombre=$primerNombre." ". $this->primerApellido;
+    }
+    //funcion que gestiona el registro de los usuarios
+    //las variables dentro de los parentesis son parametros que se requieren al utilizar la funcion
 
 
     public function nuevoUsuario(){
@@ -273,6 +294,26 @@ class usuario{
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
         return $result;
+    }
+
+    public function iniciarSesion($correoElectronico, $contrasena){
+        //funcion para encriptar la contraseña utilizando el metodo md5
+        $contrasena=md5($contrasena);
+        //genera la conexion
+        $oConexion=new conectar();
+        //establece conexion con la base de datos
+        $conexion=$oConexion->conexion();
+        //sentencia para verificar correo y contraseña de usuario
+        $sql="SELECT * FROM usuario WHERE correoElectronico='$correoElectronico' AND contrasena='$contrasena'";
+        //se ejecuta sentencia
+        $result=mysqli_query($conexion, $sql);
+        $result=mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach($result as $registro){
+            $this->idUser=$registro['idUser'];
+            $this->primerNombre=$registro['primerNombre'];
+            $this->primerApellido=$registro['primerApellido'];
+        }
+        return count($result);
     }
 }
 ?>

@@ -2,8 +2,8 @@
 require_once 'headPagina.php';
 require_once '../controller/productoServicioController.php';
 
-$oUsuarioController = new usuarioController();
-$oServicio = $oUsuarioController->consultarServicio($_GET['IdServicio']);
+$oProductoServicioController = new productoServicioController();
+$oServicio = $oProductoServicioController->consultarServicio($_GET['IdServicio']);
 ?>
 
 <!DOCTYPE html>

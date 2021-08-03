@@ -2,8 +2,8 @@
 require_once 'headPagina.php';
 require_once '../controller/productoServicioController.php';
 
-$oUsuarioController = new usuarioController();
-$oProducto = $oUsuarioController->consultarProducto($_GET['idProducto']);
+$oProductoServicioController = new productoServicioController();
+$oProducto = $oProductoServicioController->consultarProducto($_GET['idProducto']);
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ $oProducto = $oUsuarioController->consultarProducto($_GET['idProducto']);
             <div class="container-fluid">
                 <div class="card card-primary">
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO ROL</label>
+                        <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR PRODUCTO</label>
                     </div>
                     <form action="../controller/productoServicioController.php" method="GET">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">

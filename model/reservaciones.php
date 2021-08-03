@@ -73,9 +73,37 @@ class reservacion{
             $sql.="AND r.validar=$filtroReservaciones";
         }
 
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion, $sql);
+        $result= mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+    function mostrarReservacionPorIdUser($idUser, $filtroFecha, $filtroDomicilio, $filtroReservaciones){
+        //instancia la clase conectar
+        $oConexion=new conectar();
+        //se establece la conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        $sql="SELECT c.primerNombre, c.primerApellido, r.idReservacion,
+        r.servicio, r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar 
+        FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
+        WHERE r.eliminado=false AND r.idUser=$idUser ";
+
+        //concatenamos a la consulta.
+        if ($filtroFecha!=""){
+            $sql.="AND r.fechaReservacion='$filtroFecha' ";
+        }
+        if ($filtroDomicilio!=""){
+            $sql.="AND r.domicilio='$filtroDomicilio' ";
+        }
+        if ($filtroReservaciones!=""){
+            $sql.="AND r.validar=$filtroReservaciones";
+        }
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion, $sql);
+        echo $sql; 
         $result= mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
     }

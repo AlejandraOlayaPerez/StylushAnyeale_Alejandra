@@ -6,8 +6,8 @@ require_once '../controller/gestionController.php';
 
 $oModulo = new modulo();
 
-$oUsuarioController = new usuarioController();
-$oModulo = $oUsuarioController->consultarModuloId($_GET['idModulo']);
+$oGestionController = new gestionController();
+$oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
 ?>
 
 <!DOCTYPE html>

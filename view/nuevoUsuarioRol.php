@@ -6,8 +6,8 @@ require_once '../controller/gestionController.php';;
 
 $idRol = $_GET['idRol'];
 
-$oUsuarioController = new usuarioController();
-$listarDeUsuarioDiferente = $oUsuarioController->usuarioDiferenteEnRol($idRol);
+$oGestionController = new gestionController();
+$listarDeUsuarioDiferente = $oGestionController->usuarioDiferenteEnRol($idRol);
 ?>
 
 <!DOCTYPE html>

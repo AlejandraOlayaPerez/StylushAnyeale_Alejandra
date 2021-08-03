@@ -50,8 +50,8 @@ $idRol = $_GET['idRol'];
                                         ?>
 
                                         <?php
-                                        $oUsuarioController = new usuarioController();
-                                        $oRol = $oUsuarioController->consultarRolId($idRol);
+                                        $oGestionController = new gestionController();
+                                        $oRol = $oGestionController->consultarRolId($idRol);
                                         ?>
 
                                         <div class="card">
@@ -71,8 +71,8 @@ $idRol = $_GET['idRol'];
 
                                                         <?php
 
-                                                        $oUsuarioController = new usuarioController();
-                                                        $registro = $oUsuarioController->mostrarUsuarioPorIdRol($_GET['idRol']); //la mostrarUsuarioConId  retorna la instancia completa, la esta almacenando en la variable $oRol
+                                                        $oGestionController = new gestionController();
+                                                        $registro = $oGestionController->mostrarUsuarioPorIdRol($_GET['idRol']); //la mostrarUsuarioConId  retorna la instancia completa, la esta almacenando en la variable $oRol
                                                         if (count($registro) > 0) {
                                                             foreach ($registro as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
                                                         ?>
@@ -88,7 +88,7 @@ $idRol = $_GET['idRol'];
                                                             ?>
                                                             <!-- no hay ningun registro -->
                                                             <tr>
-                                                                <td style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay usuarios registrados en este rol</td>
+                                                                <td colspan="3" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay usuarios registrados en este rol</td>
                                                             </tr>
                                                         <?php
                                                         }
@@ -102,7 +102,7 @@ $idRol = $_GET['idRol'];
 
                                     <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
 
-                                        <form action="../controller/usuarioController.php" method="GET">
+                                        <form action="../controller/gestionController.php" method="GET">
                                             <input type="hidden" name="idRol" value="<?php echo $_GET['idRol']; ?>">
 
                                             <table class="table table-bordered table-hover">
@@ -141,7 +141,7 @@ $idRol = $_GET['idRol'];
                                                                             ?>
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <input type="checkbox" name="arregloPagina[]" value="<?php echo $registroPagina['idPagina']; ?>" <?php if ($oUsuarioController->verificarPermiso($registroPagina['idPagina'], $idRol)) echo "checked"; ?>>
+                                                                                        <input type="checkbox" name="arregloPagina[]" value="<?php echo $registroPagina['idPagina']; ?>" <?php if ($oGestionController->verificarPermiso($registroPagina['idPagina'], $idRol)) echo "checked"; ?>>
                                                                                         <!--el checked es complemento a checkbox, que me dice que regitros ya estab seleccionados-->
                                                                                         <label for="check<?php echo $registroPagina['idPagina']; ?>">
                                                                                             <?php echo $registroPagina['nombrePagina']; ?>

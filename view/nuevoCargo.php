@@ -19,39 +19,37 @@ $oCargo = new cargo();
 <body>
     <div class="content-wrapper">
         <div class="content-header">
-
-            <?php
-            require_once '../controller/mensajeController.php';
-
-            if (isset($_GET['mensaje'])) {
-                $oMensaje = new mensajes();
-                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-            }
-            ?>
-
             <div class="container-fluid">
+                <?php
+                require_once '../controller/mensajeController.php';
 
-                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="modalProductos"><i class="fa fa-plus"></i> Nuevo</button>
-
-                <div class="modal fade" id="modalPro" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form action="" method="GET">
-                                <input type="text" name="idProducto" value="<?php echo $oProducto->idProducto; ?>" style="display:none;">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalProductoLabel">Seleecione los productos nesesarios</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-success">Crear Pedido</button>
-                                </div>
-                            </form>
-                        </div>
+                if (isset($_GET['mensaje'])) {
+                    $oMensaje = new mensajes();
+                    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+                }
+                ?>
+                <div class="card card-primary">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO CARGO</label>
                     </div>
+                    <form action="../controller/cargoController.php" method="GET">
+                        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                            <div class="row" style="margin: 5px;">
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label for="" class="form-label">Cargo</label>
+                                    <input class="form-control" type="text" name="cargo" placeholder="Cargo" minlength="10" maxlength="20">
+                                </div>
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label for="" class="form-label">Descripcion_Cargo</label>
+                                    <input class="form-control" type="text" name="descripcionCargo" placeholder="Descripcion del cargo" minlength="10" maxlength="100">
+                                </div>
+                                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                                    <button type="submit" class="btn btn-success" name="funcion" value="nuevoCargo"><i class="far fa-save"></i> Guardar</button>
+                                    <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

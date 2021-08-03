@@ -56,7 +56,7 @@ require_once 'headPagina.php';
                                     <td>
                                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarUsuario(<?php echo $registro['idUser']; ?>)"><i class="fas fa-user-slash"></i> Deshabilitar</a>
                                     <?php } else { ?>
-                                    <td><a href="../../controller/usuarioController.php?funcion=habilitarDeshabilitarUsuario&habilitar=true&idUser=<?php echo $registro['idUser']; ?>" class="btn btn-info"><i class="far fa-user"></i> Habilitar</a>
+                                    <td><a href="../controller/usuarioController.php?funcion=habilitarDeshabilitarUsuario&habilitar=true&idUser=<?php echo $registro['idUser']; ?>" class="btn btn-info"><i class="far fa-user"></i> Habilitar</a>
                                     </td>
                                 <?php } ?>
                                 </td>
@@ -80,7 +80,7 @@ require_once 'footer.php';
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Label">Eliminar</h5>
+                <h5 class="modal-title" id="Label">Deshabilitar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -50,11 +50,10 @@ require_once 'headPagina.php';
                                     <tr>
                                         <td><?php echo $registro['codigoServicio']; ?></td>
                                         <td><?php echo $registro['nombreServicio']; ?></td>
-                                        <td><?php echo $registro['IdServicio']; ?></td>
                                         <td>$<?php echo $registro['costo']; ?></td>
                                         <td>
                                             <a href="formularioEditarServicio.php?IdServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarServicio(<?php echo $registro['IdServicio']; ?>" )><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarServicio(<?php echo $registro['IdServicio']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -85,7 +84,7 @@ require_once 'footer.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/productoServicioController.php" method="GET">
-                    <input type="text" name="IdServicio" id="eliminarServicio" style="">
+                    <input type="text" name="IdServicio" id="eliminarServicio" style="display:none">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarServicio"><i class="fas fa-trash-alt"></i> Eliminar</button>
                 </form>

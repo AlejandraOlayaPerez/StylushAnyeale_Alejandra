@@ -9,28 +9,28 @@ if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO
 }
 }
 
-$oUsuarioController=new usuarioController();
+$oProductoServicioController=new productoServicioController();
     switch($funcion){
     case "crearProducto":
-    $oUsuarioController->crearProducto();
+    $oProductoServicioController->crearProducto();
     break;
     case "actualizarProducto":
-    $oUsuarioController->actualizarProducto();
+    $oProductoServicioController->actualizarProducto();
     break;
     case "eliminarProducto":
-    $oUsuarioController->eliminarProducto();
+    $oProductoServicioController->eliminarProducto();
     break;
 
     case "crearServicio":
-    $oUsuarioController->crearServicio();
+    $oProductoServicioController->crearServicio();
     break;
     case "actualizarServicio":
-    $oUsuarioController->actualizarServicio();
+    $oProductoServicioController->actualizarServicio();
     break;
     }
 
 
-class usuarioController{
+class productoServicioController{
 
     public function crearProducto(){
         require_once '../model/producto.php';
