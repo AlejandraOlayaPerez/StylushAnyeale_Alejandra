@@ -37,7 +37,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/css/css-font.css">
   <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/css/ionicons.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
@@ -50,11 +50,18 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/sweetalert2/sweetalert2.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fullcalendar/main.css">
-  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fullcalendar/main.css">
-  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/css/bs-stepper.min.css">
+  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/dropzone/min/dropzone.min.css">
 
-  <title>Stylush Anyeale</title>
+</head>
+
+
+
+<title>Stylush Anyeale</title>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -85,7 +92,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 
       <div class="sidebar">
         <nav class="mt-2">
-          
+
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <li class="nav-item">
@@ -120,6 +127,12 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                   <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarUsuario.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Usuario</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCliente.php" class="nav-link">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Cliente</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -180,7 +193,12 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php" class="nav-link">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarEmpresa.php" class="nav-link">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Empresas</p>
+                  </a>
+                <li class="nav-item">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php?idUser=<?php echo $_SESSION['idUser']; ?>" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Pedido</p>
                   </a>

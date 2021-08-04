@@ -50,10 +50,6 @@ $oProducto = $oProductoServicioController->consultarProducto($_GET['idProducto']
                                     <input class="form-control" type="text" name="nombreProducto" placeholder="Nombre Producto" value="<?php echo $oProducto->nombreProducto; ?>">
                                 </div>
                                 <div class="col col-xl-4 col-md-6 col-12">
-                                    <label for="" class="form-label">Cantidad</label>
-                                    <input class="form-control" type="number" name="cantidad" placeholder="Cantidad" value="<?php echo $oProducto->cantidad; ?>">
-                                </div>
-                                <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Recomendaciones</label>
                                     <input class="form-control" type="text" name="Recomendaciones" placeholder="Recomendaciones" value="<?php echo $oProducto->recomendaciones; ?>">
                                 </div>

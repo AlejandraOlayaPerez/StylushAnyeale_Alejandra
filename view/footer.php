@@ -35,8 +35,10 @@
 
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarProductos.js"></script>
+    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarEmpresa.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/contarTabla.js"></script>
+    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/limpiarFormFiltros.js"></script>
 
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fullcalendar/main.js"></script>

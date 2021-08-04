@@ -4,20 +4,21 @@ require_once '../model/usuario.php';
 require_once '../controller/usuarioController.php';
 $oUsuario = new usuario();
 
-if (isset($_GET['documentoIdentidad'])!=""){
-    $oUsuarioController=new usuarioController();
-    $oUsuario=$oUsuarioController->registrarUsuario();
-}
+// if (isset($_GET['documentoIdentidad']) != "") {
+//     $oUsuarioController = new usuarioController();
+//     $oUsuario = $oUsuarioController->registrarUsuario();
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
     <title>NUEVO USUARIO</title>
 </head>
+
 <body>
     <div class="content-wrapper">
         <div class="content-header">
@@ -81,7 +82,7 @@ if (isset($_GET['documentoIdentidad'])!=""){
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Documento Identidad</label>
-                                                        <input type="number" class="form-control" id="" name="documentoIdentidad" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>"> 
+                                                        <input type="number" class="form-control" id="" name="documentoIdentidad" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
@@ -168,6 +169,7 @@ if (isset($_GET['documentoIdentidad'])!=""){
                                                 <button class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
                                                 <button class="btn btn-info float-right" type="button" onclick="stepper.next()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                                             </div>
+
                                             <div id="registro-part" class="content" role="tabpanel" aria-labelledby="registro-part-trigger">
 
                                                 <div class="row">
@@ -200,7 +202,6 @@ if (isset($_GET['documentoIdentidad'])!=""){
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

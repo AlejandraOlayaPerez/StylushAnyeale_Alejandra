@@ -408,13 +408,10 @@ class gestionController
 
         $oPermiso = new permiso();
         $result = $oPermiso->consultarPermisoUrl($idUser, $url);
-        // require_once '../modelo/mensaje.php';
-        // $oMensaje=new mensaje();
         if (sizeof($result) == 0) {
-            // header("location: /phpCRUD/denegar.php");
-            echo "denegado";
+            header("location: ../view/404error.php");
+            // echo "denegado";
             die();
-            // echo "El usuario no tiene permiso";
         }
     }
 }

@@ -1,5 +1,8 @@
 <?php
 require_once 'headPagina.php';
+
+$idUser=$_SESSION['idUser'];
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +37,7 @@ require_once 'headPagina.php';
                                     <th>Codigo Pedido</th>
                                     <th>Fecha Pedido</th>
                                     <th>¿Pedido recibido?</th>
-                                    <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
+                                    <th><a class="btn btn-info" href="nuevoPedido.php?idUser=<?php echo $idUser; ?>"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
                                 </tr>
                             </thead>
                             <tbody>

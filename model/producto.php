@@ -105,7 +105,7 @@ class producto{
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        echo $sql;
+        
         return $result;
     }
 
@@ -123,6 +123,24 @@ class producto{
         echo $sql;
         return $result;
         }
+
+    function sumarPedido(){
+        //se instancia el objeto conectar
+        $oConexion= new conectar();
+        //se establece conexión con la base de datos
+        $conexion=$oConexion->conexion();
+
+        // $sql="SELECT * FROM producto WHERE IdProducto=$this->IdProducto";
+
+        // $result=mysqli_query($conexion,$sql);
+        // foreach ($result as $registro){
+        //     $this->cantidad+=$registro['cantidad'];
+        // }
+
+        $sql="UPDATE producto SET cantidad=cantidad+$this->cantidad WHERE IdProducto=$this->IdProducto";
+        $result=mysqli_query($conexion,$sql);
+        return $result;
+    }
 
     
 }

@@ -75,7 +75,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                         </table>
                     </div>
                 </div>
-                <a href="listarModulo.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                <a href="listarModulo.php?idModulo=<?php echo $_GET['idModulo']; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
             </div>
         </div>
     </div>

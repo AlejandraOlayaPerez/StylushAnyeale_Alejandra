@@ -44,8 +44,8 @@ $oPagina = $oGestionController->consultarPaginaId($_GET['idPagina']);
                                     <label for="" class="form-label">¿Se requiere inicio de sesion?</label>
                                     <select class="form-select" id="" name="requireSession" required>
                                         <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="true" <?php if ($oPagina->requireSession == "SI") {echo "selected";} ?>>SI</option>
-                                        <option value="false" <?php if ($oPagina->requireSession == "NO") {echo "selected";} ?>>NO</option>
+                                        <option value="true" <?php if ($oPagina->requireSession == "true") {echo "selected";} ?>>SI</option>
+                                        <option value="false" <?php if ($oPagina->requireSession == "false") {echo "selected";} ?>>NO</option>
                                     </select>
                                 </div>
                             </div>

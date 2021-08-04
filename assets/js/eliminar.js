@@ -50,3 +50,7 @@ function eliminarProducto(IdProducto){
 function eliminarServicio(IdServicio){ 
     document.getElementById("eliminarServicio").value=IdServicio;
 }
+
+function eliminarEmpresa(IdEmpresa){ 
+    document.getElementById("eliminarEmpresa").value=IdEmpresa;
+}

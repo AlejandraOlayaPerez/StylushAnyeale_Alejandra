@@ -32,6 +32,7 @@ require_once 'headPagina.php';
                                 <tr style="background-color: rgb(249, 201, 242);">
                                     <th>Codigo</th>
                                     <th>Producto</th>
+                                    <th>Cantidad</th>
                                     <th>Precio</th>
                                     <th><a class="btn btn-info" href="nuevoProducto.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
                                 </tr>
@@ -47,6 +48,7 @@ require_once 'headPagina.php';
 
                                         <td><?php echo $registro['codigoProducto']; ?></td>
                                         <td><?php echo $registro['nombreProducto']; ?></td>
+                                        <td><?php echo $registro['cantidad']; ?></td>
                                         <td>$<?php echo $registro['valorUnitario']; ?></td>
                                         <td>
                                             <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>

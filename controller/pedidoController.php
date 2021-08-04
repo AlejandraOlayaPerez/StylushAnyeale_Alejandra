@@ -20,6 +20,16 @@ $oPedidoController=new pedidoController();
         case "nuevoPedido":
         $oPedidoController->nuevoPedido();
         break;
+
+        case "actualizarEmpresa":
+        $oPedidoController->actualizarEmpresa();
+        break;
+        case "eliminarEmpresa":
+        $oPedidoController->eliminarEmpresa();
+        break;
+        case "nuevaEmpresa":
+        $oPedidoController->nuevaEmpresa();
+        break;
     }
 
     class pedidoController{
@@ -45,6 +55,9 @@ $oPedidoController=new pedidoController();
         public function nuevoPedido(){
             require_once '../model/pedido.php';
             require_once 'configCrontroller.php';
+
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
     
             $Oconfig=new Config;
             $oPedido=new pedido;
@@ -55,9 +68,11 @@ $oPedidoController=new pedidoController();
             }while(count($existeCodigo)>0);
     
             $oPedido->idPedido=$codigo;
+            $oPedido->idEmpresa=$_GET['idEmpresa'];
             $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
             $oPedido->responsablePedido=$_GET['responsablePedido'];
-            $oPedido->empresa=$_GET['empresa'];
+            $oPedido->Nit=$_GET['Nit'];
+            $oPedido->empresa=$_GET['nombreEmpresa'];
             $oPedido->direccion=$_GET['direccion'];
             $oPedido->fechaPedido=$_GET['fechaPedido'];
             // echo $oPedido->nuevoPedido();
@@ -73,13 +88,107 @@ $oPedidoController=new pedidoController();
                 $oProducto=new producto();
                 $oProducto->consultarProducto($productoLista[$i]);
                 $oProducto->nombreProducto;
-                $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->nombreProducto, $cantidadProductoLista[$i]);
+                $oProducto->codigoProducto;
+                $oProducto->IdProducto;
+                $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i]);
+                $oProducto->cantidad=$cantidadProductoLista[$i];
+                $oProducto->sumarPedido();
+                
             }
-            echo "registro pedido";
+                    header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+h+generado+el+pedido+correctamente");
+            // echo "registro pedido";
             }else{
-                echo "error";
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                // echo "error";
             }
            
+        }
+
+        public function consultarPedidoId($idPedido){
+            require_once '../model/pedido.php';
+            
+            $oPedido=new pedido();
+            $oPedido->consultarPedido($idPedido);
+            return $oPedido;
+    
+        }
+
+        public function consultarProductosIdPedido($idPedido){
+            require_once '../model/detalle.php';
+            
+            $oDetalle=new detalle();
+            $oDetalle->consultarProductosIdPedido($idPedido);
+            return $oDetalle;
+    
+        }
+
+        public function consultarEmpresaId($idEmpresa){
+            require_once '../model/empresa.php';
+            
+            $oEmpresa=new empresa();
+            $oEmpresa->consultarEmpresa($idEmpresa);
+            return $oEmpresa;
+    
+        }
+
+        public function actualizarEmpresa(){
+            require_once '../model/empresa.php';
+
+            $oEmpresa=new empresa();
+            $oEmpresa->idEmpresa=$_GET['idEmpresa'];
+            $oEmpresa->Nit=$_GET['Nit'];
+            $oEmpresa->nombreEmpresa=$_GET['nombreEmpresa'];
+            $oEmpresa->direccion=$_GET['direccion'];
+            $result=$oEmpresa->actualizarEmpresa();
+
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+
+            if($result){
+                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+empresa");
+                // echo "actualizo";
+            }else{
+                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                // echo "error";
+            }
+        }
+
+        public function eliminarEmpresa(){
+            require_once '../model/empresa.php';
+            
+            $oEmpresa=new empresa();
+            $oEmpresa->idEmpresa=$_GET['idEmpresa'];
+            $result=$oEmpresa->eliminarEmpresa();
+    
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+    
+            if ($result) {
+                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+la+empresa");
+            }else{
+                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            }
+        }
+
+        public function nuevaEmpresa(){
+            require_once '../model/empresa.php';
+
+            $oEmpresa= new empresa();
+            $oEmpresa->Nit=$_GET['Nit'];
+            $oEmpresa->nombreEmpresa=$_GET['nombreEmpresa'];
+            $oEmpresa->direccion=$_GET['direccion'];
+            $result=$oEmpresa->nuevaEmpresa();
+
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+
+            if($result){
+                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+correctamente+una+empresa");
+                // echo "registro";
+            }else{
+                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                // echo "error";
+            }
         }
     }
 ?>

@@ -48,35 +48,39 @@ if (isset($_GET['filtroReservaciones'])) {
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header border-0">
-                        <form action="" method="GET">
+                        <form id="formLimpiar" action="" method="GET">
                             <div class="row">
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
-                                    <input type="date" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                                    <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
                                 </div>
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
                                     <select class="form-select" id="" name="filtroDomicilio" onchange="this.form.submit()">
-                                        <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="true" <?php if ($filtroDomicilio) {
-                                                                    echo "selected";
-                                                                } ?>>SI</option>
-                                        <option value="false" <?php if (!$filtroDomicilio) {
-                                                                    echo "selected";
-                                                                } ?>>NO</option>
+                                        <option value=""  selected>Selecciones una opción</option>
+                                        <option value="1" <?php if ($filtroDomicilio == "1") {
+                                                                echo "selected";
+                                                            } ?>>SI</option>
+                                        <option value="0" <?php if ($filtroDomicilio == "0") {
+                                                                echo "selected";
+                                                            } ?>>NO</option>
                                     </select>
                                 </div>
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
                                     <select class="form-select" id="" name="filtroReservaciones" onchange="this.form.submit()">
-                                        <option value="" disabled selected>Selecciones una opción</option>
-                                        <option value="true" <?php if ($filtroReservaciones) {
+                                        <option value=""  selected>Selecciones una opción</option>
+                                        <option value="1" <?php if ($filtroReservaciones == "1") {
                                                                     echo "selected";
                                                                 } ?>>SI</option>
-                                        <option value="false" <?php if (!$filtroReservaciones) {
+                                        <option value="0" <?php if ($filtroReservaciones == "0") {
                                                                     echo "selected";
                                                                 } ?>>NO</option>
                                     </select>
+                                </div>
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                <br>
+                                <input type="button" class="btn btn-light" value="Limpiar Filtros" onclick="limpiarFiltroReservacion()">
                                 </div>
                             </div>
                         </form>
@@ -123,9 +127,8 @@ if (isset($_GET['filtroReservaciones'])) {
                                     <!-- no hay ningun registro -->
                                     <tr>
                                         <td colspan="9" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay reservaciones disponibles</td>
-                                    <?php
-                                }
-                                    ?>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
