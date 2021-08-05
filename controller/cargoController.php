@@ -40,9 +40,6 @@ class cargoController{
 
         $oCargo=new cargo();
         $oCargo->cargo=$_GET['cargo'];
-
-        //este if me permite conocer su el campo esta vacio o trae informacion
-        if ($_GET['cargo']!= ""){// en caso de que traiga informacion, ejecutara la funcion nuevoCargo()
         $result=$oCargo->nuevoCargo();
 
         if ($result) {
@@ -50,12 +47,6 @@ class cargoController{
         }else{
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
-
-        }else{//en caso de que este vacio, mostrara un mensaje de advertencia
-            header("location: ../view/nuevoCargo.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Campo+vacio,+por+favor+complete+la+informacion");
-            //echo "Campo vacio";
-        }
-        
     }
 
     public function consultarCargoPorId($idCargo){

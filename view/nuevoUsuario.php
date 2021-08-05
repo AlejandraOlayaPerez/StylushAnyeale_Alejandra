@@ -4,10 +4,11 @@ require_once '../model/usuario.php';
 require_once '../controller/usuarioController.php';
 $oUsuario = new usuario();
 
-// if (isset($_GET['documentoIdentidad']) != "") {
-//     $oUsuarioController = new usuarioController();
-//     $oUsuario = $oUsuarioController->registrarUsuario();
-// }
+if(isset($_GET['documentoIdentidad']) != "") {
+    echo $_GET['documenntoIdentidad'];
+    $oUsuarioController = new usuarioController();
+    $oUsuario = $oUsuarioController->registrarUsuario();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,7 @@ $oUsuario = new usuario();
             <div class="container-fluid">
                 <?php
                 require_once '../controller/mensajeController.php';
-                if (isset($_GET['mensaje'])) {
+                if(isset($_GET['mensaje'])) {
                     $oMensaje = new mensajes();
                     echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
                 }
@@ -36,7 +37,7 @@ $oUsuario = new usuario();
                             <div class="card-header" style="background-color: rgb(249, 201, 242);">
                                 <label class="card-title">NUEVO USUARIO</label>
                             </div>
-                            <form action="" method="POST">
+                            <form id="formUsuario" action="" method="POST">
                                 <div class="card-body p-0">
                                     <div class="bs-stepper">
                                         <div class="bs-stepper-header" role="tablist">
@@ -66,15 +67,15 @@ $oUsuario = new usuario();
                                                 <div class="row">
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Tipo de Documento</label>
-                                                        <select class="form-select" id="" name="tipoDocumento">
-                                                            <option value="" disabled selected>Selecciones una opción</option>
-                                                            <option value="TI" <?php if ($oUsuario->tipoDocumento == "TI") {
+                                                        <select class="form-control" name="tipoDocumento">
+                                                            <option value="" selected>Selecciones una opción</option>
+                                                            <option value="TI" <?php if($oUsuario->tipoDocumento == "TI") {
                                                                                     echo "selected";
                                                                                 } ?>>Tarjeta de Identidad</option>
-                                                            <option value="CC" <?php if ($oUsuario->tipoDocumento == "CC") {
+                                                            <option value="CC" <?php if($oUsuario->tipoDocumento == "CC") {
                                                                                     echo "selected";
                                                                                 } ?>>Cedula Ciudadanía</option>
-                                                            <option value="CE" <?php if ($oUsuario->tipoDocumento == "CE") {
+                                                            <option value="CE" <?php if($oUsuario->tipoDocumento == "CE") {
                                                                                     echo "selected";
                                                                                 } ?>>Cedula Extranjería</option>
                                                         </select>
@@ -82,27 +83,27 @@ $oUsuario = new usuario();
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Documento Identidad</label>
-                                                        <input type="number" class="form-control" id="" name="documentoIdentidad" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>">
+                                                        <input type="number" class="form-control" name="documentoIdentidad" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Primer Nombre</label>
-                                                        <input type="text" class="form-control" id="" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>">
+                                                        <input type="text" class="form-control" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Segundo Nombre</label>
-                                                        <input type="text" class="form-control" id="" name="segundoNombre" placeholder="Segundo Nombre" value="<?php echo $oUsuario->segundoNombre; ?>">
+                                                        <input type="text" class="form-control" name="segundoNombre" placeholder="Segundo Nombre" value="<?php echo $oUsuario->segundoNombre; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Primer Apellido</label>
-                                                        <input type="text" class="form-control" id="" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>">
+                                                        <input type="text" class="form-control" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Segundo apellido</label>
-                                                        <input type="text" class="form-control" id="" name="segundoApellido" placeholder="Segundo Apellido" value="<?php echo $oUsuario->segundoApellido; ?>">
+                                                        <input type="text" class="form-control" name="segundoApellido" placeholder="Segundo Apellido" value="<?php echo $oUsuario->segundoApellido; ?>">
                                                     </div>
 
                                                 </div>
@@ -117,52 +118,38 @@ $oUsuario = new usuario();
                                                 <div class="row">
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Fecha de Nacimiento</label>
-                                                        <input type="date" class="form-control" id="" name="fechaNacimiento" value="<?php echo $oUsuario->fechaNacimiento; ?>">
+                                                        <input type="date" class="form-control datetimepicker-input" name="fechaNacimiento" value="<?php echo $oUsuario->fechaNacimiento; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Genero</label>
-                                                        <select class="form-select" id="" name="genero">
-                                                            <option value="" disabled selected>Selecciones una opción</option>
-                                                            <option value="Femenino" <?php if ($oUsuario->genero == "Femenino") {
-                                                                                            echo "selected";
-                                                                                        } ?>>Femenino</option>
-                                                            <option value="Masculino" <?php if ($oUsuario->genero == "Masculino") {
-                                                                                            echo "selected";
-                                                                                        } ?>>Masculino</option>
-                                                            <option value="Otro" <?php if ($oUsuario->genero == "Otro") {
-                                                                                        echo "selected";
-                                                                                    } ?>>Otro</option>
+                                                        <select class="form-select" name="genero">
+                                                            <option value="" selected>Selecciones una opción</option>
+                                                            <option value="Femenino" <?php if($oUsuario->genero == "Femenino") {echo "selected";} ?>>Femenino</option>
+                                                            <option value="Masculino" <?php if($oUsuario->genero == "Masculino") {echo "selected";} ?>>Masculino</option>
+                                                            <option value="Otro" <?php if($oUsuario->genero == "Otro") {echo "selected";} ?>>Otro</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Estado Civil</label>
-                                                        <select class="form-select" id="" name="estadoCivil">
-                                                            <option value="" disabled selected>Selecciones una opción</option>
-                                                            <option value="Soltero" <?php if ($oUsuario->estadoCivil == "Soltero") {
-                                                                                        echo "selected";
-                                                                                    } ?>>Soltero</option>
-                                                            <option value="Casado" <?php if ($oUsuario->estadoCivil == "Casado") {
-                                                                                        echo "selected";
-                                                                                    } ?>>Casado</option>
-                                                            <option value="Divorciado" <?php if ($oUsuario->estadoCivil == "Divorciado") {
-                                                                                            echo "selected";
-                                                                                        } ?>>Divorciado</option>
-                                                            <option value="Viudo" <?php if ($oUsuario->estadoCivil == "Viudo") {
-                                                                                        echo "selected";
-                                                                                    } ?>>viudo</option>
+                                                        <select class="form-select" name="estadoCivil">
+                                                            <option value="" selected>Selecciones una opción</option>
+                                                            <option value="Soltero" <?php if($oUsuario->estadoCivil == "Soltero") {echo "selected";} ?>>Soltero</option>
+                                                            <option value="Casado" <?php if($oUsuario->estadoCivil == "Casado") {echo "selected";} ?>>Casado</option>
+                                                            <option value="Divorciado" <?php if($oUsuario->estadoCivil == "Divorciado") {echo "selected";} ?>>Divorciado</option>
+                                                            <option value="Viudo" <?php if($oUsuario->estadoCivil == "Viudo") {echo "selected";} ?>>viudo</option>
                                                         </select>
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Direccion</label>
-                                                        <input type="text" class="form-control" id="" name="direccion" placeholder="Direccion" value="<?php echo $oUsuario->direccion; ?>">
+                                                        <input type="text" class="form-control" name="direccion" placeholder="Direccion" value="<?php echo $oUsuario->direccion; ?>">
                                                     </div>
 
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">Barrio</label>
-                                                        <input type="text" class="form-control" id="" name="barrio" placeholder="Barrio" value="<?php echo $oUsuario->barrio; ?>">
+                                                        <input type="text" class="form-control" name="barrio" placeholder="Barrio" value="<?php echo $oUsuario->barrio; ?>">
                                                     </div>
                                                 </div>
                                                 <br>
@@ -175,11 +162,11 @@ $oUsuario = new usuario();
                                                 <div class="row">
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="" class="form-label">telefono</label>
-                                                        <input type="text" class="form-control" id="" name="telefono" placeholder="Telefono" value="<?php echo $oUsuario->telefono; ?>">
+                                                        <input type="number" class="form-control" name="telefono" placeholder="Telefono" value="<?php echo $oUsuario->telefono; ?>">
                                                     </div>
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="">Correo electronico</label>
-                                                        <input class="form-control" type="email" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->telefono; ?>">
+                                                        <input class="form-control" type="email" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>">
                                                     </div>
                                                     <div class="col col-xl-4 col-md-6 col-12">
                                                         <label for="">Contraseña</label>
@@ -212,3 +199,132 @@ $oUsuario = new usuario();
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+</script>
+
+
+<script>
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+      this.submit();
+    }
+  });
+  $('#formUsuario').validate({
+    
+    rules: {
+      tipoDocumento: {
+        required: true
+      },
+      documentoIdentidad: {
+        required: true,
+        documentoIdentidad: true,
+        minlength: 7,
+        maxlength: 12
+      },
+      primerNombre:{
+        required: true,
+        minlength: 1,
+        maxlength: 50,
+      },
+      segundoNombre:{
+        required: false,
+        minlength: 1,
+        maxlength: 50,
+      },
+      primerApellido:{
+        required: true,
+        minlength: 1,
+        maxlength: 50,
+      },
+      segundoApellido:{
+        required: false,
+        minlength: 1,
+        maxlength: 50,
+      },
+      fechaNacimiento:{
+        required: false,
+      },
+      genero: {
+        required: false,
+      },
+      estadoCivil: {
+        required: false,
+      },
+      direccion: {
+        required: false,
+      },
+      barrio: {
+        required: false,
+      },
+
+      telefono: {
+        required: true,
+        telefono: true
+      },
+      correoElectronico: {
+        required: true,
+        correoElectronico: true
+      },
+      contrasena: {
+        required: true,
+        minlength: 5
+      },
+      
+    },
+    messages: {
+        tipoDocumento: {
+        required: "Por favor, selecciona un Tipo de documento",
+      },
+      documentoIdentidad: {
+        required: "Por favor, ingresa un Documento de identidad",
+        documentoIdentidad: "Ingresa un valor correcto",
+        minlength: "Minimo 10 numeros debe tener el documento",
+        maxlength: "Maximo 12 numeros debe tener el docimento"
+      },
+      primerNombre:{
+        required: "Por favor, complete la informacion",
+        minlength: "Minimo 2 letra para el nombre",
+        maxlength: "Maximo 50 letra para el nombre",
+      },
+      primerApellido:{
+        required: "Por favor, complete la informacion",
+        minlength: "Minimo 2 letra para el nombre",
+        maxlength: "Maximo 50 letra para el nombre",
+      },
+      barrio: {
+        required: true,
+        maxlength: 50,
+      },
+
+      telefono: {
+        required: "Por favor, Ingrese un Telefono"
+      },
+      correoElectronico: {
+        required: "Por favor, Ingrese un Correo Electronico",
+        correoElectronico: "Ingrese un correo electronico valido"
+      },
+      contrasena: {
+        required: "Por favor, Ingrese una contraseña",
+        minlength: "Ingrese una contraseña con mas de 5 caracteres"
+      },
+      
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.col').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>

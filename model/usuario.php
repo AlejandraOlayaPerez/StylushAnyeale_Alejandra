@@ -46,11 +46,21 @@ class usuario{
     //funcion que gestiona el registro de los usuarios
     //las variables dentro de los parentesis son parametros que se requieren al utilizar la funcion
 
+    //esta funcion me trae un usuario diferente a su propio ID pero con igual tipoDocumento y documento Identidad
+    function documentoIdUsuario(){
+        $oConexion= new conectar();
+       $conexion=$oConexion->conexion();
+
+       $sql="SELECT * FROM usuario WHERE idUser!=$this->idUser AND tipoDocumento='$this->tipoDocumento' AND documentoIdentidad=$this->documentoIdentidad";
+
+       $result=mysqli_query($conexion,$sql);
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
 
     public function nuevoUsuario(){
         //funcion para encriptar la contraseña utilizando el metodo md5
         $this->contrasena=md5($this->contrasena);
-        //instancia la clase conecta    r
+        //instancia la clase conecta 
         $oConexion=new conectar();
         //se establece la conexión con la base datos
         $conexion=$oConexion->conexion();
@@ -63,7 +73,6 @@ class usuario{
 
         //ejecuta secuencia, solo cuando es insert.
         $result=mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -76,6 +85,7 @@ class usuario{
        //sentencia que nos permite conocer la existencia de un correo electronico
         $sql="SELECT * FROM usuario WHERE  correoElectronico='$correoElectronico'";
         $result=mysqli_query($conexion, $sql);
+        echo $sql;
         $result=mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         //retorna el numero de los registros
@@ -316,4 +326,3 @@ class usuario{
         return count($result);
     }
 }
-?>

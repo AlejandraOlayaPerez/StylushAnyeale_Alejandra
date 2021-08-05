@@ -18,7 +18,7 @@ require_once 'headPagina.php';
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header border-0">
-                        <h3 class="card-title">Productos</h3>
+                        <p class="card-title">Clientes</p>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">

@@ -48,13 +48,7 @@ class detalle{
     //se ejecuta la consulta
     $result=mysqli_query($conexion,$sql);
     $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
-
-    foreach($result as $registro){ 
-    //se registra la consulta en los parametros
-    $this->codigoProducto=$registro['codigoProducto'];
-    $this->producto=$registro['producto'];
-    $this->cantidad=$registro['cantidad'];
-    }
+return $result;
 }
 }
 

@@ -23,6 +23,16 @@ class empresa{
     return $result;
  }
 
+function NitEmpresa(){
+    $oConexion= new conectar();
+   $conexion=$oConexion->conexion();
+
+   $sql="SELECT * FROM empresa WHERE idEmpresa!=$this->idEmpresa AND Nit='$this->Nit'";
+
+   $result=mysqli_query($conexion,$sql);
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+
  function ListarEmpresa(){
     //se instancia el objeto conectar
     $oConexion=new conectar();

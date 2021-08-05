@@ -26,7 +26,7 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
                         <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR CARGO</label>
                     </div>
-                    <form action="../controller/cargoController.php" method="GET">
+                    <form action="../controller/cargoController.php" method="GET" id="formUsuario">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <input type="text" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
 
@@ -54,3 +54,51 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+        this.submit();
+    }
+  });
+  $('#formUsuario').validate({
+    
+    rules: {
+      cargo: {
+        required: true,
+        minlength: 5,
+        maxlength: 30,
+      },
+      descripcionCargo:{
+        required: true,
+        minlength: 5,
+        maxlength: 100,
+      },
+    },
+    messages: {
+        cargo: {
+        required: "Por favor, ingrese un nombre en el Cargo",
+        minlength: "Minimo 5 letras para el Nombre del Cargo",
+        maxlength: "Maximo 30 letras para el Nombre del Cargo"
+      }, 
+      descripcionCargo: {
+        required: "Por favor, ingrese una descripcion para el cargo",
+        minlength: "Minimo 5 letras para la descripcion del Cargo",
+        maxlength: "Maximo 100 letras para la descripcion del Cargo"
+      },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.col').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>

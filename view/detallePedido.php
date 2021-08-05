@@ -23,15 +23,6 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                <?php
-                require_once '../controller/mensajeController.php';
-
-                if (isset($_GET['mensaje'])) {
-                    $oMensaje = new mensajes();
-                    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-                }
-                ?>
-
                 <div class="card-header" style="background-color: rgb(249, 201, 242);">
                     <label class="card-title" style="-webkit-text-fill-color: black;">DETALLE PEDIDO</label>
                 </div>
@@ -84,15 +75,15 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                                 require_once '../model/detalle.php';
                                 $oPedidoController = new pedidoController();
                                 $oDetalle = $oPedidoController->consultarProductosIdPedido($idPedido);
-                                if ($oDetalle > 0) {
-
+                                if (count($oDetalle) > 0) {
+                                foreach ($oDetalle as $registro) {
                                 ?>
                                     <tr style="background-color: rgba(255, 255, 204, 255);">
-                                        <td><?php echo $oDetalle->codigoProducto; ?></td>
-                                        <td><?php echo $oDetalle->producto; ?></td>
-                                        <td><?php echo $oDetalle->cantidad; ?></td>
+                                        <td><?php echo $registro['codigoProducto']; ?></td>
+                                        <td><?php echo $registro['producto']; ?></td>
+                                        <td><?php echo $registro['cantidad']; ?></td>
                                     </tr>
-                                <?php } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                <?php } } else { //en caso de que no tengo informacion, mostrara un mensaje
                                 ?>
                                     <!-- no hay ningun registro -->
                                     <tr>

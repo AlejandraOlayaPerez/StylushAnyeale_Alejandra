@@ -36,6 +36,38 @@ class cliente{
         return $result;
     }
 
+    public function consultarCorreoElectronico($email){
+        $oConexion=new conectar();
+        $conexion=$oConexion->conexion();
+
+        $sql="SELECT * FROM cliente WHERE email='$email'";
+        $result=mysqli_query($conexion, $sql);
+        $result=mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        //retorna el numero de los registros
+        foreach($result as $registro){
+            $this->idUser=$registro['idCliente'];
+            $this->primerNombre=$registro['primerNombre'];
+            $this->email=$registro['email'];
+        }
+        return count($result); 
+    }
+
+    public function registroUsuario($nombre,$email,$contrasena){
+        //funcion para encriptar la contraseña utilizando el metodo md5
+        $contrasena=md5($contrasena);
+        $oConexion=new conectar();
+        $conexion=$oConexion->conexion();
+
+        //se crea la sentencia sql para registrar el usuario
+        $sql="INSERT INTO cliente (primerNombre, email, contrasena, eliminado) 
+        VALUES ('$nombre', '$email', '$contrasena', false)";
+        
+        //ejecuta secuencia, solo cuando es insert.
+        $result=mysqli_query($conexion, $sql);
+        return $result;
+    }
+
     //esta funcion me permitira mostrar toda la informacion
     function listarCliente(){
         //se instancia el objeto conectar
@@ -126,5 +158,3 @@ class cliente{
         return $result;
     }
 }
-
-?>

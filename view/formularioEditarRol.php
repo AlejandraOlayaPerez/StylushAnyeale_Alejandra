@@ -24,7 +24,7 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']); //la consultaRolId 
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
                         <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR ROL</label>
                     </div>
-                    <form>
+                    <form id="formUsuario" action="../controller/gestionController.php" method="GET">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <input type="text" name="idRol" value="<?php echo $oRol->idRol; ?>" style="display:none;">
                             <div class="row" style="margin: 5px; ">
@@ -50,3 +50,41 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']); //la consultaRolId 
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+    $(function() {
+        $.validator.setDefaults({
+            submitHandler: function() {
+                this.submit();
+            }
+        });
+        $('#formUsuario').validate({
+
+            rules: {
+                nombreRol: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 30,
+                },
+            },
+            messages: {
+                nombreRol: {
+                    required: "Por favor, ingrese un nombre en el Rol",
+                    minlength: "Minimo 5 letras para el Nombre del Rol",
+                    maxlength: "Maximo 30 letras para el Nombre del Rol"
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.col').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    });
+</script>

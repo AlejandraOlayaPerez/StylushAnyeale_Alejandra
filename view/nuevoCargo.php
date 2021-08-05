@@ -32,20 +32,16 @@ $oCargo = new cargo();
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
                         <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO CARGO</label>
                     </div>
-                    <form action="../controller/cargoController.php" method="GET">
+                    <form action="../controller/cargoController.php" method="GET" id="formUsuario">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-                            <div class="row" style="margin: 5px;">
+                            <div class="row">
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="" class="form-label">Cargo</label>
-                                    <input class="form-control" type="text" name="cargo" placeholder="Cargo" minlength="10" maxlength="20">
-                                </div>
-                                <div class="col col-xl-4 col-md-6 col-12">
-                                    <label for="" class="form-label">Descripcion_Cargo</label>
-                                    <input class="form-control" type="text" name="descripcionCargo" placeholder="Descripcion del cargo" minlength="10" maxlength="100">
+                                    <input class="form-control" type="text" name="cargo" placeholder="Cargo">
                                 </div>
                                 <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                                    <button type="submit" class="btn btn-success" name="funcion" value="nuevoCargo"><i class="far fa-save"></i> Guardar</button>
                                     <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                    <button type="submit" class="btn btn-success" name="funcion" value="nuevoCargo"><i class="far fa-save"></i> Registrar Cargo</button>
                                 </div>
                             </div>
                         </div>
@@ -61,3 +57,41 @@ $oCargo = new cargo();
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+        this.submit();
+    }
+  });
+  $('#formUsuario').validate({
+    
+    rules: {
+      cargo: {
+        required: true,
+        minlength: 5,
+        maxlength: 30,
+      },
+    },
+    messages: {
+        cargo: {
+        required: "Por favor, ingrese un nombre en el Cargo",
+        minlength: "Minimo 5 letras para el Nombre del Cargo",
+        maxlength: "Maximo 30 letras para el Nombre del Cargo"
+      },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.col').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>

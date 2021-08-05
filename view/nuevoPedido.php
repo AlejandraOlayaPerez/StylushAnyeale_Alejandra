@@ -13,10 +13,6 @@ $fechaActual = Date("Y-m-d");
 
 $oUsuarioController = new usuarioController();
 $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
-
-// $oPedidoController=new pedidoController();
-// $oEmpresa = $oPedidoController->consultarEmpresaId($idEmpresa);
-
 ?>
 
 <!DOCTYPE html>
@@ -66,16 +62,16 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                 <div class="row" style="margin: 5px;">
                                                     <div class="col-md-6">
                                                         <label for="">Fecha Pedido</label>
-                                                        <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido" value="<?php echo $fechaActual; ?>">
+                                                        <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido" value="<?php echo $fechaActual; ?>" disabled>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <label for="">Documento Identidad</label>
-                                                        <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>">
+                                                        <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" disabled>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="">Responsable del pedido</label>
-                                                        <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido" value="<?php echo $oUsuario->primerNombre . " " . $oUsuario->primerApellido; ?>">
+                                                        <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido" value="<?php echo $oUsuario->primerNombre . " " . $oUsuario->primerApellido; ?>" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin: 5px;">
@@ -96,7 +92,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                                         <table class="table align-middle table-responsive">
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th></th>
+                                                                                    <th><a class="btn btn-info" href="nuevaEmpresa.php"><i class="fas fa-plus-square"></i> Crear</a></th>
                                                                                     <th>Nit</th>
                                                                                     <th>Empresa</th>
                                                                                     <th>Direccion</th>
@@ -131,16 +127,16 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <label for="">Nit: </label>
-                                                                <input class="form-control" type="text" name="Nit" id="Nit">
+                                                                <input class="form-control" type="text" name="Nit" id="Nit" disabled>
                                                                 <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="">Empresa: </label>
-                                                                <input class="form-control" type="text" name="nombreEmpresa" id="nombreEmpresa">
+                                                                <input class="form-control" type="text" name="nombreEmpresa" id="nombreEmpresa" disabled>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="">Direccion: </label>
-                                                                <input class="form-control" type="text" name="direccion" id="direccion">
+                                                                <input class="form-control" type="text" name="direccion" id="direccion" disabled>
                                                             </div>
                                                         </div>
                                                     </div>

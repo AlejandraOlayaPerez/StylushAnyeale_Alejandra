@@ -1,8 +1,14 @@
 <?php
 require_once 'headPagina.php';
 
-$idUser=$_SESSION['idUser'];
+$idUser = $_SESSION['idUser'];
 
+date_default_timezone_set('America/Bogota');
+if (isset($_GET['filtroFecha'])) {
+    $filtroFecha = $_GET['filtroFecha'];
+} else {
+    $filtroFecha = Date("Y-m-d");
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +36,22 @@ $idUser=$_SESSION['idUser'];
 
                 <br>
                 <div class="card">
+                    <div class="card-header border-0">
+                        <form id="formLimpiar" action="" method="GET">
+                            <div class="row">
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedido por fecha: </label>
+                                    <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                                    <br>
+                                    <input type="button" class="btn btn-light" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
+                                </div>
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <br>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
                             <thead>
@@ -45,7 +67,7 @@ $idUser=$_SESSION['idUser'];
                                 require_once '../model/pedido.php';
                                 require_once '../model/conexionDB.php';
                                 $oPedido = new pedido();
-                                $consulta = $oPedido->listarPedido();
+                                $consulta = $oPedido->listarPedido($filtroFecha);
                                 foreach ($consulta as $registro) {
                                 ?>
                                     <tr>
@@ -56,7 +78,6 @@ $idUser=$_SESSION['idUser'];
                                             else echo "NO"; ?></td>
                                         <td>
                                             <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
-                                            <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                             <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
                                         </td>
                                     </tr>

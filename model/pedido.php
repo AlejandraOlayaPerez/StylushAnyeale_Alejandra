@@ -13,6 +13,7 @@ class pedido{
     public $empresa="";
     public $direccion="";
     public $fechaPedido="";
+    public $filtroFecha="";
     public $entregaPedido="";
 
 
@@ -47,14 +48,18 @@ class pedido{
     }
 
     //esta funcion me permitira mostrar toda la informacion
-    function listarPedido(){
+    function listarPedido($filtroFecha){
         //se instancia el objeto conectar
         $oConexion=new conectar();
         //se establece conexión con la base datos
         $conexion=$oConexion->conexion();
 
         //sentencia para seleccionar un pedido
-        $sql="SELECT * FROM pedido WHERE eliminado=false";
+        $sql="SELECT * FROM pedido WHERE eliminado=false ";
+
+        if ($filtroFecha!=""){
+            $sql.="AND fechaPedido='$filtroFecha' ";
+        }
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

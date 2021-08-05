@@ -34,7 +34,7 @@ $oModulo = new modulo();
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
                         <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO MODULO</label>
                     </div>
-                    <form action="../controller/gestionController.php" method="GET">
+                    <form action="../controller/gestionController.php" method="GET" id="formUsuario">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <div class="row" style="margin: 5px;">
                                 <div class="col col-xl-4 col-md-6 col-12">
@@ -59,3 +59,41 @@ $oModulo = new modulo();
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+        this.submit(); 
+    }
+  });
+  $('#formUsuario').validate({
+    
+    rules: {
+      nombreModulo: {
+        required: true,
+        minlength: 5,
+        maxlength: 30,
+      },
+    },
+    messages: {
+        nombreModulo: {
+        required: "Por favor, ingrese un nombre en el Modulo",
+        minlength: "Minimo 5 letras para el Nombre del Modulo",
+        maxlength: "Maximo 30 letras para el Nombre del Modulo"
+      },   
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.col').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>

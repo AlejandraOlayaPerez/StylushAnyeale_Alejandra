@@ -56,7 +56,7 @@ if (isset($_GET['filtroReservaciones'])) {
                                 </div>
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
-                                    <select class="form-select" id="" name="filtroDomicilio" onchange="this.form.submit()">
+                                    <select class="form-select" name="filtroDomicilio" onchange="this.form.submit()">
                                         <option value=""  selected>Selecciones una opción</option>
                                         <option value="1" <?php if ($filtroDomicilio == "1") {
                                                                 echo "selected";
@@ -68,7 +68,7 @@ if (isset($_GET['filtroReservaciones'])) {
                                 </div>
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
-                                    <select class="form-select" id="" name="filtroReservaciones" onchange="this.form.submit()">
+                                    <select class="form-select" name="filtroReservaciones" onchange="this.form.submit()">
                                         <option value=""  selected>Selecciones una opción</option>
                                         <option value="1" <?php if ($filtroReservaciones == "1") {
                                                                     echo "selected";

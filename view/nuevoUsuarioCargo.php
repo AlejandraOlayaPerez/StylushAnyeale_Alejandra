@@ -24,7 +24,7 @@ $idCargo = $_GET['idCargo'];
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
                         <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO ROL</label>
                     </div>
-                    <form action="../controller/cargoController.php" method="GET">
+                    <form id="formUsuario" action="../controller/cargoController.php" method="GET">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <input name="idCargo" value="<?php echo $idCargo; ?>" style="display:none">
                             <?php
@@ -35,7 +35,7 @@ $idCargo = $_GET['idCargo'];
                             <div class="row" style="margin: 5px;">
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <label for="">Nombre Usuario</label>
-                                    <select select class="form-select" name="idUser" id="" required>
+                                    <select select class="form-select" name="idUser">
                                         <option value="" disabled selected>Selecciones una opción</option>
                                         <?php foreach ($result as $registro) {
                                         ?>
@@ -64,3 +64,37 @@ $idCargo = $_GET['idCargo'];
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+      this.submit();
+    }
+  });
+  $('#formUsuario').validate({
+    
+    rules: {
+      idUser: {
+        required: true,
+      },
+    },
+    messages: {
+        nombreRol: {
+        required: "Por favor, Seleccione una de las opciones requeridas",
+      },   
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.col').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>

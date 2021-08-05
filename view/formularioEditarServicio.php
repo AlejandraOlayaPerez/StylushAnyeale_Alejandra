@@ -26,7 +26,7 @@ $oServicio = $oProductoServicioController->consultarServicio($_GET['IdServicio']
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
                         <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR SERVICIO</label>
                     </div>
-                    <form action="../controller/productoServicioController.php" method="GET">
+                    <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
                         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                             <input type="text" name="IdServicio" value="<?php echo $_GET['IdServicio']; ?>" style="display:none">
 
@@ -65,3 +65,53 @@ $oServicio = $oProductoServicioController->consultarServicio($_GET['IdServicio']
 <?php
 require_once 'footer.php';
 ?>
+
+<script>
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function () {
+      this.submit();
+    }
+  });
+  $('#formUsuario').validate({
+    
+    rules: {
+    codigoServicio: {
+        required: true,
+    },
+    nombreServicio: {
+        required: true,
+        minlength: 5,
+        maxlength: 30,
+    },
+    costo: {
+        required: true,
+    },
+},
+    messages: {
+        codigoServicio: {
+        required: "Por favor, complete el campo vacio",
+    },
+    nombreServicio: {
+        required: "Por favor, ingrese un nombre del producto",
+        minlength: "Minimo 5 letras para el Nombrdel producto",
+        maxlength: "Maximo 30 letras para el Nombrdel producto"
+    },
+    costo: {
+        required: "Por favor, complete el campo vacio",
+    },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.col').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    }
+  });
+});
+</script>

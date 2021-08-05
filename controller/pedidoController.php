@@ -117,8 +117,8 @@ $oPedidoController=new pedidoController();
             require_once '../model/detalle.php';
             
             $oDetalle=new detalle();
-            $oDetalle->consultarProductosIdPedido($idPedido);
-            return $oDetalle;
+            $result=$oDetalle->consultarProductosIdPedido($idPedido);
+            return $result;
     
         }
 
@@ -173,14 +173,18 @@ $oPedidoController=new pedidoController();
         public function nuevaEmpresa(){
             require_once '../model/empresa.php';
 
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+            
             $oEmpresa= new empresa();
             $oEmpresa->Nit=$_GET['Nit'];
             $oEmpresa->nombreEmpresa=$_GET['nombreEmpresa'];
             $oEmpresa->direccion=$_GET['direccion'];
-            $result=$oEmpresa->nuevaEmpresa();
 
-            require_once 'mensajeController.php';
-            $oMensaje=new mensajes();
+            if ($oEmpresa->NitEmpresa($oUsuario->Nit)!=0){
+                header("location: ../view/nuevaEmpresa.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Ya+existe+este+Nit+Registrado");
+            }else{
+            $result=$oEmpresa->nuevaEmpresa();
 
             if($result){
                 header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+correctamente+una+empresa");
@@ -189,6 +193,7 @@ $oPedidoController=new pedidoController();
                 header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
                 // echo "error";
             }
+        }
         }
     }
 ?>

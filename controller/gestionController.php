@@ -28,30 +28,28 @@ switch ($funcion) {
         $oGestionController->eliminarUsuarioDeRol();
         break;
 
-
     case "crearModulo":
-        $ogestionController->nuevoModulo();
+        $oGestionController->nuevoModulo();
         break;
     case "actualizarModulo":
-        $ogestionController->actualizarModulo();
+        $oGestionController->actualizarModulo();
         break;
     case "eliminarModulo":
-        $ogestionController->eliminarModulo();
+        $oGestionController->eliminarModulo();
         break;
 
     case "crearPagina":
-        $ogestionController->nuevaPagina();
+        $oGestionController->nuevaPagina();
         break;
     case "actualizarPagina":
-        $ogestionController->actualizarPagina();
+        $oGestionController->actualizarPagina();
         break;
     case "eliminarPagina":
-        $ogestionController->eliminarPagina();
+        $oGestionController->eliminarPagina();
         break;
 
-
     case "ActualizarPermisoDePagina":
-        $ogestionController->ActualizarPermisoDePagina();
+        $oGestionController->ActualizarPermisoDePagina();
         break;
 }
 
@@ -67,18 +65,13 @@ class gestionController
 
         $oRol = new rol();
         $oRol->nombreRol = $_GET['nombreRol'];
-        if ($_GET['nombreRol'] != "") {
-            $result = $oRol->nuevoRol();
-
-            if ($result) {
-                header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");
-                // echo "registro";
-            } else {
-                // echo "error";
-                header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-            }
+    
+        if ($result) {
+            header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");
+            // echo "registro";
         } else {
-            header("location: ../view/nuevoRol.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Campo+vacio,+por+favor+complete+la+informacion");
+            // echo "error";
+            header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -128,7 +121,7 @@ class gestionController
         if ($result) {
             header("location: ../view/listarDetalleRol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+usuario+al+rol");
         } else {
-            header("location: ../CRUD_roles/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "Error al registrar el usuario";
         }
     }
@@ -205,29 +198,25 @@ class gestionController
 
         $oModulo = new modulo();
         $oModulo->nombreModulo = $_GET['nombreModulo'];
-        if ($_GET['nombreModulo'] != "") {
-            $result = $oModulo->nuevoModulo($idModulo);
+        $result = $oModulo->nuevoModulo($idModulo);
 
-            if ($result) {
-                header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
-                //echo "registro modulo";
-            } else {
-                header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-                //echo "error";
-            }
+        if ($result) {
+            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
+            //echo "registro modulo";
         } else {
-            header("location: ../view/nuevoModulo.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Campo+vacio,+por+favor+complete+la+informacion");
+                header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            //echo "error";
         }
     }
 
     public function consultarModuloId($idModulo)
     {
-        require_once '../model/modulo.php'; //esta importando el contendio del archivo para ser usado.
+        require_once '../model/modulo.php';
 
-        $oModulo = new modulo(); //define e instancia el objeto oModulo
-        $oModulo->consultarModulo($idModulo); //Se ejecuta la funcion ActualizarModulo de modulo.php
+        $oModulo = new modulo();
+        $oModulo->consultarModulo($idModulo);
 
-        return $oModulo; //se esta retornando la instancia de usuario que tiene la informacion
+        return $oModulo;
     }
 
     public function actualizarModulo()
@@ -282,18 +271,14 @@ class gestionController
         $oPagina->nombrePagina = $_GET['nombrePagina'];
         $oPagina->enlace = $_GET['enlace'];
         $oPagina->requireSession = $_GET['requireSession'];
-        if ($_GET['nombrePagina'] && $_GET['enlace'] && $_GET['requireSession'] != "") {
-            $result = $oPagina->nuevoPagina();
+        $result = $oPagina->nuevoPagina();
 
-            if ($result) {
-                header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+creo+correctamente+una+nueva+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
-                //echo "nueva pagina";
-            } else {
-                header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
-                //echo "Error al registrar la pagina";
-            }
+        if ($result) {
+            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+creo+correctamente+una+nueva+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            //echo "nueva pagina";
         } else {
-            header("location: ../view/nuevaPagina.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Campo+vacio,+por+favor+complete+la+informacion" . "&idModulo=" . $_GET['idModulo']);
+            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            //echo "Error al registrar la pagina";
         }
     }
 
