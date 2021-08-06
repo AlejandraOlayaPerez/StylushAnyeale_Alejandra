@@ -23,6 +23,8 @@ class usuario{
     public $estadoCivil="";
     public $direccion="";
     public $barrio="";
+    public $numRegistro="";
+    public $numPagina="";
     public $eliminado="";
 
     //estas funciones permitian obtener la informacion de la variable privada
@@ -233,14 +235,25 @@ class usuario{
             return mysqli_fetch_all($result, MYSQLI_ASSOC);
         }
 
-    function listarUsuario(){
+    function listarUsuario($pagina){
         //Instancia clase conectar
         $oConexion=new conectar();
         //Establece conexion con la base de datos.
         $conexion=$oConexion->conexion();
 
-        $sql="SELECT u.idUser, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
-        
+        //Buscar numero de registro por filtros
+        $sql="SELECT count(documentoIdentidad) as numRegistro FROM usuario WHERE eliminado=false;";
+        $result=mysqli_query($conexion, $sql);
+        foreach ($result as $registro){
+            $this->numRegistro=$registro['numRegistro'];
+        }
+
+        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+        $inicio=(($pagina-1)*10);
+        $sql="SELECT u.idUser, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
+        //Limit: Limite de registros que muestra
+        //OFFSET: vamor desde inicia 
+
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
         //organiza resultado de la consulta y lo retorna

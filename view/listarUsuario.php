@@ -1,14 +1,16 @@
 <?php
 require_once 'headPagina.php';
+require_once '../model/usuario.php';
+require_once '../model/conexiondb.php';
+
+$oUsuario = new usuario();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
     <title>USUARIO</title>
 </head>
 
@@ -24,6 +26,35 @@ require_once 'headPagina.php';
                     echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
                 }
                 ?>
+
+                <?php
+                /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                el valor preterminado sera 1*/
+                if(isset($_GET['page'])) $pagina=$_GET['page'];
+                else $pagina=1;
+
+                
+                $consulta=$oUsuario->listarUsuario($pagina);
+                $numeroRegistro=$oUsuario->numRegistro;
+                $numPagina=intval($numeroRegistro/10); //intval, traera el resultado en Entero en caso de que sea decimal
+                if(fmod($numeroRegistro, 10)>0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                // echo $numPagina;
+                ?>
+
+                <div class="card-tools">
+                  <ul class="pagination pagination-sm float-right">
+                    <li class="page-item"><a class="page-link" href="listarUsuario.php?page=1">&laquo;</a></li>
+                    <?php 
+                    for ($i=1; $i<=$numPagina; $i++){
+                    ?>
+                    <li class="page-item"><a class="page-link" href="listarUsuario.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                    <?php
+                    }
+                    ?>
+                    <li class="page-item"><a class="page-link" href="listarUsuario.php?page=<?php echo $numPagina; ?>">&raquo;</a></li>
+                  </ul>
+                </div>
+
                 <div class="card-body table-responsive p-0">
                     <table class="table table-striped table-valign-middle">
                         <thead>
@@ -38,10 +69,6 @@ require_once 'headPagina.php';
                         </thead>
                         <tbody>
                             <?php
-                            require_once '../model/usuario.php';
-                            require_once '../model/conexiondb.php';
-                            $oUsuario = new usuario();
-                            $consulta = $oUsuario->listarUsuario();
                             foreach ($consulta as $registro) {
                             ?>
                                 <tr>
@@ -68,9 +95,6 @@ require_once 'headPagina.php';
             </div>
         </div>
     </div>
-</body>
-
-</html>
 
 <?php
 require_once 'footer.php';

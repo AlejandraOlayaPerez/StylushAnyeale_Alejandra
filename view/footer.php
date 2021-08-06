@@ -1,8 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+<footer class="main-footer">
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.1.0
+    </div>
+  </footer>
+   
+   
+   <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
     <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
     <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
@@ -45,22 +50,7 @@
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/limpiarFormFiltros.js"></script>
     
 
-</head>
 
-<body>
-    <!-- <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <footer class="main-footer">
-                    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-                    All rights reserved.
-                    <div class="float-right d-none d-sm-inline-block">
-                        <b>Version</b> 3.1.0
-                    </div>
-                </footer>
-            </div>
-        </div>
-    </div> -->
 </body>
 
 </html>

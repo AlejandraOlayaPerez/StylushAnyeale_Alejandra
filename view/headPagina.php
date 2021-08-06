@@ -9,7 +9,7 @@ $url = (explode("?", $url))[0];
 require_once '../controller/gestionController.php';
 $oGestionController = new gestionController();
 $oPagina = $oGestionController->consultarPaginaPorUrl($url);
-// echo $Opagina->requireSession;
+// print_r($oPagina);
 
 session_start();
 //Si la pagina requiere sesion y no inice sesion lo devuelve a login
@@ -216,10 +216,3 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
       </div>
     </aside>
   </div>
-</body>
-
-</html>
-
-<?php
-require_once 'footer.php';
-?>

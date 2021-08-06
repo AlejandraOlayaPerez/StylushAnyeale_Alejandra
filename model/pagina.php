@@ -68,28 +68,6 @@ class pagina
         }
     }
 
-    // function consultarPaginaPorUrl($url){
-    //     //se instancia el objeto conectar
-    //     $oConexion= new conectar();
-    //     //se establece conexión con la base de datos
-    //     $conexion=$oConexion->conexion();
-    //     //consulta para retornar un solo registro
-    //     $sql="SELECT * FROM pagina WHERE enlace='$url'";
-    //     //se ejecuta la consulta
-    //     $result=mysqli_query($conexion,$sql);
-    //     $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    //     foreach($result as $registro){ 
-    //         //se registra la consulta en los parametros
-    //         $this->id=$registro['id'];
-    //         $this->idModulo=$registro['idModulo'];
-    //         $this->nombre=$registro['nombre'];
-    //         $this->enlace=$registro['enlace'];
-    //         $this->requireSession=$registro['requireSession'];
-    //         }
-    //         // print_r($result);
-    //         // echo $url;
-    //     }
-
     function actualizarPagina()
     {
         //se instancia el objeto conectar
@@ -121,9 +99,9 @@ class pagina
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         foreach ($result as $registro) {
             //se registra la consulta en los parametros
-            $this->id = $registro['id'];
+            $this->idPagina = $registro['idPagina'];
             $this->idModulo = $registro['idModulo'];
-            $this->nombre = $registro['nombre'];
+            $this->nombrePagina = $registro['nombrePagina'];
             $this->enlace = $registro['enlace'];
             $this->requireSession = $registro['requireSession'];
         }
