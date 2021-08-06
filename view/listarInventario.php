@@ -118,6 +118,7 @@ if (isset($_GET['filtroCodigoProducto'])) {
                                 require_once '../model/factura.php';
                                 $oFactura = new factura();
                                 $result = $oFactura->mostrarFactura($filtroFecha);
+                                if (count($result) > 0) {
                                 foreach ($result as $registro) {
                                 ?>
                                     <tr>
@@ -126,7 +127,17 @@ if (isset($_GET['filtroCodigoProducto'])) {
                                         <td><?php echo $registro['cantidad']; ?></td>
                                         <td><?php echo $registro['costoProducto']; ?></td>
                                     </tr>
-                                <?php } ?>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">Busqueda no encontrada</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
                             </tbody>
                         </table>
                     </div>
@@ -158,6 +169,7 @@ if (isset($_GET['filtroCodigoProducto'])) {
                                 require_once '../model/producto.php';
                                 $oProducto = new producto();
                                 $consulta = $oProducto->listarProducto($filtroCodigoProducto);
+                                if (count($consulta) > 0) {
                                 foreach ($consulta as $registro) {
                                 ?>
                                     <tr>
@@ -168,7 +180,17 @@ if (isset($_GET['filtroCodigoProducto'])) {
                                         <td><?php echo $registro['costoProducto']; ?></td>
                                         <td><?php echo $registro['valorUnitario']; ?></td>
                                     </tr>
-                                <?php } ?>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="6" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">Busqueda no encontrada</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
                             </tbody>
                         </table>
                     </div>

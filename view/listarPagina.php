@@ -55,18 +55,26 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                                 $oPagina = new Pagina();
                                 $oPagina->idModulo = $_GET['idModulo'];
                                 $consulta = $oPagina->listarPagina();
-                                foreach ($consulta as $registro) {
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
                                 ?>
+                                        <tr>
+                                            <input type="text" name="idPagina" value="<?php echo $oPagina->idPagina; ?>" style="display:none;">
+                                            <td><?php echo $registro['nombrePagina']; ?></td>
+                                            <td><?php echo $registro['enlace']; ?></td>
+                                            <td><?php if ($registro['requireSession']) echo "SI";
+                                                else echo "NO"; ?></td>
+                                            <td>
+                                                <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
                                     <tr>
-                                        <input type="text" name="idPagina" value="<?php echo $oPagina->idPagina; ?>" style="display:none;">
-                                        <td><?php echo $registro['nombrePagina']; ?></td>
-                                        <td><?php echo $registro['enlace']; ?></td>
-                                        <td><?php if ($registro['requireSession']) echo "SI";
-                                            else echo "NO"; ?></td>
-                                        <td>
-                                            <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                        </td>
+                                        <td colspan="2" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay paginas disponibles</td>
                                     </tr>
                                 <?php
                                 }

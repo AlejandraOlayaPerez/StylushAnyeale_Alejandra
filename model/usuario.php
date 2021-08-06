@@ -260,6 +260,20 @@ class usuario{
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function reporteUsuario(){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+
+        $sql="SELECT u.documentoIdentidad, CONCAT(u.primerNombre,' ', u.primerApellido), u.correoElectronico, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
+        
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     function consultarUsuario($idUser){
         //Instancia clase conectar
         $oConexion=new conectar();

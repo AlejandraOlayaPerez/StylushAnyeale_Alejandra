@@ -42,6 +42,7 @@ require_once 'headPagina.php';
                                 require_once '../model/producto.php';
                                 $oProducto = new producto();
                                 $consulta = $oProducto->mostrarProducto();
+                                if (count($consulta) > 0) {
                                 foreach ($consulta as $registro) {
                                 ?>
                                     <tr>
@@ -55,7 +56,16 @@ require_once 'headPagina.php';
                                             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                         </td>
                                     </tr>
-                                <?php } ?>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="5" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay productos disponibles</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>

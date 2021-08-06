@@ -41,6 +41,7 @@ require_once 'headPagina.php';
                                 require_once '../model/conexionDB.php';
                                 $oModulo = new modulo();
                                 $consulta = $oModulo->listarModulo();
+                                if (count($consulta) > 0) {
                                 foreach ($consulta as $registro) {
                                 ?>
                                     <tr>
@@ -50,6 +51,13 @@ require_once 'headPagina.php';
                                             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario3" onclick="eliminarModulo(<?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                             <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPagina.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-light"><i class="fas fa-file"></i> Ver. Pagina</a>
                                         </td>
+                                    </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="2" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay modulos disponibles</td>
                                     </tr>
                                 <?php
                                 }

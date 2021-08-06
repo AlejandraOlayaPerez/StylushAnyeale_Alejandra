@@ -26,7 +26,7 @@ require_once 'headPagina.php';
                     echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
                 }
                 ?>
-                
+
                 <div class="card">
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
@@ -42,15 +42,23 @@ require_once 'headPagina.php';
                                 require_once '../model/conexionDB.php';
                                 $oRol = new Rol();
                                 $consulta = $oRol->listarRol();
-                                foreach ($consulta as $registro) {
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
                                 ?>
+                                        <tr>
+                                            <td><?php echo $registro['nombreRol']; ?></td>
+                                            <td>
+                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario2" onclick="eliminarRol(<?php echo $registro['idRol']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarDetalleRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-light"><i class="far fa-user"></i> Ver.Usuario</a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
                                     <tr>
-                                        <td><?php echo $registro['nombreRol']; ?></td>
-                                        <td>
-                                            <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario2" onclick="eliminarRol(<?php echo $registro['idRol']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                            <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarDetalleRol.php?idRol=<?php echo $registro['idRol']; ?>" class="btn btn-light"><i class="far fa-user"></i> Ver.Usuario</a>
-                                        </td>
+                                        <td colspan="2" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay Roles disponibles</td>
                                     </tr>
                                 <?php
                                 }

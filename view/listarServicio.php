@@ -45,6 +45,7 @@ require_once 'headPagina.php';
                                 //instanciamos cargo(), llamando la funcion listarcargo.
                                 $oServicio = new servicio();
                                 $consulta = $oServicio->listarServicio();
+                                if (count($consulta) > 0) {
                                 foreach ($consulta as $registro) {
                                 ?>
                                     <tr>
@@ -56,7 +57,16 @@ require_once 'headPagina.php';
                                             <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarServicio(<?php echo $registro['IdServicio']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                         </td>
                                     </tr>
-                                <?php } ?>
+                                <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="2" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay cargos disponibles</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>

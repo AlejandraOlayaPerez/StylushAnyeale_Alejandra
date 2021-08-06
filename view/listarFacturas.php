@@ -49,6 +49,7 @@ if (isset($_GET['filtroFactura'])) {
                             require_once '../model/conexionDB.php';
                             $oFactura = new factura();
                             $consulta = $oFactura->listarFactura($filtroFactura);
+                            if (count($consulta) > 0) {
                             foreach ($consulta as $registro) {
                             ?>
                                 <tr>
@@ -58,9 +59,17 @@ if (isset($_GET['filtroFactura'])) {
                                     <td><?php echo ($registro['responsableFactura']) ?></td>
                                     <td><a href="" class="btn btn-warning"><i class="fas fa-print"></i> Imprimir</a></td>
                                 </tr>
-                            <?php
-                            }
-                            ?>
+                                <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay facturas disponibles</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
                         </tbody>
                         </table>
                     </div>

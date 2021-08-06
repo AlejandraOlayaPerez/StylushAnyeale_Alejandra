@@ -47,17 +47,27 @@ require_once '../model/modulo.php';
                                 //instanciamos cargo(), llamando la funcion listarcargo.
                                 $oCargo = new cargo();
                                 $consulta = $oCargo->listarCargo();
-                                foreach ($consulta as $registro) {
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
                                 ?>
+                                        <tr>
+                                            <td><?php echo $registro['cargo']; ?></td>
+                                            <td>
+                                                <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                                <a href="mostrarUsuarioCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-user"></i> Ver. Usuario</a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
                                     <tr>
-                                        <td><?php echo $registro['cargo']; ?></td>
-                                        <td>
-                                            <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                            <a href="mostrarUsuarioCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-light"><i class="fas fa-user"></i> Ver. Usuario</a>
-                                        </td>
+                                        <td colspan="2" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay cargos disponibles</td>
                                     </tr>
-                                <?php } ?>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>

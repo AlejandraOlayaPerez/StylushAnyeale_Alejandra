@@ -68,18 +68,26 @@ if (isset($_GET['filtroFecha'])) {
                                 require_once '../model/conexionDB.php';
                                 $oPedido = new pedido();
                                 $consulta = $oPedido->listarPedido($filtroFecha);
-                                foreach ($consulta as $registro) {
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
                                 ?>
+                                        <tr>
+                                            <input type="text" value="<?php echo $registro['idPedido']; ?>" style="display:none;">
+                                            <td><?php echo $registro['idPedido']; ?></td>
+                                            <td><?php echo $registro['fechaPedido']; ?></td>
+                                            <td><?php if ($registro['entregaPedido']) echo "SI";
+                                                else echo "NO"; ?></td>
+                                            <td>
+                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
+                                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
                                     <tr>
-                                        <input type="text" value="<?php echo $registro['idPedido']; ?>" style="display:none;">
-                                        <td><?php echo $registro['idPedido']; ?></td>
-                                        <td><?php echo $registro['fechaPedido']; ?></td>
-                                        <td><?php if ($registro['entregaPedido']) echo "SI";
-                                            else echo "NO"; ?></td>
-                                        <td>
-                                            <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
-                                            <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
-                                        </td>
+                                        <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay pedido disponibles</td>
                                     </tr>
                                 <?php
                                 }

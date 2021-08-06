@@ -33,21 +33,32 @@ require_once 'headPagina.php';
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
+                                <?php
                                 require_once '../model/cliente.php';
-                                $oCliente= new cliente();
-                                $consulta=$oCliente->listarCliente();
-                                foreach ($consulta as $registro){
+                                $oCliente = new cliente();
+                                $consulta = $oCliente->listarCliente();
+                                if (count($consulta) > 0) {
+                                    foreach ($consulta as $registro) {
                                 ?>
-                                <tr style="background-color: rgba(255, 255, 204, 255);">
-                                    <td><?php echo $registro['tipoDocumento']; ?></td>
-                                    <td><?php echo $registro['documentoIdentidad']; ?></td>
-                                    <td><?php echo $registro['primerNombre']." ".$registro['segundoNombre']; ?></td>
-                                    <td><?php echo $registro['primerApellido']." ".$registro['segundoApellido']; ?></td>
-                                    <td><?php echo $registro['email']; ?></td>
-                                    <td><?php echo $registro['telefono']; ?></td>
-                                </tr>
-                                <?php } ?>
+                                        <tr style="background-color: rgba(255, 255, 204, 255);">
+                                            <td><?php echo $registro['tipoDocumento']; ?></td>
+                                            <td><?php echo $registro['documentoIdentidad']; ?></td>
+                                            <td><?php echo $registro['primerNombre'] . " " . $registro['segundoNombre']; ?></td>
+                                            <td><?php echo $registro['primerApellido'] . " " . $registro['segundoApellido']; ?></td>
+                                            <td><?php echo $registro['email']; ?></td>
+                                            <td><?php echo $registro['telefono']; ?></td>
+                                        </tr>
+                                    <?php }
+                                } else { //en caso de que no tengo informacion, mostrara un mensaje
+                                    ?>
+                                    <!-- no hay ningun registro -->
+                                    <tr>
+                                        <td colspan="6" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay Clientes disponibles</td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
                             </tbody>
                         </table>
                     </div>
