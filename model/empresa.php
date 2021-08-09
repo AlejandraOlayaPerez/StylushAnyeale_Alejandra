@@ -7,6 +7,8 @@ class empresa{
  public $nombreEmpresa="";
  public $Nit="";
  public $direccion="";
+ public $numRegistro = "";
+ public $numPagina = "";
 
  function nuevaEmpresa(){
     //instancia la clase conectar
@@ -33,13 +35,22 @@ function NitEmpresa(){
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
- function ListarEmpresa(){
+ function ListarEmpresa($pagina){
     //se instancia el objeto conectar
     $oConexion=new conectar();
     //se establece conexión con la base datos
     $conexion=$oConexion->conexion();
 
-    $sql="SELECT * FROM empresa WHERE eliminado=false";
+    //Buscar numero de registro por filtros
+    $sql = "SELECT count(nombreEmpresa) as numRegistro FROM empresa WHERE eliminado=false;";
+    $result = mysqli_query($conexion, $sql);
+    foreach ($result as $registro) {
+        $this->numRegistro = $registro['numRegistro'];
+    }
+
+    //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+    $inicio = (($pagina - 1) * 10);
+    $sql="SELECT * FROM empresa WHERE eliminado=false LIMIT 10 OFFSET $inicio";
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);

@@ -7,6 +7,8 @@ class modulo{
     //atributos de la tabla modulo
     public $idModulo=0;
     public $nombreModulo="";
+    public $numRegistro = "";
+    public $numPagina = "";
 
     //esta funcion nos permitira crear un nuevo registro en modulo
     function nuevoModulo(){
@@ -26,14 +28,22 @@ class modulo{
     }
 
     //esta funcion me permitira listar todos los modulos
-    function ListarModulo(){
+    function ListarModulo($pagina){
         //se instancia el objeto conectar
         $oConexion=new conectar();
         //se establece conexión con la base datos
         $conexion=$oConexion->conexion();
 
+        //Buscar numero de registro por filtros
+        $sql = "SELECT count(nombreModulo) as numRegistro FROM modulo WHERE eliminado=false;";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+        $inicio = (($pagina - 1) * 10);
         //se registra la consulta sql
-        $sql="SELECT * FROM modulo WHERE eliminado=false";
+        $sql="SELECT * FROM modulo WHERE eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

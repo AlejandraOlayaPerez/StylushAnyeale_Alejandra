@@ -1,7 +1,8 @@
 <?php
 require_once 'headPagina.php';
-require_once '../controller/gestionController.php';
-require_once '../model/modulo.php';
+require_once '../model/cargo.php';
+
+$oCargo = new cargo();
 ?>
 
 <!DOCTYPE html>
@@ -17,18 +18,50 @@ require_once '../model/modulo.php';
 <body>
     <div class="content-wrapper">
         <div class="content-header">
-
-            <?php
-            require_once '../controller/mensajeController.php';
-
-            if (isset($_GET['mensaje'])) {
-                $oMensaje = new mensajes();
-                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-            }
-            ?>
-
             <div class="container-fluid">
-                <div class="card">
+
+                <?php
+                require_once '../controller/mensajeController.php';
+
+                if (isset($_GET['mensaje'])) {
+                    $oMensaje = new mensajes();
+                    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+                }
+                ?>
+
+
+                <?php
+                /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                el valor preterminado sera 1*/
+                if (isset($_GET['page'])) $pagina = $_GET['page'];
+                else $pagina = 1;
+
+                $consulta = $oCargo->listarCargo($pagina);
+                $numeroRegistro = $oCargo->numRegistro;
+                $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
+                if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                // echo $numPagina;
+                ?>
+
+                <div class="card border border-dark">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+                        <h1 class="card-title">Cargo </h1>
+                        <!--Paginacion-->
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right border border-dark">
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCargo.php?page=1">&laquo;</a></li>
+                                <?php
+                                for ($i = 1; $i <= $numPagina; $i++) {
+                                ?>
+                                    <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCargo.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCargo.php?page=<?php echo $numPagina; ?>">&raquo;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
                             <thead>
@@ -38,15 +71,7 @@ require_once '../model/modulo.php';
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <?php
-                                //referenciamos archivos cargo y conexionDB
-                                require_once '../model/cargo.php';
-                                require_once '../model/conexionDB.php';
-
-                                //instanciamos cargo(), llamando la funcion listarcargo.
-                                $oCargo = new cargo();
-                                $consulta = $oCargo->listarCargo();
                                 if (count($consulta) > 0) {
                                     foreach ($consulta as $registro) {
                                 ?>
@@ -79,11 +104,6 @@ require_once '../model/modulo.php';
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
-
-
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -104,3 +124,5 @@ require_once 'footer.php';
         </div>
     </div>
 </div>
+
+<?php require_once 'footer.php'; ?>

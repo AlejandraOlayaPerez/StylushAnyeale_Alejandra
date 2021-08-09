@@ -1,5 +1,8 @@
 <?php
 require_once 'headPagina.php';
+require_once '../model/empresa.php';
+
+$oEmpresa = new empresa();
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +19,7 @@ require_once 'headPagina.php';
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+
                 <?php
                 require_once '../controller/mensajeController.php';
 
@@ -24,10 +28,39 @@ require_once 'headPagina.php';
                     echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
                 }
                 ?>
-                <div class="card">
-                    <div class="card-header border-0">
-                        <h3 class="card-title">Empresas</h3>
+
+                <?php
+                /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                el valor preterminado sera 1*/
+                if (isset($_GET['page'])) $pagina = $_GET['page'];
+                else $pagina = 1;
+
+                $consulta = $oEmpresa->listarEmpresa($pagina);
+                $numeroRegistro = $oEmpresa->numRegistro;
+                $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
+                if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                // echo $numPagina;
+                ?>
+
+                <div class="card border border-dark">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+                        <h1 class="card-title">Empresas </h1>
+                        <!--Paginacion-->
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right border border-dark">
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarEmpresa.php?page=1">&laquo;</a></li>
+                                <?php
+                                for ($i = 1; $i <= $numPagina; $i++) {
+                                ?>
+                                    <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarEmpresa.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarEmpresa.php?page=<?php echo $numPagina; ?>">&raquo;</a></li>
+                            </ul>
+                        </div>
                     </div>
+
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
                             <thead>
@@ -40,13 +73,10 @@ require_once 'headPagina.php';
                             </thead>
                             <tbody>
                                 <?php
-                                require_once '../model/empresa.php';
-                                $oEmpresa = new empresa();
-                                $consulta = $oEmpresa->listarEmpresa();
                                 if (count($consulta) > 0) {
                                     foreach ($consulta as $registro) {
                                 ?>
-                                        <tr style="background-color: rgba(255, 255, 204, 255);">
+                                        <tr>
                                             <td><?php echo $registro['Nit']; ?></td>
                                             <td><?php echo $registro['nombreEmpresa']; ?></td>
                                             <td><?php echo $registro['direccion']; ?></td>

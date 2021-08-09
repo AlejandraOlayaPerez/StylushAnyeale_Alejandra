@@ -1,22 +1,24 @@
 <?php
 require_once 'headPagina.php';
 require_once '../controller/gestionController.php';
-require_once '../model/conexionDB.php';
 require_once '../model/rol.php';
 require_once '../model/usuario.php';
 require_once '../model/pagina.php';
 require_once '../model/modulo.php';
 
 $idRol = $_GET['idRol'];
+
+$oUsuario = new usuario();
+$oRol=new rol();
+
+$oGestionController = new gestionController();
+$oRol = $oGestionController->consultarRolId($_GET['idRol']);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DETALLE ROL</title>
 </head>
 
@@ -24,6 +26,7 @@ $idRol = $_GET['idRol'];
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-primary card-tabs">
@@ -50,14 +53,37 @@ $idRol = $_GET['idRol'];
                                         ?>
 
                                         <?php
-                                        $oGestionController = new gestionController();
-                                        $oRol = $oGestionController->consultarRolId($idRol);
+                                        /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                                        el valor preterminado sera 1*/
+                                        if (isset($_GET['page'])) $pagina = $_GET['page'];
+                                        else $pagina = 1;
+
+                                        $consulta = $oUsuario->mostrarUsuariosPorIdRol($idRol, $pagina);
+                                        $numeroRegistro = $oUsuario->numRegistro;
+                                        $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
+                                        if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                                        // echo $numPagina;
                                         ?>
 
-                                        <div class="card">
-                                            <div class="card-header border-0">
-                                                <label class="card-title">USUARIOS EN EL ROL: <?php echo $oRol->nombreRol; ?> </label>
+                                        <div class="card border border-dark">
+                                            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+                                                <h1 class="card-title">Usuarios en Rol: <?php echo $oRol->nombreRol; ?> </h1>
+                                                <!--Paginacion-->
+                                                <div class="card-tools">
+                                                    <ul class="pagination pagination-sm float-right border border-dark">
+                                                        <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarDetalleRol.php?page=1&idRol=<?php echo $idRol; ?>">&laquo;</a></li>
+                                                        <?php
+                                                        for ($i = 1; $i <= $numPagina; $i++) {
+                                                        ?>
+                                                            <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarDetalleRol.php?page=<?php echo $i; ?>&idRol=<?php echo $idRol; ?>"><?php echo $i; ?></a></li>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                        <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarDetalleRol.php?page=<?php echo $numPagina; ?>&idRol=<?php echo $idRol; ?>">&raquo;</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
+
                                             <div class="card-body table-responsive p-0">
                                                 <table class="table table-striped table-valign-middle">
                                                     <thead>
@@ -70,11 +96,8 @@ $idRol = $_GET['idRol'];
                                                     <tbody>
 
                                                         <?php
-
-                                                        $oGestionController = new gestionController();
-                                                        $registro = $oGestionController->mostrarUsuarioPorIdRol($_GET['idRol']); //la mostrarUsuarioConId  retorna la instancia completa, la esta almacenando en la variable $oRol
-                                                        if (count($registro) > 0) {
-                                                            foreach ($registro as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
+                                                        if (count($consulta) > 0) {
+                                                            foreach ($consulta as $registro) { //tomar de todos los registros que retorna, toma una y almacena en registro
                                                         ?>
                                                                 <tr>
                                                                     <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
@@ -117,7 +140,7 @@ $idRol = $_GET['idRol'];
                                                     foreach ($consulta as $registro) {
                                                     ?>
 
-                                                        <tr data-widget="expandable-table" aria-expanded="true">
+                                                        <tr data-widget="expandable-table" aria-expanded="true" style="background-color: rgb(249, 201, 242);">
                                                             <td>
                                                                 <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                                                                 <?php echo $registro['nombreModulo']; ?>
@@ -126,8 +149,9 @@ $idRol = $_GET['idRol'];
                                                         <tr class="expandable-body">
                                                             <td>
                                                                 <div class="p-0">
-                                                                    <table class="table table-hover">
-                                                                        <tbody>
+                                                                    <div class="card-body table-responsive">
+                                                                        <table class="table table-striped table-valign-middle">
+
                                                                             <?php
                                                                             $oPagina = new pagina();
                                                                             $oPagina->idModulo = $registro['idModulo'];
@@ -139,7 +163,8 @@ $idRol = $_GET['idRol'];
                                                                             $consulta = $oPagina->ListarPagina();
                                                                             foreach ($consulta as $registroPagina) {
                                                                             ?>
-                                                                                <tr>
+
+                                                                                <tr style="background-color: rgb(249, 201, 242);">
                                                                                     <td>
                                                                                         <input type="checkbox" name="arregloPagina[]" value="<?php echo $registroPagina['idPagina']; ?>" <?php if ($oGestionController->verificarPermiso($registroPagina['idPagina'], $idRol)) echo "checked"; ?>>
                                                                                         <!--el checked es complemento a checkbox, que me dice que regitros ya estab seleccionados-->
@@ -149,16 +174,14 @@ $idRol = $_GET['idRol'];
                                                                                     </td>
                                                                                 </tr>
                                                                             <?php } ?>
-                                                                        </tbody>
-                                                                    </table>
+                                                                        </table>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
                                             </table>
-                                            <button type="submit" class="btn btn-success" name="funcion" value="ActualizarPermisoDePagina"><i class="fas fa-edit"></i>Actualizar cambios</button>
-                                            <a href="listarRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                                         </form>
                                     </div>
                                 </div>
@@ -167,34 +190,30 @@ $idRol = $_GET['idRol'];
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="Label">Eliminar</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Esta seguro que desea eliminar el usuario rol?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="../controller/gestionController.php" method="GET">
+                                <input type="text" name="idUser" id="eliminarUsuarioRol" style="display: none;">
+                                <input type="text" name="idRol" value="<?php echo $idRol ?> " style="display:none;">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger" name="funcion" value="eliminarUsuarioDeRol"><i class="fas fa-trash-alt"></i> Eliminar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 
-</html>
-
-<?php
-require_once 'footer.php';
-?>
-
-<div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="Label">Eliminar</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Esta seguro que desea eliminar el usuario rol?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="../controller/gestionController.php" method="GET">
-                    <input type="text" name="idUser" id="eliminarUsuarioRol" style="display: none;">
-                    <input type="text" name="idRol" value="<?php echo $idRol ?> " style="display:none;">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" name="funcion" value="eliminarUsuarioDeRol"><i class="fas fa-trash-alt"></i> Eliminar</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<?php require_once 'footer.php'; ?>

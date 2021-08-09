@@ -44,11 +44,11 @@ $oPedidoController=new pedidoController();
             $oMensaje=new mensajes();
     
             if ($oPedido->validarPedido()) {
-                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
-                // echo "valido";
+                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
+                echo "valido";
             }else{
-                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                // echo "error";
+                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                 echo "error";
             }
         }
     

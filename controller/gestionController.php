@@ -95,12 +95,12 @@ class gestionController
         return $listarDeUsuarioDiferente;
     }
 
-    public function mostrarUsuarioPorIdRol($idRol)
+    public function mostrarUsuarioPorIdRol($idRol, $pagina)
     {
         require_once '../model/usuario.php';
 
         $oUsuario = new usuario();
-        $listaUsuario = $oUsuario->mostrarUsuariosPorIdRol($idRol);
+        $listaUsuario = $oUsuario->mostrarUsuariosPorIdRol($idRol, $pagina);
 
         return $listaUsuario;
     }

@@ -1,5 +1,7 @@
 <?php
 require_once 'headPagina.php';
+require_once '../model/producto.php';
+$oProducto = new producto();
 
 ?>
 
@@ -7,25 +9,55 @@ require_once 'headPagina.php';
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PRODUCTOS</title>
 </head>
 
 <body>
     <div class="content-wrapper">
         <div class="content-header">
-            <?php
-            require_once '../controller/mensajeController.php';
-
-            if (isset($_GET['mensaje'])) {
-                $oMensaje = new mensajes();
-                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-            }
-            ?>
             <div class="container-fluid">
-                <div class="card">
+                <?php
+                require_once '../controller/mensajeController.php';
+
+                if (isset($_GET['mensaje'])) {
+                    $oMensaje = new mensajes();
+                    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+                }
+                ?>
+
+                <?php
+                /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                el valor preterminado sera 1*/
+                if (isset($_GET['page'])) $pagina = $_GET['page'];
+                else $pagina = 1;
+
+                $consulta = $oProducto->mostrarProducto($pagina);
+                $numeroRegistro = $oProducto->numRegistro;
+                $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
+                if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                // echo $numPagina;
+                ?>
+
+
+                <div class="card border border-dark">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+                        <h1 class="card-title">Productos </h1>
+                        <!--Paginacion-->
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right border border-dark">
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarProducto.php?page=1">&laquo;</a></li>
+                                <?php
+                                for ($i = 1; $i <= $numPagina; $i++) {
+                                ?>
+                                    <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarProducto.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarProducto.php?page=<?php echo $numPagina; ?>">&raquo;</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
                             <thead>
@@ -39,23 +71,20 @@ require_once 'headPagina.php';
                             </thead>
                             <tbody>
                                 <?php
-                                require_once '../model/producto.php';
-                                $oProducto = new producto();
-                                $consulta = $oProducto->mostrarProducto();
                                 if (count($consulta) > 0) {
-                                foreach ($consulta as $registro) {
+                                    foreach ($consulta as $registro) {
                                 ?>
-                                    <tr>
+                                        <tr>
 
-                                        <td><?php echo $registro['codigoProducto']; ?></td>
-                                        <td><?php echo $registro['nombreProducto']; ?></td>
-                                        <td><?php echo $registro['cantidad']; ?></td>
-                                        <td>$<?php echo $registro['valorUnitario']; ?></td>
-                                        <td>
-                                            <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                        </td>
-                                    </tr>
+                                            <td><?php echo $registro['codigoProducto']; ?></td>
+                                            <td><?php echo $registro['nombreProducto']; ?></td>
+                                            <td><?php echo $registro['cantidad']; ?></td>
+                                            <td>$<?php echo $registro['valorUnitario']; ?></td>
+                                            <td>
+                                                <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                            </td>
+                                        </tr>
                                     <?php }
                                 } else { //en caso de que no tengo informacion, mostrara un mensaje
                                     ?>

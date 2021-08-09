@@ -4,6 +4,7 @@ require_once 'headPagina.php';
 $idUser = $_SESSION['idUser'];
 
 date_default_timezone_set('America/Bogota');
+$fechaActual = date("Y-m-d");
 if (isset($_GET['filtroFecha'])) {
     $filtroFecha = $_GET['filtroFecha'];
 } else {
@@ -78,8 +79,16 @@ if (isset($_GET['filtroFecha'])) {
                                             <td><?php if ($registro['entregaPedido']) echo "SI";
                                                 else echo "NO"; ?></td>
                                             <td>
+                                                <?php
+                                                if ($registro['entregaPedido'] == 0) {
+                                                ?>
+                                                    <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                                <?php
+                                                } 
+                                                ?>
                                                 <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
                                                 <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
+
                                             </td>
                                         </tr>
                                     <?php }
@@ -106,3 +115,24 @@ if (isset($_GET['filtroFecha'])) {
 <?php
 require_once 'footer.php';
 ?>
+
+<div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Label">Pedido recibido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Su pedido fue recibido?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="../controller/pedidoController.php" method="GET">
+                    <input type="text" name="idPedido" id="validarPedido" style="display:none;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" name="funcion" value="validarPedido"><i class="fas fa-check-circle"></i>Validar Pedido</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

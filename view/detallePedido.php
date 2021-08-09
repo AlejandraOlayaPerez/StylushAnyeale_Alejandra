@@ -3,7 +3,7 @@ require_once 'headPagina.php';
 require_once '../model/pedido.php';
 require_once '../controller/pedidoController.php';
 
-$idPedido = $_GET['idPedido'];
+$idPedido=$_GET['idPedido'];
 
 $oPedidoController = new pedidoController();
 $oPedido = $oPedidoController->consultarPedidoId($idPedido);
@@ -56,7 +56,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                         </div>
                     </div>
                     <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-
+                    <a href="pedidoPDF.php?idPedido=<?php echo $_GET['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-print"></i> Imprimir Pedido</a>
                     </div>
                 </div>
 

@@ -6,6 +6,8 @@ class cargo{
     //atributos de la tabla de cargo
     public $idCargo=0;
     public $cargo="";
+    public $numRegistro = "";
+    public $numPagina = "";
 
     //funcion encargada de insertar un nuevo cargo
     function nuevoCargo(){
@@ -23,14 +25,22 @@ class cargo{
     }
 
     //esta funcion me permitira mostrar toda la informacion
-    function listarCargo(){
+    function listarCargo($pagina){
         //se instancia el objeto conectar
         $oConexion=new conectar();
         //se establece conexión con la base datos
         $conexion=$oConexion->conexion();
 
-        //sentencia para seleccionar un cargo 
-        $sql="SELECT * FROM cargo WHERE eliminado=false";
+        //Buscar numero de registro por filtros
+        $sql="SELECT count(cargo) as numRegistro FROM cargo WHERE eliminado=false;";
+        $result=mysqli_query($conexion, $sql);
+        foreach ($result as $registro){
+            $this->numRegistro=$registro['numRegistro'];
+        }
+
+        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+        $inicio=(($pagina-1)*10);
+        $sql="SELECT * FROM cargo WHERE eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -90,4 +100,3 @@ class cargo{
         return $result;
     }
 }
-?>

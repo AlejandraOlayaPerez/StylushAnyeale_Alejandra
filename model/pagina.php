@@ -9,6 +9,8 @@ class pagina
     public $idModulo = "";
     public $nombrePagina = "";
     public $enlace = "";
+    public $numRegistro = "";
+    public $numPagina = "";
     // public $nombreModulo="";
     // public $idRol="";
     public $requireSession = "";
@@ -31,15 +33,23 @@ class pagina
         return $result;
     }
 
-    function ListarPagina()
+    function ListarPagina($pagina)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
+        //Buscar numero de registro por filtros
+        $sql = "SELECT count(nombreModulo) as numRegistro FROM modulo WHERE eliminado=false;";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+        $inicio = (($pagina - 1) * 10);
         //se registra la consulta sql
-        $sql = "SELECT * FROM pagina WHERE idModulo=$this->idModulo AND eliminado=false";
+        $sql = "SELECT * FROM pagina WHERE idModulo=$this->idModulo AND eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);

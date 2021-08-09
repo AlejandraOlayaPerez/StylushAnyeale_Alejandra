@@ -160,8 +160,8 @@ class usuarioController
     {
         require_once '../model/usuario.php';
 
+        $idUser=$_GET['idUser'];
         $oUsuario = new usuario();
-        $oUsuario->idUser = $_GET['idUser'];
         $oUsuario->idRol = $_GET['idRol'];
         $oUsuario->tipoDocumento = $_GET['tipoDocumento'];
         $oUsuario->documentoIdentidad = $_GET['documentoIdentidad'];
@@ -169,23 +169,25 @@ class usuarioController
         $oUsuario->segundoNombre = $_GET['segundoNombre'];
         $oUsuario->primerApellido = $_GET['primerApellido'];
         $oUsuario->segundoApellido = $_GET['segundoApellido'];
-        $oUsuario->fechaNacimiento = $_GET['fechaNacimiento'];
-        $oUsuario->genero = $_GET['genero'];
-        $oUsuario->direccion = $_GET['direccion'];
-        $oUsuario->barrio = $_GET['barrio'];
         $oUsuario->correoElectronico = $_GET['correoElectronico'];
         $oUsuario->telefono = $_GET['telefono'];
+        $oUsuario->fechaNacimiento = $_GET['fechaNacimiento'];
+        $oUsuario->genero = $_GET['genero'];
         $oUsuario->estadoCivil = $_GET['estadoCivil'];
-        $result = $oUsuario->actualizarUsuario();
+        $oUsuario->direccion = $_GET['direccion'];
+        $oUsuario->barrio = $_GET['barrio'];
+    
+        $result = $oUsuario->actualizarUsuario($idUser);
+
         $fechaActual = Date("Y-m-d");
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
-        if ($oUsuario->fechaNacimiento >= $fechaActual) {
-            // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+fecha+de+nacimiento+no+es+correcta"."idUser=$idUser");
-            echo "fecha incorrecta";
-        } else {
+        // if ($oUsuario->fechaNacimiento >= $fechaActual) {
+        //     // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+fecha+de+nacimiento+no+es+correcta"."idUser=$idUser");
+        //     echo "fecha incorrecta";
+        // } else {
 
             if ($result){ 
                 // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente"."idUser=$idUser");
@@ -194,7 +196,7 @@ class usuarioController
                  echo "error";
                 // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error"."idUser=$idUser");
             }
-        }
+        // }
     }
 
     public function iniciarSesion(){

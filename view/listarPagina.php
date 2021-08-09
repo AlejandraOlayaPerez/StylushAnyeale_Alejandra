@@ -1,10 +1,12 @@
 <?php
 require_once 'headPagina.php';
 require_once '../model/modulo.php';
-require_once '../model/conexionDB.php';
 require_once '../controller/gestionController.php';
+require_once '../model/pagina.php';
 
 $idModulo = $_GET['idModulo'];
+$oPagina = new Pagina();
+$oPagina->idModulo = $_GET['idModulo'];
 
 $oModulo = new modulo();
 
@@ -15,9 +17,6 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAGINA</title>
 </head>
 
@@ -35,9 +34,36 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                 }
                 ?>
 
-                <div class="card">
-                    <div class="card-header border-0">
+                <?php
+                /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                el valor preterminado sera 1*/
+                if (isset($_GET['page'])) $pagina = $_GET['page'];
+                else $pagina = 1;
+
+                $consulta = $oPagina->listarPagina($pagina);
+                $numeroRegistro = $oPagina->numRegistro;
+                $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
+                if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                // echo $numPagina;
+                ?>
+
+                <div class="card border border-dark">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
                         <label class="card-title">Paginas en el modulo: <?php echo $oModulo->nombreModulo; ?> </label>
+                        <!--Paginacion-->
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right border border-dark">
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarPagina.php?page=1&idModulo=<?php echo $_GET['idModulo']; ?>">&laquo;</a></li>
+                                <?php
+                                for ($i = 1; $i <= $numPagina; $i++) {
+                                ?>
+                                    <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarPagina.php?page=<?php echo $i; ?>&idModulo=<?php echo $_GET['idModulo']; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarPagina.php?page=<?php echo $numPagina; ?>&idModulo=<?php echo $_GET['idModulo']; ?>">&raquo;</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
@@ -51,10 +77,6 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                             </thead>
                             <tbody>
                                 <?php
-                                require_once '../model/pagina.php';
-                                $oPagina = new Pagina();
-                                $oPagina->idModulo = $_GET['idModulo'];
-                                $consulta = $oPagina->listarPagina();
                                 if (count($consulta) > 0) {
                                     foreach ($consulta as $registro) {
                                 ?>

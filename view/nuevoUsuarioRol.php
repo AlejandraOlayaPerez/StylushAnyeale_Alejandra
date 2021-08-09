@@ -79,7 +79,7 @@ $(function () {
       },
     },
     messages: {
-        nombreRol: {
+        idUser: {
         required: "Por favor, Seleccione una de las opciones requeridas",
       },   
     },

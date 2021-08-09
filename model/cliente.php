@@ -17,6 +17,8 @@ class cliente{
     public $barrio="";
     public $email="";
     public $telefono="";
+    public $numRegistro = "";
+    public $numPagina = "";
 
     //funcion encargada de insertar un nuevo cliente
     function nuevoCliente(){
@@ -69,14 +71,22 @@ class cliente{
     }
 
     //esta funcion me permitira mostrar toda la informacion
-    function listarCliente(){
+    function listarCliente($pagina){
         //se instancia el objeto conectar
         $oConexion=new conectar();
         //se establece conexión con la base datos
         $conexion=$oConexion->conexion();
 
+        //Buscar numero de registro por filtros
+        $sql="SELECT count(documentoIdentidad) as numRegistro FROM cliente WHERE eliminado=false;";
+        $result=mysqli_query($conexion, $sql);
+        foreach ($result as $registro){
+            $this->numRegistro=$registro['numRegistro'];
+        }
+        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+        $inicio=(($pagina-1)*10);
         //sentencia para seleccionar un cliente
-        $sql="SELECT * FROM cliente WHERE eliminado=false";
+        $sql="SELECT * FROM cliente WHERE eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

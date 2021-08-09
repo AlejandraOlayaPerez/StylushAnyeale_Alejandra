@@ -1,8 +1,7 @@
-<footer class="main-footer">
-    <strong></strong>
-    All rights reserved.
+<footer class="main-footer navbar-black navbar-dark">
+    <strong><h7 style="font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: rgb(249, 201, 242);">"Estilo y confianza te brinda Anyeale"</h7></strong>
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0
+      <b <h7 style="font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: rgb(249, 201, 242);">Aleja(2021)</b>
     </div>
   </footer>
    

@@ -7,6 +7,9 @@ class servicio{
     public $nombreServicio="";
     public $detalleServicio="";
     public $costo="";
+    public $numRegistro = "";
+    public $numPagina = "";
+
 
     function nuevoServicio(){
     //Instancia clase conectar
@@ -21,13 +24,22 @@ class servicio{
     return $result;
 }
 
-    function listarServicio(){
+    function listarServicio($pagina){
     //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="SELECT * FROM servicios WHERE eliminado=false";
+    $sql = "SELECT count(nombreServicio) as numRegistro FROM servicios WHERE eliminado=false;";
+    $result = mysqli_query($conexion, $sql);
+    foreach ($result as $registro) {
+        $this->numRegistro = $registro['numRegistro'];
+    }
+
+    //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+    $inicio = (($pagina - 1) * 10);
+
+    $sql="SELECT * FROM servicios WHERE eliminado=false LIMIT 10 OFFSET $inicio";
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);

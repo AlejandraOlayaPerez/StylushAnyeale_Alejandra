@@ -261,7 +261,6 @@ $(function () {
       barrio: {
         required: false,
       },
-
       telefono: {
         required: true,
         telefono: true
@@ -274,7 +273,6 @@ $(function () {
         required: true,
         minlength: 5
       },
-      
     },
     messages: {
         tipoDocumento: {
@@ -300,7 +298,6 @@ $(function () {
         required: true,
         maxlength: 50,
       },
-
       telefono: {
         required: "Por favor, Ingrese un Telefono"
       },

@@ -1,5 +1,8 @@
 <?php
 require_once 'headPagina.php';
+require_once '../model/cliente.php';
+
+$oCliente = new cliente();
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +19,46 @@ require_once 'headPagina.php';
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card-header border-0">
-                        <p class="card-title">Clientes</p>
+
+                <?php
+                require_once '../controller/mensajeController.php';
+
+                if (isset($_GET['mensaje'])) {
+                    $oMensaje = new mensajes();
+                    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+                }
+                ?>
+
+                <?php
+                /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
+                el valor preterminado sera 1*/
+                if (isset($_GET['page'])) $pagina = $_GET['page'];
+                else $pagina = 1;
+
+                $consulta = $oCliente->listarCliente($pagina);
+                $numeroRegistro = $oCliente->numRegistro;
+                $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
+                if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
+                // echo $numPagina;
+                ?>
+
+                <div class="card border border-dark">
+                    <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+                        <h1 class="card-title">Usuarios </h1>
+                        <!--Paginacion-->
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right border border-dark">
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCliente.php?page=1">&laquo;</a></li>
+                                <?php
+                                for ($i = 1; $i <= $numPagina; $i++) {
+                                ?>
+                                    <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCliente.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                                <?php
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCliente.php?page=<?php echo $numPagina; ?>">&raquo;</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">
@@ -34,13 +74,10 @@ require_once 'headPagina.php';
                             </thead>
                             <tbody>
                                 <?php
-                                require_once '../model/cliente.php';
-                                $oCliente = new cliente();
-                                $consulta = $oCliente->listarCliente();
                                 if (count($consulta) > 0) {
                                     foreach ($consulta as $registro) {
                                 ?>
-                                        <tr style="background-color: rgba(255, 255, 204, 255);">
+                                        <tr>
                                             <td><?php echo $registro['tipoDocumento']; ?></td>
                                             <td><?php echo $registro['documentoIdentidad']; ?></td>
                                             <td><?php echo $registro['primerNombre'] . " " . $registro['segundoNombre']; ?></td>
@@ -58,7 +95,6 @@ require_once 'headPagina.php';
                                 <?php
                                 }
                                 ?>
-                            </tbody>
                             </tbody>
                         </table>
                     </div>
