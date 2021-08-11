@@ -17,9 +17,6 @@ if (isset($_POST['funcion'])) { //Si esta definifa y su valor es diferente a NUL
 
 $oUsuarioController = new usuarioController();
 switch ($funcion) {
-    case "registro":
-    $oUsuarioController->registrarUsuario();
-    break;
     case "habilitarDeshabilitarUsuario":
     $oUsuarioController->habilitarDeshabilitarUsuario();
     break;
@@ -50,7 +47,7 @@ class usuarioController
         $oUsuario->segundoNombre = $_POST['segundoNombre'];
         $oUsuario->primerApellido = $_POST['primerApellido'];
         $oUsuario->segundoApellido = $_POST['segundoApellido'];
-        $oUsuario->fechaNacimiento = $_POST['fechaNacimiento'];
+        echo $oUsuario->fechaNacimiento = $_POST['fechaNacimiento'];
         $oUsuario->genero = $_POST['genero'];
         $oUsuario->direccion = $_POST['direccion'];
         $oUsuario->barrio = $_POST['barrio'];
@@ -59,50 +56,40 @@ class usuarioController
         $oUsuario->correoElectronico = $_POST['correoElectronico'];
         $oUsuario->contrasena = $_POST['contrasena'];
         $confirmarContrasena = $_POST['confirmarContrasena'];
-        $fechaActual = Date("Y-m-d");
+
+        $yearActual = Date("Y");
+
+        //explode: divide el string en arreglo
+        $yearNacimiento=explode("-", $oUsuario->fechaNacimiento);
+        $yearNacimiento=$yearNacimiento[0]; //arreglo 1
+        $edadUsuario=$yearActual-$yearNacimiento; //Operacion para saber edad.
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
-        //este if me permite conocer si el tipoDocumento y documentoIdentidad ya existe.
-        if($oUsuario->documentoIdUsuario($oUsuario->tipoDocumento, $oUsuario->documentoIdentidad)!=0){
-            $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-            $_GET['mensaje']="Ya existe un usuario registrado con el mismo documento de identidad";
-            // echo "documento igual";
+        if($oUsuario->contrasena!=$confirmarContrasena){
+            echo "error contraseña";
         }else{
-            //este if me permite identifica una fecha futura o valida.
-            if ($oUsuario->fechaNacimiento >= $fechaActual) {
-                $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-                $_GET['mensaje']="Fecha invalida, no esta entre los rangos requeridos.";
-                // echo "fecha invalida";
-            } else {
-                //este if confirmara que contraseña y confirmarContraseña sean correctos.
-                if ($oUsuario->contrasena == $confirmarContrasena) {
-                    //este if permite conocer si ya existe un correo electronico
-                    if ($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico) == 0) {
-                        $result = $oUsuario->nuevoUsuario();
-                        if ($result) {
-                            header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+fue+registrado+correctamente");
-                            // echo "correcto";
-                        } else {
-                            $_GET['tipoMensaje']=$oMensaje->tipoError;
-                            $_GET['mensaje']="Se ha producido un error";
-                            // echo "error";
+            if($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico)!=0){
+                echo "error correo";
+            }else{
+                if($oUsuario->documentoIdUsuario($oUsuario->tipoDocumento,$oUsuario->documentoIdentidad)!=0){
+                    echo "error documento";
+                }else{
+                    if($edadUsuario<15){
+                        echo "error fecha nacimiento";
+                    }else{
+                        $result=$oUsuario->nuevoUsuario();
+                        if($result){
+                            echo "registro";
+                        }else{
+                            echo "error registro";
                         }
-                    } else {
-                        $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-                        $_GET['mensaje']="Este correo ya existe";
-                        // echo "correo existe";
                     }
-                } else {
-                    $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-                    $_GET['mensaje']="La contraseña y la confirmacion de contraseña no coinciden";
-                    // echo "contraseña no coincide";
                 }
             }
         }
-
-        return $oUsuario;
+        return $oUsuario; //Cuando se devuelven los datos.
     }
 
     public function habilitarDeshabilitarUsuario()
@@ -126,15 +113,15 @@ class usuarioController
         }
     }
 
-    public function mostrarUsuarioPorIdRol($idRol)
-    {
-        require_once '../model/usuario.php';
+    // public function mostrarUsuarioPorIdRol($idRol)
+    // {
+    //     require_once '../model/usuario.php';
 
-        $oUsuario = new usuario();
-        $listaUsuario = $oUsuario->mostrarUsuariosPorIdRol($idRol);
+    //     $oUsuario = new usuario();
+    //     $listaUsuario = $oUsuario->mostrarUsuariosPorIdRol($idRol);
 
-        return $listaUsuario;
-    }
+    //     return $listaUsuario;
+    // }
 
     public function usuarioDiferenteEnRol($idRol)
     {

@@ -63,6 +63,7 @@ $oUsuario = new usuario();
                         <table class="table table-striped table-valign-middle">
                             <thead>
                                 <tr style="background-color: rgb(249, 201, 242);">
+                                    <th>Tipo Documento</th>
                                     <th>Documento</th>
                                     <th>Nombre y apellido</th>
                                     <th>CorreoElectronico</th>
@@ -77,6 +78,7 @@ $oUsuario = new usuario();
                                     foreach ($consulta as $registro) {
                                 ?>
                                         <tr>
+                                            <td><?php echo $registro['tipoDocumento']; ?></td>
                                             <td><?php echo $registro['documentoIdentidad']; ?></td>
                                             <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
                                             <td><?php echo $registro['correoElectronico']; ?></td>

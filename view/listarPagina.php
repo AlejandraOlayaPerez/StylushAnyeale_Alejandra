@@ -86,6 +86,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                                             <td><?php echo $registro['enlace']; ?></td>
                                             <td><?php if ($registro['requireSession']) echo "SI";
                                                 else echo "NO"; ?></td>
+                                        
                                             <td>
                                                 <a href="formularioEditarPagina.php?idPagina=<?php echo $registro['idPagina']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarPagina(<?php echo $registro['idPagina']; ?>, <?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>

@@ -60,7 +60,7 @@ if (isset($_GET['filtroFecha'])) {
                                     <th>Codigo Pedido</th>
                                     <th>Fecha Pedido</th>
                                     <th>¿Pedido recibido?</th>
-                                    <th><a class="btn btn-info" href="nuevoPedido.php?idUser=<?php echo $idUser; ?>"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
+                                    <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +80,7 @@ if (isset($_GET['filtroFecha'])) {
                                                 else echo "NO"; ?></td>
                                             <td>
                                                 <?php
-                                                if ($registro['entregaPedido'] == 0) {
+                                                if ($registro['fechaPedido']==$fechaActual AND !$registro['entregaPedido']) {
                                                 ?>
                                                     <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <?php

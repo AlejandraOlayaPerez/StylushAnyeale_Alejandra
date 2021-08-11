@@ -58,13 +58,13 @@ class gestionController
 
     public function nuevoRol()
     {
-        require_once '../model/rol.php';
-
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
+        require_once '../model/rol.php';
         $oRol = new rol();
         $oRol->nombreRol = $_GET['nombreRol'];
+        $result=$oRol->nuevoRol();
     
         if ($result) {
             header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");

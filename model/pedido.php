@@ -102,17 +102,18 @@ class pedido{
         $conexion=$oConexion->conexion();
 
         //sentencia que permite actualizar un pedido
-        $sql="UPDATE pedido SET idProducto='$this->idProducto',
-        codigoPedido='$this->codigoPedido',
-        codigoProducto='$this->codigoProducto',
-        producto='$this->producto',
-        cantidad=$this->cantidad,
-        fechaPedido='$this->fechaPedido',
-        entregaPedido='$this->entregaPedido'
+        $sql="UPDATE pedido SET idEmpresa=$this->idEmpresa,
+        documentoIdentidad=$this->documentoIdentidad,
+        responsablePedido='$this->responsablePedido',
+        Nit='$this->Nit',
+        empresa='$this->empresa',
+        direccion='$this->direccion',
+        fechaPedido='$this->fechaPedido'
         WHERE idPedido=$this->idPedido";
             
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
+        echo $sql;
         return $result;
     }
 
@@ -137,11 +138,10 @@ class pedido{
         $conexion=$oConexion->conexion();
 
         //consulta para eliminar el registro
-        $sql="UPDATE pedido SET eliminado=1 WHERE idPedido=$this->idPedido";
+        $sql="UPDATE pedido SET entregaPedido=1 WHERE idPedido=$this->idPedido";
 
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        echo $sql;
         return $result;
     }
 }

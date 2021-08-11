@@ -8,15 +8,16 @@ class detalle{
     public $codigoProducto="";
     public $producto="";
     public $cantidad="";
+    public $precio="";
 
-    function guardarProducto($idPedido, $idProducto,  $codigoProducto,  $producto, $cantidad){
+    function guardarProducto($idPedido, $idProducto,  $codigoProducto,  $producto, $cantidad, $precio){
     //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="INSERT INTO detalle (idProducto, idPedido, codigoProducto, producto, cantidad) 
-    VALUES ($idProducto, $idPedido, '$codigoProducto', '$producto', $cantidad)";
+    $sql="INSERT INTO detalle (idProducto, idPedido, codigoProducto, producto, cantidad, precio) 
+    VALUES ($idProducto, $idPedido, '$codigoProducto', '$producto', $cantidad, $precio)";
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);

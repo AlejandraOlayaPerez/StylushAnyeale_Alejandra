@@ -68,6 +68,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                                     <th>Codigo</th>
                                     <th>Producto</th>
                                     <th>Cantidad</th>
+                                    <th>Precio</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,12 +83,13 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                                         <td><?php echo $registro['codigoProducto']; ?></td>
                                         <td><?php echo $registro['producto']; ?></td>
                                         <td><?php echo $registro['cantidad']; ?></td>
+                                        <td><?php echo $registro['precio']; ?></td>
                                     </tr>
                                 <?php } } else { //en caso de que no tengo informacion, mostrara un mensaje
                                 ?>
                                     <!-- no hay ningun registro -->
                                     <tr>
-                                        <td colspan="3" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay productos en este pedido</td>
+                                        <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay productos en este pedido</td>
                                     </tr>
                                 <?php
                                 }

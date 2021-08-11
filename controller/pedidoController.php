@@ -20,6 +20,9 @@ $oPedidoController=new pedidoController();
         case "nuevoPedido":
         $oPedidoController->nuevoPedido();
         break;
+        case "actualizarPedido":
+        $oPedidoController->actualizarPedido();
+        break;
 
         case "actualizarEmpresa":
         $oPedidoController->actualizarEmpresa();
@@ -44,11 +47,11 @@ $oPedidoController=new pedidoController();
             $oMensaje=new mensajes();
     
             if ($oPedido->validarPedido()) {
-                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
-                echo "valido";
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
+                // echo "valido";
             }else{
-                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                 echo "error";
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                //  echo "error";
             }
         }
     
@@ -89,8 +92,9 @@ $oPedidoController=new pedidoController();
                 $oProducto->consultarProducto($productoLista[$i]);
                 $oProducto->nombreProducto;
                 $oProducto->codigoProducto;
+                $oProducto->costoProducto;
                 $oProducto->IdProducto;
-                $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i]);
+                $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $costroProducto);
                 $oProducto->cantidad=$cantidadProductoLista[$i];
                 $oProducto->sumarPedido();
                 
@@ -102,6 +106,31 @@ $oPedidoController=new pedidoController();
                 // echo "error";
             }
            
+        }
+
+        public function actualizarPedido(){
+            require_once '../model/pedido.php';
+
+            $oPedido=new pedido();
+            $oPedido->idPedido=$_GET['idPedido'];
+            $oPedido->fechaPedido=$_GET['fechaPedido'];
+            $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
+            $oPedido->responsablePedido=$_GET['responsablePedido'];
+            $oPedido->Nit=$_GET['Nit'];
+            $oPedido->empresa=$_GET['empresa'];
+            $oPedido->direccion=$_GET['direccion'];
+            $result=$oPedido->actualizarPedido();
+
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+
+            if($result){
+                // header("location: ../view/formularioEditarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido");
+                echo "actualizo";
+            }else{
+                // header("location: ../view/formularioEditarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                echo "error";
+            }
         }
 
         public function consultarPedidoId($idPedido){

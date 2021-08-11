@@ -9,7 +9,7 @@ require_once '../model/modulo.php';
 $idRol = $_GET['idRol'];
 
 $oUsuario = new usuario();
-$oRol=new rol();
+$oRol = new rol();
 
 $oGestionController = new gestionController();
 $oRol = $oGestionController->consultarRolId($_GET['idRol']);
@@ -136,7 +136,7 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']);
                                                 <tbody>
                                                     <?php
                                                     $oModulo = new modulo();
-                                                    $consulta = $oModulo->listarModulo();
+                                                    $consulta = $oModulo->listarModulo(1);
                                                     foreach ($consulta as $registro) {
                                                     ?>
 
@@ -160,7 +160,7 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']);
                                                                                                                                 ?>"> -->
                                                                             <?php
                                                                             $oPagina->idRol = $idRol;
-                                                                            $consulta = $oPagina->ListarPagina();
+                                                                            $consulta = $oPagina->ListarPagina(1);
                                                                             foreach ($consulta as $registroPagina) {
                                                                             ?>
 

@@ -54,15 +54,14 @@ class usuario
     //las variables dentro de los parentesis son parametros que se requieren al utilizar la funcion
 
     //esta funcion me trae un usuario diferente a su propio ID pero con igual tipoDocumento y documento Identidad
-    function documentoIdUsuario()
-    {
+    function documentoIdUsuario(){
         $oConexion = new conectar();
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM usuario WHERE idUser!=$this->idUser AND tipoDocumento='$this->tipoDocumento' AND documentoIdentidad=$this->documentoIdentidad";
+        $sql = "SELECT * FROM usuario WHERE tipoDocumento='$this->tipoDocumento' AND documentoIdentidad=$this->documentoIdentidad";
 
         $result = mysqli_query($conexion, $sql);
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC)); 
     }
 
     public function nuevoUsuario()
@@ -78,10 +77,12 @@ class usuario
         $sql = "INSERT INTO usuario (idRol, idCargo, tipoDocumento, documentoIdentidad, primerNombre, segundoNombre, primerApellido, segundoApellido,
         fechaNacimiento, correoElectronico, contrasena, telefono, genero, estadoCivil, direccion, barrio, eliminado) 
         VALUES (9, NULL, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
-        '$this->segundoApellido', '$this->fechaNacimiento', '$this->correoElectronico', '$this->contrasena', $this->telefono, '$this->genero', '$this->estadoCivil', '$this->direccion', '$this->barrio', false)";
+        '$this->segundoApellido', '$this->fechaNacimiento', '$this->correoElectronico', '$this->contrasena', $this->telefono, '$this->genero', 
+        '$this->estadoCivil', '$this->direccion', '$this->barrio', false)";
 
         //ejecuta secuencia, solo cuando es insert.
         $result = mysqli_query($conexion, $sql);
+        // echo $sql;
         return $result;
     }
 
@@ -135,7 +136,7 @@ class usuario
         $conexion = $oConexion->conexion();
 
         //Buscar numero de registro por filtros
-        $sql = "SELECT count(documentoIdentidad) as numRegistro FROM usuario WHERE eliminado=false;";
+        $sql = "SELECT count(documentoIdentidad) as numRegistro FROM usuario WHERE idRol=$idRol AND eliminado=false;";
         $result = mysqli_query($conexion, $sql);
         foreach ($result as $registro) {
             $this->numRegistro = $registro['numRegistro'];
@@ -162,7 +163,6 @@ class usuario
         $sql = "UPDATE usuario SET idCargo=$idCargo WHERE idUser=$idUser";
 
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -276,7 +276,7 @@ class usuario
 
         //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT u.idUser, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
+        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
         //Limit: Limite de registros que muestra
         //OFFSET: vamor desde inicia 
 

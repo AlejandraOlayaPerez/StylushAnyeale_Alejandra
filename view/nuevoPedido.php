@@ -102,7 +102,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                                                 <?php
                                                                                 require_once '../model/empresa.php';
                                                                                 $oEmpresa = new empresa();
-                                                                                $consulta = $oEmpresa->listarEmpresa();
+                                                                                $consulta = $oEmpresa->listarEmpresa(1);
                                                                                 foreach ($consulta as $registro) {
                                                                                 ?>
                                                                                     <tr>
@@ -180,7 +180,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                                                 require_once '../model/conexiondb.php';
 
                                                                                 $oProducto = new producto();
-                                                                                $Consulta = $oProducto->mostrarProducto();
+                                                                                $Consulta = $oProducto->mostrarProducto(1);
                                                                                 foreach ($Consulta as $registro) {
                                                                                 ?>
 
