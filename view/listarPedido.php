@@ -60,6 +60,7 @@ if (isset($_GET['filtroFecha'])) {
                                     <th>Codigo Pedido</th>
                                     <th>Fecha Pedido</th>
                                     <th>¿Pedido recibido?</th>
+                                    <th>Pedidos Cancelados</th>
                                     <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
                                 </tr>
                             </thead>
@@ -78,6 +79,8 @@ if (isset($_GET['filtroFecha'])) {
                                             <td><?php echo $registro['fechaPedido']; ?></td>
                                             <td><?php if ($registro['entregaPedido']) echo "SI";
                                                 else echo "NO"; ?></td>
+                                            <td><?php if ($registro['eliminado']) echo "SI";
+                                                else echo "NO"; ?></td>
                                             <td>
                                                 <?php
                                                 if ($registro['fechaPedido']==$fechaActual AND !$registro['entregaPedido']) {
@@ -87,7 +90,8 @@ if (isset($_GET['filtroFecha'])) {
                                                 } 
                                                 ?>
                                                 <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
-                                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>)"><i class="fas fa-check-circle"></i> Validar Pedido</a>
+                                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarPedido" onclick="cancelarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-trash-alt"></i> Cancelar</a>
 
                                             </td>
                                         </tr>
@@ -129,8 +133,34 @@ require_once 'footer.php';
             <div class="modal-footer">
                 <form action="../controller/pedidoController.php" method="GET">
                     <input type="text" name="idPedido" id="validarPedido" style="display:none;">
+                    <input type="text" name="idUser" id="validarUsuario" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="funcion" value="validarPedido"><i class="fas fa-check-circle"></i>Validar Pedido</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="cancelarPedido" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Label">Cancelar Pedido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea cancelar el pedido?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="../controller/pedidoController.php" method="GET">
+                    <input type="text" name="idPedido" id="cancelarPedido" style="">
+                    <input type="text" name="idUser" id="cancelarUsuario" style="display:none;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" name="funcion" value="cancelarPedido"><i class="fas fa-trash-alt"></i>Cancelar Pedido</button>
                 </form>
             </div>
         </div>

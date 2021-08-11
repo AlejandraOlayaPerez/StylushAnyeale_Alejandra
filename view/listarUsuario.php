@@ -4,6 +4,12 @@ require_once '../model/usuario.php';
 require_once '../model/conexiondb.php';
 
 $oUsuario = new usuario();
+
+if (isset($_GET['filtroUsuario'])) {
+    $filtroUsuario = $_GET['filtroUsuario'];
+} else {
+    $filtroUsuario = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +39,7 @@ $oUsuario = new usuario();
                 if (isset($_GET['page'])) $pagina = $_GET['page'];
                 else $pagina = 1;
 
-                $consulta = $oUsuario->listarUsuario($pagina);
+                $consulta = $oUsuario->listarUsuario($pagina, $filtroUsuario);
                 $numeroRegistro = $oUsuario->numRegistro;
                 $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
                 if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
@@ -42,7 +48,14 @@ $oUsuario = new usuario();
 
                 <div class="card border border-dark">
                     <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-                        <h1 class="card-title">Usuarios </h1>
+                        <!--filtro-->
+                        <form action="" method="GET">
+                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Buscar: </label>
+                            <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" 
+                            title="Puedes buscar por el documento o nombre del usuario" name="filtroUsuario" onchange="this.form.submit()" 
+                            value="<?php echo $filtroUsuario; ?>">
+                        </form>
+
                         <!--Paginacion-->
                         <div class="card-tools">
                             <ul class="pagination pagination-sm float-right border border-dark">

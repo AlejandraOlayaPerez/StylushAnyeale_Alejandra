@@ -34,8 +34,14 @@ function validarReservacion(idReservacion){
     document.getElementById("validarReservacion").value=idReservacion;
 }
 
-function comprobarPedido(idPedido){
+function comprobarPedido(idPedido, idUser){
     document.getElementById("validarPedido").value=idPedido;
+    document.getElementById("validarUsuario").value=idUser;
+}
+
+function cancelarPedido(idPedido, idUser){
+    document.getElementById("cancelarPedido").value=idPedido;
+    document.getElementById("cancelarUsuario").value=idUser;
 }
 
 function eliminarEmpleadoCargo(idUser, idCargo){

@@ -62,16 +62,17 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                 <div class="row" style="margin: 5px;">
                                                     <div class="col-md-6">
                                                         <label for="">Fecha Pedido</label>
-                                                        <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido" value="<?php echo $fechaActual; ?>" disabled>
+                                                        <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
+                                                        <input class="form-control" type="date" name="fechaPedido" placeholder="Fecha Pedido" value="<?php echo $fechaActual; ?>" readonly>
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <label for="">Documento Identidad</label>
-                                                        <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" disabled>
+                                                        <input class="form-control" type="number" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" readonly>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="">Responsable del pedido</label>
-                                                        <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido" value="<?php echo $oUsuario->primerNombre . " " . $oUsuario->primerApellido; ?>" disabled>
+                                                        <input class="form-control" type="text" name="responsablePedido" placeholder="Responsable Pedido" value="<?php echo $oUsuario->primerNombre . " " . $oUsuario->primerApellido; ?>" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row" style="margin: 5px;">
@@ -127,16 +128,16 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <label for="">Nit: </label>
-                                                                <input class="form-control" type="text" name="Nit" id="Nit" disabled>
+                                                                <input class="form-control" type="text" name="Nit" id="Nit">
                                                                 <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="">Empresa: </label>
-                                                                <input class="form-control" type="text" name="nombreEmpresa" id="nombreEmpresa" disabled>
+                                                                <input class="form-control" type="text" name="empresa" id="nombreEmpresa">
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="">Direccion: </label>
-                                                                <input class="form-control" type="text" name="direccion" id="direccion" disabled>
+                                                                <input class="form-control" type="text" name="direccion" id="direccion">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -222,7 +223,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                 </div>
                                                 <br>
                                                 <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
-                                                <button style="margin: 5px;" class="btn btn-success" type="submit" name="funcion" value="nuevoPedido"><i class="fas fa-save"></i> Guardar</button>
+                                                <button style="margin: 5px;" class="btn btn-success" type="submit" name="funcion" value="nuevoPedido"><i class="fas fa-save"></i> Registrar Pedido</button>
                                             </div>
                                         </div>
                                     </div>

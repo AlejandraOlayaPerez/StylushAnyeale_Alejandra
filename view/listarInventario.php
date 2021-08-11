@@ -143,7 +143,7 @@ if (isset($_GET['filtroCodigoProducto'])) {
                     </div>
                 </div>
 
-                <hr>
+                <hr> 
 
                 <div class="card">
                     <div class="card-header border-0">

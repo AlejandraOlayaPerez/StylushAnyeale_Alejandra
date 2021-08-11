@@ -260,7 +260,7 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function listarUsuario($pagina)
+    function listarUsuario($pagina, $filtroUsuario)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
@@ -274,14 +274,17 @@ class usuario
             $this->numRegistro = $registro['numRegistro'];
         }
 
-        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio"; //esta consulta me permite traer el NOMBRE ROL DESDE LA TABLA ROL
-        //Limit: Limite de registros que muestra
-        //OFFSET: vamor desde inicia 
+        if ($filtroUsuario!=""){
+            $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio WHERE (documentoIdentidad LIKE '%$filtroUsuario%')";
+        }else{
+            $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio";
+        }
+        
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }

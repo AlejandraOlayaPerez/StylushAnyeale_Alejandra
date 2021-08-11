@@ -55,10 +55,10 @@ class pedido{
         $conexion=$oConexion->conexion();
 
         //sentencia para seleccionar un pedido
-        $sql="SELECT * FROM pedido WHERE eliminado=false ";
+        $sql="SELECT * FROM pedido ";
 
         if ($filtroFecha!=""){
-            $sql.="AND fechaPedido='$filtroFecha' ";
+            $sql.=" WHERE fechaPedido='$filtroFecha' ";
         }
 
         //se ejecuta la consulta en la base de datos
@@ -128,6 +128,7 @@ class pedido{
 
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
+        echo $sql;
         return $result;
     }
 

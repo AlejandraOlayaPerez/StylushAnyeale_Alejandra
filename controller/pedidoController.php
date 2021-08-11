@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Bogota');
 
 //clase usuarioController .php genera las comunicaciones entre las vistas y el modelo
 //contiene las funciones nesesarias para alimentar la vista
@@ -23,6 +24,12 @@ $oPedidoController=new pedidoController();
         case "actualizarPedido":
         $oPedidoController->actualizarPedido();
         break;
+        case "actualizarPedidoProducto":
+        $oPedidoController->actualizarPedidoProducto();
+        break;
+        case "cancelarPedido":
+        $oPedidoController->cancelarPedido();
+        break;
 
         case "actualizarEmpresa":
         $oPedidoController->actualizarEmpresa();
@@ -38,6 +45,15 @@ $oPedidoController=new pedidoController();
     class pedidoController{
         public function validarPedido(){
             require_once '../model/pedido.php';
+
+            $fechaActual= Date("Y-m-d");
+            $horaActual= Date("H:i:s");
+
+            require_once '../model/seguimiento.php';
+            $oSeguimiento= new seguimiento();
+            $oSeguimiento->idUser=$_GET['idUser'];
+            $oSeguimiento->idPedido=$_GET['idPedido'];
+            $oSeguimiento->seguimientoValidarPedido($fechaActual, $horaActual);
     
             $oPedido=new pedido();
             $oPedido->idPedido=$_GET['idPedido'];
@@ -47,11 +63,39 @@ $oPedidoController=new pedidoController();
             $oMensaje=new mensajes();
     
             if ($oPedido->validarPedido()) {
-                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+la+reservacion");
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+el+pedido");
                 // echo "valido";
             }else{
                 header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
                 //  echo "error";
+            }
+        }
+
+        public function cancelarPedido(){
+            require_once '../model/pedido.php';
+
+            $fechaActual= Date("Y-m-d");
+            $horaActual= Date("H:i:s");
+
+            require_once '../model/seguimiento.php';
+            $oSeguimiento= new seguimiento();
+            $oSeguimiento->idUser=$_GET['idUser'];
+            $oSeguimiento->idPedido=$_GET['idPedido'];
+            $oSeguimiento->seguimientoCancelarPedido($fechaActual, $horaActual);
+    
+            $oPedido=new pedido();
+            $oPedido->idPedido=$_GET['idPedido'];
+            $oPedido->eliminarPedido();
+    
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+    
+            if ($oPedido->validarPedido()) {
+                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+cancelado+correctamente+el+pedido");
+                echo "valido";
+            }else{
+                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                echo "error";
             }
         }
     
@@ -68,6 +112,8 @@ $oPedidoController=new pedidoController();
             do {
                 $codigo=$Oconfig->generarCodigoPedido();
                 $existeCodigo=$oPedido->consultarExistePedido($codigo);
+                $fechaActual= Date("Y-m-d");
+                $horaActual= Date("H:i:s");
             }while(count($existeCodigo)>0);
     
             $oPedido->idPedido=$codigo;
@@ -75,17 +121,24 @@ $oPedidoController=new pedidoController();
             $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
             $oPedido->responsablePedido=$_GET['responsablePedido'];
             $oPedido->Nit=$_GET['Nit'];
-            $oPedido->empresa=$_GET['nombreEmpresa'];
+            $oPedido->empresa=$_GET['empresa'];
             $oPedido->direccion=$_GET['direccion'];
             $oPedido->fechaPedido=$_GET['fechaPedido'];
-            // echo $oPedido->nuevoPedido();
+            $result=$oPedido->nuevoPedido();
+
     
-            if ($oPedido->nuevoPedido()){
+            if ($result){
             require_once '../model/detalle.php';
             $oDetalle=new detalle;
             $productoLista=$_GET['productos'];
             $cantidadProductoLista=$_GET['cantidadProducto'];
-        
+
+            require_once '../model/seguimiento.php';
+            $oSeguimiento= new seguimiento();
+            $oSeguimiento->idUser=$_GET['idUser'];
+            $oSeguimiento->idPedido=$codigo;
+            $oSeguimiento->seguimientoNuevoPedido($fechaActual, $horaActual);
+
             for ($i=0; $i<count($productoLista); $i++){
                 require_once '../model/producto.php';
                 $oProducto=new producto();
@@ -94,43 +147,91 @@ $oPedidoController=new pedidoController();
                 $oProducto->codigoProducto;
                 $oProducto->costoProducto;
                 $oProducto->IdProducto;
-                $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $costroProducto);
+                $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->costoProducto);
                 $oProducto->cantidad=$cantidadProductoLista[$i];
                 $oProducto->sumarPedido();
                 
             }
-                    header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+h+generado+el+pedido+correctamente");
+            header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+generado+el+pedido+correctamente");
             // echo "registro pedido";
             }else{
-                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
                 // echo "error";
             }
            
         }
 
         public function actualizarPedido(){
-            require_once '../model/pedido.php';
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
 
+            $fechaActual= Date("Y-m-d");
+            $horaActual= Date("H:i:s");
+
+            require_once '../model/pedido.php';
             $oPedido=new pedido();
             $oPedido->idPedido=$_GET['idPedido'];
             $oPedido->fechaPedido=$_GET['fechaPedido'];
             $oPedido->documentoIdentidad=$_GET['documentoIdentidad'];
             $oPedido->responsablePedido=$_GET['responsablePedido'];
+            $oPedido->idEmpresa=$_GET['idEmpresa'];
             $oPedido->Nit=$_GET['Nit'];
             $oPedido->empresa=$_GET['empresa'];
             $oPedido->direccion=$_GET['direccion'];
             $result=$oPedido->actualizarPedido();
 
-            require_once 'mensajeController.php';
-            $oMensaje=new mensajes();
-
+            require_once '../model/seguimiento.php';
+            $oSeguimiento= new seguimiento();
+            $oSeguimiento->idUser=$_GET['idUser'];
+            $oSeguimiento->idPedido=$_GET['idPedido'];
+            $oSeguimiento->seguimientoEditarPedido($fechaActual, $horaActual);
+           
             if($result){
-                // header("location: ../view/formularioEditarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido");
-                echo "actualizo";
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido");
+                // echo "actualizo";
             }else{
-                // header("location: ../view/formularioEditarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                echo "error";
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                // echo "error";
             }
+        }
+
+        public function actualizarPedidoProducto(){
+            $fechaActual= Date("Y-m-d");
+            $horaActual= Date("H:i:s");
+
+            require_once '../model/seguimiento.php';
+            $oSeguimiento= new seguimiento();
+            $oSeguimiento->idUser=$_GET['idUser'];
+            $oSeguimiento->idPedido=$_GET['idPedido'];
+            $oSeguimiento->seguimientoEditarPedido($fechaActual, $horaActual);
+
+            require_once '../model/detalle.php';
+            $oDetalle=new detalle;
+            $oDetalle->idPedido=$_GET['idPedido'];
+            $oDetalle->idProducto=$_GET['idProducto'];
+            $productoBorrado=$oDetalle->borrarProductoDelPedido();
+            
+            
+                $productoLista=$_GET['productos'];
+                $cantidadProductoLista=$_GET['cantidadProducto'];
+    
+                for ($i=0; $i<count($productoLista); $i++){
+                    require_once '../model/producto.php';
+                    $oProducto=new producto();
+                    $oDetalle->idPedido=$_GET['idPedido'];
+                    $oProducto->consultarProducto($productoLista[$i]);
+                    $oProducto->nombreProducto;
+                    $oProducto->codigoProducto;
+                    $oProducto->costoProducto;
+                    $oProducto->IdProducto;
+                    if($oDetalle->consultarProductoIguales($oDetalle->idPedido, $oDetalle->idProducto)!=0){
+                        $oDetalle->actualizarCantidad();
+                    }else{
+                        $oDetalle->guardarProducto($oDetalle->idPedido, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->costoProducto);
+                    }
+                    $oProducto->cantidad=$cantidadProductoLista[$i];
+                    $oProducto->sumarPedido();
+                }
         }
 
         public function consultarPedidoId($idPedido){
@@ -225,4 +326,3 @@ $oPedidoController=new pedidoController();
         }
         }
     }
-?>
