@@ -40,7 +40,7 @@ function comprobarPedido(idPedido, idUser){
 }
 
 function cancelarPedido(idPedido, idUser){
-    document.getElementById("cancelarPedido").value=idPedido;
+    document.getElementById("pedido").value=idPedido;
     document.getElementById("cancelarUsuario").value=idUser;
 }
 

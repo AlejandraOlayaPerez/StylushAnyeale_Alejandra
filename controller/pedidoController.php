@@ -85,17 +85,17 @@ $oPedidoController=new pedidoController();
     
             $oPedido=new pedido();
             $oPedido->idPedido=$_GET['idPedido'];
-            $oPedido->eliminarPedido();
+            $result=$oPedido->eliminarPedido();
     
             require_once 'mensajeController.php';
             $oMensaje=new mensajes();
     
-            if ($oPedido->validarPedido()) {
-                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+cancelado+correctamente+el+pedido");
-                echo "valido";
+            if ($result) {
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+cancelado+correctamente+el+pedido");
+                // echo "valido";
             }else{
-                // header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                echo "error";
+                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                // echo "error";
             }
         }
     

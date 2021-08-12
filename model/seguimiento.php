@@ -52,14 +52,14 @@ class seguimiento{
         return $result;
     }
 
-    function seguimientoCancelarPedido(){
+    function seguimientoCancelarPedido($fechaSeguimiento, $horaSeguimiento){
         //instancia la clase conectar
         $oConexion=new conectar();
         //se establece la conexión con la base datos
         $conexion=$oConexion->conexion();
 
         $sql="INSERT INTO seguimiento (idUser, idPedido, idFactura, observacion, fechaSeguimiento, horaSeguimiento)
-        VALUES ($this->idUser, $this->idPedido, NULL, 'Ha cancelado un pedido', $'$this->fechaSeguimiento', $this->horaSeguimiento)";
+        VALUES ($this->idUser, $this->idPedido, NULL, 'Ha cancelado un pedido', '$fechaSeguimiento', '$horaSeguimiento')";
         
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);

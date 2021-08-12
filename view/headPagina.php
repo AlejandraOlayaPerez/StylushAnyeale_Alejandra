@@ -123,6 +123,12 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/seguimiento.php" class="nav-link">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Seguimiento</p>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarUsuario.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
