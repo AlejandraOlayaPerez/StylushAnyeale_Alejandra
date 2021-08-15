@@ -3,7 +3,7 @@ date_default_timezone_set('America/Bogota');
 
 //clase usuarioController .php genera las comunicaciones entre las vistas y el modelo
 //contiene las funciones nesesarias para alimentar la vista
-
+return "hola";
 $funcion=""; //Me permite verificar si la variable esta vacia
 //El if diferenciar metodo POST o GET o ninguno.
 if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO(ISSET), almacena la variable funcion.
@@ -29,6 +29,9 @@ $oPedidoController=new pedidoController();
         break;
         case "cancelarPedido":
         $oPedidoController->cancelarPedido();
+        break;
+        case "listarPedido":
+        $oPedidoController->listarPedido();
         break;
 
         case "actualizarEmpresa":
@@ -241,6 +244,16 @@ $oPedidoController=new pedidoController();
             $oPedido->consultarPedido($idPedido);
             return $oPedido;
     
+        }
+
+        public function listarPedido(){
+            require_once '../model/pedido.php';
+
+            $fechaFiltro=$_GET['fechaFiltro'];
+
+            $oPedido=new pedido();
+            $result=$oPedido->listarPedido($fechaFiltro);
+            return $fechaFiltro;
         }
 
         public function consultarProductosIdPedido($idPedido){

@@ -4,7 +4,7 @@
 
 session_start();
 if (isset($_SESSION['idUser'])) {
-  header("location: ../index.php");
+  header("location: paginaPrincipalGerente.php");
   die(); // es para recomendado cuando se hace una rederigir, destruir o cerrar la pagina actual.
 }
 ?>
@@ -51,7 +51,8 @@ if (isset($_SESSION['idUser'])) {
           <label for="">Contraseña</label>
           <input class="form-control" type="password" name="contrasena">
           <br>
-          <button type="submit" class="btn btn-success" name="funcion" value="iniciarSesion">Iniciar Sesión</button>
+          <button type="submit" class="btn btn-success" name="funcion" value="iniciarSesion"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+          <a type="button"  href="paginaPrincipalCliente.php" class="btn btn-dark float-right"><i class="fas fa-home"></i> Volver al inicio</a>
         </form>
         <!-- <br></br>
         <p class="mb-1">

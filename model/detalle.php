@@ -1,5 +1,7 @@
 <?php 
 
+require_once 'conexionDB.php';
+
 class detalle{
     public $idDetalleFactura=0;
     public $idProducto="";
@@ -24,6 +26,22 @@ class detalle{
     return $result;
     }
 
+
+    function guardarProductoServicio($idServicio, $idProducto,  $codigoProducto,  $producto, $cantidad, $precio){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        $sql="INSERT INTO detalle (idProducto, idServicio, codigoProducto, producto, cantidad, precio) 
+        VALUES ($idProducto, $idServicio, '$codigoProducto', '$producto', $cantidad, $precio)";
+    
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        echo $sql;
+        return $result;
+        }
+
     function borrarProductoDelPedido(){
     //se instancia el objeto conectar
     $oConexion=new conectar();
@@ -38,6 +56,21 @@ class detalle{
     return $result;
     }
 
+    function borrarProductoDelServicio(){
+        //se instancia el objeto conectar
+        $oConexion=new conectar();
+        //se establece conexión con la base de datos
+        $conexion=$oConexion->conexion();
+     
+        //consulta para eliminar el registro
+        $sql="UPDATE detalle SET eliminado=1 WHERE idServicio=$this->idServicio AND idProducto=$this->idProducto";
+     
+        //se ejecuta la consulta
+        $result=mysqli_query($conexion,$sql);
+        return $result;
+        }
+    
+
     function consultarProductoIguales($idPedido, $idProducto){
     //Instancia clase conectar
     $oConexion=new conectar();
@@ -50,6 +83,19 @@ class detalle{
     $result = mysqli_query($conexion, $sql);
     return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
+
+    function consultarServiciosIguales($idServicio, $idProducto){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        $sql="SELECT * FROM detalle WHERE IdServicio=$idServicio AND idProducto=$idProducto AND eliminado=false";
+    
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
+        }
 
     function actualizarCantidad(){
     //Instancia clase conectar
@@ -89,6 +135,20 @@ class detalle{
     $result=mysqli_query($conexion,$sql);
     $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
     return $result;
+    }
+
+    function consultarServicioIdServicio($idServicio){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        $sql="SELECT * FROM detalle WHERE idServicio=$idServicio AND eliminado=false";
+    
+        //se ejecuta la consulta
+        $result=mysqli_query($conexion,$sql);
+        $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
+        return $result;
     }
 }
 

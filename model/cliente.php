@@ -4,7 +4,7 @@ require_once 'conexionDB.php';
 class cliente{
 
     //atributos de la tabla de cliente
-    public $idCliente=0;
+    private $idCliente=0;
     public $tipoDocumento="";
     public $documentoIdentidad="";
     public $primerNombre="";
@@ -16,9 +16,30 @@ class cliente{
     public $direccion="";
     public $barrio="";
     public $email="";
+    public $contrasena="";
     public $telefono="";
     public $numRegistro = "";
     public $numPagina = "";
+
+    public function getIdCliente()
+    {
+        return $this->idCliente;
+    }
+
+    public function getNombreUser()
+    {
+        return $this->primerNombre;
+    }
+
+    public function setIdCliente($idCliente)
+    {
+        $this->idCliente = $idCliente;
+    }
+
+    public function setNombre($primerNombre)
+    {
+        $this->primerNombre = $primerNombre . " " . $this->primerApellido;
+    }
 
     //funcion encargada de insertar un nuevo cliente
     function nuevoCliente(){
@@ -37,6 +58,8 @@ class cliente{
         $result=mysqli_query($conexion,$sql);
         return $result;
     }
+
+    
 
     public function consultarCorreoElectronico($email){
         $oConexion=new conectar();
@@ -68,6 +91,27 @@ class cliente{
         //ejecuta secuencia, solo cuando es insert.
         $result=mysqli_query($conexion, $sql);
         return $result;
+    }
+
+    public function iniciarSesion($email, $contrasena)
+    {
+        //funcion para encriptar la contraseña utilizando el metodo md5
+        $contrasena = md5($contrasena);
+        //genera la conexion
+        $oConexion = new conectar();
+        //establece conexion con la base de datos
+        $conexion = $oConexion->conexion();
+        //sentencia para verificar correo y contraseña de usuario
+        $sql = "SELECT * FROM cliente WHERE email='$email' AND contrasena='$contrasena'";
+        //se ejecuta sentencia
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            $this->idCliente = $registro['idCliente'];
+            $this->primerNombre = $registro['primerNombre'];
+            $this->primerApellido = $registro['primerApellido'];
+        }
+        return count($result);
     }
 
     //esta funcion me permitira mostrar toda la informacion

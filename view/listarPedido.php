@@ -100,7 +100,7 @@ if (isset($_GET['filtroFecha'])) {
                                     ?>
                                     <!-- no hay ningun registro -->
                                     <tr>
-                                        <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay pedido disponibles</td>
+                                        <td colspan="5" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay pedido disponibles</td>
                                     </tr>
                                 <?php
                                 }
@@ -157,6 +157,7 @@ require_once 'footer.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/pedidoController.php" method="GET">
+                    <input type="text" name="idPedido" id="cancelarPedido" style="display: none;">
                     <input type="text" name="idPedido" id="pedido" style="display: none;">
                     <input type="text" name="idUser" id="cancelarUsuario" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

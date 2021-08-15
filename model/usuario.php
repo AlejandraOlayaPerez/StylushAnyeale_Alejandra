@@ -284,7 +284,6 @@ class usuario
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }

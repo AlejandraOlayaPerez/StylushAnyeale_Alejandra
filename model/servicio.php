@@ -6,6 +6,7 @@ class servicio{
     public $codigoServicio="";
     public $nombreServicio="";
     public $detalleServicio="";
+    public $cantidadUsar="";
     public $costo="";
     public $numRegistro = "";
     public $numPagina = "";
@@ -17,11 +18,26 @@ class servicio{
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="INSERT INTO servicios (codigoServicio, nombreServicio, detalleServicio, costo, eliminado)
-    VALUES ('$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->costo, false)";
+    $sql="INSERT INTO servicios (IdServicio, codigoServicio, nombreServicio, detalleServicio, costo, eliminado)
+    VALUES ($this->idServicio, '$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->costo, false)";
     
     $result=mysqli_query($conexion,$sql);
+    echo $sql;
     return $result;
+}
+
+function consultarExisteServicio($idServicio){
+    //se instancia el objeto conectar
+    $oConexion=new conectar();
+    //se establece conexión con la base datos
+    $conexion=$oConexion->conexion();
+
+    $sql="SELECT * FROM servicios WHERE IdServicio='$idServicio'";
+
+    //se ejecuta la consulta en la base de datos
+    $result=mysqli_query($conexion,$sql);
+    //organiza resultado de la consulta y lo retorna
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
     function listarServicio($pagina){
@@ -82,11 +98,10 @@ class servicio{
         nombreServicio='$this->nombreServicio',
         detalleServicio='$this->detalleServicio',
         costo=$this->costo
-        WHERE IdServicio=$this->IdServicio";
+        WHERE IdServicio=$this->idServicio";
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        echo $sql;
         return $result;
     }
 
@@ -101,7 +116,6 @@ class servicio{
         
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        echo $sql;
         return $result;
         }
 

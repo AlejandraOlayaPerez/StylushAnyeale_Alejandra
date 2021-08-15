@@ -29,9 +29,6 @@ switch ($funcion) {
     case "cerrarSesion":
     $oUsuarioController->cerrarSesion();
     break; 
-    case "registroCliente":
-    $oUsuarioController->registrarCliente();
-    break;
 }
 
 class usuarioController
@@ -205,7 +202,7 @@ class usuarioController
         $_SESSION['idUser']=$oUsuario->getIdUser();
         $_SESSION['nombreUser']=$oUsuario->getNombreUser();
         // echo "Inicio sesion correctamente";
-            header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/index.php");
+            header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php");
         }else{
             //error al iniciar sesion
             //usuario o contraseña incorrecto
@@ -222,34 +219,5 @@ class usuarioController
         die();
     }
 
-    public function registrarCliente(){
-        require_once '../model/cliente.php';
-
-        $oCliente=new cliente();
-        $nombre=$_POST['nombre'];
-        $email=$_POST['email'];
-        $contrasena=$_POST['contrasena'];
-        $confirmContrasena=$_POST['confirmContrasena'];
-
-        require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
-
-        if($contrasena==$confirmContrasena){
-            if ($oCliente->consultarCorreoElectronico($email)==0){
-            $result=$oCliente->registroUsuario($nombre, $email,$contrasena);
-                if($result){
-                    // echo "Se registro correctamente";
-                }else{
-                    header("location: ../view/registroCliente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                    // echo "error";
-                }
-            }else{
-                header("location: ../view/registroCliente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=El+correo+electronico+ya+existe");
-                // echo "existe correo";
-            }
-        }else{
-            header("location: ../view/registroCliente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden");
-            // echo "contraseña";
-        }
-    }
+   
 }

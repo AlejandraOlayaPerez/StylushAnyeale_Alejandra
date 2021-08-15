@@ -37,7 +37,7 @@
         <p class="login-box-msg">Registrese para continuar</p>
         <p style="color:#FE2D00;">
 
-        <form action="../controller/usuarioController.php" method="POST">
+        <form action="../controller/clienteController.php" method="POST">
           <label for="">Nombre</label>
           <input class="form-control" type="text" name="nombre" requied minlength="5" maxlength="30">
           <label for="">Correo electronico</label>
@@ -52,7 +52,7 @@
         <br></br>
 
         <p class="mb-0">
-          <a href="loginUsuario.php" class="text-center">¿Ya tiene usuario?</a>
+          <a href="loginCliente.php" class="text-center">¿Ya tiene usuario?</a>
         </p>
       </div>
     </div>

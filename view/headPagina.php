@@ -3,7 +3,6 @@
 //en caso contrario no hace nada
 
 $url = str_replace("/anyeale_proyecto/StylushAnyeale_Alejandra/", "", $_SERVER['REQUEST_URI']);
-// echo $url;
 $url = (explode("?", $url))[0];
 
 require_once '../controller/gestionController.php';
@@ -12,6 +11,7 @@ $oPagina = $oGestionController->consultarPaginaPorUrl($url);
 // print_r($oPagina);
 
 session_start();
+require_once '../controller/configCrontroller.php';
 //Si la pagina requiere sesion y no inice sesion lo devuelve a login
 if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   header("location: loginUsuario.php");

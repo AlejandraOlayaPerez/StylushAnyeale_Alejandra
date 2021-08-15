@@ -47,6 +47,7 @@
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/contarTabla.js"></script>
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/limpiarFormFiltros.js"></script>
+    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/listarPedido.js"></script>
     
 
 

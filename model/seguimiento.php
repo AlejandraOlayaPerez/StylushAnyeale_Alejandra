@@ -65,5 +65,22 @@ class seguimiento{
         $result=mysqli_query($conexion,$sql);
         return $result;
     }
+
+    function listarSeguimientos(){
+    //Instancia clase conectar
+    $oConexion=new conectar();
+    //Establece conexion con la base de datos.
+    $conexion=$oConexion->conexion();
+
+    $sql="SELECT u.primerNombre, u.primerApellido, s.idSeguimiento, 
+    s.IdPedido, s.idFactura, s.idUser, s.observacion, s.fechaSeguimiento, s.horaSeguimiento 
+    FROM usuario u INNER JOIN seguimiento s 
+    ON u.idUser=s.idUser";
+
+    //se ejecuta la consulta en la base de datos
+    $result=mysqli_query($conexion,$sql);
+    //organiza resultado de la consulta y lo retorna
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
 }
 ?>

@@ -56,7 +56,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                         </div>
                     </div>
                     <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                    <a href="pedidoPDF.php?idPedido=<?php echo $_GET['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-print"></i> Imprimir Pedido</a>
+                    <a href="pedidoPDF.php?idPedido=<?php echo $_GET['idPedido']; ?>" class="btn btn-info"><i class="fas fa-print"></i> Imprimir Pedido</a>
                     </div>
                 </div>
 

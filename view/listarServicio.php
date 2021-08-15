@@ -80,7 +80,8 @@ $oServicio = new servicio();
                                             <td><?php echo $registro['nombreServicio']; ?></td>
                                             <td>$<?php echo $registro['costo']; ?></td>
                                             <td>
-                                                <a href="formularioEditarServicio.php?IdServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                            <a href="detalleServicio.php?idServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
+                                                <a href="formularioEditarServicio.php?idServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarServicio(<?php echo $registro['IdServicio']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                             </td>
                                         </tr>
