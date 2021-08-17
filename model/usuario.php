@@ -260,6 +260,22 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function listarUsuarioCargoEstilista()
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        //sentencia para seleccionar un empleado 
+        $sql = "SELECT * FROM usuario WHERE idCargo=28 AND eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     function listarUsuario($pagina, $filtroUsuario)
     {
         //Instancia clase conectar

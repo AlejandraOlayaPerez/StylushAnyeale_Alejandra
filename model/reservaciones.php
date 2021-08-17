@@ -35,6 +35,23 @@ class reservacion{
     }
 
     //funcion para mostrar las reservaciones
+    function listarReservacionesPorIdCliente(){
+        //instancia la clase conectar
+        $oConexion=new conectar();
+        //se establece la conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        //sentencia para listar las reservaciones
+        // $sql="SELECT * FROM reservacion WHERE idCliente=$this->idCliente and eliminado=false";
+        $sql="SELECT * FROM reservacion WHERE eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    //funcion para mostrar las reservaciones
     function listarReservaciones(){
         //instancia la clase conectar
         $oConexion=new conectar();

@@ -4,6 +4,12 @@ require_once '../model/servicio.php';
 require_once '../model/conexionDB.php';
 
 $oServicio = new servicio();
+
+if (isset($_GET['filtroCodigoServicio'])) {
+    $filtroCodigoServicio = $_GET['filtroCodigoServicio'];
+} else {
+    $filtroCodigoServicio = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +38,7 @@ $oServicio = new servicio();
                 if (isset($_GET['page'])) $pagina = $_GET['page'];
                 else $pagina = 1;
 
-                $consulta = $oServicio->listarServicio($pagina);
+                $consulta = $oServicio->listarServicio($pagina, $filtroCodigoServicio);
                 $numeroRegistro = $oServicio->numRegistro;
                 $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
                 if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
@@ -41,7 +47,10 @@ $oServicio = new servicio();
 
                 <div class="card border border-dark">
                     <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-                        <h1 class="card-title">Servicios </h1>
+                        <form action="" method="GET">
+                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Busca un servicio: </label>
+                            <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Puedes buscar por codigo o nombre de un servicio" name="filtroCodigoServicio" onchange="this.form.submit()" value="<?php echo $filtroCodigoServicio; ?>">
+                        </form>
                         <!--Paginacion-->
                         <div class="card-tools">
                             <ul class="pagination pagination-sm float-right border border-dark">
@@ -80,7 +89,7 @@ $oServicio = new servicio();
                                             <td><?php echo $registro['nombreServicio']; ?></td>
                                             <td>$<?php echo $registro['costo']; ?></td>
                                             <td>
-                                            <a href="detalleServicio.php?idServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
+                                                <a href="detalleServicio.php?idServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
                                                 <a href="formularioEditarServicio.php?idServicio=<?php echo $registro['IdServicio']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarServicio(<?php echo $registro['IdServicio']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                             </td>

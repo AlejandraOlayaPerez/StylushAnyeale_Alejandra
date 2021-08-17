@@ -48,7 +48,7 @@ class producto{
     }
 
 
-    function mostrarProducto($pagina){
+    function mostrarProducto($pagina, $filtroCodigoProducto){
         //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
@@ -63,7 +63,11 @@ class producto{
     //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
     $inicio = (($pagina - 1) * 10);
 
-    $sql="SELECT * FROM producto WHERE eliminado=false LIMIT 10 OFFSET $inicio";
+    if ($filtroCodigoProducto!=""){
+        $sql="SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$filtroCodigoProducto%' OR nombreProducto LIKE '%$filtroCodigoProducto%') LIMIT 10 OFFSET $inicio";
+    }else{
+        $sql="SELECT * FROM producto WHERE eliminado=false LIMIT 10 OFFSET $inicio";
+    }
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);
@@ -90,7 +94,6 @@ class producto{
         $this->codigoProducto=$registro['codigoProducto'];
         $this->tipoProducto=$registro['tipoProducto'];
         $this->nombreProducto=$registro['nombreProducto'];
-        $this->cantidad=$registro['cantidad'];
         $this->recomendaciones=$registro['recomendaciones'];
         $this->valorUnitario=$registro['valorUnitario'];
         $this->costoProducto=$registro['costoProducto'];
@@ -108,7 +111,6 @@ class producto{
         $sql="UPDATE producto SET codigoProducto='$this->codigoProducto',
         tipoProducto='$this->tipoProducto',
         nombreProducto='$this->nombreProducto',
-        cantidad=$this->cantidad,
         recomendaciones='$this->recomendaciones',
         valorUnitario=$this->valorUnitario,
         costoProducto=$this->costoProducto

@@ -57,7 +57,8 @@ if (isset($_GET['filtroFactura'])) {
                                     <td><?php echo $registro['codigoFactura']; ?></td>
                                     <td><?php echo $registro['fechaFactura']; ?></td>
                                     <td><?php echo ($registro['responsableFactura']) ?></td>
-                                    <td><a href="" class="btn btn-warning"><i class="fas fa-print"></i> Imprimir</a></td>
+                                    <td><a href="" class="btn btn-light"><i class="fas fa-print"></i> Detalle</a>
+                                    <a href="" class="btn btn-warning"><i class="fas fa-print"></i> Imprimir</a></td>
                                 </tr>
                                 <?php }
                                 } else { //en caso de que no tengo informacion, mostrara un mensaje

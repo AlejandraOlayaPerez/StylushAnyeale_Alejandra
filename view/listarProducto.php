@@ -3,6 +3,11 @@ require_once 'headPagina.php';
 require_once '../model/producto.php';
 $oProducto = new producto();
 
+if (isset($_GET['filtroCodigoProducto'])) {
+    $filtroCodigoProducto = $_GET['filtroCodigoProducto'];
+} else {
+    $filtroCodigoProducto = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +36,7 @@ $oProducto = new producto();
                 if (isset($_GET['page'])) $pagina = $_GET['page'];
                 else $pagina = 1;
 
-                $consulta = $oProducto->mostrarProducto($pagina);
+                $consulta = $oProducto->mostrarProducto($pagina, $filtroCodigoProducto);
                 $numeroRegistro = $oProducto->numRegistro;
                 $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
                 if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
@@ -41,7 +46,10 @@ $oProducto = new producto();
 
                 <div class="card border border-dark">
                     <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-                        <h1 class="card-title">Productos </h1>
+                        <form action="" method="GET">
+                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Busca un producto: </label>
+                            <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Puedes buscar por codigo o nombre del producto" name="filtroCodigoProducto" onchange="this.form.submit()" value="<?php echo $filtroCodigoProducto; ?>">
+                        </form>
                         <!--Paginacion-->
                         <div class="card-tools">
                             <ul class="pagination pagination-sm float-right border border-dark">

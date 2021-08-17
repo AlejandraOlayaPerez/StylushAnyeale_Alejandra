@@ -89,7 +89,6 @@ class productoServicioController
         $oProducto->codigoProducto = $_GET['codigoProducto'];
         $oProducto->tipoProducto = $_GET['tipoProducto'];
         $oProducto->nombreProducto = $_GET['nombreProducto'];
-        $oProducto->cantidad = $_GET['cantidad'];
         $oProducto->recomendaciones = $_GET['Recomendaciones'];
         $oProducto->valorUnitario = $_GET['valorUnitario'];
         $oProducto->costoProducto = $_GET['costoProducto'];

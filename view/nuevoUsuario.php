@@ -67,7 +67,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                         <div class="row">
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Tipo de Documento</label>
-                            <select class="form-control" name="tipoDocumento">
+                            <select class="form-control" id="tipoDocumento" name="tipoDocumento" onchange="validarCampo(this);" required>
                               <option value="" selected>Selecciones una opción</option>
                               <option value="TI" <?php if ($oUsuario->tipoDocumento == "TI") {
                                                     echo "selected";
@@ -79,16 +79,19 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                                     echo "selected";
                                                   } ?>>Cedula Extranjería</option>
                             </select>
+                            <span id="tipoDocumentoSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Documento Identidad</label>
-                            <input type="number" class="form-control" name="documentoIdentidad" placeholder="Documento de identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>">
+                            <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" minlength="10" maxlength="13" required>
+                            <span id="documentoIdentidadSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Primer Nombre</label>
-                            <input type="text" class="form-control" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>">
+                            <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>" onchange="validarCampo(this);" minlength="1" maxlength="50" required>
+                            <span id="primerNombreSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
@@ -98,7 +101,8 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Primer Apellido</label>
-                            <input type="text" class="form-control" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>">
+                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="1" maxlength="50" required>
+                            <span id="primerApellidoSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
@@ -108,7 +112,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
                         </div>
                         <br>
-                        <button class="btn btn-info float-right" type="button" onclick="validarFormulario();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
+                        <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                         <a href="listarUsuario.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
                         </br>
                       </div>
@@ -167,7 +171,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                           </div>
                         </div>
                         <br>
-                        <button class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
+                        <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
                         <button class="btn btn-info float-right" type="button" onclick="stepper.next()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                       </div>
 
@@ -176,15 +180,18 @@ if (isset($_POST['documentoIdentidad']) != "") {
                         <div class="row">
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">telefono</label>
-                            <input type="number" class="form-control" name="telefono" placeholder="Telefono" value="<?php echo $oUsuario->telefono; ?>">
+                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oUsuario->telefono; ?>" onchange="validarCampo(this);" minlength="10" maxlength="12" required>
+                            <span id="telefonoSpan"></span>
                           </div>
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Correo electronico</label>
-                            <input class="form-control" type="email" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>">
+                            <input class="form-control" type="email" id="correoElectronico" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>" onchange="validarCampo(this);" required>
+                            <span id="correoElectronicoSpan"></span>
                           </div>
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Contraseña</label>
-                            <input class="form-control" type="password" name="contrasena">
+                            <input class="form-control" type="password" id="contrasena" name="contrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                            <span id="contrasenaSpan"></span>
                           </div>
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Confirmar contraseña</label>
@@ -193,7 +200,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                         </div>
                         <br>
 
-                        <button type="submit" class="btn btn-success float-right"><i class="fas fa-save"></i> Registrar usuario</button>
+                        <button type="button" class="btn btn-success float-right" onclick="validarPaginaFinal();"><i class="fas fa-save"></i> Registrar usuario</button>
                         <button class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
                       </div>
                     </div>
@@ -221,125 +228,102 @@ require_once 'footer.php';
 </script>
 
 
+
 <script>
-  function validarFormulario(){
-    $('#formUsuario').validate({
-    
-    rules: {
-      tipoDocumento: {
-        required: true
-      },
-      documentoIdentidad: {
-        required: true,
-        documentoIdentidad: true,
-        minlength: 7,
-        maxlength: 12
-      },
-      primerNombre:{
-        required: true,
-        minlength: 1,
-        maxlength: 50,
-      },
-      segundoNombre:{
-        required: false,
-        minlength: 1,
-        maxlength: 50,
-      },
-      primerApellido:{
-        required: true,
-        minlength: 1,
-        maxlength: 50,
-      },
-      segundoApellido:{
-        required: false,
-        minlength: 1,
-        maxlength: 50,
-      },
-      fechaNacimiento:{
-        required: false,
-      },
-      genero: {
-        required: false,
-      },
-      estadoCivil: {
-        required: false,
-      },
-      direccion: {
-        required: false,
-      },
-      barrio: {
-        required: false,
-      },
-      telefono: {
-        required: true,
-        telefono: true
-      },
-      correoElectronico: {
-        required: true,
-        correoElectronico: true
-      },
-      contrasena: {
-        required: true,
-        minlength: 5
-      },
-    },
-    messages: {
-        tipoDocumento: {
-        required: "Por favor, selecciona un Tipo de documento",
-      },
-      documentoIdentidad: {
-        required: "Por favor, ingresa un Documento de identidad",
-        documentoIdentidad: "Ingresa un valor correcto",
-        minlength: "Minimo 10 numeros debe tener el documento",
-        maxlength: "Maximo 12 numeros debe tener el docimento"
-      },
-      primerNombre:{
-        required: "Por favor, complete la informacion",
-        minlength: "Minimo 2 letra para el nombre",
-        maxlength: "Maximo 50 letra para el nombre",
-      },
-      primerApellido:{
-        required: "Por favor, complete la informacion",
-        minlength: "Minimo 2 letra para el nombre",
-        maxlength: "Maximo 50 letra para el nombre",
-      },
-      barrio: {
-        required: true,
-        maxlength: 50,
-      },
-      telefono: {
-        required: "Por favor, Ingrese un Telefono"
-      },
-      correoElectronico: {
-        required: "Por favor, Ingrese un Correo Electronico",
-        correoElectronico: "Ingrese un correo electronico valido"
-      },
-      contrasena: {
-        required: "Por favor, Ingrese una contraseña",
-        minlength: "Ingrese una contraseña con mas de 5 caracteres"
-      },
-      
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.col').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
+  //crear una función con los campos de cada pagina
+  function validarPagina1() {
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["tipoDocumento", "documentoIdentidad", "primerNombre", "primerApellido"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
+    });
+    if (valido)
+      stepper.next();
   }
 
-$(function () {
-  $.validator.setDefaults({
-    submitHandler: function () {
-      this.submit();
+  function validarPaginaFinal() {
+    // evento.preventDefault();
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["campo"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
+    });
+    if (valido)
+      document.getElementById('formulario').submit();
+  }
+
+  function validarCampo(campo) {
+    var span = document.getElementById(campo.id + "Span");
+    console.log(campo.id + "span");
+    var valido = false;
+    // agregar en el switch un caso por cada tipo de dato y llamar la función de validación
+    switch (campo.type) {
+      case "text":
+        valido = validarTexto(campo, span);
+        break;
+      case "number":
+        valido = validarNumber(campo, span);
+        break;
     }
-  });
-  
-});
+    return valido;
+  }
+  //crear una función por cada tipo de dato, ya que cada tipo tiene sus validaciones correspondientes
+  function validarTexto(campo, span) {
+    console.log(campo);
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red";
+      span.innerHTML = "Por favor, Complete el campo";
+      return false;
+    }
+    if (campo.value.length < campo.minLength) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red";
+      span.innerHTML = "Longitud mínima " + campo.minLength;
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    return true;
+  }
+
+  function validarTexto(campo, span) {
+    console.log(campo);
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red";
+      span.innerHTML = "Por favor, complete campo vacio";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green";
+    span.innerHTML = "El campo es valido";
+    return true;
+  }
+
+  function validarNumber(campo, span) {
+    console.log(campo);
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red";
+      span.innerHTML = "Por favor, complete campo vacio";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green";
+    span.innerHTML = "El campo es valido";
+    return true;
+  }
 </script>

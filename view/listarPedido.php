@@ -10,6 +10,12 @@ if (isset($_GET['filtroFecha'])) {
 } else {
     $filtroFecha = Date("Y-m-d");
 }
+
+if (isset($_GET['filtroCodigoPedido'])) {
+    $filtroCodigoPedido = $_GET['filtroCodigoPedido'];
+} else {
+    $filtroCodigoPedido = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,6 +52,7 @@ if (isset($_GET['filtroFecha'])) {
                                     <br>
                                     <input type="button" class="btn btn-light" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
                                 </div>
+
                                 <div class="col col-xl-4 col-md-6 col-12">
                                     <br>
 
@@ -83,11 +90,11 @@ if (isset($_GET['filtroFecha'])) {
                                                 else echo "NO"; ?></td>
                                             <td>
                                                 <?php
-                                                if ($registro['fechaPedido']==$fechaActual AND !$registro['entregaPedido']) {
+                                                if ($registro['fechaPedido'] == $fechaActual and !$registro['entregaPedido']) {
                                                 ?>
                                                     <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <?php
-                                                } 
+                                                }
                                                 ?>
                                                 <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
                                                 <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>

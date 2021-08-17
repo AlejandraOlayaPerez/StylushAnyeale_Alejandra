@@ -54,7 +54,7 @@ if (isset($_POST['correoElectronico']) != "") {
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/"><i class="fas fa-home"></i> Inicio</a>
+                <a class="navbar-brand" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/"><i class="fas fa-home"></i> Inicio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -63,7 +63,7 @@ if (isset($_POST['correoElectronico']) != "") {
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-image"></i> Galeria</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-wine-bottle"></i> Producto</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-cut"></i> Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-clock"></i> Reserva</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
                     </ul>
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
@@ -76,7 +76,7 @@ if (isset($_POST['correoElectronico']) != "") {
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" href="">Perfil</a></li>
+                                            <li><a class="dropdown-item" href="perfilCliente.php">Perfil</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
@@ -152,7 +152,9 @@ if (isset($_POST['correoElectronico']) != "") {
             <div class="row featurette">
                 <div class="col-md-7">
                     <h1 class="featurette-heading">¿Quienes somos?</h1>
-                    <p class="lead">""</p>
+                    <p class="lead">Stylush Anyeale le permite a los clientes tener un acceso mas rapido
+                        y practico desde la comodidad de su casa o trabajo, ofreciendo la venta de productos y reservaciones
+                        de los diferentes servicios que se manejan dentro del salon de belleza.</p>
                 </div>
                 <div class="col-md-5">
                     <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false" src="../image/estetica.jpg">

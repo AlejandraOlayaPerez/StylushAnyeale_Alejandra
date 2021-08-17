@@ -40,7 +40,7 @@ function consultarExisteServicio($idServicio){
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 
-    function listarServicio($pagina){
+    function listarServicio($pagina, $filtroCodigoServicio){
     //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
@@ -55,7 +55,13 @@ function consultarExisteServicio($idServicio){
     //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
     $inicio = (($pagina - 1) * 10);
 
-    $sql="SELECT * FROM servicios WHERE eliminado=false LIMIT 10 OFFSET $inicio";
+    if ($filtroCodigoServicio!=""){
+        $sql="SELECT * FROM servicios WHERE eliminado=false AND (codigoServicio LIKE '%$filtroCodigoServicio%' OR nombreServicio LIKE '%$filtroCodigoServicio%') LIMIT 10 OFFSET $inicio";
+    }else{
+        $sql="SELECT * FROM servicios WHERE eliminado=false  LIMIT 10 OFFSET $inicio";
+    }
+
+    
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);
@@ -63,6 +69,21 @@ function consultarExisteServicio($idServicio){
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     }
+
+    function mostrarServicio(){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+
+        $sql="SELECT * FROM servicios WHERE eliminado=false";
+    
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    
+        }
 
     function consultarServicio($idServicio){
     //se instancia el objeto conectar
