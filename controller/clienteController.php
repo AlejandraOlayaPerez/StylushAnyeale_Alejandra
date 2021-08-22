@@ -93,6 +93,31 @@ class clienteController
         }
     }
 
+    public function consultarCliente($idCliente){
+    require_once '../model/cliente.php';
+
+    $oCliente=new cliente();
+    $oCliente->consultarCliente($idCliente);
+
+    return $oCliente;
+    }
+
+    public function reservacionesPorIdCliente($idCliente){
+        require_once '../model/reservaciones.php';
+
+        $oReservacion=new reservacion();
+        return $oReservacion->listarReservacionesPorIdCliente($idCliente);
+    }
+
+    public function buscarReservacionPorCC($tipoDocumento, $documentoIdentidad){
+        require_once '../model/reservaciones.php';
+
+        $oReservacion=new reservacion();
+        $result=$oReservacion->consultarClientePorCC($tipoDocumento, $documentoIdentidad);
+        return $result;
+        print_r($oReservacion);
+    }
+
 }
 
 ?>

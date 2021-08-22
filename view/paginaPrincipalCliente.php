@@ -65,28 +65,35 @@ if (isset($_POST['correoElectronico']) != "") {
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-cut"></i> Servicios</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-user-plus"></i> Registrarse</a></li>
-                    </ul>
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <div class="container-fluid">
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Usuario</a>
-                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" href="perfilCliente.php">Perfil</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="../controller/clienteController.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                    <?php
+                    session_start(); //¡FUNDAMENTAL!
+                    if (isset($_SESSION['idCliente'])) {
+                    ?>
+                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo  $_SESSION['nombreUser']; ?></a>
+                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="perfilCliente.php">Perfil</a></li>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                                <li><a class="dropdown-item" href="../controller/clienteController.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </nav>
+                        </nav>
+                    <?php } else {
+                    ?>
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="registroCliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                        </ul>
+                    <?php } ?>
                 </div>
             </div>
         </nav>

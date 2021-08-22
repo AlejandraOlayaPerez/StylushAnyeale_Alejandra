@@ -3,7 +3,6 @@ date_default_timezone_set('America/Bogota');
 
 //clase usuarioController .php genera las comunicaciones entre las vistas y el modelo
 //contiene las funciones nesesarias para alimentar la vista
-return "hola";
 $funcion=""; //Me permite verificar si la variable esta vacia
 //El if diferenciar metodo POST o GET o ninguno.
 if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO(ISSET), almacena la variable funcion.
@@ -12,6 +11,7 @@ if (isset($_POST['funcion'])){ //Si esta definifa y su valor es diferente a NULO
     $funcion=$_GET['funcion'];
 }
 }
+
 
 $oPedidoController=new pedidoController();
     switch($funcion){
@@ -151,8 +151,6 @@ $oPedidoController=new pedidoController();
                 $oProducto->costoProducto;
                 $oProducto->IdProducto;
                 $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->costoProducto);
-                $oProducto->cantidad=$cantidadProductoLista[$i];
-                $oProducto->sumarPedido();
                 
             }
             header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+generado+el+pedido+correctamente");
@@ -288,11 +286,11 @@ $oPedidoController=new pedidoController();
             $oMensaje=new mensajes();
 
             if($result){
-                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+empresa");
-                // echo "actualizo";
+                // header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+empresa");
+                echo "actualizo";
             }else{
-                header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                // echo "error";
+                // header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                 echo "error";
             }
         }
 
@@ -324,8 +322,8 @@ $oPedidoController=new pedidoController();
             $oEmpresa->nombreEmpresa=$_GET['nombreEmpresa'];
             $oEmpresa->direccion=$_GET['direccion'];
 
-            if ($oEmpresa->NitEmpresa($oUsuario->Nit)!=0){
-                header("location: ../view/nuevaEmpresa.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Ya+existe+este+Nit+Registrado");
+            if ($oEmpresa->NitEmpresa($oEmpresa->Nit)==0){
+                // header("location: ../view/nuevaEmpresa.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=Ya+existe+este+Nit+Registrado");
             }else{
             $result=$oEmpresa->nuevaEmpresa();
 

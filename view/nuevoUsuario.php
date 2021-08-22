@@ -5,7 +5,6 @@ require_once '../controller/usuarioController.php';
 $oUsuario = new usuario();
 
 if (isset($_POST['documentoIdentidad']) != "") {
-  echo $_POST['documentoIdentidad'];
   $oUsuarioController = new usuarioController();
   $oUsuario = $oUsuarioController->registrarUsuario();
 }
@@ -37,7 +36,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
               <div class="card-header" style="background-color: rgb(249, 201, 242);">
                 <label class="card-title">NUEVO USUARIO</label>
               </div>
-              <form id="formUsuario" action="" method="POST">
+              <form id="formulario" action="" method="POST">
                 <div class="card-body p-0">
                   <div class="bs-stepper">
                     <div class="bs-stepper-header" role="tablist">
@@ -84,30 +83,32 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Documento Identidad</label>
-                            <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" minlength="10" maxlength="13" required>
+                            <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="5" max="13" required>
                             <span id="documentoIdentidadSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Primer Nombre</label>
-                            <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>" onchange="validarCampo(this);" minlength="1" maxlength="50" required>
+                            <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                             <span id="primerNombreSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Segundo Nombre</label>
-                            <input type="text" class="form-control" name="segundoNombre" placeholder="Segundo Nombre" value="<?php echo $oUsuario->segundoNombre; ?>">
+                            <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombre" value="<?php echo $oUsuario->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50">
+                            <span id="segundoNombreSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Primer Apellido</label>
-                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="1" maxlength="50" required>
+                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                             <span id="primerApellidoSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Segundo apellido</label>
-                            <input type="text" class="form-control" name="segundoApellido" placeholder="Segundo Apellido" value="<?php echo $oUsuario->segundoApellido; ?>">
+                            <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido" value="<?php echo $oUsuario->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50">
+                            <span id="segundoApellidoSpan"></span>
                           </div>
 
                         </div>
@@ -122,12 +123,13 @@ if (isset($_POST['documentoIdentidad']) != "") {
                         <div class="row">
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" name="fechaNacimiento" value="<?php echo $oUsuario->fechaNacimiento; ?>">
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="<?php echo $oUsuario->fechaNacimiento; ?>" onchange="validarCampo(this);" required>
+                            <span id="fechaNacimientoSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Genero</label>
-                            <select class="form-select" name="genero">
+                            <select class="form-select" id="genero" name="genero" onchange="validarCampo(this);">
                               <option value="" selected>Selecciones una opción</option>
                               <option value="Femenino" <?php if ($oUsuario->genero == "Femenino") {
                                                           echo "selected";
@@ -139,11 +141,12 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                                       echo "selected";
                                                     } ?>>Otro</option>
                             </select>
+                            <span id="generoSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Estado Civil</label>
-                            <select class="form-select" name="estadoCivil">
+                            <select class="form-select" name="estadoCivil" id="estadoCivil" onchange="validarCampo(this);">
                               <option value="" selected>Selecciones una opción</option>
                               <option value="Soltero" <?php if ($oUsuario->estadoCivil == "Soltero") {
                                                         echo "selected";
@@ -158,21 +161,24 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                                       echo "selected";
                                                     } ?>>viudo</option>
                             </select>
+                            <span id="estadoCivilSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Direccion</label>
-                            <input type="text" class="form-control" name="direccion" placeholder="Direccion" value="<?php echo $oUsuario->direccion; ?>">
+                            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" value="<?php echo $oUsuario->direccion; ?>" minlength="10" onchange="validarCampo(this);">
+                            <span id="direccionSpan"></span>
                           </div>
 
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="" class="form-label">Barrio</label>
-                            <input type="text" class="form-control" name="barrio" placeholder="Barrio" value="<?php echo $oUsuario->barrio; ?>">
+                            <input type="text" class="form-control" id="barrio" name="barrio" placeholder="Barrio" value="<?php echo $oUsuario->barrio; ?>" minlength="5" onchange="validarCampo(this);">
+                            <span id="barrioSpan"></span>
                           </div>
                         </div>
                         <br>
                         <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
-                        <button class="btn btn-info float-right" type="button" onclick="stepper.next()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
+                        <button class="btn btn-info float-right" type="button" onclick="validarPagina2()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                       </div>
 
                       <div id="registro-part" class="content" role="tabpanel" aria-labelledby="registro-part-trigger">
@@ -185,7 +191,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                           </div>
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Correo electronico</label>
-                            <input class="form-control" type="email" id="correoElectronico" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>" onchange="validarCampo(this);" required>
+                            <input class="form-control" type="email" id="correoElectronico" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>" minlength="1" onchange="validarCampo(this);" required>
                             <span id="correoElectronicoSpan"></span>
                           </div>
                           <div class="col col-xl-4 col-md-6 col-12">
@@ -195,7 +201,8 @@ if (isset($_POST['documentoIdentidad']) != "") {
                           </div>
                           <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Confirmar contraseña</label>
-                            <input class="form-control" type="password" name="confirmarContrasena">
+                            <input class="form-control" type="password" name="confirmarContrasena" id="confirmarContrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                            <span id="confirmarContrasenaSpan"></span>
                           </div>
                         </div>
                         <br>
@@ -234,7 +241,22 @@ require_once 'footer.php';
   function validarPagina1() {
     var valido = true;
     // agregar el id de cada campo de la página para poder validar
-    var campos = ["tipoDocumento", "documentoIdentidad", "primerNombre", "primerApellido"];
+    var campos = ["tipoDocumento", "documentoIdentidad", "primerNombre", "segundoNombre", "primerApellido",
+      "segundoApellido"
+    ];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
+    });
+    if (valido)
+      stepper.next();
+  }
+
+  function validarPagina2() {
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["fechaNacimiento", "genero", "estadoCivil", "direccion", "barrio"];
     campos.forEach(element => {
       var campo = document.getElementById(element);
       if (!validarCampo(campo))
@@ -248,7 +270,7 @@ require_once 'footer.php';
     // evento.preventDefault();
     var valido = true;
     // agregar el id de cada campo de la página para poder validar
-    var campos = ["campo"];
+    var campos = ["telefono", "correoElectronico", "contrasena", "confirmarContrasena"];
     campos.forEach(element => {
       var campo = document.getElementById(element);
       if (!validarCampo(campo))
@@ -260,7 +282,7 @@ require_once 'footer.php';
 
   function validarCampo(campo) {
     var span = document.getElementById(campo.id + "Span");
-    console.log(campo.id + "span");
+    //console.log(campo.id + "span");
     var valido = false;
     // agregar en el switch un caso por cada tipo de dato y llamar la función de validación
     switch (campo.type) {
@@ -270,60 +292,154 @@ require_once 'footer.php';
       case "number":
         valido = validarNumber(campo, span);
         break;
+      case "select-one":
+        valido = validarSelect(campo, span);
+        break;
+      case "date":
+        valido = validarDate(campo, span);
+        break;
+      case "email":
+        valido = validarEmail(campo, span);
+        break;
+      case "password":
+        valido = validarPassword(campo, span);
+        break;
     }
     return valido;
   }
   //crear una función por cada tipo de dato, ya que cada tipo tiene sus validaciones correspondientes
   function validarTexto(campo, span) {
-    console.log(campo);
     if (campo.required && campo.value == "") {
       $(campo).removeClass('is-valid');
       $(campo).addClass('is-invalid');
-      span.style = "color:red";
-      span.innerHTML = "Por favor, Complete el campo";
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Complete el campo vacio";
       return false;
     }
-    if (campo.value.length < campo.minLength) {
+    if (campo.value != "" && campo.value.length < campo.minLength) {
       $(campo).removeClass('is-valid');
       $(campo).addClass('is-invalid');
-      span.style = "color:red";
+      span.style = "color:red; font-size: 10pt";
       span.innerHTML = "Longitud mínima " + campo.minLength;
       return false;
     }
     $(campo).removeClass('is-invalid');
     $(campo).addClass('is-valid');
-    return true;
-  }
-
-  function validarTexto(campo, span) {
-    console.log(campo);
-    if (campo.required && campo.value == "") {
-      $(campo).removeClass('is-valid');
-      $(campo).addClass('is-invalid');
-      span.style = "color:red";
-      span.innerHTML = "Por favor, complete campo vacio";
-      return false;
-    }
-    $(campo).removeClass('is-invalid');
-    $(campo).addClass('is-valid');
-    span.style = "color:green";
-    span.innerHTML = "El campo es valido";
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
     return true;
   }
 
   function validarNumber(campo, span) {
-    console.log(campo);
     if (campo.required && campo.value == "") {
       $(campo).removeClass('is-valid');
       $(campo).addClass('is-invalid');
-      span.style = "color:red";
-      span.innerHTML = "Por favor, complete campo vacio";
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, complete el campo vacio";
+      return false;
+    }
+    if (campo.value.length < campo.minLength) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Debe tener un minimo de " + campo.minLength + " numeros";
       return false;
     }
     $(campo).removeClass('is-invalid');
     $(campo).addClass('is-valid');
-    span.style = "color:green";
+    span.style = "color:green; font-size: 10pt";
     span.innerHTML = "El campo es valido";
+    return true;
+  }
+
+  function validarSelect(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, seleccione unas de las opciones";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
+
+  function validarDate(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Seleccione su fecha de nacimiento";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
+
+  function validarEmail(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Complete el campo vacio";
+      return false;
+    }
+    emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    if (!emailRegex.test(campo.value)) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Ingrese un correo electronico valido, ejemplo: example@email.com";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
+
+  function validarPassword(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Complete el campo vacio";
+      return false;
+    }
+    if (campo.value.length < campo.minLength) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Debe tener un minimo de " + campo.minLength + " caracteres";
+      return false;
+    }
+    var campoV= campo.value;
+    var espacios = false;
+    var cont = 0;
+    while (!espacios && (cont < campoV.length)) {
+      if (campoV.charAt(cont) == " ")
+        espacios = true;
+      cont++;
+    }
+    if(espacios) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, La contraseña no debe tener espacios";
+      return false;
+    }
+
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
     return true;
   }
 </script>

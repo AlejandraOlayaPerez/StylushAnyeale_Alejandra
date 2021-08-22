@@ -197,7 +197,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                         require_once '../model/conexiondb.php';
 
                         $oProducto = new producto();
-                        $Consulta = $oProducto->mostrarProducto(1);
+                        $Consulta = $oProducto->mostrarProducto2();
                         foreach ($Consulta as $registro) {
                         ?>
 

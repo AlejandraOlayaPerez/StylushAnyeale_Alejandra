@@ -44,7 +44,7 @@ class usuarioController
         $oUsuario->segundoNombre = $_POST['segundoNombre'];
         $oUsuario->primerApellido = $_POST['primerApellido'];
         $oUsuario->segundoApellido = $_POST['segundoApellido'];
-        echo $oUsuario->fechaNacimiento = $_POST['fechaNacimiento'];
+        $oUsuario->fechaNacimiento = $_POST['fechaNacimiento'];
         $oUsuario->genero = $_POST['genero'];
         $oUsuario->direccion = $_POST['direccion'];
         $oUsuario->barrio = $_POST['barrio'];
@@ -65,22 +65,35 @@ class usuarioController
         $oMensaje = new mensajes();
 
         if($oUsuario->contrasena!=$confirmarContrasena){
-            echo "error contraseña";
+            // echo "error contraseña";
+            $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
+            $_GET['mensaje']="Contraseña y confirmar contraseña son diferentes";
         }else{
             if($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico)!=0){
-                echo "error correo";
+                // echo "error correo";
+                $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
+                $_GET['mensaje']="Este correo electrónico ya esta registrado";
             }else{
                 if($oUsuario->documentoIdUsuario($oUsuario->tipoDocumento,$oUsuario->documentoIdentidad)!=0){
-                    echo "error documento";
+                    // echo "error documento";
+                    $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
+                    $_GET['mensaje']="Este documento ya esta registrado";
                 }else{
                     if($edadUsuario<15){
-                        echo "error fecha nacimiento";
+                        // echo "error fecha nacimiento";
+                        $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
+                        $_GET['mensaje']="Fecha incorrecta, El usuario debe mínimo 15 años";
                     }else{
                         $result=$oUsuario->nuevoUsuario();
                         if($result){
-                            echo "registro";
+                            // echo "registro";
+                            $oUsuario=new usuario(); //se reinicio la variable 
+                            $_GET['tipoMensaje']=$oMensaje->tipoCorrecto;
+                            $_GET['mensaje']="Se ha registrado el usuario";
                         }else{
-                            echo "error registro";
+                            // echo "error registro";
+                            $_GET['tipoMensaje']=$oMensaje->tipoError;
+                            $_GET['mensaje']="Se ha producido un error";
                         }
                     }
                 }
@@ -140,47 +153,62 @@ class usuarioController
         return $oUsuario;
     }
 
-    public function actualizarUsuario()
-    {
+    public function actualizarUsuario(){
         require_once '../model/usuario.php';
 
-        $idUser=$_GET['idUser'];
-        $oUsuario = new usuario();
-        $oUsuario->idRol = $_GET['idRol'];
-        $oUsuario->tipoDocumento = $_GET['tipoDocumento'];
-        $oUsuario->documentoIdentidad = $_GET['documentoIdentidad'];
-        $oUsuario->primerNombre = $_GET['primerNombre'];
-        $oUsuario->segundoNombre = $_GET['segundoNombre'];
-        $oUsuario->primerApellido = $_GET['primerApellido'];
-        $oUsuario->segundoApellido = $_GET['segundoApellido'];
-        $oUsuario->correoElectronico = $_GET['correoElectronico'];
-        $oUsuario->telefono = $_GET['telefono'];
-        $oUsuario->fechaNacimiento = $_GET['fechaNacimiento'];
-        $oUsuario->genero = $_GET['genero'];
-        $oUsuario->estadoCivil = $_GET['estadoCivil'];
-        $oUsuario->direccion = $_GET['direccion'];
-        $oUsuario->barrio = $_GET['barrio'];
-    
-        $result = $oUsuario->actualizarUsuario($idUser);
+        $idUser=$_POST['idUser'];
 
-        $fechaActual = Date("Y-m-d");
+        $oUsuario = new usuario();
+        $oUsuario->idRol = $_POST['idRol'];
+        $oUsuario->tipoDocumento = $_POST['tipoDocumento'];
+        $oUsuario->documentoIdentidad = $_POST['documentoIdentidad'];
+        $oUsuario->primerNombre = $_POST['primerNombre'];
+        $oUsuario->segundoNombre = $_POST['segundoNombre'];
+        $oUsuario->primerApellido = $_POST['primerApellido'];
+        $oUsuario->segundoApellido = $_POST['segundoApellido'];
+        $oUsuario->telefono = $_POST['telefono'];
+        $oUsuario->fechaNacimiento = $_POST['fechaNacimiento'];
+        $oUsuario->correoElectronico=$_POST['correoElectronico'];
+        $oUsuario->genero = $_POST['genero'];
+        $oUsuario->estadoCivil = $_POST['estadoCivil'];
+        $oUsuario->direccion = $_POST['direccion'];
+        $oUsuario->barrio = $_POST['barrio'];
+
+        $yearActual = Date("Y");
+
+        //explode: divide el string en arreglo
+        $yearNacimiento=explode("-", $oUsuario->fechaNacimiento);
+        $yearNacimiento=$yearNacimiento[0]; //arreglo 1
+        $edadUsuario=$yearActual-$yearNacimiento; //Operacion para saber edad.
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
-        // if ($oUsuario->fechaNacimiento >= $fechaActual) {
-        //     // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+fecha+de+nacimiento+no+es+correcta"."idUser=$idUser");
-        //     echo "fecha incorrecta";
-        // } else {
-
-            if ($result){ 
-                // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente"."idUser=$idUser");
-                echo "actualizar";
-            } else {
-                 echo "error";
-                // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error"."idUser=$idUser");
+            if($oUsuario->consultarCorreoElectronicoExiste($oUsuario->correoElectronico, $idUser)!=0){
+                // echo "error correo";
+                header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico&ventana=informacion");
+            }else{
+                if($oUsuario->documentoIdUsuarioExiste( $idUser, $oUsuario->tipoDocumento, $oUsuario->documentoIdentidad)!=0){
+                    // echo "error documento";
+                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad&ventana=informacion");
+                }else{
+                    if($edadUsuario<15){
+                        // echo "error fecha";
+                        header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años&ventana=informacion");
+                    }else{
+                        $result=$oUsuario->actualizarUsuario($idUser);
+                        if($result){
+                            // echo "actualizo";
+                            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion&ventana=informacion");
+                        }else{
+                            // echo "error actualizar";
+                            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=informacion");
+                        }
+                    }
+                }
             }
-        // }
+        
+        return $oUsuario; //Cuando se devuelven los datos.
     }
 
     public function iniciarSesion(){

@@ -1,15 +1,13 @@
+<!DOCTYPE html>
 <?php
 //si no esta definida o no tiene valor e redirige al login
 //en caso contrario no hace nada
-
 $url = str_replace("/anyeale_proyecto/StylushAnyeale_Alejandra/", "", $_SERVER['REQUEST_URI']);
 $url = (explode("?", $url))[0];
-
 require_once '../controller/gestionController.php';
 $oGestionController = new gestionController();
 $oPagina = $oGestionController->consultarPaginaPorUrl($url);
 // print_r($oPagina);
-
 session_start();
 require_once '../controller/configCrontroller.php';
 //Si la pagina requiere sesion y no inice sesion lo devuelve a login
@@ -20,11 +18,9 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   //iniciar session
   // $oUsuarioController->verificarPermiso($idPagina);
   $oGestionController->verificarPermisoUrl($url);
-}
+  }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -154,6 +150,13 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                   </a>
                 </li>
               </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/cajero.php" class="nav-link">
+              <i class="fas fa-money-check-alt"></i>
+                <p>Cajero</p>
+              </a>
             </li>
 
             <li class="nav-item">

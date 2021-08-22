@@ -50,7 +50,7 @@ session_start();
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="nuevaReservacion.php"><i class="fas fa-calendar-plus"></i> Crea Una Reservacion</a></li>
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="formularioEditarReservacion.php"><i class="fas fa-calendar"></i> Edita Tu Reservacion</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="eliminarReservacion.php"><i class="fas fa-calendar-times"></i> Elimina Tu Reservacion</li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="eliminarReservacion.php"><i class="fas fa-calendar-times"></i> Elimina Tu Reservacion</a></li>
                         </ul>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ session_start();
 
         <main>
             <div class="pricing-header p-3 pb-md-4 mx-auto text-center" style="background-color: rgb(249, 201, 242); border: 2px solid black">
-                <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 100px; font-weight: 600; -webkit-text-fill-color: black; ">¡CONOCE TUS RESERVACIONES!</h1>
+                <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 100px; font-weight: 600; -webkit-text-fill-color: black; ">¡MODIFICA TUS RESERVACIONES!</h1>
             </div>
 
             <div class="card-body pb-0" style="background-color: rgba(255, 255, 204, 255);">
@@ -89,6 +89,9 @@ session_start();
                                             <?php } ?>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                                <a href="editarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-light"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
                                 </div>
                             </div>
                         </div>

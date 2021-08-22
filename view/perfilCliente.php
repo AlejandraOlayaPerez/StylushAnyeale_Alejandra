@@ -1,3 +1,9 @@
+<?php
+session_start();
+
+require_once '../controller/clienteController.php';
+$oClienteController = new clienteController();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +44,10 @@
 <body>
     <div class="container-md" style="background-color: rgb(249, 201, 242);">
 
+        <?php
+        $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
+        ?>
+
         <div class="row" style="border-style: inset rgb(249, 201, 242);">
             <div class="col col-xl-4 col-md-6 col-12">
                 <strong>
@@ -49,7 +59,7 @@
                 <div class="card-body box-profile">
                     <div class="text-center"><img class="profile-user-img img-fluid img-circle" src="../image/perfilPreterminado.png" alt=""></div>
 
-                    <h1 class="profile-username text-center">NOMBRE USER<a href=""> (Editar Foto)</a></h1>
+                    <h1 class="profile-username text-center"><?php echo $oCliente->primerNombre . " " . $oCliente->primerApellido; ?> <a href="">(Editar Foto)</a></h1>
                 </div>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
@@ -62,20 +72,19 @@
                 <div class="card card-primary">
                     <div class="card-body" style="background-color:  rgba(255, 255, 204, 255);">
                         <strong><i class="fas fa-info-circle"></i> Nombres: </strong>
-                        <p></p>
-
+                        <p><?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre . " " . $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?></p>
                         <hr>
                         <strong><i class="fas fa-at"></i> Correo Electronico: </strong>
-                        <p></p>
-
+                        <p><?php echo $oCliente->email; ?></p>
                         <hr>
                         <strong><i class="fas fa-phone-square"></i> Telefono: </strong>
-                        <p></p>
+                        <p><?php echo $oCliente->telefono; ?></p>
 
                         <a href="" class="btn btn-info float-right"><i class="fas fa-eye"></i> Ver. Informacion Personal</a>
                     </div>
                 </div>
             </div>
+
             <div class="col col-xl-4 col-md-6 col-12">
                 <strong>
                     <p style="text-align: center; margin: 2px;">Reservaciones</p>
@@ -95,13 +104,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td style="border: 2px solid black;"></td>
-                                <td style="border: 2px solid black;"></td>
-                                <td style="border: 2px solid black;"></td>
-                                <td style="border: 2px solid black;"><a class="btn btn-info" href=""><i class="fas fa-calendar-times"></i></i></a></td>
-                            </tr>
+                            <?php
+                            $oCliente = $oClienteController->reservacionesPorIdCliente($_SESSION['idCliente']);
+                            foreach ($oCliente as $registro) {
+                            ?>
+                                <tr>
+                                    <td style="border: 2px solid black;"><?php echo $registro['fechaReservacion']; ?></td>
+                                    <td style="border: 2px solid black;"><?php echo $registro['horaReservacion']; ?></td>
+                                    <td style="border: 2px solid black;"><?php echo $registro['servicio']; ?></td>
+                                    <td style="border: 2px solid black;"><a class="btn btn-info" href=""><i class="fas fa-calendar-times"></i></i></a></td>
+                                </tr>
                         </tbody>
+                    <?php } ?>
                     </table>
                 </div>
             </div>

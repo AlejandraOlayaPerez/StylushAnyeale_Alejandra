@@ -155,6 +155,7 @@ class cliente{
         foreach($result as $registro){ 
         //se registra la consulta en los parametros
         $this->idCliente=$registro['idCliente'];
+        $this->idEmpleado=$registro['idEmpleado'];
         $this->tipoDocumento=$registro['tipoDocumento'];
         $this->documentoIdentidad=$registro['documentoIdentidad'];
         $this->primerNombre=$registro['primerNombre'];
@@ -162,10 +163,11 @@ class cliente{
         $this->primerApellido=$registro['primerApellido'];
         $this->segundoApellido=$registro['segundoApellido'];
         $this->fechaNacimiento=$registro['fechaNacimiento'];
+        $this->email=$registro['email'];
+        $this->contrasena=$registro['contrasena'];
         $this->genero=$registro['genero'];
         $this->direccion=$registro['direccion'];
         $this->barrio=$registro['barrio'];
-        $this->email=$registro['email']; 
         $this->telefono=$registro['telefono'];
         }
     }
@@ -211,4 +213,6 @@ class cliente{
         $result=mysqli_query($conexion,$sql);
         return $result;
     }
+
+    
 }

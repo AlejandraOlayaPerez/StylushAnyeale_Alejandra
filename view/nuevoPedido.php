@@ -128,16 +128,16 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <label for="">Nit: </label>
-                                                                <input class="form-control" type="text" name="Nit" id="Nit">
+                                                                <input class="form-control" type="text" name="Nit" id="Nit" readonly>
                                                                 <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="">Empresa: </label>
-                                                                <input class="form-control" type="text" name="empresa" id="nombreEmpresa">
+                                                                <input class="form-control" type="text" name="empresa" id="nombreEmpresa" readonly>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label for="">Direccion: </label>
-                                                                <input class="form-control" type="text" name="direccion" id="direccion">
+                                                                <input class="form-control" type="text" name="direccion" id="direccion" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -181,7 +181,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                                                 require_once '../model/conexiondb.php';
 
                                                                                 $oProducto = new producto();
-                                                                                $Consulta = $oProducto->mostrarProducto(1);
+                                                                                $Consulta = $oProducto->mostrarProducto2();
                                                                                 foreach ($Consulta as $registro) {
                                                                                 ?>
 

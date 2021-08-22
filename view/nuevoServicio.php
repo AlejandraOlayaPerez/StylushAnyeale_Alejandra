@@ -32,7 +32,8 @@ $fechaActual = Date("Y-m-d");
                                 <label class="card-title">NUEVO SERVICIO</label>
                             </div>
 
-                            <form action="../controller/productoServicioController.php" method="GET">
+                            <form id="formulario" action="../controller/productoServicioController.php" method="GET">
+                            <input type="text" name="funcion" value="crearServicio" style="display: none;">
                                 <div class="card-body p-0">
                                     <div class="bs-stepper">
                                         <div class="bs-stepper-header" role="tablist">
@@ -116,7 +117,7 @@ $fechaActual = Date("Y-m-d");
                                                                                 require_once '../model/conexiondb.php';
 
                                                                                 $oProducto = new producto();
-                                                                                $Consulta = $oProducto->mostrarProducto(1);
+                                                                                $Consulta = $oProducto->mostrarProducto2();
                                                                                 foreach ($Consulta as $registro) {
                                                                                 ?>
 
@@ -158,7 +159,7 @@ $fechaActual = Date("Y-m-d");
                                                 </div>
                                                 <br>
                                                 <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
-                                                <button type="submit" class="btn btn-success" name="funcion" value="crearServicio" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Servicio</button>
+                                                <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Servicio</button>
                                             </div>
                                         </div>
                                     </div>
@@ -203,17 +204,15 @@ require_once 'footer.php';
     }
     function validarPaginaFinal()
     {
-        // evento.preventDefault();
-        var valido=true;
-        // agregar el id de cada campo de la página para poder validar
-        var campos=["campo"];
-        campos.forEach(element => {
-            var campo=document.getElementById(element);
-            if(!validarCampo(campo))
-                valido=false;
-        });
-        if(valido)
-        document.getElementById('formulario').submit();
+       var listarProducto=document.getElementById('listarProducto');
+        // var producto=$('listarProducto').find('input[name="productos[]"]');
+        var productos=document.getElementsByName('productos[]');
+        console.log(productos.length);
+        if(productos.length>0){
+            document.getElementById('formulario').submit();
+        }else{
+            alert("Seleccione un producto");
+        }
     }
     function validarCampo(campo){
         var span=document.getElementById(campo.id+"Span");

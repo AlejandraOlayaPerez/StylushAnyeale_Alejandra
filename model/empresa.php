@@ -29,9 +29,10 @@ function NitEmpresa(){
     $oConexion= new conectar();
    $conexion=$oConexion->conexion();
 
-   $sql="SELECT * FROM empresa WHERE idEmpresa!=$this->idEmpresa AND Nit='$this->Nit'";
+   $sql="SELECT * FROM empresa WHERE Nit='$this->Nit' AND eliminado=false";
 
    $result=mysqli_query($conexion,$sql);
+   echo $sql;
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
 

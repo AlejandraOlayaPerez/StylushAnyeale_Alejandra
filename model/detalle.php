@@ -23,6 +23,7 @@ class detalle{
 
     //se ejecuta la consulta en la base de datos
     $result=mysqli_query($conexion,$sql);
+    echo $sql;
     return $result;
     }
 

@@ -64,6 +64,16 @@ class usuario
         return count(mysqli_fetch_all($result, MYSQLI_ASSOC)); 
     }
 
+    public function documentoIdUsuarioExiste($idUser, $tipoDocumento, $documentoIdentidad){
+        $oConexion = new conectar();
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM usuario WHERE idUser!=$idUser AND tipoDocumento='$tipoDocumento' AND documentoIdentidad=$documentoIdentidad";
+
+        $result = mysqli_query($conexion, $sql);
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC)); 
+    }
+
     public function nuevoUsuario()
     {
         //funcion para encriptar la contraseña utilizando el metodo md5
@@ -95,6 +105,27 @@ class usuario
 
         //sentencia que nos permite conocer la existencia de un correo electronico
         $sql = "SELECT * FROM usuario WHERE  correoElectronico='$correoElectronico'";
+        
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        //retorna el numero de los registros
+        foreach ($result as $registro) {
+            $this->idUser = $registro['idUser'];
+            $this->correoElectronico = $registro['correoElectronico'];
+        }
+
+        return count($result);
+    }
+
+    public function consultarCorreoElectronicoExiste($correoElectronico, $idUser){
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        //sentencia que nos permite conocer la existencia de un correo electronico
+        $sql = "SELECT * FROM usuario WHERE idUser!=$idUser AND  correoElectronico='$correoElectronico'";
         
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -341,6 +372,7 @@ class usuario
             $this->segundoNombre = $registro['segundoNombre'];
             $this->primerApellido = $registro['primerApellido'];
             $this->segundoApellido = $registro['segundoApellido'];
+            $this->fechaNacimiento = $registro['fechaNacimiento'];
             $this->correoElectronico = $registro['correoElectronico'];
             $this->contrasena = $registro['contrasena'];
             $this->telefono = $registro['telefono'];
@@ -363,12 +395,11 @@ class usuario
         tipoDocumento='$this->tipoDocumento',
         documentoIdentidad=$this->documentoIdentidad,
         primerNombre='$this->primerNombre',
-        segundoApellido='$this->segundoApellido',
+        segundoNombre='$this->segundoNombre',
         primerApellido='$this->primerApellido',
         segundoApellido='$this->segundoApellido',
         fechaNacimiento='$this->fechaNacimiento',
         correoElectronico='$this->correoElectronico',
-        contrasena='$this->contrasena',
         telefono=$this->telefono,
         genero='$this->genero',
         direccion='$this->direccion',

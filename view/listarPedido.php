@@ -90,15 +90,19 @@ if (isset($_GET['filtroCodigoPedido'])) {
                                                 else echo "NO"; ?></td>
                                             <td>
                                                 <?php
-                                                if ($registro['fechaPedido'] == $fechaActual and !$registro['entregaPedido']) {
+                                                if ($registro['fechaPedido'] == $fechaActual and !$registro['entregaPedido'] and !$registro['eliminado']) {
                                                 ?>
                                                     <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <?php
                                                 }
+                                                if (!$registro['entregaPedido'] and !$registro['eliminado']) {
+                                                ?>
+                                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarPedido" onclick="cancelarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-trash-alt"></i> Cancelar</a>
+                                                <?php }
                                                 ?>
                                                 <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
-                                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarPedido" onclick="cancelarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-trash-alt"></i> Cancelar</a>
+
 
                                             </td>
                                         </tr>

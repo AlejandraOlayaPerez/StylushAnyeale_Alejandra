@@ -23,11 +23,17 @@ require_once 'headPagina.php';
                             require_once '../model/seguimiento.php';
                             $oSeguimiento = new seguimiento();
                             $consulta = $oSeguimiento->listarSeguimientos();
+                            $fechaAnterior = "";
                             foreach ($consulta as $registro) {
+                                if ($fechaAnterior != $registro['fechaSeguimiento']) {
+                                    $fechaAnterior = $registro['fechaSeguimiento'];
                             ?>
-                                <div class="time-label">
-                                    <span class="bg-pink"><?php echo $registro['fechaSeguimiento']; ?></span>
-                                </div>
+                                    <div class="time-label">
+                                        <span class="bg-pink"><?php echo $registro['fechaSeguimiento']; ?></span>
+                                        
+                                    </div>
+                                <?php } ?>
+
                                 <div>
                                     <?php if ($registro['IdPedido'] != 0) {
                                     ?>
