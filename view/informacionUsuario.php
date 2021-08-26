@@ -8,7 +8,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
 ?>
 
 <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-    <form action="../controller/usuarioController.php" method="POST" id="formulario">
+    <form action="../controller/usuarioController.php" method="POST" id="formulario1">
         <input type="text" name="funcion" value="ActualizarUsuario" style="display: none;">
         <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
         <input type="text" name="idRol" value="<?php echo $oUsuario->idRol; ?>" style="display: none;">
@@ -149,7 +149,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
                 valido = false;
         });
         if (valido)
-            document.getElementById('formulario').submit();
+            document.getElementById('formulario1').submit();
     }
 
     function validarCampo(campo) {

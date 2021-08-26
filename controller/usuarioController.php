@@ -18,17 +18,23 @@ if (isset($_POST['funcion'])) { //Si esta definifa y su valor es diferente a NUL
 $oUsuarioController = new usuarioController();
 switch ($funcion) {
     case "habilitarDeshabilitarUsuario":
-    $oUsuarioController->habilitarDeshabilitarUsuario();
-    break;
+        $oUsuarioController->habilitarDeshabilitarUsuario();
+        break;
     case "ActualizarUsuario":
-    $oUsuarioController->actualizarUsuario();
-    break;
+        $oUsuarioController->actualizarUsuario();
+        break;
     case "iniciarSesion":
-    $oUsuarioController->iniciarSesion();
-    break;
+        $oUsuarioController->iniciarSesion();
+        break;
     case "cerrarSesion":
-    $oUsuarioController->cerrarSesion();
-    break; 
+        $oUsuarioController->cerrarSesion();
+        break;
+    case "actualizarContrasena":
+        $oUsuarioController->actualizarUsuarioContrasena();
+        break;
+    case "usuarioCargo":
+        $oUsuarioController->usuarioCargo();
+        break;
 }
 
 class usuarioController
@@ -57,43 +63,43 @@ class usuarioController
         $yearActual = Date("Y");
 
         //explode: divide el string en arreglo
-        $yearNacimiento=explode("-", $oUsuario->fechaNacimiento);
-        $yearNacimiento=$yearNacimiento[0]; //arreglo 1
-        $edadUsuario=$yearActual-$yearNacimiento; //Operacion para saber edad.
+        $yearNacimiento = explode("-", $oUsuario->fechaNacimiento);
+        $yearNacimiento = $yearNacimiento[0]; //arreglo 1
+        $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
-        if($oUsuario->contrasena!=$confirmarContrasena){
+        if ($oUsuario->contrasena != $confirmarContrasena) {
             // echo "error contraseña";
-            $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-            $_GET['mensaje']="Contraseña y confirmar contraseña son diferentes";
-        }else{
-            if($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico)!=0){
+            $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+            $_GET['mensaje'] = "Contraseña y confirmar contraseña son diferentes";
+        } else {
+            if ($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico) != 0) {
                 // echo "error correo";
-                $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-                $_GET['mensaje']="Este correo electrónico ya esta registrado";
-            }else{
-                if($oUsuario->documentoIdUsuario($oUsuario->tipoDocumento,$oUsuario->documentoIdentidad)!=0){
+                $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+                $_GET['mensaje'] = "Este correo electrónico ya esta registrado";
+            } else {
+                if ($oUsuario->documentoIdUsuario($oUsuario->tipoDocumento, $oUsuario->documentoIdentidad) != 0) {
                     // echo "error documento";
-                    $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-                    $_GET['mensaje']="Este documento ya esta registrado";
-                }else{
-                    if($edadUsuario<15){
+                    $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+                    $_GET['mensaje'] = "Este documento ya esta registrado";
+                } else {
+                    if ($edadUsuario < 15) {
                         // echo "error fecha nacimiento";
-                        $_GET['tipoMensaje']=$oMensaje->tipoAdvertencia;
-                        $_GET['mensaje']="Fecha incorrecta, El usuario debe mínimo 15 años";
-                    }else{
-                        $result=$oUsuario->nuevoUsuario();
-                        if($result){
+                        $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+                        $_GET['mensaje'] = "Fecha incorrecta, El usuario debe mínimo 15 años";
+                    } else {
+                        $result = $oUsuario->nuevoUsuario();
+                        if ($result) {
                             // echo "registro";
-                            $oUsuario=new usuario(); //se reinicio la variable 
-                            $_GET['tipoMensaje']=$oMensaje->tipoCorrecto;
-                            $_GET['mensaje']="Se ha registrado el usuario";
-                        }else{
+                            $oUsuario = new usuario(); //se reinicio la variable 
+                            $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
+                            $_GET['mensaje'] = "Se ha registrado el usuario";
+                        } else {
                             // echo "error registro";
-                            $_GET['tipoMensaje']=$oMensaje->tipoError;
-                            $_GET['mensaje']="Se ha producido un error";
+                            $_GET['tipoMensaje'] = $oMensaje->tipoError;
+                            $_GET['mensaje'] = "Se ha producido un error";
                         }
                     }
                 }
@@ -115,7 +121,7 @@ class usuarioController
 
         $oUser = new usuario(); //se define y se instancia el objeto user
         if ($oUser->comprobarEliminado($habilitar, $idUser)) { //si se va por la parte del si es correcta
-            if ($habilitar == true) header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+habilitado+correctamente"); 
+            if ($habilitar == true) header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+habilitado+correctamente");
             else header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+deshabilitado+correctamente");
         } else { //si se va por la parte del no,  la funcion presento algun error
             header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
@@ -153,10 +159,11 @@ class usuarioController
         return $oUsuario;
     }
 
-    public function actualizarUsuario(){
+    public function actualizarUsuario()
+    {
         require_once '../model/usuario.php';
 
-        $idUser=$_POST['idUser'];
+        $idUser = $_POST['idUser'];
 
         $oUsuario = new usuario();
         $oUsuario->idRol = $_POST['idRol'];
@@ -168,7 +175,7 @@ class usuarioController
         $oUsuario->segundoApellido = $_POST['segundoApellido'];
         $oUsuario->telefono = $_POST['telefono'];
         $oUsuario->fechaNacimiento = $_POST['fechaNacimiento'];
-        $oUsuario->correoElectronico=$_POST['correoElectronico'];
+        $oUsuario->correoElectronico = $_POST['correoElectronico'];
         $oUsuario->genero = $_POST['genero'];
         $oUsuario->estadoCivil = $_POST['estadoCivil'];
         $oUsuario->direccion = $_POST['direccion'];
@@ -177,69 +184,71 @@ class usuarioController
         $yearActual = Date("Y");
 
         //explode: divide el string en arreglo
-        $yearNacimiento=explode("-", $oUsuario->fechaNacimiento);
-        $yearNacimiento=$yearNacimiento[0]; //arreglo 1
-        $edadUsuario=$yearActual-$yearNacimiento; //Operacion para saber edad.
+        $yearNacimiento = explode("-", $oUsuario->fechaNacimiento);
+        $yearNacimiento = $yearNacimiento[0]; //arreglo 1
+        $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
-            if($oUsuario->consultarCorreoElectronicoExiste($oUsuario->correoElectronico, $idUser)!=0){
-                // echo "error correo";
-                header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico&ventana=informacion");
-            }else{
-                if($oUsuario->documentoIdUsuarioExiste( $idUser, $oUsuario->tipoDocumento, $oUsuario->documentoIdentidad)!=0){
-                    // echo "error documento";
-                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad&ventana=informacion");
-                }else{
-                    if($edadUsuario<15){
-                        // echo "error fecha";
-                        header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años&ventana=informacion");
-                    }else{
-                        $result=$oUsuario->actualizarUsuario($idUser);
-                        if($result){
-                            // echo "actualizo";
-                            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion&ventana=informacion");
-                        }else{
-                            // echo "error actualizar";
-                            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=informacion");
-                        }
+        if ($oUsuario->consultarCorreoElectronicoExiste($oUsuario->correoElectronico, $idUser) != 0) {
+            // echo "error correo";
+            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico&ventana=informacion");
+        } else {
+            if ($oUsuario->documentoIdUsuarioExiste($idUser, $oUsuario->tipoDocumento, $oUsuario->documentoIdentidad) != 0) {
+                // echo "error documento";
+                header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad&ventana=informacion");
+            } else {
+                if ($edadUsuario < 15) {
+                    // echo "error fecha";
+                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años&ventana=informacion");
+                } else {
+                    $result = $oUsuario->actualizarUsuario($idUser);
+                    if ($result) {
+                        // echo "actualizo";
+                        header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion&ventana=informacion");
+                    } else {
+                        // echo "error actualizar";
+                        header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=informacion");
                     }
                 }
             }
-        
+        }
+
         return $oUsuario; //Cuando se devuelven los datos.
     }
 
-    public function iniciarSesion(){
+    public function iniciarSesion()
+    {
         require_once '../model/usuario.php';
         session_start();
 
-        $oUsuario=new usuario();
-        $correoElectronico=$_POST['correoElectronico'];
-        $contrasena=$_POST['contrasena'];
+        $oUsuario = new usuario();
+        $correoElectronico = $_POST['correoElectronico'];
+        $contrasena = $_POST['contrasena'];
         $oUsuario->iniciarSesion($correoElectronico, $contrasena);
 
         require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
+        $oMensaje = new mensajes();
 
-        if($oUsuario->getIdUser()!=0){
-        //si entra el usuario y contraseña son correcto
-        //se almacena la informacion del usuario en las variables de sesion
-        //estas variables vamos a aceder en cualquier momento del proyecto
-        $_SESSION['idUser']=$oUsuario->getIdUser();
-        $_SESSION['nombreUser']=$oUsuario->getNombreUser();
-        // echo "Inicio sesion correctamente";
+        if ($oUsuario->getIdUser() != 0) {
+            //si entra el usuario y contraseña son correcto
+            //se almacena la informacion del usuario en las variables de sesion
+            //estas variables vamos a aceder en cualquier momento del proyecto
+            $_SESSION['idUser'] = $oUsuario->getIdUser();
+            $_SESSION['nombreUser'] = $oUsuario->getNombreUser();
+            // echo "Inicio sesion correctamente";
             header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php");
-        }else{
+        } else {
             //error al iniciar sesion
             //usuario o contraseña incorrecto
             // echo "Usuario o contraseña incorrecto";
-             header("location: ../view/loginUsuario.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
+            header("location: ../view/loginUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
         }
     }
 
-    public function cerrarSesion(){
+    public function cerrarSesion()
+    {
         session_start();
         session_unset(); //borra las variables de sesion
         session_destroy(); //destruye o elimina la sesion
@@ -247,5 +256,55 @@ class usuarioController
         die();
     }
 
-   
+    public function actualizarUsuarioContrasena()
+    {
+        require_once '../model/usuario.php';
+
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+        $idUser = $_POST['idUser'];
+
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $idUser;
+        $oSeguimiento->seguimientoCambioContrasena($fechaActual, $horaActual);
+
+        $oUsuario = new usuario();
+       $contrasenaActual = $_POST['contrasenaActual'];
+       echo  $contrasena = $_POST['contrasenaNueva'];
+       echo  $confirmarContrasena = $_POST['confirmarContrasena'];
+
+        require_once 'mensajeController.php';
+        $oMensaje = new mensajes();
+
+        if ($oUsuario->consultarContrasena($idUser, $contrasenaActual) != 0) {
+            if ($contrasena == $confirmarContrasena) {
+                $result = $oUsuario->actualizarContrasenaUsuario($idUser, $contrasena);
+                if ($result) {
+                    // echo "actualizo contrasena";
+                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+contraseña+se+ha+actualizado+correctamente+su+contrasena&ventana=seguridad");
+                } else {
+                    // echo "error";
+                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=seguridad");
+                }
+            } else {
+                // echo "contraseñas diferentes";
+                header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+nueva+contrasena+y+confirmar+contraseña+son+diferentes&ventana=seguridad");
+            }
+        } else {
+            // echo "error contraseña actual";
+            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+nueva+actual+es+diferente+a+la+registrada&ventana=seguridad");
+        }
+    }
+
+    public function usuarioCargo()
+    {
+        require_once '../model/usuario.php';
+
+        $oUsuario = new usuario();
+        $result = $oUsuario->listarUsuarioPorCargo($_POST['idServicio']);
+
+        echo json_encode($result);
+    }
 }

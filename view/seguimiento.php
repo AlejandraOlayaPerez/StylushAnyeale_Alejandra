@@ -63,6 +63,21 @@ require_once 'headPagina.php';
                                         </div>
                                     <?php  } ?>
                                 </div>
+
+                                <div>
+                                    <?php if ($registro['idUser'] != 0) {
+                                    ?>
+                                        <i class="fas fa-bell"></i>
+                                        <div class="timeline-item" style="background-color: rgba(255, 255, 204, 255);">
+                                            <span class="time"><i class="fas fa-clock"></i> <?php echo $registro['horaSeguimiento']; ?></span>
+                                            <p class="timeline-header">El usuario <?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?> a actualizado su contraseña</p>
+
+                                            <div class="timeline-body">
+                                                <p><?php echo $registro['observacion']; ?></p>
+                                            </div>
+                                        </div>
+                                    <?php  } ?>
+                                </div>
                             <?php } ?>
                         </div>
                     </div>

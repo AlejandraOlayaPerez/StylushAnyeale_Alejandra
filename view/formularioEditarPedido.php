@@ -218,7 +218,6 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
         </div>
     </div>
 </div>
-</div>
 
 </html>
 

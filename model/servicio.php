@@ -7,6 +7,7 @@ class servicio
     public $codigoServicio = "";
     public $nombreServicio = "";
     public $detalleServicio = "";
+    PUBLIC $tiempoDuracion = "";
     public $cantidadUsar = "";
     public $costo = "";
     public $numRegistro = "";
@@ -20,8 +21,8 @@ class servicio
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO servicios (IdServicio, codigoServicio, nombreServicio, detalleServicio, costo, eliminado)
-        VALUES ($this->idServicio, '$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->costo, false)";
+        $sql = "INSERT INTO servicios (IdServicio, codigoServicio, nombreServicio, detalleServicio, tiempoDuracion, costo, eliminado)
+        VALUES ($this->idServicio, '$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->tiempoDuracion, $this->costo, false)";
 
         $result = mysqli_query($conexion, $sql);
         echo $sql;
@@ -107,6 +108,7 @@ class servicio
             $this->codigoServicio = $registro['codigoServicio'];
             $this->nombreServicio = $registro['nombreServicio'];
             $this->detalleServicio = $registro['detalleServicio'];
+            $this->tiempoDuracion = $registro['tiempoDuracion'];
             $this->costo = $registro['costo'];
         }
     }
@@ -123,11 +125,13 @@ class servicio
         $sql = "UPDATE servicios SET codigoServicio='$this->codigoServicio',
         nombreServicio='$this->nombreServicio',
         detalleServicio='$this->detalleServicio',
+        tiempoDuracion=$this->tiempoDuracion,
         costo=$this->costo
         WHERE IdServicio=$this->idServicio";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 
@@ -139,7 +143,7 @@ class servicio
         $conexion = $oConexion->conexion();
 
         //consulta para eliminar el registro
-        $sql = "UPDATE servicios SET eliminado=1 WHERE IdServicio=$this->idServicio";
+        $sql = "UPDATE servicios SET eliminado=1 WHERE IdServicio=$this->IdServicio";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);

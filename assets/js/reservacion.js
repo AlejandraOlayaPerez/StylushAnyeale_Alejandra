@@ -1,0 +1,34 @@
+function traerEstilistas(campo){
+var idServicio = campo.value;
+
+$.ajax({ 
+    url: '../controller/usuarioController.php', //URL donde se va a realizar la peticion
+    type: 'POST', //metodo que se usara
+    data: {idServicio:idServicio,funcion:"usuarioCargo"} //parametros para hacer la petecion
+}).done(function (data){
+    var estilista=document.getElementById("estilista");
+    estilista.innerHTML="";
+    var optionEstilista = document.createElement("option");
+    optionEstilista .value="";
+    // optionEstilista.disabled=true;
+    optionEstilista.innerHTML="Seleecione una opción";
+    estilista.appendChild(optionEstilista);
+        //Ejecuta funcion
+        console.log(data);
+        
+        var datos=JSON.parse(data)
+        for(i=0; i<datos.length; i++){
+        agregarEstilista(datos[i]);     
+        }
+        
+    });
+}
+
+function agregarEstilista(datos){
+    var estilista=document.getElementById("estilista");
+
+    var optionEstilista = document.createElement("option");
+    optionEstilista .value=datos['idUser'];
+    optionEstilista.innerHTML=datos['nombre'];
+    estilista.appendChild(optionEstilista);
+}

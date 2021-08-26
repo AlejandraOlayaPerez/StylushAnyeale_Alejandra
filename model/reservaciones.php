@@ -84,7 +84,7 @@ class reservacion
         $sql = "SELECT c.primerNombre, c.primerApellido, r.idReservacion,
         r.servicio, r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar 
         FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
-        WHERE r.eliminado=false ";
+        WHERE r.eliminado=false";
 
         //concatenamos a la consulta.
         if ($filtroFecha != "") {
@@ -112,10 +112,20 @@ class reservacion
 
         //sentencia que nos permite conocer la existencia de un correo electronico
         $sql = "SELECT c.tipoDocumento, c.documentoIdentidad, c.primerNombre, c.segundoNombre, 
-        c.primerApellido, c.segundoApellido,r.idCliente, r.idReservacion, r.servicio, r.detalleServicio,
+        CONCAT (c.primerApellido,' ',c.segundoApellido) AS nombres,r.idCliente, r.idReservacion, r.servicio,
         r.fechaReservacion, r.horaReservacion, r.domicilio, r.direccion, r.validar, r.precio, r.eliminado 
         FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
-        WHERE c.tipoDocumento='$tipoDocumento' AND c.documentoIdentidad=$documentoIdentidad";
+        WHERE r.eliminado=false";
+        
+        if ($tipoDocumento != "") {
+            $sql .= " AND c.tipoDocumento='$tipoDocumento' ";
+        }
+        if ($documentoIdentidad != "") {
+            $sql .= " AND c.documentoIdentidad=$documentoIdentidad ";
+        }
+        
+        
+       // c.tipoDocumento='$tipoDocumento' AND c.documentoIdentidad=$documentoIdentidad";
 
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -131,25 +141,12 @@ class reservacion
         $conexion = $oConexion->conexion();
 
         //esta sentencia me permite consultar un empleado
-        $sql = "SELECT * FROM reservacion WHERE idReservacion=$this->idReservacion";
+        $sql = "SELECT * FROM reservacion WHERE idUser=8";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-        foreach ($result as $registro) {
-            //se registra la consulta en los parametros
-            $this->idReservacion = $registro['idReservacion'];
-            $this->idCliente = $registro['idCliente'];
-            $this->servicio = $registro['servicio'];
-            $this->detalleServicio = $registro['detalleServicio'];
-            $this->estilista = $registro['estilista'];
-            $this->fechaReservacion = $registro['fechaReservacion'];
-            $this->horaReservacion = $registro['horaReservacion'];
-            $this->domicilio = $registro['domicilio'];
-            $this->direccion = $registro['direccion'];
-            $this->validar = $registro['validar'];
-        }
+        return $result;
     }
 
     //esta funcion me permite actualizar la informacion del empleado

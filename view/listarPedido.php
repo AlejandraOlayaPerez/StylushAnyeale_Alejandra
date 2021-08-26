@@ -68,7 +68,7 @@ if (isset($_GET['filtroCodigoPedido'])) {
                                     <th>Fecha Pedido</th>
                                     <th>¿Pedido recibido?</th>
                                     <th>Pedidos Cancelados</th>
-                                    <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-user-plus"></i> Crear Pedido</a></th>
+                                    <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-plus-circle"></i> Crear Pedido</a></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -89,21 +89,27 @@ if (isset($_GET['filtroCodigoPedido'])) {
                                             <td><?php if ($registro['eliminado']) echo "SI";
                                                 else echo "NO"; ?></td>
                                             <td>
-                                                <?php
-                                                if ($registro['fechaPedido'] == $fechaActual and !$registro['entregaPedido'] and !$registro['eliminado']) {
-                                                ?>
-                                                    <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                                <?php
-                                                }
-                                                if (!$registro['entregaPedido'] and !$registro['eliminado']) {
-                                                ?>
-                                                    <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarPedido" onclick="cancelarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-trash-alt"></i> Cancelar</a>
-                                                <?php }
-                                                ?>
-                                                <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="btn btn-light"><i class="fas fa-barcode"></i> Detalle</a>
-
-
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-success">Acciones</button>
+                                                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="sr-only"></span>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <?php
+                                                        if ($registro['fechaPedido'] == $fechaActual and !$registro['entregaPedido'] and !$registro['eliminado']) {
+                                                        ?>
+                                                            <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="dropdown-item"><i class="fas fa-edit"></i> Editar</a>
+                                                        <?php
+                                                        }
+                                                        if (!$registro['entregaPedido'] and !$registro['eliminado']) {
+                                                        ?>
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelarPedido" onclick="cancelarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-trash-alt"></i> Cancelar</a>
+                                                        <?php }
+                                                        ?>
+                                                        <a class="dropdown-item" href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>"><i class="fas fa-barcode"></i> Detalle</a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php }

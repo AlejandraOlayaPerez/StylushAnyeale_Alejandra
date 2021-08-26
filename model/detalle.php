@@ -70,7 +70,6 @@ class detalle{
         $result=mysqli_query($conexion,$sql);
         return $result;
         }
-    
 
     function consultarProductoIguales($idPedido, $idProducto){
     //Instancia clase conectar
@@ -84,6 +83,19 @@ class detalle{
     $result = mysqli_query($conexion, $sql);
     return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
+    
+    function consultarProductoIgualesServicio($idServicio, $idProducto){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        $sql="SELECT * FROM detalle WHERE idServicio=$idServicio AND idProducto=$idProducto AND eliminado=false";
+    
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
+        }
 
     function consultarServiciosIguales($idServicio, $idProducto){
         //Instancia clase conectar
@@ -138,6 +150,20 @@ class detalle{
     return $result;
     }
 
+    function consultarProductosIdServicio($idServicio){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        $sql="SELECT * FROM detalle WHERE idServicio=$idServicio AND eliminado=false";
+    
+        //se ejecuta la consulta
+        $result=mysqli_query($conexion,$sql);
+        $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
+        return $result;
+        }
+
     function consultarServicioIdServicio($idServicio){
         //Instancia clase conectar
         $oConexion=new conectar();
@@ -152,5 +178,3 @@ class detalle{
         return $result;
     }
 }
-
-?>

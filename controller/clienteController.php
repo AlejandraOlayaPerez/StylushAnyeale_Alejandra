@@ -22,6 +22,9 @@ switch ($funcion) {
     case "registroCliente":
     $oClienteController->registrarCliente();
     break;
+    case "buscarReservacionPorCC":
+    $oClienteController->buscarReservacionPorCC();
+    break;
 }
 
 class clienteController
@@ -109,13 +112,12 @@ class clienteController
         return $oReservacion->listarReservacionesPorIdCliente($idCliente);
     }
 
-    public function buscarReservacionPorCC($tipoDocumento, $documentoIdentidad){
+    public function buscarReservacionPorCC(){
         require_once '../model/reservaciones.php';
 
         $oReservacion=new reservacion();
-        $result=$oReservacion->consultarClientePorCC($tipoDocumento, $documentoIdentidad);
-        return $result;
-        print_r($oReservacion);
+        $result=$oReservacion->consultarClientePorCC($_GET['tipoDocumento'], $_GET['documentoIdentidad']);
+        echo json_encode($result); 
     }
 
 }

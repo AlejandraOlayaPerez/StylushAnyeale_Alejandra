@@ -41,6 +41,14 @@ $oReservacionController=new reservacionController();
             }
         }
 
+        public function consultarReservacion(){
+            require_once '../model/reservaciones.php';
+
+            $oReservacion=new reservacion();
+            $result=$oReservacion->consultarReservacion();
+            return $result;
+        }
+
         public function crearReservacion(){
             require_once '../model/reservaciones.php';
             $oReservacion=new reservacion();

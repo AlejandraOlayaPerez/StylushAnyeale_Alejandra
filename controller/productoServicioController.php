@@ -34,9 +34,9 @@ switch ($funcion) {
     case "actualizarServicioProducto":
         $oProductoServicioController->actualizarServicioProducto();
         break;
-        // case "eliminarServicio":
-        // case $oProductoServicioController->eliminarServicio();
-        // break;
+    case "eliminarServicio":
+        $oProductoServicioController->eliminarServicio();
+        break;
 }
 
 
@@ -148,6 +148,7 @@ class productoServicioController
         $oServicio->codigoServicio = $_GET['codigoServicio'];
         $oServicio->nombreServicio = $_GET['nombreServicio'];
         $oServicio->detalleServicio = $_GET['detalleServicio'];
+        $oServicio->tiempoDuracion = $_GET['tiempoDuracion'];
         $oServicio->costo = $_GET['costo'];
         $result = $oServicio->nuevoServicio();
 
@@ -207,62 +208,73 @@ class productoServicioController
         $oServicio->codigoServicio = $_GET['codigoServicio'];
         $oServicio->nombreServicio = $_GET['nombreServicio'];
         $oServicio->detalleServicio = $_GET['detalleServicio'];
+        $oServicio->tiempoDuracion = $_GET['tiempoDuracion'];
         $oServicio->costo = $_GET['costo'];
         $result = $oServicio->actualizarServicio();
 
-        if($result){
-            header("location: ../view/formularioEditarServicio.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+servicio");
-            //  echo "actualizo";
-        }else{
-             header("location: ../view/formularioEditarServicio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            //  echo "error";
+        if ($result) {
+            header("location: ../view/listarServicio.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+servicio");
+            // echo "actualizo";
+        } else {
+            header("location: ../view/listarServicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error";
         }
-
     }
 
-    public function actualizarServicioProducto(){
+    public function consultarProductosIdServicio($idServicio)
+    {
+        require_once '../model/detalle.php';
 
-        // require_once '../model/detalle.php';
-        // $oDetalle = new detalle;
-        // $oDetalle->idServicio = $_GET['idServicio'];
-        // $oDetalle->idProducto = $_GET['idProducto'];
-        // $productoBorrado = $oDetalle->borrarProductoDelServicio();
-        // $productoLista = $_GET['productos'];
-        // $cantidadProductoLista = $_GET['cantidadProducto'];
-
-        // for ($i = 0; $i < count($productoLista); $i++) {
-        //     require_once '../model/producto.php';
-        //     $oProducto = new producto();
-        //     $oDetalle->idServicio = $_GET['idServicio'];
-        //     $oProducto->consultarProducto($productoLista[$i]);
-        //     $oProducto->nombreProducto;
-        //     $oProducto->codigoProducto;
-        //     $oProducto->costoProducto;
-        //     $oProducto->IdProducto;
-        //     $result = $oDetalle->consultarServiciosIguales($oDetalle->idServicio, $oDetalle->idProducto);
-        //     if ($result != 0) {
-        //         $oDetalle->guardarProductoServicio($oDetalle->idServicio, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->costoProducto);
-        //     }
-        // }
+        $oDetalle = new detalle();
+        $result = $oDetalle->consultarProductosIdServicio($idServicio);
+        return $result;
     }
 
-    // public function eliminarServicio(){
-    //     require_once '../model/servicio.php';
+    public function actualizarServicioProducto()
+    {
+        require_once '../model/detalle.php';
+        $oDetalle = new detalle;
+        $oDetalle->idServicio = $_GET['idServicio'];
+        $oDetalle->idProducto = $_GET['idProducto'];
+        $productoBorrado = $oDetalle->borrarProductoDelPedido();
 
-    //     $oServicio=new servicio();
-    //     $oServicio->IdServicio=$_GET['IdServicio'];
-    //     $result=$oServicio->eliminarServicio();
+        $productoLista = $_GET['productos'];
+        $cantidadProductoLista = $_GET['cantidadProducto'];
 
-    //     require_once 'mensajeController.php';
-    //     $oMensaje=new mensajes();
+        for ($i = 0; $i < count($productoLista); $i++) {
+            require_once '../model/producto.php';
+            $oProducto = new producto();
+            $oDetalle->idServicio = $_GET['idServicio'];
+            $oProducto->consultarProducto($productoLista[$i]);
+            $oProducto->nombreProducto;
+            $oProducto->codigoProducto;
+            $oProducto->costoProducto;
+            $oProducto->IdProducto;
+            if ($oDetalle->consultarProductoIgualesServicio($oDetalle->idServicio, $oDetalle->idProducto) != 0) {
+            } else {
+                $oDetalle->guardarProducto($oDetalle->idPedido, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->costoProducto);
+            }
+        }
+    }
 
-    //     if ($result) {
-    //         // header("location: ../view/listarSerivio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
-    //          echo "elimino";
-    //     }else{
-    //         // header("location: ../view/listarSerivio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-    //         echo "error";
-    //     }
-    // }
+
+    public function eliminarServicio(){
+        require_once '../model/servicio.php';
+
+        $oServicio=new servicio();
+        $oServicio->IdServicio=$_GET['IdServicio'];
+        $result=$oServicio->eliminarServicio();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($result) {
+            header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            // echo "elimino";
+        }else{
+             header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            //echo "error";
+        }
+    }
 
 }

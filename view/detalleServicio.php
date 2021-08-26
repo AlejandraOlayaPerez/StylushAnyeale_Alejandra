@@ -4,7 +4,6 @@ require_once '../model/servicio.php';
 require_once '../controller/productoServicioController.php';
 
 $idServicio=$_GET['idServicio'];
-echo $idServicio;
 
 $oProductoServicioController = new productoServicioController();
 $oServicio = $oProductoServicioController->consultarServicio($idServicio);
@@ -41,6 +40,10 @@ $oServicio = $oProductoServicioController->consultarServicio($idServicio);
                             <div class="col col-xl-4 col-md-6 col-12">
                                 <label>Detalle: </label>
                                 <input class="form-control" type="text" value="<?php echo $oServicio->detalleServicio; ?>" disabled>
+                            </div>
+                            <div class="col col-xl-4 col-md-6 col-12">
+                                <label>Tiempo Duracion: </label>
+                                <input class="form-control" type="text" value="<?php echo $oServicio->tiempoDuracion; ?> Minutos" disabled>
                             </div>
                             <div class="col col-xl-4 col-md-6 col-12">
                                 <label>Costo: </label>

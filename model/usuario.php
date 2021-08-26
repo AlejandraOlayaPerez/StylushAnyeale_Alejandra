@@ -1,7 +1,6 @@
 <?php
 require_once 'conexiondb.php';
 
-
 class usuario
 {
     //el modificador private no permite acceder a los atributos fuera de la clase
@@ -117,6 +116,30 @@ class usuario
 
         return count($result);
     }
+
+    public function consultarContrasena($idUser, $contrasena)
+    {
+        $contrasena = md5($contrasena);
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        //sentencia que nos permite conocer la existencia de un correo electronico
+        $sql = "SELECT * FROM usuario WHERE idUser=$idUser AND contrasena='$contrasena'";
+        
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        //retorna el numero de los registros
+        foreach ($result as $registro) {
+            $this->contrasena = $registro['contrasena'];
+        }
+
+        return count($result);
+    }
+
+ 
 
     public function consultarCorreoElectronicoExiste($correoElectronico, $idUser){
         //instancia la clase conectar
@@ -274,8 +297,8 @@ class usuario
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
-
-    function listarUsuarioPorCargo($idCargo)
+    
+    function listarUsuarioPorCargo($idServicio)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
@@ -283,7 +306,7 @@ class usuario
         $conexion = $oConexion->conexion();
 
         //sentencia para seleccionar un empleado 
-        $sql = "SELECT * FROM usuario WHERE idCargo=$idCargo AND eliminado=false";
+        $sql = "SELECT CONCAT(u.primerNombre,' ',u.primerApellido) AS nombre, u.idUser FROM cargo c INNER JOIN usuario u ON C.idCargo=U.idCargo WHERE c.IdServicio=$idServicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -404,6 +427,24 @@ class usuario
         genero='$this->genero',
         direccion='$this->direccion',
         barrio='$this->barrio'
+        WHERE idUser=$idUser";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function actualizarContrasenaUsuario($idUser, $contrasena)
+    {
+        //funcion para encriptar la contraseña utilizando el metodo md5
+        $contrasena=md5($contrasena);
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        //consulta para actualizar el registro
+        $sql = "UPDATE usuario SET contrasena='$contrasena'
         WHERE idUser=$idUser";
 
         //se ejecuta la consulta

@@ -182,7 +182,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                                 $result = $oServicio->mostrarServicio();
                                                 ?>
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Servicio</label>
-                                                <select select class="form-select" id="servicio" name="servicio" value="<?php echo $oReservacion->servicio; ?>" onchange="validarCampo(this);" required>
+                                                <select select class="form-select" id="servicio" name="servicio" value="<?php echo $oReservacion->servicio; ?>" onchange="traerEstilistas(this);" required>
                                                     <option value="" disabled selected>Selecciones una opción</option>
                                                     <?php foreach ($result as $registro) {
                                                     ?>
@@ -194,21 +194,12 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                                 <span id="servicioSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
-                                                <?php
-                                                require_once '../model/usuario.php';
-                                                $oUsuario = new usuario();
-                                                $result = $oUsuario->listarUsuarioCargoEstilista();
-                                                ?>
+    
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Estilista</label>
                                                 <select select class="form-select" id="estilista" name="estilista" value="<?php echo $oReservacion->estilista; ?>" onchange="validarCampo(this);" required>
                                                     <option value="" disabled selected>Selecciones una opción</option>
-                                                    <?php foreach ($result as $registro) {
-                                                    ?>
-                                                        <option value="<?php echo $registro['idUser']; ?>"><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                    <option value="" selected>Ninguno de los anteriores</option>
+                                                    
+                                                
                                                 </select>
                                                 <span id="estilistaSpan"></span>
                                             </div>
@@ -257,6 +248,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/adminlte.min.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/reservacion.js"></script>
     </div>
 </body>
 

@@ -8,6 +8,8 @@ function listarPedido(){
     }).done(
         function (data){
             console.log(data);
+            
         } //recibimos la informacion de ajaxon
     );
 }
+

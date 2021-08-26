@@ -7,9 +7,6 @@ $horaActual = Date("H:i:s");
 
 require_once '../model/cliente.php';
 $oCliente = new cliente();
-
-$tipoDocumento = "";
-$documentoIdentidad = "";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -148,7 +145,8 @@ $documentoIdentidad = "";
                 </div>
 
                 <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-xl"><i class="fas fa-search"></i> Buscar Reservacion</button>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-xl" onclick="buscarCliente();"><i class="fas fa-search"></i> Buscar Reservacion</button>
+                    <button type="button" class="btn btn-info"><i class="fas fa-money-check-alt"></i> Pagar Reservacion</button>
                     <a href="facturaServicioPdf.php?tipoDocumento=<?php echo $_GET['tipoDocumento']; ?>&documentoIdentidad=<?php echo $_GET['documentoIdentidad']; ?>" class="btn btn-info"><i class="fas fa-print"></i> Descargar PDF</a>
                 </div>
             </div>
@@ -166,29 +164,23 @@ $documentoIdentidad = "";
                             <div class="modal-body">
                                 <div class="modal-body">
                                     <h1>Buscar Reservacion: </h1>
-                                    <form action="" method="GET">
+                                    <!-- <form action="" method="GET"> -->
                                         <div class="row">
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Tipo de Documento: </label>
-                                                <select class="form-control" name="tipoDocumento">
+                                                <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="buscarCliente()">
                                                     <option value="" selected>Selecciones una opción</option>
-                                                    <option value="TI" <?php if ($tipoDocumento == "TI") {
-                                                                            echo "selected";
-                                                                        } ?>>Tarjeta de Identidad</option>
-                                                    <option value="CC" <?php if ($tipoDocumento == "CC") {
-                                                                            echo "selected";
-                                                                        } ?>>Cedula Ciudadanía</option>
-                                                    <option value="CE" <?php if ($tipoDocumento == "CE") {
-                                                                            echo "selected";
-                                                                        } ?>>Cedula Extranjería</option>
+                                                    <option value="TI" >Tarjeta de Identidad</option>
+                                                    <option value="CC" >Cedula Ciudadanía</option>
+                                                    <option value="CE" >Cedula Extranjería</option>
                                                 </select>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Documento: </label>
-                                                <input type="number" class="form-control" name="documentoIdentidad" value="<?php echo $documentoIdentidad; ?>">
+                                                <input type="number" class="form-control" id="documentoIdentidad2"n ame="documentoIdentidad"  onchange="buscarCliente()">
                                             </div>
                                         </div>
-                                    </form>
+                                    <!-- </form> -->
 
                                     <hr>
 
@@ -205,35 +197,8 @@ $documentoIdentidad = "";
                                                 <th>Precio</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <?php
-                                            require_once '../controller/clienteController.php';
-                                            $oClienteController = new clienteController();
-
-                                            if (isset($_GET['documentoIdentidad']) != "") {
-                                                $tipoDocumento = $_GET['tipoDocumento'];
-                                                $documentoIdentidad = $_GET['documentoIdentidad'];
-
-                                                $consulta = $oClienteController->buscarReservacionPorCC($tipoDocumento, $documentoIdentidad);
-                                                foreach ($consulta as $registro) {
-                                            ?>
-                                                    <tr>
-                                                        <td><button type="button" class="btn btn-success" data-dismiss="modal" onclick="agregarReservacion('<?php echo $registro['idCliente'] ?>','<?php echo $registro['tipoDocumento']; ?>','<?php echo $registro['documentoIdentidad']; ?>','<?php echo $registro['primerNombre']; ?>','<?php echo $registro['primerApellido']; ?>','<?php echo $registro['idReservacion']; ?>','<?php echo $registro['servicio']; ?>','<?php echo $registro['fechaReservacion']; ?>','<?php echo $registro['horaReservacion']; ?>','<?php echo $registro['precio']; ?>')">Agregar</button></td>
-                                                        <td><?php echo $registro['tipoDocumento']; ?></td>
-                                                        <td><?php echo $registro['documentoIdentidad']; ?></td>
-                                                        <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
-                                                        <td><?php echo $registro['servicio']; ?></td>
-                                                        <td><?php echo $registro['fechaReservacion']; ?></td>
-                                                        <td><?php echo $registro['horaReservacion']; ?></td>
-                                                        <td><?php echo $registro['precio']; ?></td>
-                                                    </tr>
-                                                <?php } ?>
-                                            <?php } else {
-                                            ?>
-                                                <tr>
-                                                    <td colspan="9" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay disponibles reservaciones</td>
-                                                </tr>
-                                            <?php } ?>
+                                        <tbody id="informacionCliente">
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -245,14 +210,51 @@ $documentoIdentidad = "";
                     </div>
                 </div>
             </div>
-        </div>
 
-        <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
-        <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-        <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
-        <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/agregarReservacion.js"></script>
+            <hr class="featurette-divider">
+
+            <div class="card-body table-responsive p-0">
+                <table class="table table-striped table-valign-middle">
+                    <thead>
+                        <tr style="background-color: rgb(249, 201, 242);">
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Descripcion</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>IVA%</th>
+                            <th>boton agregar fila</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">TOTAL</td>
+                            <td>TOTALCANTIDAD</td>
+                            <td>TOTAL PRECIO</td>
+                            <td>TOTAL IVA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
+    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/agregarReservacion.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/cajero.js"></script>
 
     </div>
 </body>

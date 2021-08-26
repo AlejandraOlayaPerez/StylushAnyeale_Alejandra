@@ -39,11 +39,12 @@ class cargoController{
         $oMensaje=new mensajes();
 
         $oCargo=new cargo();
-        $oCargo->cargo=$_GET['cargo'];
+        $oCargo->idServicio=$_GET['idServicio'];
         $result=$oCargo->nuevoCargo();
 
         if ($result) {
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+creado+un+nuevo+cargo");
+        
         }else{
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
@@ -63,16 +64,16 @@ class cargoController{
 
         $oCargo=new cargo();
         $oCargo->idCargo=$_GET['idCargo'];
-        $oCargo->cargo=$_GET['cargo'];
-        $oCargo->actualizarCargo();
+        $oCargo->idServicio=$_GET['idServicio'];
+        $result=$oCargo->actualizarCargo();
 
         require_once 'mensajeController.php';
         $oMensaje=new mensajes();
 
-        if ($oCargo->actualizarCargo()) {
-           header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
+        if ($result) {
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
         }else{
-           header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 

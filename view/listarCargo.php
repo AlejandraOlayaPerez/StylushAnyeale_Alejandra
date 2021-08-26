@@ -76,7 +76,7 @@ $oCargo = new cargo();
                                     foreach ($consulta as $registro) {
                                 ?>
                                         <tr>
-                                            <td><?php echo $registro['cargo']; ?></td>
+                                            <td><?php echo $registro['nombreServicio']; ?></td>
                                             <td>
                                                 <a href="formularioEditarCargo.php?idCargo=<?php echo $registro['idCargo']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                                 <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarCargo(<?php echo $registro['idCargo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>

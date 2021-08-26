@@ -5,7 +5,7 @@ class cargo{
 
     //atributos de la tabla de cargo
     public $idCargo=0;
-    public $cargo="";
+    public $idServicio="";
     public $numRegistro = "";
     public $numPagina = "";
 
@@ -17,7 +17,7 @@ class cargo{
         $conexion=$oConexion->conexion();
 
         //sentencia para insertar un nuevo cargo
-        $sql="INSERT INTO cargo (cargo, eliminado) VALUES ('$this->cargo', false)";
+        $sql="INSERT INTO cargo (IdServicio, eliminado) VALUES ('$this->idServicio', false)";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -32,7 +32,7 @@ class cargo{
         $conexion=$oConexion->conexion();
 
         //Buscar numero de registro por filtros
-        $sql="SELECT count(cargo) as numRegistro FROM cargo WHERE eliminado=false;";
+        $sql="SELECT count(IdServicio) as numRegistro FROM cargo WHERE eliminado=false;";
         $result=mysqli_query($conexion, $sql);
         foreach ($result as $registro){
             $this->numRegistro=$registro['numRegistro'];
@@ -40,7 +40,7 @@ class cargo{
 
         //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
         $inicio=(($pagina-1)*10);
-        $sql="SELECT * FROM cargo WHERE eliminado=false LIMIT 10 OFFSET $inicio";
+        $sql="SELECT c.idCargo, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.IdServicio) as nombreServicio FROM cargo c WHERE c.eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -65,8 +65,7 @@ class cargo{
         foreach($result as $registro){ 
         //se registra la consulta en los parametros
         $this->idCargo=$registro['idCargo'];
-        $this->cargo=$registro['cargo'];
-        $this->descripcionCargo=$registro['descripcionCargo'];
+        $this->IdServicio=$registro['IdServicio'];
         }
     }
 
@@ -78,11 +77,12 @@ class cargo{
         $conexion=$oConexion->conexion();
 
         //sentencia que permite actualizar un  cargo
-        $sql="UPDATE cargo SET cargo='$this->cargo'
+        $sql="UPDATE cargo SET IdServicio=$this->idServicio
         WHERE idCargo=$this->idCargo";
             
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
+        echo $sql;
         return $result;
     }
 

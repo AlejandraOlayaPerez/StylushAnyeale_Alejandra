@@ -66,6 +66,20 @@ class seguimiento{
         return $result;
     }
 
+    function seguimientoCambioContrasena($fechaSeguimiento, $horaSeguimiento){
+        //instancia la clase conectar
+        $oConexion=new conectar();
+        //se establece la conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        $sql="INSERT INTO seguimiento (idUser, idPedido, idFactura, observacion, fechaSeguimiento, horaSeguimiento)
+        VALUES ($this->idUser, NULL, NULL, 'Ha cambiado su contraseña', '$fechaSeguimiento', '$horaSeguimiento')";
+        
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        return $result;
+    }
+
     function listarSeguimientos(){
     //Instancia clase conectar
     $oConexion=new conectar();
