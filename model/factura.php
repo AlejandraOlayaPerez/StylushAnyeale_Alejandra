@@ -4,16 +4,30 @@ require_once 'conexionDB.php';
 
 class factura{
     public $idFactura=0;
-    public $codigoFactura="";
-    public $idEmpleado="";
+    public $idReservacion="";
+    public $idUser="";
     public $idCliente="";
+    public $codigoFactura="";
     public $documentoIdentidad="";
     public $responsableFactura="";
     public $fechaFactura="";
-    public $cantidad="";
-    public $iva="";
-    public $valorUnitario="";
+    public $horaFactura="";
     public $valorTotal="";
+
+    function registroFacturaReservacion(){
+    //instancia la clase conectar
+    $oConexion=new conectar();
+    //se establece la conexión con la base datos
+    $conexion=$oConexion->conexion();
+    //sentencia SQL para instertar estudiante
+    
+    $sql="INSERT INTO factura(idReservacion, idUser, idCliente, codigoFactura, documentoIdentidad, responsableFactura, fechaFactura, horaFactura, valorTotal, eliminado)
+    VALUES ($this->idReservacion, $this->idUser, $this->idCliente, '$this->codigoFactura',$this->documentoIdentidad, '$this->responsableFactura', '$this->fechaFactura', '$this->horaFactura', $this->valorTotal, false)";
+    
+    $result = mysqli_query($conexion, $sql);
+    echo $sql;
+    return $result;
+    }
 
     function listarFactura($filtroFactura){
     //instancia la clase conectar
@@ -32,6 +46,20 @@ class factura{
     $result=mysqli_query($conexion,$sql);
     //organiza resultado de la consulta y lo retorna
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function consultarExisteFactura($codigoFactura){
+        //se instancia el objeto conectar
+        $oConexion=new conectar();
+        //se establece conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        $sql="SELECT * FROM factura WHERE codigoFactura='$codigoFactura'";
+
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     function mostrarFactura($filtroFecha){

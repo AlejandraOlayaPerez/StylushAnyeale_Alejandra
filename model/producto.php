@@ -47,6 +47,25 @@ class producto{
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    //funcion para mostrar los productos
+    function buscarProductoAjax($codigoProducto, $nombreProducto){
+        //Instancia clase conectar
+        $oConexion=new conectar();
+        //Establece conexion con la base de datos.
+        $conexion=$oConexion->conexion();
+    
+        if ($codigoProducto!=""){
+            $sql="SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%')"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
+        }else{
+            $sql="SELECT * FROM producto WHERE eliminado=false AND (nombreProducto LIKE '%$nombreProducto%')";
+        }
+    
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+        }
+
     function mostrarProducto2(){
     //Instancia clase conectar
     $oConexion=new conectar();
@@ -87,6 +106,21 @@ class producto{
     //organiza resultado de la consulta y lo retorna
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+    }
+
+    function consultarExisteProducto($idProducto)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM producto WHERE Idproducto='$idProducto'";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     function consultarProducto($IdProducto){

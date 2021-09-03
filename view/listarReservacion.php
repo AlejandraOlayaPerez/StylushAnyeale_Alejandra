@@ -37,6 +37,7 @@ session_start();
     </style>
 </head>
 
+
 <body>
     <div class="container-fluid">
         <header>
@@ -48,9 +49,8 @@ session_start();
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-calendar"></i> Tus Reservaciones</a></li>
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="nuevaReservacion.php"><i class="fas fa-calendar-plus"></i> Crea Una Reservacion</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="formularioEditarReservacion.php"><i class="fas fa-calendar"></i> Edita Tu Reservacion</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="eliminarReservacion.php"><i class="fas fa-calendar-times"></i> Elimina Tu Reservacion</li>
                         </ul>
                     </div>
                 </div>
@@ -61,6 +61,15 @@ session_start();
             <div class="pricing-header p-3 pb-md-4 mx-auto text-center" style="background-color: rgb(249, 201, 242); border: 2px solid black">
                 <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 100px; font-weight: 600; -webkit-text-fill-color: black; ">¡CONOCE TUS RESERVACIONES!</h1>
             </div>
+            <br>
+            <?php
+            require_once '../controller/mensajeController.php';
+
+            if (isset($_GET['mensaje'])) {
+                $oMensaje = new mensajes();
+                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+            }
+            ?>
 
             <div class="card-body pb-0" style="background-color: rgba(255, 255, 204, 255);">
                 <div class="row">
@@ -73,7 +82,7 @@ session_start();
                         <div class="col col-xl-4 col-md-6 col-12 d-flex align-items-stretch flex-column">
                             <div class="card bg-light d-flex flex-fill">
                                 <div class="card-header text-muted border-bottom-0" style="background-color: rgba(255, 255, 204, 255);">
-                                    <h1 style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Servicio: </strong><?php echo $registro['servicio']; ?></h1>
+                                    <h1 style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong><?php echo $registro['nombreServicio']; ?></strong></h1>
                                 </div>
                                 <div class="card-body pt-0" style="background-color: rgba(255, 255, 204, 255);">
                                     <div class="row">
@@ -90,6 +99,9 @@ session_start();
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                                    <a href="formularioEditarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
+                                </div>
                             </div>
                         </div>
                     <?php } ?>
@@ -97,8 +109,20 @@ session_start();
             </div>
         </main>
 
+        <!-- <br>
+        <br>
+        <br>
 
-
+        <footer style="background-color: black; " class="main-footer">
+            <strong>
+                <h7 style="font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: rgb(249, 201, 242);">"Estilo y confianza te brinda Anyeale"</h7>
+            </strong>
+            <div class="float-right d-none d-sm-inline-block">
+                <b>
+                    <h7 style="font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: rgb(249, 201, 242);">Aleja(2021)
+                </b>
+            </div>
+        </footer> -->
 
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/popper.min.js"></script>

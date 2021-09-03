@@ -8,7 +8,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
 ?>
 
 <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-    <form action="../controller/usuarioController.php" method="POST" id="formulario1">
+    <form action="../controller/usuarioController.php" method="POST" id="formularioInformacion">
         <input type="text" name="funcion" value="ActualizarUsuario" style="display: none;">
         <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
         <input type="text" name="idRol" value="<?php echo $oUsuario->idRol; ?>" style="display: none;">
@@ -50,7 +50,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
 
             <div class="col col-xl-4 col-md-6 col-12">
                 <label for="" class="form-label">Primer Apellido</label>
-                <input type="text" class="form-control" id="primerApellido" name="primerApellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required> 
+                <input type="text" class="form-control" id="primerApellido" name="primerApellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                 <span id="primerApellidoSpan"></span>
             </div>
 
@@ -128,7 +128,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
             </div>
         </div>
         <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-            <button type="button" class="btn btn-success float-right" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i>Actualizar Informacion</button>
+            <button type="button" class="btn btn-success float-right" onclick="validarPaginaActualizar();"><i class="fas fa-edit"></i>Actualizar Informacion</button>
         </div>
     </form>
 </div>
@@ -136,7 +136,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
 
 
 <script>
-    function validarPaginaFinal() {
+    function validarPaginaActualizar() {
         // evento.preventDefault();
         var valido = true;
         // agregar el id de cada campo de la página para poder validar
@@ -149,7 +149,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
                 valido = false;
         });
         if (valido)
-            document.getElementById('formulario1').submit();
+            document.getElementById('formularioInformacion').submit();
     }
 
     function validarCampo(campo) {

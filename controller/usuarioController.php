@@ -35,6 +35,9 @@ switch ($funcion) {
     case "usuarioCargo":
         $oUsuarioController->usuarioCargo();
         break;
+    case "registrarUsuarioCargo":
+        $oUsuarioController->registrarUsuarioCargo();
+        break;
 }
 
 class usuarioController
@@ -155,7 +158,7 @@ class usuarioController
 
         $oUsuario = new usuario();
         $oUsuario->consultarUsuario($idUser);
-
+        
         return $oUsuario;
     }
 
@@ -245,6 +248,7 @@ class usuarioController
             // echo "Usuario o contraseña incorrecto";
             header("location: ../view/loginUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
         }
+        return $oUsuario;
     }
 
     public function cerrarSesion()
@@ -306,5 +310,29 @@ class usuarioController
         $result = $oUsuario->listarUsuarioPorCargo($_POST['idServicio']);
 
         echo json_encode($result);
+    }
+
+    public function registrarUsuarioCargo(){
+
+        $idUser=$_GET['cargoUsuario']; 
+        $idCargo=$_GET['idCargo'];
+
+        require_once '../model/usuario.php';
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        $oUsuario=new usuario();
+        $result=$oUsuario->nuevoUsuarioRegistroMasivo($idUser, $idCargo);
+
+        if($result){
+            // echo "registro";
+            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+cargo");
+        }else{
+            // echo "error";
+            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+        }
+
+        
     }
 }

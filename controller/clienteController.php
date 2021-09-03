@@ -25,6 +25,9 @@ switch ($funcion) {
     case "buscarReservacionPorCC":
     $oClienteController->buscarReservacionPorCC();
     break;
+    case "buscarProductoAjax":
+    $oClienteController->buscarProductoAjax();
+    break;
 }
 
 class clienteController
@@ -118,6 +121,15 @@ class clienteController
         $oReservacion=new reservacion();
         $result=$oReservacion->consultarClientePorCC($_GET['tipoDocumento'], $_GET['documentoIdentidad']);
         echo json_encode($result); 
+    }
+
+    public function buscarProductoAjax(){
+    
+        require_once '../model/producto.php';
+
+        $oProducto=new producto();
+        $result=$oProducto->buscarProductoAjax($_GET['codigoProducto'], $_GET['nombreProducto']);
+        echo json_encode($result);
     }
 
 }

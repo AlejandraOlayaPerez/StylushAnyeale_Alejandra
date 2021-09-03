@@ -45,10 +45,58 @@ class productoServicioController
 
     public function crearProducto()
     {
-        // $url=$_SESSION['urlRaiz']."model/producto.php";
+        require_once 'configCrontroller.php';
         require_once '../model/producto.php';
 
+        require_once 'mensajeController.php';
+        $oMensaje = new mensajes();
+
+        $Oconfig = new Config();
+        
         $oProducto = new producto();
+
+        do {
+            $codigoProducto = $Oconfig->generarCodigoPedido();
+            $existeCodigo = $oServicio->consultarExisteProducto($codigoProducto);
+        } while (count($existeCodigo) > 0);
+        
+        foreach ($_FILES["fotos"]['tmp_name'] as $key => $tmp_name) {
+            //Validamos que el archivo exista
+            if ($_FILES["fotos"]["name"][$key]) {
+                $filename = $_FILES["fotos"]["name"][$key]; //Obtenemos el nombre original del archivo
+                $source = $_FILES["fotos"]["tmp_name"][$key]; //Obtenemos un nombre temporal del archivo
+                $ubicacion = '/image/productos/'.$codigoProducto;
+                $directorio = $_SERVER['DOCUMENT_ROOT'].'/Anyeale_proyecto/StylushAnyeale_Alejandra/'.$ubicacion; //Declaramos un  variable con la ruta donde guardaremos los archivos
+                // echo $directorio;
+                //Validamos si la ruta de destino existe, en caso de no existir la creamos
+                if (!file_exists($directorio)) {
+                    mkdir($directorio, 0, true) or die("No se puede crear el directorio de extracci&oacute;n");
+                }
+                // require_once 'configController.php';
+                // $oConfig=new config(); 
+                // $codigo=$oConfig->generarCodigoUniqid();
+                $dir = opendir($directorio); //Abrimos el directorio de destino
+                $target_path = $directorio.'/producto.jpg';; //Indicamos la ruta de destino, así como el nombre del archivo
+                //Movemos y validamos que el archivo se haya cargado correctamente
+                //El primer campo es el origen y el segundo el destino
+                if(file_exists($target_path)) unlink($target_path);
+                if(move_uploaded_file($source, $target_path)) {	
+                    // require_once '../model/imagen.php';
+                    // $oFoto=new foto();
+                    // $oFoto->fotos=$ubicacion.'/perfilUsuario.jpg';
+                    // $result=$oFoto->nuevasFotosProductoMasivo($codigoProducto);
+                    // if($result){
+                    //    echo "El archivo $filename se ha almacenado en forma exitosa.<br>";
+                    // }   
+                 
+                } else {
+                    echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
+                }
+                closedir($dir); //Cerramos el directorio de destino
+            }
+        }
+
+      
         $oProducto->codigoProducto = $_GET['codigoProducto'];
         $oProducto->tipoProducto = $_GET['tipoProducto'];
         $oProducto->nombreProducto = $_GET['nombreProducto'];
@@ -186,6 +234,14 @@ class productoServicioController
 
         return $oServicio;
     }
+
+    // public function consultarProductoPorId($IdProducto){
+    //     require_once '../model/producto.php';
+
+    //     $oProducto=new producto();
+    //     $result=$oProducto->consultarProductoId();
+    //     return $result;
+    // }
 
     public function consultarServicioIdServicio($idServicio)
     {

@@ -120,8 +120,7 @@ public function eliminarEmpleadoCargo(){
     $idCargo=$_GET['idCargo'];
 
     $oUsuario=new usuario();
-    $oUsuario->idUser=$_GET['idUser'];
-    $result=$oUsuario->eliminarUsuarioCargo();
+    $result=$oUsuario->eliminarUsuarioCargo($_GET['idUser']);
 
     require_once 'mensajeController.php';
     $oMensaje=new mensajes();
@@ -131,7 +130,7 @@ public function eliminarEmpleadoCargo(){
         // echo "eliminar";
     }else{
         header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-        // echo "Error";
+       // echo "Error";
     }
 }
 

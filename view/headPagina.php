@@ -18,9 +18,10 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   //iniciar session
   // $oUsuarioController->verificarPermiso($idPagina);
   $oGestionController->verificarPermisoUrl($url);
-  }
+}
 ?>
 <html lang="es">
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -53,11 +54,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/dropzone/min/dropzone.min.css">
 
   <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
-</head>
-
-
-
-<title>Stylush Anyeale</title>
+  <title>Stylush Anyeale</title>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -119,7 +116,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-              <li class="nav-item">
+                <li class="nav-item">
                   <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/seguimiento.php" class="nav-link">
                     <i class="fas fa-check-circle"></i>
                     <p>Seguimiento</p>
@@ -154,7 +151,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 
             <li class="nav-item">
               <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/cajero.php" class="nav-link">
-              <i class="fas fa-money-check-alt"></i>
+                <i class="fas fa-money-check-alt"></i>
                 <p>Cajero</p>
               </a>
             </li>

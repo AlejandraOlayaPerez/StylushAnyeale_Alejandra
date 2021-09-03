@@ -153,8 +153,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                                         <?php }
                                     } else { //en caso de que no tengo informacion, mostrara un mensaje
                                         ?>
-                                        <!-- no hay ningun registro -->
-                                        <tr>
+                                        <tr id="0">
                                             <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay productos en este pedido</td>
                                         </tr>
                                     <?php

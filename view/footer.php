@@ -46,6 +46,9 @@
 <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/raphael/raphael.min.js"></script>
 <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
 <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
+<script>$.widget.bridge('uibutton', $.ui.button)</script>
+<script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/pages/dashboard2.js"></script>
+
 
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarProductos.js"></script>

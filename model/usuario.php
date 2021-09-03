@@ -23,6 +23,8 @@ class usuario
     public $estadoCivil = "";
     public $direccion = "";
     public $barrio = "";
+    public $imgBiografia="";
+    public $imgPerfil="";
     public $numRegistro = "";
     public $numPagina = "";
     public $eliminado = "";
@@ -207,20 +209,31 @@ class usuario
         //arreglo asosiativo de la base de datos
     }
 
-    function nuevoUsuarioPorCargo($idCargo, $idUser)
+    function nuevoUsuarioRegistroMasivo($idUser, $idCargo){
+        $result="";
+       foreach($idUser as $registro){
+           $this->idUser=$registro;
+           $result=$this->nuevoUsuarioPorCargo($idCargo);
+           if(!$result) 
+           break;
+       }
+       return $result;
+   }
+
+    function nuevoUsuarioPorCargo($idCargo)
     {
         //instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "UPDATE usuario SET idCargo=$idCargo WHERE idUser=$idUser";
+        $sql = "UPDATE usuario SET idCargo=$idCargo WHERE idUser=$this->idUser";
 
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
 
-    function eliminarUsuarioCargo()
+    function eliminarUsuarioCargo($idUser)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
@@ -228,7 +241,7 @@ class usuario
         $conexion = $oConexion->conexion();
 
         //esta consulta nos permite actualizar el idCargo, volviendola Nulo
-        $sql = "UPDATE usuario SET idCargo=NULL WHERE idUser=$this->idUser";
+        $sql = "UPDATE usuario SET idCargo=NULL WHERE idUser=$idUser";
 
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
@@ -252,7 +265,7 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function mostrarUsuario()
+    function mostrarUsuario($idCargo)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
@@ -260,7 +273,7 @@ class usuario
         $conexion = $oConexion->conexion();
 
         //sentencia para seleccionar un empleado 
-        $sql = "SELECT * FROM usuario WHERE eliminado=false";
+        $sql = "SELECT * FROM usuario WHERE idCargo!=$idCargo OR idCargo IS NULL AND eliminado=false;";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -306,7 +319,7 @@ class usuario
         $conexion = $oConexion->conexion();
 
         //sentencia para seleccionar un empleado 
-        $sql = "SELECT CONCAT(u.primerNombre,' ',u.primerApellido) AS nombre, u.idUser FROM cargo c INNER JOIN usuario u ON C.idCargo=U.idCargo WHERE c.IdServicio=$idServicio";
+        $sql = "SELECT CONCAT(u.primerNombre,' ',u.segundoNombre) AS nombre, CONCAT(u.primerApellido,' ',u.segundoApellido) AS apellido, u.tipoDocumento, u.documentoIdentidad, u.telefono, u.idUser FROM cargo c INNER JOIN usuario u ON c.idCargo=u.idCargo WHERE c.idServicio=$idServicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -401,6 +414,7 @@ class usuario
             $this->telefono = $registro['telefono'];
             $this->genero = $registro['genero'];
             $this->direccion = $registro['direccion'];
+            $this->estadoCivil = $registro['estadoCivil'];
             $this->barrio = $registro['barrio'];
             $this->eliminado = $registro['eliminado'];
         }
@@ -425,6 +439,7 @@ class usuario
         correoElectronico='$this->correoElectronico',
         telefono=$this->telefono,
         genero='$this->genero',
+        estadoCivil='$this->estadoCivil',
         direccion='$this->direccion',
         barrio='$this->barrio'
         WHERE idUser=$idUser";

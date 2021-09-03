@@ -60,9 +60,9 @@ if (isset($_POST['correoElectronico']) != "") {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-image"></i> Galeria</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-wine-bottle"></i> Producto</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href=""><i class="fas fa-cut"></i> Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="galeria.php"><i class="fas fa-image"></i> Galeria</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaProducto.php"><i class="fas fa-wine-bottle"></i> Producto</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaServicio.php"><i class="fas fa-cut"></i> Servicios</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
                     </ul>
                     <?php
@@ -134,7 +134,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
                     <h1>Productos</h1>
                     <p>"Puedes comprar nuestros productos atravez de esta plataforma, solo ingresa"</p>
-                    <a class="btn btn-info" href="">Ver. Productos</a>
+                    <a class="btn btn-info" href="vistaProducto.php">Ver. Productos</a>
                 </div>
 
                 <div class="col-lg-4">
@@ -142,7 +142,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
                     <h1>Servicios</h1>
                     <p>"Puedes explorar entre los servicios que ofrecemos, y para tu comodidad puedes realizar reservaciones segun tu tiempo al servicio que te interese, intentalo."</p>
-                    <a class="btn btn-info" href="">Ver. Servicios</a>
+                    <a class="btn btn-info" href="vistaServicio.php">Ver. Servicios</a>
                 </div>
 
                 <div class="col-lg-4">

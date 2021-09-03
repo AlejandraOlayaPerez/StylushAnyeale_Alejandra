@@ -38,6 +38,8 @@ function agregarProducto(idProducto, codigo, producto){
 
     var contenedor=document.getElementById("listarProducto");
     contenedor.appendChild(nuevoProducto);
+    var tr2=document.getElementById("0");
+    contenedor.removeChild(tr2);
 
 
 }
@@ -47,4 +49,15 @@ function eliminarTR(idProducto){
     var tr=document.getElementById(idProducto);
 
     contenedor.removeChild(tr);
+
+    if(contenedor.innerHTML==""){
+        var trVacio=document.createElement("tr");
+        var tdVacio=document.createElement("td");
+        tdVacio.innerHTML="No hay productos en este pedido";
+        tdVacio.colSpan=4;
+        tdVacio.style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;";
+        trVacio.appendChild(tdVacio);
+        contenedor.appendChild(trVacio);
+    }
+    
 }

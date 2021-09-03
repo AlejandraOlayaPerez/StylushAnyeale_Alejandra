@@ -6,6 +6,7 @@ require_once '../controller/usuarioController.php';
 
 $idUser = $_SESSION['idUser'];
 
+
 if (isset($_GET['ventana'])) { //
     $ventana = $_GET['ventana'];
 } else {
@@ -38,7 +39,13 @@ if (isset($_GET['ventana'])) { //
                             <div class="card card-widget widget-user">
                                 <div class="widget-user-header text-white" style="background: url('../image/Fondo_Negro.jpg') center center;"></div>
                                 <div class="widget-user-image">
-                                    <img class="img-circle elevation-2" src="../image/perfilPreterminado.png" alt="User Avatar">
+                                <?php 
+                                    require_once '../controller/imagenController.php';
+                                    $oImagenController=new imagenController();
+                                    $oFoto=$oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
+                                    
+                                    ?>
+                                    <img class="img-circle elevation-2" src="../<?php echo $oFoto->fotoPerfilUsuario; ?>" alt="User Avatar">
                                 </div>
                                 <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
                                     <div class="text-center">
@@ -62,9 +69,9 @@ if (isset($_GET['ventana'])) { //
                         <div class="col-5 col-sm-3">
                             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                 <a class="nav-link <?php if ($ventana == "foto") echo "active"; ?>" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-images"></i> Actualizar Foto</a>
-                                <a class="nav-link <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;">Actualizar Informacion</a>
-                                <a class="nav-link <?php if ($ventana == "seguridad") echo "active"; ?>" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;">Seguridad</a>
-                                <a class="nav-link <?php if ($ventana == "calendario") echo "active"; ?>" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;">Calendario</a>
+                                <a class="nav-link <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-edit"></i> Actualizar Informacion</a>
+                                <a class="nav-link <?php if ($ventana == "seguridad") echo "active"; ?>" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-shield-alt"></i> Seguridad</a>
+                                <a class="nav-link <?php if ($ventana == "calendario") echo "active"; ?>" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-calendar"></i> Reservaciones</a>
                             </div>
                         </div>
                         <div class="col-7 col-sm-9">

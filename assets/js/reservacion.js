@@ -26,6 +26,7 @@ $.ajax({
 
 function agregarEstilista(datos){
     var estilista=document.getElementById("estilista");
+    $('#estilista').removeAttr('disabled');
 
     var optionEstilista = document.createElement("option");
     optionEstilista .value=datos['idUser'];
