@@ -19,50 +19,46 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
 </head>
 
 <body>
-  <div class="content-wrapper">
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="card card-primary">
-          <div class="card-header" style="background-color: rgb(249, 201, 242);">
-            <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR CARGO</label>
-          </div>
-          <form action="../controller/cargoController.php" method="GET" id="formUsuario">
-            <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-              <input type="text" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
-
-              <div class="row" style="margin: 5px;">
-                <?php
-                require_once '../model/servicio.php';
-                $oServicio = new servicio();
-                $result = $oServicio->mostrarServicio();
-                ?>
-                <div class="col col-xl-4 col-md-6 col-12">
-                  <label for="">Servicio</label>
-                  <select select class="form-select" name="idServicio">
-                    <option value="" disabled selected>Selecciones una opción</option>
-                    <?php
-
-                    foreach ($result as $registro) {
-                    ?>
-                      <option value="<?php echo $registro['IdServicio']; ?>"
-                      <?php if($registro['IdServicio']==$oCargo->IdServicio){ echo "selected";} ?>
-                      ><?php echo $registro['nombreServicio']; ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-              <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-              <button type="submit" class="btn btn-success" name="funcion" value="actualizarCargo"><i class="fas fa-edit"></i> Actualizar Cargo</button>
-            </div>
-          </form>
-        </div>
-
+  <div class="container-fluid">
+    <div class="card card-primary">
+      <div class="card-header" style="background-color: rgb(249, 201, 242);">
+        <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR CARGO</label>
       </div>
+      <form action="../controller/cargoController.php" method="GET" id="formUsuario">
+        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+          <input type="text" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
+
+          <div class="row" style="margin: 5px;">
+            <?php
+            require_once '../model/servicio.php';
+            $oServicio = new servicio();
+            $result = $oServicio->mostrarServicio();
+            ?>
+            <div class="col col-xl-4 col-md-6 col-12">
+              <label for="">Servicio</label>
+              <select select class="form-select" name="idServicio">
+                <option value="" disabled selected>Selecciones una opción</option>
+                <?php
+
+                foreach ($result as $registro) {
+                ?>
+                  <option value="<?php echo $registro['IdServicio']; ?>" <?php if ($registro['IdServicio'] == $oCargo->IdServicio) {
+                                                                            echo "selected";
+                                                                          } ?>><?php echo $registro['nombreServicio']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+          <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+          <button type="submit" class="btn btn-success" name="funcion" value="actualizarCargo"><i class="fas fa-edit"></i> Actualizar Cargo</button>
+        </div>
+      </form>
     </div>
+
   </div>
 </body>
 

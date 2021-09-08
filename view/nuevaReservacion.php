@@ -63,21 +63,15 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarCollapse">
                             <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-calendar"></i> Tus Reservaciones</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="nuevaReservacion.php"><i class="fas fa-calendar-plus"></i> Crea Una Reservacion</a></li>
+                                <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-calendar"></i> Tus Reservaciones</a></li>
+                                <li class="nav-item"><a class="nav-link active" aria-current="page" href="nuevaReservacion.php"><i class="fas fa-calendar-plus"></i> Crea Una Reservacion</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </header>
 
-            <br>
-            <div class="pricing-header p-3 pb-md-4 mx-auto text-center" style="background-color: rgb(119, 167, 191); border: 2px solid black">
-                <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 60px; font-weight: 600; -webkit-text-fill-color: black; ">¡HAZ UNA RESERVACION SEGUN TU HORARIO!</h1>
-            </div>
-
-            <br>
-            <hr>
+           <br> 
             <br>
 
             <?php
@@ -91,8 +85,11 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
-                        <div class="card-header" style="background-color: rgb(119, 167, 191);"></div>
+                    <div class="card card-default" style="background-color: #ddecf0;">
+                        <div class="card-header" style="background-color: rgb(119, 167, 191);">
+                            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600; -webkit-text-fill-color: black; ">¡RESERVA CON NOSOTROS!</h1>
+                        </div>
+
                         <form id="formulario" action="" method="POST">
                             <div class="card-body p-0">
                                 <div class="bs-stepper">
@@ -194,7 +191,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="-webkit-text-fill-color: black;">Estilista</label>
-                                                    <select select class="form-select" id="estilista" name="estilista" value="<?php echo $oReservacion->estilista; ?>" onchange="horarioReservacion();" required disabled>
+                                                    <select select class="form-select" id="estilista" name="estilista" value="" onchange="horarioReservacion();" required disabled>
                                                         <option value=" " disabled selected>Selecciones una opción</option>
                                                         <?php foreach ($result as $registro) {
                                                         ?>
@@ -209,10 +206,10 @@
                                                     <label class="form-label" style="-webkit-text-fill-color: black;">Domicilio</label>
                                                     <select class="form-control" id="domicilio" name="domicilio" value="<?php echo $oReservacion->domicilio; ?>" onchange="confirmarDireccion();" required>
                                                         <option value="" selected>Selecciones una opción</option>
-                                                        <option value="SI" <?php if ($oReservacion->domicilio == "SI") {
+                                                        <option value="1" <?php if ($oReservacion->domicilio == "1") {
                                                                                 echo "selected";
                                                                             } ?>>SI</option>
-                                                        <option value="NO" <?php if ($oReservacion->domicilio == "NO") {
+                                                        <option value="0" <?php if ($oReservacion->domicilio == "0") {
                                                                                 echo "selected";
                                                                             } ?>>NO</option>
                                                     </select>
@@ -221,7 +218,7 @@
                                                 <div class="col-md-6" id="direccion" style="display: none;">
                                                     <label for="" class="form-label" style="-webkit-text-fill-color: black;">Direccion</label>
                                                     <input type="text" class="form-control" id="direccion" name="direccion" value="<?php echo $oReservacion->direccion; ?>" required>
-                                                    <span id="direccion"></span>
+                                                    <span id="direccionSpan"></span>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -289,7 +286,7 @@
             // evento.preventDefault();
             var valido = true;
             // agregar el id de cada campo de la página para poder validar
-            var campos = ["fechaReservacion", "horaReservacion", "domicilio"];
+            var campos = ["fechaReservacion", "horaReservacion", "domicilio", "direccion"];
             campos.forEach(element => {
                 var campo = document.getElementById(element);
                 if (!validarCampo(campo))

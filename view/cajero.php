@@ -183,7 +183,7 @@ $oCliente = new cliente();
                     </div>
                     <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-xl" onclick="buscarCliente();"><i class="fas fa-search"></i> Buscar Cliente</button>
-                        <button type="button" class="btn btn-info" id="nuevaReservacion" onclick="crearReservacion();"><i class="fas fa-calendar-plus"></i> Crear Reservacion</button>
+                         <button type="button" class="btn btn-info" id="nuevaReservacion" onclick="crearReservacion();"><i class="fas fa-calendar-plus"></i> Crear Reservacion</button>
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pagoProducto" onclick="buscarProducto()"><i class="fas fa-search"></i> Buscar Producto</button>
                     </div>
                 </div>
@@ -347,6 +347,11 @@ $oCliente = new cliente();
                 </div>
 
                 <div class="card-body table-responsive p-0">
+                    <div class="card-tools">
+                        <ul class="pagination pagination-sm float-right border border-dark" id="contenedorUL">
+                            
+                        </ul>
+                    </div>
                     <table class="table table-striped table-valign-middle">
                         <thead>
                             <tr>

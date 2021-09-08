@@ -1,5 +1,5 @@
-function traerEstilistas(campo){
-var idServicio = campo.value;
+function traerEstilistas(){
+var idServicio = document.getElementById("servicio").value;
 
 $.ajax({ 
     url: '../controller/usuarioController.php', //URL donde se va a realizar la peticion
@@ -32,4 +32,13 @@ function agregarEstilista(datos){
     optionEstilista .value=datos['idUser'];
     optionEstilista.innerHTML=datos['nombre'];
     estilista.appendChild(optionEstilista);
+}
+
+function Actualizar(){
+    var idUser=document.getElementById("idUser").value;
+    document.getElementById("estilista").value=idUser;
+
+    var horaReservacion=document.getElementById("reservacioHora").value;
+    document.getElementById("horaReservacion").value=horaReservacion;
+
 }

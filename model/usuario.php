@@ -87,7 +87,7 @@ class usuario
         //se crea la sentencia sql para registrar el usuario
         $sql = "INSERT INTO usuario (idRol, idCargo, tipoDocumento, documentoIdentidad, primerNombre, segundoNombre, primerApellido, segundoApellido,
         fechaNacimiento, correoElectronico, contrasena, telefono, genero, estadoCivil, direccion, barrio, eliminado) 
-        VALUES (9, NULL, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
+        VALUES (NULL, NULL, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
         '$this->segundoApellido', '$this->fechaNacimiento', '$this->correoElectronico', '$this->contrasena', $this->telefono, '$this->genero', 
         '$this->estadoCivil', '$this->direccion', '$this->barrio', false)";
 
@@ -220,6 +220,17 @@ class usuario
        return $result;
    }
 
+   function nuevoUsuarioRegistroMasivoRol($idUser, $idRol){
+    $result="";
+   foreach($idUser as $registro){
+       $this->idUser=$registro;
+       $result=$this->nuevoUsuarioPorRol($idRol);
+       if(!$result) 
+       break;
+   }
+   return $result;
+}
+
     function nuevoUsuarioPorCargo($idCargo)
     {
         //instancia la clase conectar
@@ -228,6 +239,19 @@ class usuario
         $conexion = $oConexion->conexion();
 
         $sql = "UPDATE usuario SET idCargo=$idCargo WHERE idUser=$this->idUser";
+
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function nuevoUsuarioPorRol($idRol)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "UPDATE usuario SET idRol=$idRol WHERE idUser=$this->idUser";
 
         $result = mysqli_query($conexion, $sql);
         return $result;
@@ -281,6 +305,22 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function mostrarUsuarioRol($idRol)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        //sentencia para seleccionar un empleado 
+        $sql = "SELECT * FROM usuario WHERE idCargo!=$idRol OR idRol IS NULL AND eliminado=false;";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     function actualiazadoEliminadoUsuario($idUser)
     {
         //Instancia clase conectar
@@ -289,7 +329,7 @@ class usuario
         $conexion = $oConexion->conexion();
 
         //esta consulta nos permite actualizar el idRol, volviendola Nulo
-        $sql = "UPDATE usuario SET idRol=16 WHERE idUser=$idUser";
+        $sql = "UPDATE usuario SET idRol=NULL WHERE idUser=$idUser";
 
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);

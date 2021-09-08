@@ -22,19 +22,16 @@ class permiso{
     }
 
     //esta funcion nos permite consultar un permiso por medio de la URL
-    function consultarPermisoUrl($idUser, $url){
+    function consultarPermisoUrl($idRol, $idPagina){
     //Instancia clase conectar
     $oConexion=new conectar();
     //Establece conexion con la base de datos.
     $conexion=$oConexion->conexion();
 
-    $sql="SELECT * FROM permiso p INNER JOIN usuario u ON p.idRol=u.idRol
-    INNER JOIN pagina pa ON pa.idPagina=p.idPagina 
-    WHERE u.idUser=$idUser AND pa.enlace='$url'";
+    $sql="SELECT * FROM permiso WHERE idRol=$idRol AND IdPagina=$idPagina";
 
     $result=mysqli_query($conexion,$sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    return $result;
     }
 
     function mostrarPermisos(){

@@ -13,13 +13,10 @@ require_once 'headPagina.php';
 </head>
 
 <body>
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-	    
-            </div>
-	</div>
+    <div class="container-fluid">
+
     </div>
+
 </body>
 
 </html>

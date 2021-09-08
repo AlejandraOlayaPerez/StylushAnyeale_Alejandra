@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 //si no esta definida o no tiene valor e redirige al login
 //en caso contrario no hace nada
@@ -10,17 +9,19 @@ $oPagina = $oGestionController->consultarPaginaPorUrl($url);
 // print_r($oPagina);
 session_start();
 require_once '../controller/configCrontroller.php';
-//Si la pagina requiere sesion y no inice sesion lo devuelve a login
+//Si la pagina requiere sesion y no inice sesion lo devuelve a loginç
+
 if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
-  header("location: loginUsuario.php");
-  die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
+  // echo "<script>alert('no tiene permiso');</script>";
+  // header("location: ../view/loginUsuario.php");
+  // die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
 } elseif ($oPagina->requireSession and isset($_SESSION['idUser'])) {
   //iniciar session
-  // $oUsuarioController->verificarPermiso($idPagina);
   $oGestionController->verificarPermisoUrl($url);
 }
 ?>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -57,9 +58,10 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   <title>Stylush Anyeale</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-  <div class="wrapper">
 
+
+<body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+  <div class="wrapper">
 
     <nav class="main-header navbar navbar-expand navbar-black navbar-dark">
       <ul class="navbar-nav">
@@ -67,15 +69,14 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
-
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 50px; -webkit-text-fill-color: rgb(249, 201, 242);">Stylush Anyeale</h1>
-          <h4 class="nav-item" style="font-family: 'Times New Roman', Times, serif; font-size: 20px; -webkit-text-fill-color: rgb(249, 201, 242)"><?php echo $url; ?></h4>
+          <a href="../controller/usuarioController.php?funcion=cerrarSesion" class="nav-link">
+            <p>Cerrar Sesion</p>
+          </a>
         </li>
       </ul>
     </nav>
-
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php" class="brand-link">
@@ -84,30 +85,25 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
       </a>
 
       <div class="sidebar">
-        <nav class="mt-2">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <?php
+            require_once '../controller/imagenController.php';
+            $oImagenController = new imagenController();
+            $oFoto = $oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
 
+            ?>
+            <img src="../<?php echo $oFoto->fotoPerfilUsuario; ?>" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="perfilEmpleado.php" class="d-block"><?php echo $_SESSION['nombreUser']; ?></a>
+          </div>
+        </div>
+
+        <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <p>Hola, <?php echo $_SESSION['nombreUser']; ?></p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="perfilEmpleado.php" class="nav-link">
-                      <i class="fas fa-check-circle"></i>
-                      <p>Perfil</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../controller/usuarioController.php?funcion=cerrarSesion" class="nav-link">
-                      <i class="fas fa-check-circle"></i>
-                      <p>Cerrar Sesion</p>
-                    </a>
-                  </li>
-                </ul>
-              <li>
-            </div>
+
+            <li class="nav-header">GERENTE</li>
             <li class="nav-item menu">
               <a href="" class="nav-link">
                 <i class="fas fa-user-cog"></i>
@@ -116,45 +112,46 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/seguimiento.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Seguimiento</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarUsuario.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Usuario</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCliente.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Cliente</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarRol.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Rol</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarModulo.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Modulo</p>
-                  </a>
-                </li>
+                <?php
+                require_once '../controller/gestionController.php';
+                $oGestionController = new gestionController();
+                $result = $oGestionController->paginasPorModulo(1);
+                foreach ($result as $registro) {
+                ?>
+                  <li class="nav-item">
+                    <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
+                      <i class="fas fa-check-circle"></i>
+                      <p><?php echo $registro['nombrePagina']; ?></p>
+                    </a>
+                  </li>
+                <?php } ?>
               </ul>
             </li>
 
             <li class="nav-item">
-              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/cajero.php" class="nav-link">
-                <i class="fas fa-money-check-alt"></i>
-                <p>Cajero</p>
+              <a href="" class="nav-link">
+                <i class="fas fa-user-cog"></i>
+                <p>Inventario
+                  <i class="fas fa-angle-left right"></i>
+                </p>
               </a>
+              <ul class="nav nav-treeview">
+                <?php
+                require_once '../controller/gestionController.php';
+                $oGestionController = new gestionController();
+                $result = $oGestionController->paginasPorModulo(2);
+                foreach ($result as $registro) {
+                ?>
+                  <li class="nav-item">
+                    <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
+                      <i class="fas fa-check-circle"></i>
+                      <p><?php echo $registro['nombrePagina']; ?></p>
+                    </a>
+                  </li>
+                <?php } ?>
+              </ul>
             </li>
+            <li class="nav-header">RECEPCIONISTA</li>
 
             <li class="nav-item">
               <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php" class="nav-link">
@@ -162,7 +159,6 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                 <p>Cargos</p>
               </a>
             </li>
-
             <li class="nav-item">
               <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/mostrarReservacion.php" class="nav-link">
                 <i class="fas fa-calendar-day"></i>
@@ -184,41 +180,37 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
               </a>
             </li>
 
+            <li class="nav-header">PERSONAL</li>
             <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="fas fa-user-cog"></i>
-                <p>Inventario
-                  <i class="fas fa-angle-left right"></i>
-                </p>
+              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/cajero.php" class="nav-link">
+                <i class="fas fa-money-check-alt"></i>
+                <p>Cajero</p>
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarInventario.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Inventario</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarEmpresa.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Empresas</p>
-                  </a>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPedido.php?idUser=<?php echo $_SESSION['idUser']; ?>" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Pedido</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarFacturas.php" class="nav-link">
-                    <i class="fas fa-check-circle"></i>
-                    <p>Factura</p>
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
         </nav>
       </div>
     </aside>
-  </div>
+
+    <div class="content-wrapper">
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; -webkit-text-fill-color: black">Stylush Anyeale</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item active" style="font-family: 'Times New Roman', Times, serif; font-size:20px; -webkit-text-fill-color: black"><?php echo $url; ?></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="control-sidebar control-sidebar-dark">
+      </aside>
+
+
+
+      <?php require_once 'footer.php'; ?>

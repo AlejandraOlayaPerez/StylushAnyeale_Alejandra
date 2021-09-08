@@ -7,9 +7,9 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
 
 // print_r($oReservacion);
 
-// if (isset($_POST['documentoIdentidad']) != "") {
-//     $oReservacion = $oReservacionController->crearReservacion($_GET['servicio']);
-// }
+if (isset($_POST['documentoIdentidad']) != "") {
+    $oReservacion = $oReservacionController->actualizarReservacion();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -68,13 +68,6 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
         </header>
 
         <br>
-        <div class="pricing-header p-3 pb-md-4 mx-auto text-center" style="background-color: rgb(119, 167, 191); border: 2px solid black">
-            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 60px; font-weight: 600; -webkit-text-fill-color: black; ">¡MODIFICA TU RESERVACION!</h1>
-        </div>
-
-        <br>
-        <hr>
-        <br>
 
         <?php
         require_once '../controller/mensajeController.php';
@@ -87,9 +80,12 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
-                    <div class="card-header" style="background-color: rgb(119, 167, 191);"></div>
+                <div class="card card-default" style="background-color: #ddecf0;">
+                    <div class="card-header" style="background-color: rgb(119, 167, 191);">
+                        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600; -webkit-text-fill-color: black; ">¡MODIFICA TU RESERVACION!</h1>
+                    </div>
                     <form id="formulario" action="" method="POST">
+                        <input type="text" name="idReservacion" value="<?php echo $_GET['idReservacion']; ?>" style="display: none;">
                         <div class="card-body p-0">
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
@@ -165,14 +161,14 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
                                                 <?php
                                                 require_once '../model/servicio.php';
                                                 $oServicio = new servicio();
-                                                $result = $oServicio->mostrarServicio($oReservacion->idServicio);
+                                                $result = $oServicio->mostrarServicio();
                                                 ?>
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Servicio</label>
-                                                <select select class="form-select" id="servicio" name="servicio" value="<?php echo $oReservacion->idServicio; ?>" onchange="traerEstilistas(this);" required>
+                                                <select select class="form-select" id="servicio" name="servicio" value="" onchange="traerEstilistas();" required>
                                                     <option value="" disabled selected>Selecciones una opción</option>
                                                     <?php foreach ($result as $registro) {
                                                     ?>
-                                                        <option value="<?php echo $registro['IdServicio']; ?>"><?php echo $registro['nombreServicio']; ?></option>
+                                                        <option value="<?php echo $registro['IdServicio']; ?>" <?php if ($registro['IdServicio'] == $oReservacion->idServicio) echo "selected"; ?>><?php echo $registro['nombreServicio']; ?></option>
                                                     <?php
                                                     }
                                                     ?>
@@ -181,6 +177,7 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Estilista</label>
+                                                <input type="text" id="idUser" value="<?php echo $oReservacion->idUser; ?>" style="display: none;">
                                                 <select select class="form-select" id="estilista" name="estilista" value="" onchange="horarioReservacion();" required disabled>
                                                     <option value=" " disabled selected>Selecciones una opción</option>
                                                     <?php foreach ($result as $registro) {
@@ -194,7 +191,7 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Domicilio</label>
-                                                <select class="form-control" id="domicilio" name="domicilio"  onchange="confirmarDireccion();" required>
+                                                <select class="form-control" id="domicilio" name="domicilio" onchange="confirmarDireccion();" required>
                                                     <option value="" selected>Selecciones una opción</option>
                                                     <option value="1" <?php if ($oReservacion->domicilio == "1") {
                                                                             echo "selected";
@@ -218,6 +215,7 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
                                                 <span id="fechaReservacionSpan"></span>
                                             </div>
                                             <div class="col-md-6">
+                                                <input type="text" id="reservacioHora" value="<?php echo $oReservacion->horaReservacion; ?>" style="display: none;">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Hora Reservacion</label>
                                                 <select select class="form-select" id="horaReservacion" name="horaReservacion" value="" required disabled>
                                                     <option value="" disabled selected>Selecciones una opción</option>
@@ -246,6 +244,7 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/reservacion.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/horarioEstilista.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/direccion.js"></script>
+
     </div>
 </body>
 
@@ -466,4 +465,6 @@ $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservaci
         span.innerHTML = "El valor del campo es valido";
         return true;
     }
+    traerEstilistas();
+    Actualizar();
 </script>

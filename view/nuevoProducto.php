@@ -8,101 +8,98 @@ $oProducto = new producto();
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUEVO PRODUCTO</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUEVO PRODUCTO</title>
 </head>
 
 <body>
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
-                            <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                                <label class="card-title">NUEVO SERVICIO</label>
-                            </div>
+  <div class="container-fluid">
 
-                            <form id="formulario" action="../controller/productoServicioController.php" method="GET">
-                                <input type="text" name="funcion" value="crearProducto" style="display: none;">
-                                <div class="card-body p-0">
-                                    <div class="bs-stepper">
-                                        <div class="bs-stepper-header" role="tablist">
-                                            <div class="step" data-target="#logins-part">
-                                                <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
-                                                    <span class="bs-stepper-circle">1</span>
-                                                    <span class="bs-stepper-label">Imagen Producto</span>
-                                                </button>
-                                            </div>
-                                            <div class="line"></div>
-                                            <div class="step" data-target="#information-part">
-                                                <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
-                                                    <span class="bs-stepper-circle">2</span>
-                                                    <span class="bs-stepper-label">Producto</span>
-                                                </button>
-                                            </div>
-                                        </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
+          <div class="card-header" style="background-color: rgb(249, 201, 242);">
+            <label class="card-title">NUEVO SERVICIO</label>
+          </div>
 
-                                        <div class="bs-stepper-content">
-
-                                            <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-
-                                                <div class="row" style="margin: 5px;">
-                                                    <div class="col col-md-12">
-                                                        <div class="col col-md-6">
-                                                            <label for="">Fotos</label>
-                                                            <input name="fotos[]" id="fotos" type="file" class="form-control" multiple accept="image/*">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="stepper.next();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
-                                                <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarProducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                                                <br>
-                                            </div>
-
-                                            <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
-                                                <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-                                                    <div class="row" style="margin: 5px; ">
-                                                        <div class="col col-xl-4 col-md-6 col-12">
-                                                            <label for="" class="form-label">Codigo Producto</label>
-                                                            <input class="form-control" type="text" id="codigoProducto" name="codigoProducto" placeholder="Codigo Producto" onchange="validarCampo(this);" required maxlength="20">
-                                                            <span id="codigoProductoSpan"></span>
-                                                        </div>
-                                                        <div class="col col-xl-4 col-md-6 col-12">
-                                                            <label for="" class="form-label">Producto</label>
-                                                            <input class="form-control" type="text" id="nombreProducto" name="nombreProducto" placeholder="Nombre Producto" onchange="validarCampo(this);" required maxlength="50" minlength="2">
-                                                            <span id="nombreProductoSpan"></span>
-                                                        </div>
-                                                        <div class="col col-xl-4 col-md-6 col-12">
-                                                            <label for="" class="form-label">Recomendaciones</label> 
-                                                            <textarea class="form-control" rows="3" type="text" id="recomendaciones" name="Recomendaciones" placeholder="Recomendaciones" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
-                                                            <span id="recomendacionesSpan"></span>
-                                                        </div>
-                                                        <div class="col col-xl-4 col-md-6 col-12">
-                                                            <label for="" class="form-label">Valor Unitario</label>
-                                                            <input class="form-control" type="text" id="valorUnitario" name="valorUnitario" placeholder="Valor Unitario" onchange="validarCampo(this);" required>
-                                                            <span id="valorUnitarioSpan"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
-                                                <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Producto</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+          <form id="formulario" action="../controller/productoServicioController.php" method="GET">
+            <input type="text" name="funcion" value="crearProducto" style="display: none;">
+            <div class="card-body p-0">
+              <div class="bs-stepper">
+                <div class="bs-stepper-header" role="tablist">
+                  <div class="step" data-target="#logins-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                      <span class="bs-stepper-circle">1</span>
+                      <span class="bs-stepper-label">Imagen Producto</span>
+                    </button>
+                  </div>
+                  <div class="line"></div>
+                  <div class="step" data-target="#information-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                      <span class="bs-stepper-circle">2</span>
+                      <span class="bs-stepper-label">Producto</span>
+                    </button>
+                  </div>
                 </div>
+
+                <div class="bs-stepper-content">
+
+                  <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+
+                    <div class="row" style="margin: 5px;">
+                      <div class="col col-md-12">
+                        <div class="col col-md-6">
+                          <label for="">Fotos</label>
+                          <input name="fotos[]" id="fotos" type="file" class="form-control" multiple accept="image/*">
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="stepper.next();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
+                    <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarProducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                    <br>
+                  </div>
+
+                  <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                    <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                      <div class="row" style="margin: 5px; ">
+                        <div class="col col-xl-4 col-md-6 col-12">
+                          <label for="" class="form-label">Codigo Producto</label>
+                          <input class="form-control" type="text" id="codigoProducto" name="codigoProducto" placeholder="Codigo Producto" onchange="validarCampo(this);" required maxlength="20">
+                          <span id="codigoProductoSpan"></span>
+                        </div>
+                        <div class="col col-xl-4 col-md-6 col-12">
+                          <label for="" class="form-label">Producto</label>
+                          <input class="form-control" type="text" id="nombreProducto" name="nombreProducto" placeholder="Nombre Producto" onchange="validarCampo(this);" required maxlength="50" minlength="2">
+                          <span id="nombreProductoSpan"></span>
+                        </div>
+                        <div class="col col-xl-4 col-md-6 col-12">
+                          <label for="" class="form-label">Recomendaciones</label>
+                          <textarea class="form-control" rows="3" type="text" id="recomendaciones" name="Recomendaciones" placeholder="Recomendaciones" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                          <span id="recomendacionesSpan"></span>
+                        </div>
+                        <div class="col col-xl-4 col-md-6 col-12">
+                          <label for="" class="form-label">Valor Unitario</label>
+                          <input class="form-control" type="text" id="valorUnitario" name="valorUnitario" placeholder="Valor Unitario" onchange="validarCampo(this);" required>
+                          <span id="valorUnitarioSpan"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
+                    <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Producto</button>
+                  </div>
+                </div>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </body>
 
 </html>
@@ -112,13 +109,12 @@ require_once 'footer.php';
 ?>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
+  document.addEventListener('DOMContentLoaded', function() {
+    window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+  })
 </script>
 
 <script>
-  
   function validarPaginaFinal() {
     // evento.preventDefault();
     var valido = true;
@@ -273,7 +269,7 @@ require_once 'footer.php';
       span.innerHTML = "Debe tener un minimo de " + campo.minLength + " caracteres";
       return false;
     }
-    var campoV= campo.value;
+    var campoV = campo.value;
     var espacios = false;
     var cont = 0;
     while (!espacios && (cont < campoV.length)) {
@@ -281,7 +277,7 @@ require_once 'footer.php';
         espacios = true;
       cont++;
     }
-    if(espacios) {
+    if (espacios) {
       $(campo).removeClass('is-valid');
       $(campo).addClass('is-invalid');
       span.style = "color:red; font-size: 10pt";

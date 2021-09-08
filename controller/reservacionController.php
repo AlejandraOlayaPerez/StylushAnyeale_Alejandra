@@ -24,6 +24,9 @@ switch ($funcion) {
     case "buscarReservacionIdAjax":
         $oReservacionController->buscarReservacionIdAjax();
         break;
+    case "eliminarReservacion":
+        $oReservacionController->eliminarReservacion();
+        break;
 }
 
 class reservacionController
@@ -102,14 +105,6 @@ class reservacionController
         
     }
 
-    // public function consultarReservacionParaHorario($idUser, $fechaReservacion, $horarioReservacion){
-    //     require_once '../model/reservaciones.php';
-
-    //     $oReservacion=new reservacion();
-    //     $result=$oReservacion->consultarReservacionParaHorario($idUser, $fechaReservacion, $horarioReservacion);
-    //     return $result;
-    // }
-
     public function crearReservacion()
     {
         require_once '../model/reservaciones.php';
@@ -171,11 +166,61 @@ class reservacionController
                 header("location: ../view/nuevaReservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             }
         }
-
-
-
-    
     }
+
+    public function actualizarReservacion()
+    {
+        require_once '../model/reservaciones.php';
+        $oReservacion = new reservacion();
+
+        require_once 'mensajeController.php';
+        $oMensaje = new mensajes();
+
+        $fechaActual = Date("Y-m-d");
+
+        $tiempoDuracion=$oReservacion->consultarTiempoServicio($_POST['servicio']);
+
+        $oReservacion->idReservacion = $_POST['idReservacion'];
+        $oReservacion->idCliente = $_POST['idCliente'];
+        $oReservacion->nombres = $_POST['primerNombre'];
+        $oReservacion->apellidos = $_POST['primerApellido'];
+        $oReservacion->telefono = $_POST['telefono'];
+        $oReservacion->idServicio = $_POST['servicio'];
+        $oReservacion->idUser = $_POST['estilista'];
+        $oReservacion->fechaReservacion = $_POST['fechaReservacion'];
+        $oReservacion->horaReservacion = $_POST['horaReservacion'];
+        $oReservacion->horaFinal=$tiempoDuracion;
+        $oReservacion->domicilio = $_POST['domicilio'];
+        
+
+        $horaFinal = new DateTime();
+        $hora = explode(":", $oReservacion->horaReservacion);
+        date_time_set($horaFinal, $hora[0], $hora[1]);
+        $horaFinal->add(new DateInterval('PT' . $tiempoDuracion . 'M'));
+        $horaFinal->format("H:i:s");
+
+        if ($oReservacion->domicilio == "SI") {
+            $horaFinal->add(new DateInterval('PT30M'));
+            $oReservacion->direccion = $_POST['direccion'];
+        }
+
+        $horaFinal->modify('-1 minute');
+
+        if($oReservacion->fechaReservacion<$fechaActual){
+            // echo "no fecha anterior";
+            header("location: ../view/formularioEditarReservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
+        }else{
+            $result=$oReservacion->actualizarReservacion($horaFinal->format("H:i:s"));
+            if($result){
+                // echo "registro reservacion";
+                header("location: ../view/listarReservacion.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+reservacion+ha+sido+actualizada+de+manera+correcta");
+            }else{
+                // echo "error";
+                header("location: ../view/formularioEditarReservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            }
+        }
+    }
+
     public function buscarReservacionIdAjax()
     {
         require_once '../model/reservaciones.php';
@@ -183,5 +228,24 @@ class reservacionController
         $oReservacion = new reservacion();
         $result = $oReservacion->consultarReservacionId($_GET['idCliente']);
         echo json_encode($result);
+    }
+
+    public function eliminarReservacion(){
+        require_once '../model/reservaciones.php';
+        
+        $oReservacion=new reservacion();
+        $oReservacion->idReservacion=$_GET['idReservacion'];
+        $result=$oReservacion->eliminarReservacion();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        if ($result) {
+            // echo "eliminado";
+            header("location: ../view/listarReservacion.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+eliminado+su+reservacion");
+        }else{
+            // echo "error";
+            header("location: ../view/ListarReservacion.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+        }
     }
 }

@@ -17,55 +17,51 @@ $oCargo = new cargo();
 </head>
 
 <body>
-  <div class="content-wrapper">
-    <div class="content-header">
-      <div class="container-fluid">
-        <?php
-        require_once '../controller/mensajeController.php';
+  <div class="container-fluid">
+    <?php
+    require_once '../controller/mensajeController.php';
 
-        if (isset($_GET['mensaje'])) {
-          $oMensaje = new mensajes();
-          echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
-        <div class="card card-primary">
-          <div class="card-header" style="background-color: rgb(249, 201, 242);">
-            <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO CARGO</label>
-          </div>
-          <form action="../controller/cargoController.php" method="GET" id="formUsuario">
-            <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-              <div class="row">
-
-              <?php 
-             require_once '../model/servicio.php';
-             $oServicio=new servicio();
-             $result=$oServicio->mostrarServicio();
-              ?>
-
-                <div class="col col-xl-4 col-md-6 col-12">
-                  <label for="">Servicio</label>
-                  <select select class="form-select" name="idServicio">
-                    <option value="" disabled selected>Selecciones una opción</option>
-                    <?php 
-
-                    foreach ($result as $registro) {
-                    ?>
-                      <option value="<?php echo $registro['IdServicio']; ?>"><?php echo $registro['nombreServicio']; ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
-                </div>
-
-                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                  <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                  <button type="submit" class="btn btn-success" name="funcion" value="nuevoCargo"><i class="far fa-save"></i> Registrar Cargo</button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
+    if (isset($_GET['mensaje'])) {
+      $oMensaje = new mensajes();
+      echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
+    }
+    ?>
+    <div class="card card-primary">
+      <div class="card-header" style="background-color: rgb(249, 201, 242);">
+        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO CARGO</label>
       </div>
+      <form action="../controller/cargoController.php" method="GET" id="formUsuario">
+        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+          <div class="row">
+
+            <?php
+            require_once '../model/servicio.php';
+            $oServicio = new servicio();
+            $result = $oServicio->mostrarServicio();
+            ?>
+
+            <div class="col col-xl-4 col-md-6 col-12">
+              <label for="">Servicio</label>
+              <select select class="form-select" name="idServicio">
+                <option value="" disabled selected>Selecciones una opción</option>
+                <?php
+
+                foreach ($result as $registro) {
+                ?>
+                  <option value="<?php echo $registro['IdServicio']; ?>"><?php echo $registro['nombreServicio']; ?></option>
+                <?php
+                }
+                ?>
+              </select>
+            </div>
+
+            <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+              <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+              <button type="submit" class="btn btn-success" name="funcion" value="nuevoCargo"><i class="far fa-save"></i> Registrar Cargo</button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </body>

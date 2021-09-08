@@ -74,7 +74,22 @@ class servicio
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function mostrarServicio($idServicio)
+    function mostrarServicio()
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM servicios WHERE eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function mostrarServicioId($idServicio)
     {
         //Instancia clase conectar
         $oConexion = new conectar();

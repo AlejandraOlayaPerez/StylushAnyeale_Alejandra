@@ -51,6 +51,22 @@ class modulo{
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function mostrarModulos(){
+        //se instancia el objeto conectar
+        $oConexion=new conectar();
+        //se establece conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        //se registra la consulta sql
+        $sql="SELECT * FROM modulo WHERE eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+
     //esta funcion permitira consultar un modulo por Id
     function consultarModulo($idModulo){
         //se instancia el objeto conectar

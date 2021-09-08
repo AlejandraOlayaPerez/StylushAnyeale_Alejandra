@@ -95,10 +95,11 @@ class reservacion
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT c.primerNombre, c.primerApellido, r.idReservacion,
-        r.servicio, r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar 
-        FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente
-        WHERE r.eliminado=false";
+        $sql = "SELECT c.primerNombre, c.primerApellido, r.idReservacion, 
+        r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar, 
+        (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio
+         FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente 
+        WHERE r.eliminado=false ";
 
         //concatenamos a la consulta.
         if ($filtroFecha != "") {
@@ -128,10 +129,10 @@ class reservacion
         $sql = "SELECT * FROM cliente WHERE eliminado=false ";
 
         if ($tipoDocumento != "") {
-            $sql .= " AND c.tipoDocumento='$tipoDocumento' ";
+            $sql .= " AND tipoDocumento='$tipoDocumento' ";
         }
         if ($documentoIdentidad != "") {
-            $sql .= " AND c.documentoIdentidad=$documentoIdentidad ";
+            $sql .= " AND documentoIdentidad=$documentoIdentidad ";
         }
 
         $result = mysqli_query($conexion, $sql);
@@ -219,7 +220,7 @@ class reservacion
     }
 
     //esta funcion me permite actualizar la informacion del empleado
-    function actualizarReservacion()
+    function actualizarReservacion($horaFinal)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
@@ -227,16 +228,20 @@ class reservacion
         $conexion = $oConexion->conexion();
 
         //sentencia que permite actualizar un  empleado
-        $sql = "UPDATE reservacion SET idCliente=$this->idCliente,
-        servicio='$this->servicio',
-        detalleServicio='$this->detalleServicio',
-        estilista='$this->estilista',
-        fechaReservacion='$this->fechaReservacion',
-        horaReservacion='$this->horaReservacion',
-        domicilio='$this->domicilio',
-        direccion='$this->direccion',
-        validar='$this->validar'
-        WHERE idReservacion=$this->idReservacion";
+        $sql = "UPDATE reservacion SET idCliente=$this->idCliente, 
+        idServicio=$this->idUser, 
+        idUser=$this->idUser, 
+        nombres='$this->nombres', 
+        apellidos='$this->apellidos', 
+        telefono=$this->telefono, 
+        fechaReservacion='$this->fechaReservacion', 
+        horaReservacion='$this->horaReservacion', 
+        horaFinal='$horaFinal', 
+        domicilio=$this->domicilio, 
+        direccion='$this->direccion', 
+        precio=0.00,
+        validar=0 
+        WHERE idReservacion=$this->idReservacion;";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);

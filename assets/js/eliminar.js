@@ -34,6 +34,10 @@ function validarReservacion(idReservacion){
     document.getElementById("validarReservacion").value=idReservacion;
 }
 
+function eliminarReservacion(idReservacion){
+    document.getElementById("eliminarReservacion").value=idReservacion;
+}
+
 function comprobarPedido(idPedido, idUser){
     document.getElementById("validarPedido").value=idPedido;
     document.getElementById("validarUsuario").value=idUser;

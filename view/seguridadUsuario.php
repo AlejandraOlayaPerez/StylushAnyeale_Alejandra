@@ -11,6 +11,7 @@
                     <div class="form-group">
                         <label for="">Contraseña Actual</label>
                         <input type="password" class="form-control" id="contrasenaActual" name="contrasenaActual" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                        <span id="contrasenaActualSpan"></span>
                     </div>
 
                     <div class="form-group">
@@ -40,7 +41,7 @@
     // evento.preventDefault();
     var valido = true;
     // agregar el id de cada campo de la página para poder validar
-    var campos = ["contrasenaNueva", "confirmarContrasena"];
+    var campos = ["contrasenaActual","contrasenaNueva", "confirmarContrasena"];
     campos.forEach(element => {
       var campo = document.getElementById(element);
       if (!validarCampo(campo))

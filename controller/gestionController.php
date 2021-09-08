@@ -21,12 +21,6 @@ switch ($funcion) {
     case "eliminarRol":
         $oGestionController->eliminarRol();
         break;
-    case "registrarUsuarioEnRol":
-        $oGestionController->registrarUsuarioEnRol();
-        break;
-    case "eliminarUsuarioDeRol":
-        $oGestionController->eliminarUsuarioDeRol();
-        break;
 
     case "crearModulo":
         $oGestionController->nuevoModulo();
@@ -64,8 +58,8 @@ class gestionController
         require_once '../model/rol.php';
         $oRol = new rol();
         $oRol->nombreRol = $_GET['nombreRol'];
-        $result=$oRol->nuevoRol();
-    
+        $result = $oRol->nuevoRol();
+
         if ($result) {
             header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");
             // echo "registro";
@@ -123,26 +117,6 @@ class gestionController
         } else {
             header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "Error al registrar el usuario";
-        }
-    }
-
-    public function eliminarUsuarioDeRol()
-    {
-        $idUser = $_GET['idUser'];
-        $idRol = $_GET['idRol'];
-
-        require_once '../model/usuario.php';
-        $oUsuario = new usuario();
-        $result = $oUsuario->actualiazadoEliminadoUsuario($idUser);
-
-        require_once 'mensajeController.php';
-        $oMensaje = new mensajes();
-
-        if ($result) {
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=El+usuario+ha+sido+eliminado+del+rol");
-        } else {
-            header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-            //echo "Error al eliminar el usuario de rol";
         }
     }
 
@@ -204,7 +178,7 @@ class gestionController
             header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
             //echo "registro modulo";
         } else {
-                header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             //echo "error";
         }
     }
@@ -271,14 +245,15 @@ class gestionController
         $oPagina->nombrePagina = $_GET['nombrePagina'];
         $oPagina->enlace = $_GET['enlace'];
         $oPagina->requireSession = $_GET['requireSession'];
+        $oPagina->menu = $_GET['menu'];
         $result = $oPagina->nuevoPagina();
 
         if ($result) {
             header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+creo+correctamente+una+nueva+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
-            //echo "nueva pagina";
+            // echo "nueva pagina";
         } else {
             header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
-            //echo "Error al registrar la pagina";
+            // echo "Error al registrar la pagina";
         }
     }
 
@@ -301,11 +276,13 @@ class gestionController
         $oPagina->nombrePagina = $_GET['nombrePagina'];
         $oPagina->enlace = $_GET['enlace'];
         $oPagina->requireSession = $_GET['requireSession'];
+        $oPagina->menu = $_GET['menu'];
+        $result = $oPagina->actualizarPagina();
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
 
-        if ($oPagina->actualizarPagina()) {
+        if ($result) {
             header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+edito+correctamente+la+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             // echo "actualizoPagina";
         } else {
@@ -384,17 +361,53 @@ class gestionController
         return $oPagina;
     }
 
+    public function mostrarModulo()
+    {
+        require_once '../model/modulo.php';
+        $oModulo = new modulo();
+        $result = $oModulo->mostrarModulos();
+    }
+
+    public function paginasPorModulo($idModulo)
+    {
+        $idUser = $_SESSION['idUser']; //recibiendo con cookie
+
+        //consultar idRol
+        require_once '../model/usuario.php';
+        $oUsuario = new usuario();
+        $oUsuario->consultarUsuario($idUser);
+        $idRol = $oUsuario->idRol;
+
+        require_once '../model/pagina.php';
+        $oPagina = new pagina();
+        $result = $oPagina->paginasPorModulo($idModulo, $idRol);
+        return $result;
+    }
+
     public function verificarPermisoUrl($url)
     {
 
         $idUser = $_SESSION['idUser']; //recibiendo con cookie
 
+        //consultar idRol
+        require_once '../model/usuario.php';
+        $oUsuario = new usuario();
+        $oUsuario->consultarUsuario($idUser);
+        $idRol = $oUsuario->idRol;
+
+        //consultar idPagina
+        require_once '../model/pagina.php';
+        $oPagina = new pagina();
+        $oPagina->consultarPaginaPorUrl($url);
+        $idPagina = $oPagina->idPagina;
+
+
         require_once $_SERVER['DOCUMENT_ROOT'] . '/anyeale_proyecto/StylushAnyeale_Alejandra/model/permiso.php';
 
         $oPermiso = new permiso();
-        $result = $oPermiso->consultarPermisoUrl($idUser, $url);
-        if (sizeof($result) == 0) {
-            header("location: ../view/404error.php");
+        $result = $oPermiso->consultarPermisoUrl($idRol, $idPagina);
+        if (count($result) == 0) {
+            header("location: ../view/403error.php");
             // echo "denegado";
             die();
         }

@@ -28,6 +28,8 @@ switch ($funcion) {
     case "buscarProductoAjax":
     $oClienteController->buscarProductoAjax();
     break;
+    case "paginacionProducto":
+    $oClienteController->paginacionProducto();
 }
 
 class clienteController
@@ -124,11 +126,18 @@ class clienteController
     }
 
     public function buscarProductoAjax(){
-    
         require_once '../model/producto.php';
 
         $oProducto=new producto();
-        $result=$oProducto->buscarProductoAjax($_GET['codigoProducto'], $_GET['nombreProducto']);
+        $result=$oProducto->buscarProductoAjax($_GET['codigoProducto'], $_GET['nombreProducto'], $_GET['pagina']);
+        echo json_encode($result);
+    }
+
+    public function paginacionProducto(){
+        require_once '../model/producto.php';
+
+        $oProducto=new producto();
+        $result=$oProducto->paginacionProducto($_GET['codigoProducto'], $_GET['nombreProducto']);
         echo json_encode($result);
     }
 

@@ -38,6 +38,12 @@ switch ($funcion) {
     case "registrarUsuarioCargo":
         $oUsuarioController->registrarUsuarioCargo();
         break;
+    case "registrarUsuarioRol":
+        $oUsuarioController->registrarUsuarioRol();
+        break;
+    case "eliminarUsuarioDeRol":
+        $oUsuarioController->eliminarUsuarioDeRol();
+        break;
 }
 
 class usuarioController
@@ -131,16 +137,6 @@ class usuarioController
             // echo "error";
         }
     }
-
-    // public function mostrarUsuarioPorIdRol($idRol)
-    // {
-    //     require_once '../model/usuario.php';
-
-    //     $oUsuario = new usuario();
-    //     $listaUsuario = $oUsuario->mostrarUsuariosPorIdRol($idRol);
-
-    //     return $listaUsuario;
-    // }
 
     public function usuarioDiferenteEnRol($idRol)
     {
@@ -331,6 +327,50 @@ class usuarioController
         }else{
             // echo "error";
             header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+        }
+
+        
+    }
+
+    public function eliminarUsuarioDeRol()
+    {
+        $idUser = $_GET['idUser'];
+        $idRol = $_GET['idRol'];
+
+        require_once '../model/usuario.php';
+        $oUsuario = new usuario();
+        $result = $oUsuario->actualiazadoEliminadoUsuario($idUser);
+
+        require_once 'mensajeController.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/listarDetalleRol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=El+usuario+ha+sido+eliminado+del+rol");
+        } else {
+            header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            //echo "Error al eliminar el usuario de rol";
+        }
+    }
+
+    public function registrarUsuarioRol(){
+
+        $idUser=$_GET['rolUsuario']; 
+        $idRol=$_GET['idRol'];
+
+        require_once '../model/usuario.php';
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        $oUsuario=new usuario();
+        $result=$oUsuario->nuevoUsuarioRegistroMasivoRol($idUser, $idRol);
+
+        if($result){
+            // echo "registro";
+            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+rol");
+        }else{
+            // echo "error";
+            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
 
         
