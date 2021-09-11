@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Bogota');
 // session_start();
 // require_once '../controller/configCrontroller.php';
 
@@ -23,6 +23,18 @@ switch ($funcion) {
         break;
     case "eliminarProducto":
         $oProductoServicioController->eliminarProducto();
+        break;
+    case "buscarProductoInventario":
+        $oProductoServicioController->buscarProductoInventario();
+        break;
+    case "rangoFechas":
+        $oProductoServicioController->rangoFechas();
+        break;
+    case "actualizarCantidad":
+        $oProductoServicioController->actualizarCantidad();
+        break;
+    case "busquedaProducto":
+        $oProductoServicioController->busquedaProducto();
         break;
 
     case "crearServicio":
@@ -235,14 +247,6 @@ class productoServicioController
         return $oServicio;
     }
 
-    // public function consultarProductoPorId($IdProducto){
-    //     require_once '../model/producto.php';
-
-    //     $oProducto=new producto();
-    //     $result=$oProducto->consultarProductoId();
-    //     return $result;
-    // }
-
     public function consultarServicioIdServicio($idServicio)
     {
         require_once '../model/detalle.php';
@@ -331,6 +335,62 @@ class productoServicioController
              header("location: ../view/listarServicio.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
             //echo "error";
         }
+    }
+
+    public function buscarProductoInventario(){
+        require_once '../model/producto.php';
+
+        $oProducto = new producto();
+        $result=$oProducto->buscarProducto($_GET['busquedaProducto']);
+        echo json_encode($result);
+    }
+
+    public function rangoFechas(){
+        require_once '../model/producto.php';
+
+        $oProducto = new producto();
+        $result=$oProducto->rangoFechas($_GET['fechaInicio'], $_GET['fechaFinal']);
+        echo json_encode($result);
+    }
+
+    public function actualizarCantidad(){
+        session_start();
+        $fechaActual= Date("Y-m-d");
+        $horaActual= Date("H:i:s");
+
+        require_once '../model/producto.php';
+        $oProducto = new producto();
+
+        require_once 'mensajeController.php';
+        $oMensaje=new mensajes();
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser=$_SESSION['idUser'];
+        $oSeguimiento->idProducto=$_GET['idProducto'];
+        $oSeguimiento->observacion=$_GET['justificacion'];
+        $resultSeguimiento=$oSeguimiento->seguimientoActualizarCantidadProducto($fechaActual, $horaActual);
+
+        if($resultSeguimiento){
+            $oProducto->cantidad=$_GET['cantidad'];
+            $oProducto->idProducto=$_GET['idProducto'];
+            $result=$oProducto->restarProducto();
+            if($result){
+                header("location: ../view/listarProducto.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+cantidad");
+            }else{
+                header("location: ../view/listarProducto.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            }
+        }else{
+            header("location: ../view/listarProducto.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+        }
+    }
+
+    public function busquedaProducto(){
+        require_once '../model/producto.php';
+
+        $oProducto=new producto();
+        $result=$oProducto->busquedaProducto($_GET['codigoProducto'], $_GET['nombreProducto'], $_GET['pagina']);
+        echo json_encode($result);
     }
 
 }

@@ -10,7 +10,7 @@
       </div>
     </footer>
 
-    <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+  <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
   <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.js"></script>
@@ -21,7 +21,7 @@
   <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/chart.js/Chart.min.js"></script>
   <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
   <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/pages/dashboard2.js"></script>
-
+  <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/pages/dashboard3.js"></script>
 
 
 <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/jquery-3.6.0.min.js"></script>
@@ -68,6 +68,8 @@
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/limpiarFormFiltros.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/listarPedido.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+
 
 
 

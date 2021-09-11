@@ -1,4 +1,6 @@
     <?php
+    require_once 'permisosCliente.php';
+    
     if (isset($_GET['idCliente'])) {
         $idCliente = $_GET['idCliente'];
     } else {
@@ -142,12 +144,12 @@
                                                 </div>
                                                 <div class="col col-xl-4 col-md-6 col-12">
                                                     <label class="form-label" style="-webkit-text-fill-color: black;">Nombre</label>
-                                                    <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required>
+                                                    <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                                     <span id="primerNombreSpan"></span>
                                                 </div>
                                                 <div class="col col-xl-4 col-md-6 col-12">
                                                     <label class="form-label" style="-webkit-text-fill-color: black;">Apellido</label>
-                                                    <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required>
+                                                    <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                                     <span id="primerApellidoSpan"></span>
                                                 </div>
                                                 <div class="col col-xl-4 col-md-6 col-12">

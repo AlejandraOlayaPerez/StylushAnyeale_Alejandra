@@ -61,6 +61,16 @@ if (isset($_POST['documentoIdentidad']) != "") {
                 </div>
                 <div class="bs-stepper-content">
                   <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                    <!-- <div class="row">
+                      <div class="col col-xl-4 col-md-6 col-12">
+                        <form action="../controller/imagenController.php" method="POST" >
+                        <input type="text" name="funcion" value="fotoPerfilUsuario" style="display: none;">
+                          <label for="">Actualizar foto de perfil</label>
+                          <input name="archivos" type="file" class="form-control" accept="image/*">
+                          <button type="submit" class="btn btn-info" name="funcion" value="fotoPerfilUsuario">Agregar Foto</botton>
+                        </form>
+                      </div>
+                    </div> -->
                     <div class="row">
                       <div class="col col-xl-4 col-md-6 col-12">
                         <label for="" class="form-label">Tipo de Documento</label>

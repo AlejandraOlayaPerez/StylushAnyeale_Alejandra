@@ -13,8 +13,8 @@ require_once '../controller/configCrontroller.php';
 
 if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   // echo "<script>alert('no tiene permiso');</script>";
-  // header("location: ../view/loginUsuario.php");
-  // die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
+  header("location: ../view/loginUsuario.php");
+  die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
 } elseif ($oPagina->requireSession and isset($_SESSION['idUser'])) {
   //iniciar session
   $oGestionController->verificarPermisoUrl($url);
@@ -53,6 +53,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/css/bs-stepper.min.css">
   <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/dropzone/min/dropzone.min.css">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
   <title>Stylush Anyeale</title>
@@ -72,7 +73,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a href="../controller/usuarioController.php?funcion=cerrarSesion" class="nav-link">
-            <p>Cerrar Sesion</p>
+            <p><i class="fas fa-power-off"></i> Cerrar Sesion</p>
           </a>
         </li>
       </ul>
@@ -103,91 +104,34 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-            <li class="nav-header">GERENTE</li>
-            <li class="nav-item menu">
-              <a href="" class="nav-link">
-                <i class="fas fa-user-cog"></i>
-                <p>Configuraciones
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <?php
-                require_once '../controller/gestionController.php';
-                $oGestionController = new gestionController();
-                $result = $oGestionController->paginasPorModulo(1);
-                foreach ($result as $registro) {
-                ?>
-                  <li class="nav-item">
-                    <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
-                      <i class="fas fa-check-circle"></i>
-                      <p><?php echo $registro['nombrePagina']; ?></p>
-                    </a>
-                  </li>
-                <?php } ?>
-              </ul>
-            </li>
+            <li class="nav-header">MODULOS</li>
+            <?php
+            require_once '../controller/gestionController.php';
+            $oGestionController = new gestionController();
+            $oModulo = $oGestionController->mostrarModulo($_SESSION['idUser']);
 
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="fas fa-user-cog"></i>
-                <p>Inventario
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <?php
-                require_once '../controller/gestionController.php';
-                $oGestionController = new gestionController();
-                $result = $oGestionController->paginasPorModulo(2);
-                foreach ($result as $registro) {
-                ?>
-                  <li class="nav-item">
-                    <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
-                      <i class="fas fa-check-circle"></i>
-                      <p><?php echo $registro['nombrePagina']; ?></p>
-                    </a>
-                  </li>
-                <?php } ?>
-              </ul>
-            </li>
-            <li class="nav-header">RECEPCIONISTA</li>
-
-            <li class="nav-item">
-              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarCargo.php" class="nav-link">
-                <i class="fas fa-sitemap"></i>
-                <p>Cargos</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/mostrarReservacion.php" class="nav-link">
-                <i class="fas fa-calendar-day"></i>
-                <p>Reservaciones</p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarProducto.php" class="nav-link">
-                <i class="fas fa-dolly-flatbed"></i>
-                <p>Productos</p>
-              </a>
-            </li>
-
-            <li class="nav-item">
-              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarServicio.php" class="nav-link">
-                <i class="fas fa-cash-register"></i>
-                <p>Servicios</p>
-              </a>
-            </li>
-
-            <li class="nav-header">PERSONAL</li>
-            <li class="nav-item">
-              <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/cajero.php" class="nav-link">
-                <i class="fas fa-money-check-alt"></i>
-                <p>Cajero</p>
-              </a>
-            </li>
-          </ul>
+            foreach ($oModulo as $registroModulo) {
+            ?>
+              <li class="nav-item menu">
+                <a href="" class="nav-link">
+                <i class="<?php echo $registroModulo['icono']; ?>"></i>
+                  <p><?php echo $registroModulo['nombreModulo']; ?></p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <?php
+                  $result = $oGestionController->paginasPorModulo($registroModulo['idModulo']);
+                  foreach ($result as $registro) {
+                  ?>
+                    <li class="nav-item">
+                      <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
+                        <i class="fas fa-check-circle"></i>
+                        <p><?php echo $registro['nombrePagina']; ?></p>
+                      </a>
+                    </li>
+                  <?php } ?>
+                </ul>
+              </li>
+            <?php } ?>
         </nav>
       </div>
     </aside>

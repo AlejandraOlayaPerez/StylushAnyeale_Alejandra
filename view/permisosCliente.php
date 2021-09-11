@@ -7,16 +7,12 @@ require_once '../controller/gestionController.php';
 $oGestionController = new gestionController();
 $oPagina = $oGestionController->consultarPaginaPorUrl($url);
 // print_r($oPagina);
-session_start();
 require_once '../controller/configCrontroller.php';
 //Si la pagina requiere sesion y no inice sesion lo devuelve a loginç
 
-if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
+if ($oPagina->requireSession and !isset($_SESSION['idCliente'])) {
   // echo "<script>alert('no tiene permiso');</script>";
-  // header("location: ../view/loginUsuario.php");
-  // die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
-} elseif ($oPagina->requireSession and isset($_SESSION['idUser'])) {
-  //iniciar session
-  $oGestionController->verificarPermisoUrl($url);
+  header("location: ../view/loginCliente.php");
+  die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
 }
 ?>

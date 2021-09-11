@@ -145,6 +145,7 @@ require_once 'footer.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/pedidoController.php" method="GET">
+                    
                     <input type="text" name="idPedido" id="validarPedido" style="display:none;">
                     <input type="text" name="idUser" id="validarUsuario" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

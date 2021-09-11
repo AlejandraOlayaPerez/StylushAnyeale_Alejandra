@@ -29,6 +29,40 @@ class producto
         return $result;
     }
 
+    function buscarProducto($busquedaProducto)
+    {
+        $oConexion = new conectar();
+        $conexion = $oConexion->conexion();
+
+        if ($busquedaProducto != "") {
+            $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$busquedaProducto%' OR nombreProducto LIKE '%$busquedaProducto%')"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
+        } else {
+            $sql = "SELECT * FROM producto WHERE eliminado=false";
+        }
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+    function rangoFechas($fechaInicio, $fechaFinal)
+    {
+        $oConexion = new conectar();
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT d.producto, d.cantidad, d.precio, f.fechaFactura, f.codigoFactura 
+        FROM detalle d 
+        INNER JOIN factura f 
+        ON d.idFactura=f.idFactura 
+        WHERE f.eliminado=false AND f.fechaFactura 
+        Between '$fechaInicio' AND '$fechaFinal'";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+
     //funcion para mostrar los productos
     function listarProducto($filtroCodigoProducto)
     {
@@ -49,6 +83,8 @@ class producto
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+
+
     //funcion para mostrar los productos
     function buscarProductoAjax($codigoProducto, $nombreProducto, $pagina)
     {
@@ -61,6 +97,21 @@ class producto
         $inicio = (($pagina - 1) * 5);
         $sql = "SELECT * FROM producto $where LIMIT 5 OFFSET $inicio"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
 
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+    function busquedaProducto($codigoProducto, $nombreProducto)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+       
+        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -164,6 +215,7 @@ class producto
             $this->IdProducto = $registro['IdProducto'];
             $this->codigoProducto = $registro['codigoProducto'];
             $this->nombreProducto = $registro['nombreProducto'];
+            $this->cantidad=$registro['cantidad'];
             $this->recomendaciones = $registro['recomendaciones'];
             $this->valorUnitario = $registro['valorUnitario'];
             $this->costoProducto = $registro['costoProducto'];
@@ -209,22 +261,48 @@ class producto
         return $result;
     }
 
-    function sumarPedido()
+    function sumarPedido($cantidad, $idProducto)
     {
-        //se instancia el objeto conectar
         $oConexion = new conectar();
-        //se establece conexión con la base de datos
         $conexion = $oConexion->conexion();
 
-        // $sql="SELECT * FROM producto WHERE IdProducto=$this->IdProducto";
+        $sql = "UPDATE producto SET cantidad=cantidad+$cantidad WHERE IdProducto=$idProducto";
 
-        // $result=mysqli_query($conexion,$sql);
-        // foreach ($result as $registro){
-        //     $this->cantidad+=$registro['cantidad'];
-        // }
-
-        $sql = "UPDATE producto SET cantidad=cantidad+$this->cantidad WHERE IdProducto=$this->IdProducto";
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
+    }
+
+    function restarProducto()
+    {
+        $oConexion = new conectar();
+        $conexion = $oConexion->conexion();
+
+        $sql = "UPDATE producto SET cantidad=cantidad-$this->cantidad WHERE IdProducto=$this->idProducto";
+
+        $result = mysqli_query($conexion, $sql);
+        echo $sql;
+        return $result;
+    }
+
+    function traerIdCantidad()
+    {
+
+        $oConexion = new conectar();
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT p.IdProducto, d.cantidad 
+        FROM detalle d 
+        INNER JOIN producto p 
+        ON d.idProducto=p.IdProducto 
+        WHERE d.idPedido=$this->idPedido";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            //se registra la consulta en los parametros
+            $this->IdProducto = $registro['IdProducto'];
+            $this->cantidad = $registro['cantidad'];
+        }
     }
 }

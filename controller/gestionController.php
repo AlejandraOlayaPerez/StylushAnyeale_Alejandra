@@ -172,14 +172,15 @@ class gestionController
 
         $oModulo = new modulo();
         $oModulo->nombreModulo = $_GET['nombreModulo'];
+        echo $oModulo->icono = $_GET['icono'];
         $result = $oModulo->nuevoModulo($idModulo);
 
         if ($result) {
             header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
-            //echo "registro modulo";
+            // echo "registro modulo";
         } else {
             header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-            //echo "error";
+            // echo "error";
         }
     }
 
@@ -200,6 +201,7 @@ class gestionController
         $oModulo = new modulo();
         $oModulo->idModulo = $_GET['idModulo'];
         $oModulo->nombreModulo = $_GET['nombreModulo'];
+        $oModulo->icono = $_GET['icono'];
 
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
@@ -361,11 +363,18 @@ class gestionController
         return $oPagina;
     }
 
-    public function mostrarModulo()
+    public function mostrarModulo($idUser)
     {
+        require_once '../model/usuario.php';
+        $oUsuario=new usuario();
+        $oUsuario = new usuario();
+        $oUsuario->consultarUsuario($idUser);
+        $idRol = $oUsuario->idRol;
+
         require_once '../model/modulo.php';
         $oModulo = new modulo();
-        $result = $oModulo->mostrarModulos();
+        $result = $oModulo->mostrarModulos($idRol);
+        return $result;
     }
 
     public function paginasPorModulo($idModulo)

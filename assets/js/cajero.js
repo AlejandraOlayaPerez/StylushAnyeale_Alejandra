@@ -54,12 +54,13 @@ function agregarBusqueda(datos){
     var contenedor=document.getElementById("informacionCliente");
     contenedor.appendChild(nuevoTR);
 
+
 }
 
+var idC=0;
 function crearReservacion(){
     // var idCliente=document.getElementById('idCliente').value;
-    var idCliente=5;
-    window.location.href="nuevaReservacion.php?idCliente="+idCliente;
+    window.location.href="nuevaReservacion.php?idCliente="+idC;
 
 }
 
@@ -85,6 +86,10 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
     mostrarReservaciones();
     $('#modal-xl').modal('hide');
 
+    idC=idCliente;
+
+    var botonAgregar = document.getElementById("nuevaReservacion");
+    botonAgregar.style="";
 }
 
     function mostrarReservaciones(){

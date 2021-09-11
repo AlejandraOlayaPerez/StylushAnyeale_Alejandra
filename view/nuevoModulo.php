@@ -41,11 +41,28 @@ $oModulo = new modulo();
               <input type="text" name="idModulo" value="<?php echo $oModulo->idModulo; ?>" style="display:none">
               <input type="text" class="form-control" id="" name="nombreModulo" placeholder="Nombre Modulo" minlength="5" maxlength="20" value="<?php echo $oModulo->nombreModulo; ?>">
             </div>
-          </div>
-          <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-            <a href="listarModulo.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
-            <button type="submit" class="btn btn-success" name="funcion" value="crearModulo"><i class="far fa-save"></i> Registrar Modulo</button>
-          </div>
+            <div class="col col-xl-4 col-md-6 col-12">
+            <label for="" class="form-label">Seleccione un icono</label>
+              <select class="form-control fa" name="icono">
+              <option value="" selected>Selecciones una opción</option>
+                <?php
+                require_once '../controller/icono.php';
+                $oIcono = new icono();
+                $iconos = $oIcono->mostrarIcono();
+                foreach ($iconos as $registro) {
+                ?>
+                  <option class="fa" value="<?php echo $registro; ?>">
+                    <?php
+                    echo $oIcono->descripcionIcono($registro);
+                    ?>
+                  </option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+              <a href="listarModulo.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+              <button type="submit" class="btn btn-success" name="funcion" value="crearModulo"><i class="far fa-save"></i> Registrar Modulo</button>
+            </div>
       </form>
     </div>
   </div>

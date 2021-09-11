@@ -34,6 +34,11 @@ function validarReservacion(idReservacion){
     document.getElementById("validarReservacion").value=idReservacion;
 }
 
+function idProducto(idProducto, cantidad){
+    document.getElementById("idProducto").value=idProducto;
+    document.getElementById("cantidad").value=cantidad;
+}
+
 function eliminarReservacion(idReservacion){
     document.getElementById("eliminarReservacion").value=idReservacion;
 }

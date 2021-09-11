@@ -7,6 +7,7 @@ class modulo{
     //atributos de la tabla modulo
     public $idModulo=0;
     public $nombreModulo="";
+    public $icono;
     public $numRegistro = "";
     public $numPagina = "";
 
@@ -19,8 +20,8 @@ class modulo{
     //sentencia SQL para instertar estudiante
 
     //sentencia de insertar
-    $sql="INSERT INTO modulo (nombreModulo)
-    VALUES ('$this->nombreModulo')";
+    $sql="INSERT INTO modulo (nombreModulo, icono)
+    VALUES ('$this->nombreModulo', '$this->icono')";
 
     //ejecuta la sentencia
     $result=mysqli_query($conexion,$sql);
@@ -51,14 +52,17 @@ class modulo{
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function mostrarModulos(){
+    function mostrarModulos($idRol){
         //se instancia el objeto conectar
         $oConexion=new conectar();
         //se establece conexión con la base datos
         $conexion=$oConexion->conexion();
 
         //se registra la consulta sql
-        $sql="SELECT * FROM modulo WHERE eliminado=false";
+        $sql="SELECT * FROM modulo m WHERE m.idModulo 
+        IN (SELECT DISTINCT p.idModulo FROM permiso p 
+        WHERE p.idRol=$idRol AND p.idModulo=m.idModulo) AND m.eliminado=false 
+        ORDER BY m.nombreModulo ASC;";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -85,6 +89,7 @@ class modulo{
             //se registra la consulta en los parametros
          $this->idModulo=$registro['idModulo'];
          $this->nombreModulo=$registro['nombreModulo'];
+         $this->icono=$registro['icono'];
         }
     }
 
@@ -96,7 +101,8 @@ class modulo{
         $conexion=$oConexion->conexion();
 
         //consulta para actualizar el registro
-        $sql="UPDATE modulo SET nombreModulo='$this->nombreModulo'
+        $sql="UPDATE modulo SET nombreModulo='$this->nombreModulo',
+        icono='$this->icono'
         WHERE idModulo=$this->idModulo";
         
         //se ejecuta la consulta

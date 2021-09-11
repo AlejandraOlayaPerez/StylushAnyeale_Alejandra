@@ -34,6 +34,24 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
               <input type="text" name="idModulo" value="<?php echo $oModulo->idModulo; ?>" style="display:none;">
               <input class="form-control" type="text" name="nombreModulo" value="<?php echo $oModulo->nombreModulo; ?>" required>
             </div>
+            <div class="col col-xl-4 col-md-6 col-12">
+              <label for="" class="form-label">Seleccione un icono</label>
+              <select class="form-control fa" name="icono">
+              <option value="" selected>Seleccione una opción</option>
+                <?php
+                require_once '../controller/icono.php';
+                $oIcono = new icono();
+                $iconos = $oIcono->mostrarIcono();
+                foreach ($iconos as $registro) {
+                ?>
+                  <option class="fa" value="<?php echo $registro; ?>">
+                    <?php
+                    echo $oIcono->descripcionIcono($registro);
+                    ?>
+                  </option>
+                <?php } ?>
+              </select>
+            </div>
           </div>
         </div>
         <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">

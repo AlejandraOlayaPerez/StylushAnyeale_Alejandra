@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'permisosCliente.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,84 +72,54 @@ session_start();
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
-                        <div class="card-header" style="background-color: rgba(255, 255, 204, 255);">
-                            <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600; -webkit-text-fill-color: black; ">¡CONOCE TUS RESERVACIONES!</h1>
-                        </div>
-                        <div class="card-body pb-0" style="background-color: rgba(255, 255, 204, 255);">
-                            <div class="row">
-                                <?php
-                                require_once '../model/reservaciones.php';
-                                $oReservacion = new reservacion();
-                                $consulta = $oReservacion->listarReservacionesPorIdCliente($_SESSION['idCliente']);
-                                foreach ($consulta as $registro) {
-                                ?>
-                                    <div class="col col-xl-4 col-md-6 col-12 d-flex align-items-stretch flex-column">
-                                        <div class="card bg-light d-flex flex-fill">
-                                            <div class="card-header text-muted border-bottom-0" style="background-color: rgb(119, 167, 191);">
-                                                <h1 style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong><?php echo $registro['nombreServicio']; ?></strong></h1>
-                                            </div>
-                                            <div class="card-body pt-0" style="background-color: #ddecf0;">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h1 class="card-title pricing-card-title" style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><small class="text-muted fw-light"><strong>Precio: $</strong><?php echo $registro['precio']; ?></small></h1> <br>
-                                                        <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Estilista: </strong><?php echo $registro['estilista']; ?></p>
-                                                        <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Fecha: </strong><?php echo $registro['fechaReservacion']; ?></p>
-                                                        <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Hora: </strong><?php echo $registro['horaReservacion']; ?></p>
-                                                        <?php if ($registro['domicilio'] == 1) {
-                                                        ?>
-                                                            <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Domicilio: </strong><?php if ($registro['domicilio']) echo "SI"; ?> </p>
-                                                            <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Direccion: </strong><?php echo $registro['direccion']; ?></p>
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer" style="background-color: rgb(119, 167, 191);">
-                                                <a href="formularioEditarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    <div class="row">
+                        <?php
+                        require_once '../model/reservaciones.php';
+                        $oReservacion = new reservacion();
+                        $consulta = $oReservacion->listarReservacionesPorIdCliente($_SESSION['idCliente']);
+                        foreach ($consulta as $registro) {
+                        ?>
+                            <div class="col col-xl-4 col-md-6 col-12 d-flex align-items-stretch flex-column">
+                                <div class="card bg-light d-flex flex-fill">
+                                    <div class="card-header text-muted border-bottom-0" style="background-color: rgb(119, 167, 191);">
+                                        <h1 style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong><?php echo $registro['nombreServicio']; ?></strong></h1>
+                                    </div>
+                                    <div class="card-body pt-0" style="background-color: #ddecf0;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h1 class="card-title pricing-card-title" style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><small class="text-muted fw-light"><strong>Precio: $</strong><?php echo $registro['precio']; ?></small></h1> <br>
+                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Estilista: </strong><?php echo $registro['estilista']; ?></p>
+                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Fecha: </strong><?php echo $registro['fechaReservacion']; ?></p>
+                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Hora: </strong><?php echo $registro['horaReservacion']; ?></p>
+                                                <?php if ($registro['domicilio'] == 1) {
+                                                ?>
+                                                    <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Domicilio: </strong><?php if ($registro['domicilio']) echo "SI"; ?> </p>
+                                                    <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Direccion: </strong><?php echo $registro['direccion']; ?></p>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- <hr class="featurette-divider" style="background-color: black;">
-            <footer class="container">
-                <form action="" method="POST">
-                    <div class="card" style="background-color: rgba(255, 255, 204, 255);">
-                        <div class="card-body row">
-                            <div class="col-12 text-center d-flex align-items-center justify-content-center">
-                                <div class="">
-                                    <h1><strong>¡CONTACTANOS!</strong></h1>
-                                    <p class="lead mb-1"><strong>Direccion: </strong> </p>
-                                    <p class="lead mb-1"><strong>Telefono: </strong> </p>
-                                    <p class="lead mb-1"><strong>Correo Electronico: </strong> StylushAnyeale@gmail.com </p>
-                                    <p class="lead mb-2"><a href="https://www.instagram.com/__anyeale/?hl=es"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/channel/UCAIAHNzp71toK21oTYZtN1Q"><i class="fab fa-youtube"></i></a> <a href=""><i class="fab fa-whatsapp"></i></a></p>
-
+                                    <div class="card-footer" style="background-color: rgb(119, 167, 191);">
+                                        <a href="formularioEditarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
+                                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
                     </div>
-                </form>
-            </footer> -->
-        </main>
+                </div>
+           
+   
+    </main>
 
-        <!-- <br>
-        <br>
-        <br>
 
-         -->
-
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/popper.min.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/adminlte.min.js"></script>
-        <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/adminlte.min.js"></script>
+    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     </div>
 </body>
 

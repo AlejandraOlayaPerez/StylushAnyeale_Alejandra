@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'permisosCliente.php';
 
 require_once '../controller/clienteController.php';
 $oClienteController = new clienteController();

@@ -88,7 +88,9 @@ if (isset($_GET['filtroCodigoProducto'])) {
                                     <td>$<?php echo $registro['valorUnitario']; ?></td>
                                     <td>
                                         <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="idProducto(<?php echo $registro['IdProducto'] . ',' . $registro['cantidad']; ?>)"><i class="fas fa-minus"></i> Restar Cantidad</button>
                                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                        <a href="seguimientoProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-light"><i class="fas fa-exchange-alt"></i> Seguimiento Cambios</a>
                                     </td>
                                 </tr>
                             <?php }
@@ -131,6 +133,38 @@ require_once 'footer.php';
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarProducto"><i class="fas fa-trash-alt"></i> Eliminar</button>
                 </form>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Actualizar Cantidad</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="../controller/productoServicioController.php" method="GET">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Actualizar Cantidad</label>
+                            <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Justifica esta actualizacion</label>
+                            <textarea class="form-control" rows="3" type="text" id="justificacion" name="justificacion" placeholder="Justifica esta actualizacion" required minlength="10" maxlength="500"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <input type="text" id="idProducto" name="idProducto" style="display: none;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="funcion" value="actualizarCantidad">Actualizar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

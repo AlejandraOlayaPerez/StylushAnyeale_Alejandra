@@ -1,4 +1,5 @@
 <?php
+require_once 'permisosCliente.php';
 session_start();
 
 require_once '../controller/reservacionController.php';

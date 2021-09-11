@@ -49,6 +49,9 @@ $oPedidoController=new pedidoController();
         public function validarPedido(){
             require_once '../model/pedido.php';
 
+            require_once 'mensajeController.php';
+            $oMensaje=new mensajes();
+
             $fechaActual= Date("Y-m-d");
             $horaActual= Date("H:i:s");
 
@@ -57,21 +60,33 @@ $oPedidoController=new pedidoController();
             $oSeguimiento->idUser=$_GET['idUser'];
             $oSeguimiento->idPedido=$_GET['idPedido'];
             $oSeguimiento->seguimientoValidarPedido($fechaActual, $horaActual);
-    
+
+            require_once '../model/producto.php';
+            $oProducto=new producto();
+
+            $oProducto->idPedido=$_GET['idPedido'];
+            $oProducto->traerIdCantidad();
+            $oProducto->IdProducto;
+            $oProducto->cantidad;
+        
+            $resultSuma=$oProducto->sumarPedido($oProducto->cantidad, $oProducto->IdProducto);
+
             $oPedido=new pedido();
             $oPedido->idPedido=$_GET['idPedido'];
-            $oPedido->validarPedido();
-    
-            require_once 'mensajeController.php';
-            $oMensaje=new mensajes();
-    
-            if ($oPedido->validarPedido()) {
-                header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+el+pedido");
-                // echo "valido";
+
+            if($resultSuma){
+                if ($oPedido->validarPedido()) {
+                    header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+validado+correctamente+el+pedido");
+                    // echo "valido";
+                }else{
+                    header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+                    // echo "error";
+                }
             }else{
                 header("location: ../view/listarPedido.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                //  echo "error";
+                // echo "error al sumar";
             }
+  
         }
 
         public function cancelarPedido(){
@@ -231,7 +246,7 @@ $oPedidoController=new pedidoController();
                         $oDetalle->guardarProducto($oDetalle->idPedido, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->costoProducto);
                     }
                     $oProducto->cantidad=$cantidadProductoLista[$i];
-                    $oProducto->sumarPedido();
+                 
                 }
         }
 
