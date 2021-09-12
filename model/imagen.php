@@ -37,6 +37,23 @@ function mostrarFotoUsuario($idUser){
     }
 }
 
+function mostrarFotoClientePerfil($idCliente){
+    //se instancia el objeto conectar
+    $oConexion = new conectar();
+    //se establece conexión con la base datos
+    $conexion = $oConexion->conexion();
+
+    $sql = "SELECT fotoPerfilCliente FROM detalleFoto WHERE idCliente=$idCliente";
+
+    //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
+    $result = mysqli_query($conexion, $sql);
+    //retorna el resultado de la consulta.
+
+    foreach($result as $registro){
+        $this->fotoPerfilCliente=$registro['fotoPerfilCliente'];
+    }
+}
+
 function actualizarFotoPerfil($idUser){
     //se instancia el objeto conectar
     $oConexion = new conectar();
@@ -49,6 +66,35 @@ function actualizarFotoPerfil($idUser){
     $result = mysqli_query($conexion, $sql);
     echo $sql;
     //retorna el resultado de la consulta.
+    return $result;
+}
+
+function actualizarFotoPerfilCliente($idCliente){
+    //se instancia el objeto conectar
+    $oConexion = new conectar();
+    //se establece conexión con la base datos
+    $conexion = $oConexion->conexion();
+
+    $sql = "UPDATE detalleFoto SET fotoPerfilCliente='$this->fotoPerfilCliente' WHERE idCliente=$idCliente";
+
+    //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
+    $result = mysqli_query($conexion, $sql);
+    echo $sql;
+    //retorna el resultado de la consulta.
+    return $result;
+}
+
+public function insertarImagenCliente(){
+    //se instancia el objeto conectar
+    $oConexion = new conectar();
+    //se establece conexión con la base datos
+    $conexion = $oConexion->conexion();
+
+    $sql="INSERT INTO detalleFoto(idProducto, IdServicio, idUser, idCliente, fotoPerfilCliente)
+    VALUES (NULL, NULL, NULL, $this->idCliente, '$this->fotoPerfilCliente')";
+
+    //se ejecuta la consulta en la base de datos
+    $result = mysqli_query($conexion, $sql);
     return $result;
 }
 

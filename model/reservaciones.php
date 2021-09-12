@@ -21,18 +21,19 @@ class reservacion
     public $primerNombre = "";
     public $primerApellido = "";
 
-    function servicioMasivo($idReservacion, $servicio, $idCliente, $nombres, $apellidos, $telefono, $fechaReservacion, $horaReservacion, $domicilio, $direccion){
-        $result="";
-        foreach($servicio as $registro){
-            $this->idServicio=$registro;
-            $result=$this->nuevaReservacion($idReservacion, $idCliente, $nombres, $apellidos, $telefono, $fechaReservacion, $horaReservacion, $domicilio, $direccion);
-            if(!$result) 
-            break;
+    function servicioMasivo($idReservacion, $servicio, $idCliente, $nombres, $apellidos, $telefono, $fechaReservacion, $horaReservacion, $domicilio, $direccion)
+    {
+        $result = "";
+        foreach ($servicio as $registro) {
+            $this->idServicio = $registro;
+            $result = $this->nuevaReservacion($idReservacion, $idCliente, $nombres, $apellidos, $telefono, $fechaReservacion, $horaReservacion, $domicilio, $direccion);
+            if (!$result)
+                break;
         }
         return $result;
     }
 
-    
+
 
     //funcion para crear una reservacion
     function nuevaReservacion($horaFinal)
@@ -140,13 +141,14 @@ class reservacion
         return $result;
     }
 
-    public function consultarReservacionId($idCliente){
+    public function consultarReservacionId($idCliente)
+    {
         // instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql="SELECT r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.direccion, r.precio, 
+        $sql = "SELECT r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.direccion, r.precio, 
         (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio 
         FROM reservacion r WHERE r.idCliente=$idCliente AND r.eliminado=false AND r.validar=false";
 
@@ -155,54 +157,56 @@ class reservacion
         return $result;
     }
 
-    public function consultarTiempoServicio($idServicio){
+    public function consultarTiempoServicio($idServicio)
+    {
         // instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql="SELECT tiempoDuracion FROM servicios WHERE IdServicio=$idServicio";
+        $sql = "SELECT tiempoDuracion FROM servicios WHERE IdServicio=$idServicio";
 
         $result = mysqli_query($conexion, $sql);
-       
+
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-        foreach ($result as $registro){
-            $this->tiempoDuracion=$registro['tiempoDuracion'];
+        foreach ($result as $registro) {
+            $this->tiempoDuracion = $registro['tiempoDuracion'];
         }
         return $this->tiempoDuracion;
     }
 
-    function consultarReservacion($idReservacion){
+    function consultarReservacion($idReservacion)
+    {
         //se instancia el objeto conectar
-        $oConexion= new conectar();
+        $oConexion = new conectar();
         //se establece conexión con la base de datos
-        $conexion=$oConexion->conexion();
+        $conexion = $oConexion->conexion();
         //consulta para retornar un solo registro
-    
+
         $sql = "SELECT * FROM reservacion WHERE idReservacion=$idReservacion";
-    
+
         //se ejecuta la consulta
-        $result=mysqli_query($conexion,$sql);
-        $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
-        foreach($result as $registro){ 
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
             //se registra la consulta en los parametros
-            $this->idReservacion=$registro['idReservacion'];
-            $this->idCliente=$registro['idCliente'];
-            $this->idUser=$registro['idUser'];
-            $this->idServicio=$registro['idServicio'];
-            $this->nombres=$registro['nombres'];
-            $this->apellidos=$registro['apellidos'];
-            $this->telefono=$registro['telefono'];
-            $this->fechaReservacion=$registro['fechaReservacion'];
-            $this->horaReservacion=$registro['horaReservacion'];
-            $this->horaFinal=$registro['horaFinal'];
-            $this->domicilio=$registro['domicilio'];
-            $this->validar=$registro['validar'];
-            $this->direccion=$registro['direccion'];
-            $this->precio=$registro['precio'];
-            }
+            $this->idReservacion = $registro['idReservacion'];
+            $this->idCliente = $registro['idCliente'];
+            $this->idUser = $registro['idUser'];
+            $this->idServicio = $registro['idServicio'];
+            $this->nombres = $registro['nombres'];
+            $this->apellidos = $registro['apellidos'];
+            $this->telefono = $registro['telefono'];
+            $this->fechaReservacion = $registro['fechaReservacion'];
+            $this->horaReservacion = $registro['horaReservacion'];
+            $this->horaFinal = $registro['horaFinal'];
+            $this->domicilio = $registro['domicilio'];
+            $this->validar = $registro['validar'];
+            $this->direccion = $registro['direccion'];
+            $this->precio = $registro['precio'];
         }
+    }
 
     function consultarReservacionParaHorario($idUser, $fechaReservacion, $horarioReservacion)
     {
@@ -272,7 +276,7 @@ class reservacion
         $conexion = $oConexion->conexion();
 
         //sentencia para listar las reservaciones
-        $sql= "SELECT c.idCliente, 
+        $sql = "SELECT c.idCliente, 
         r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.validar, r.direccion, r.precio, 
         s.IdServicio, s.nombreServicio, 
         u.idUser, CONCAT(u.primerNombre,' ',u.primerApellido) as estilista 

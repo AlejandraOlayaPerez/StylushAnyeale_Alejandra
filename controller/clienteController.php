@@ -2,7 +2,7 @@
 
 date_default_timezone_set('America/Bogota');
 
-$funcion = ""; 
+$funcion = "";
 if (isset($_POST['funcion'])) {
     $funcion = $_POST['funcion'];
 } else {
@@ -14,55 +14,58 @@ if (isset($_POST['funcion'])) {
 $oClienteController = new clienteController();
 switch ($funcion) {
     case "iniciarSesion":
-    $oClienteController->iniciarSesion();
-    break;
+        $oClienteController->iniciarSesion();
+        break;
     case "cerrarSesion":
-    $oClienteController->cerrarSesion();
-    break; 
-    case "registroCliente":
-    $oClienteController->registrarCliente();
-    break;
+        $oClienteController->cerrarSesion();
+        break;
+    case "actualizarCliente":
+        $oClienteController->actualizarCliente();
+        break;
+
     case "buscarReservacionPorCC":
-    $oClienteController->buscarReservacionPorCC();
-    break;
+        $oClienteController->buscarReservacionPorCC();
+        break;
     case "buscarProductoAjax":
-    $oClienteController->buscarProductoAjax();
-    break;
+        $oClienteController->buscarProductoAjax();
+        break;
     case "paginacionProducto":
-    $oClienteController->paginacionProducto();
+        $oClienteController->paginacionProducto();
 }
 
 class clienteController
 {
-    public function iniciarSesion(){
+    public function iniciarSesion()
+    {
         require_once '../model/cliente.php';
         session_start();
 
-        $oCliente= new cliente();
-        $email=$_POST['email'];
-        $contrasena=$_POST['contrasena'];
+        $oCliente = new cliente();
+        $email = $_POST['email'];
+        $contrasena = $_POST['contrasena'];
         $oCliente->iniciarSesion($email, $contrasena);
 
         require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
+        $oMensaje = new mensajes();
 
-        if($oCliente->getIdCliente()!=0){
-        //si entra el usuario y contraseña son correcto
-        //se almacena la informacion del usuario en las variables de sesion
-        //estas variables vamos a aceder en cualquier momento del proyecto
-        $_SESSION['idCliente']=$oCliente->getIdCliente();
-        $_SESSION['nombreUser']=$oCliente->getNombreUser();
-        // echo "Inicio sesion correctamente";
+        if ($oCliente->getIdCliente() != 0) {
+            //si entra el usuario y contraseña son correcto
+            //se almacena la informacion del usuario en las variables de sesion
+            //estas variables vamos a aceder en cualquier momento del proyecto
+            $_SESSION['idCliente'] = $oCliente->getIdCliente();
+            $_SESSION['nombreUser'] = $oCliente->getNombreUser();
+            // echo "Inicio sesion correctamente";
             header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
-        }else{
+        } else {
             //error al iniciar sesion
             //usuario o contraseña incorrecto
             // echo "Usuario o contraseña incorrecto";
-            header("location: ../view/loginCliente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
+            header("location: ../view/loginCliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
         }
     }
 
-    public function cerrarSesion(){
+    public function cerrarSesion()
+    {
         session_start();
         session_unset(); //borra las variables de sesion
         session_destroy(); //destruye o elimina la sesion
@@ -70,77 +73,185 @@ class clienteController
         die();
     }
 
-    public function registrarCliente(){
+    public function registrarCliente()
+    {
+       
         require_once '../model/cliente.php';
+        $oCliente = new cliente();
 
-        $oCliente=new cliente();
-        $nombre=$_POST['nombre'];
-        $email=$_POST['email'];
-        $contrasena=$_POST['contrasena'];
-        $confirmContrasena=$_POST['confirmContrasena'];
+        $oCliente->tipoDocumento = $_POST['tipoDocumento'];
+        $oCliente->documentoIdentidad = $_POST['documentoIdentidad'];
+        $oCliente->primerNombre = $_POST['primerNombre'];
+        $oCliente->primerApellido = $_POST['primerApellido'];
+        $oCliente->direccion = $_POST['direccion'];
+        $oCliente->telefono = $_POST['telefono'];
+        $oCliente->email = $_POST['correoElectronico'];
+        $oCliente->contrasena = $_POST['contrasena'];
+        $confirmarContrasena = $_POST['confirmarContrasena'];
 
         require_once 'mensajeController.php';
-        $oMensaje=new mensajes();
+        $oMensaje = new mensajes();
 
-        if($contrasena==$confirmContrasena){
-            if ($oCliente->consultarCorreoElectronico($email)==0){
-            $result=$oCliente->registroUsuario($nombre, $email,$contrasena);
-                if($result){
-                    // echo "Se registro correctamente";
-                }else{
-                    header("location: ../view/registroCliente.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-                    // echo "error";
+        if ($oCliente->contrasena != $confirmarContrasena) {
+            // echo "error contraseña";
+            $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+            $_GET['mensaje'] = "Contraseña y confirmar contraseña son diferentes";
+        } else {
+            if ($oCliente->consultarCorreoElectronico($oCliente->email) != 0) {
+                // echo "error correo";
+                $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+                $_GET['mensaje'] = "Este correo electrónico ya esta registrado";
+            } else {
+                if ($oCliente->documentoIdCliente($oCliente->tipoDocumento, $oCliente->documentoIdentidad) != 0) {
+                    // echo "error documento";
+                    $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+                    $_GET['mensaje'] = "Este documento ya esta registrado";
+                } else {
+                    $result = $oCliente->nuevoCliente();
+                    if ($result) {
+                        // echo "registro";
+                        $oCliente = new cliente(); //se reinicio la variable 
+                        header("location: ../view/paginaPrincipalCliente.php");
+                    } else {
+                        // echo "error registro";
+                        $_GET['tipoMensaje'] = $oMensaje->tipoError;
+                        $_GET['mensaje'] = "Se ha producido un error";
+                    }
                 }
-            }else{
-                header("location: ../view/registroCliente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=El+correo+electronico+ya+existe");
-                // echo "existe correo";
             }
-        }else{
-            header("location: ../view/registroCliente.php?tipoMensaje=".$oMensaje->tipoAdvertencia."&mensaje=La+contraseña+y+la+confirmacion+de+contraseña+no+coinciden");
-            // echo "contraseña";
         }
+
+        return $oCliente;
+
     }
 
-    public function consultarCliente($idCliente){
-    require_once '../model/cliente.php';
+    public function actualizarCliente(){
+        require_once '../model/cliente.php';
 
-    $oCliente=new cliente();
-    $oCliente->consultarCliente($idCliente);
+        $idCliente = $_POST['idCliente'];
 
-    return $oCliente;
+        $oCliente=new cliente();
+        $oCliente->tipoDocumento = $_POST['tipoDocumento'];
+        $oCliente->documentoIdentidad = $_POST['documentoIdentidad'];
+        $oCliente->primerNombre = $_POST['primerNombre'];
+        $oCliente->segundoNombre = $_POST['segundoNombre'];
+        $oCliente->primerApellido = $_POST['primerApellido'];
+        $oCliente->segundoApellido = $_POST['segundoApellido'];
+        $oCliente->email = $_POST['correoElectronico'];
+        $oCliente->telefono = $_POST['telefono'];
+        $oCliente->fechaNacimiento = $_POST['fechaNacimiento'];
+        $oCliente->genero = $_POST['genero'];
+        $oCliente->direccion = $_POST['direccion'];
+        $oCliente->barrio = $_POST['barrio'];
+
+        $yearActual = Date("Y");
+
+        //explode: divide el string en arreglo
+        $yearNacimiento = explode("-", $oCliente->fechaNacimiento);
+        $yearNacimiento = $yearNacimiento[0]; //arreglo 1
+        $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
+
+        require_once 'mensajeController.php';
+        $oMensaje = new mensajes();
+
+        if ($oCliente->consultarCorreoElectronicoExiste($oCliente->email, $idCliente) != 0) {
+            // echo "error correo";
+            header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico");
+        } else {
+            if ($oCliente->documentoIdUsuarioExiste($idCliente, $oCliente->tipoDocumento, $oCliente->documentoIdentidad) != 0) {
+                // echo "error documento";
+                header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad");
+            } else {
+                if ($edadUsuario < 15) {
+                    // echo "error fecha";
+                    header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años");
+                } else {
+                    $result = $oCliente->actualizarCliente($idCliente);
+                    if ($result) {
+                        // echo "actualizo";
+                        header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion");
+                    } else {
+                        // echo "error actualizar";
+                        header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                    }
+                }
+            }
+        }
+
+        return $oCliente; //Cuando se devuelven los datos.
     }
 
-    public function reservacionesPorIdCliente($idCliente){
+    
+
+    public function consultarCliente($idCliente)
+    {
+        require_once '../model/cliente.php';
+
+        $oCliente = new cliente();
+        $oCliente->consultarCliente($idCliente);
+
+        return $oCliente;
+    }
+
+    public function perfilCliente($idCliente)
+    {
+        require_once '../model/cliente.php';
+
+        $oCliente = new cliente();
+        $oCliente->perfilCliente($idCliente);
+
+        return $oCliente;
+    }
+
+    public function fotoPerfilCliente($idCliente){
+        require_once '../model/imagen.php';
+        
+        $oFoto=new foto();
+        $result=$oFoto->mostrarFotoClientePerfil($idCliente);
+
+        return $oFoto;
+    }
+
+    public function reservacionesPorIdCliente($idCliente)
+    {
         require_once '../model/reservaciones.php';
 
-        $oReservacion=new reservacion();
+        $oReservacion = new reservacion();
         return $oReservacion->listarReservacionesPorIdCliente($idCliente);
     }
 
-    public function buscarReservacionPorCC(){
+    public function buscarReservacionPorCC()
+    {
+        require_once '../model/reservaciones.php';
+
+        $oReservacion = new reservacion();
+        $result = $oReservacion->consultarClientePorCC($_GET['tipoDocumento'], $_GET['documentoIdentidad']);
+        echo json_encode($result);
+    }
+
+    public function mostrarReservacionIdCliente($idCliente){
         require_once '../model/reservaciones.php';
 
         $oReservacion=new reservacion();
-        $result=$oReservacion->consultarClientePorCC($_GET['tipoDocumento'], $_GET['documentoIdentidad']);
-        echo json_encode($result); 
+        $result=$oReservacion->consultarReservacionId($idCliente);
+        return $result;
     }
 
-    public function buscarProductoAjax(){
+    public function buscarProductoAjax()
+    {
         require_once '../model/producto.php';
 
-        $oProducto=new producto();
-        $result=$oProducto->buscarProductoAjax($_GET['codigoProducto'], $_GET['nombreProducto'], $_GET['pagina']);
+        $oProducto = new producto();
+        $result = $oProducto->buscarProductoAjax($_GET['codigoProducto'], $_GET['nombreProducto'], $_GET['pagina']);
         echo json_encode($result);
     }
 
-    public function paginacionProducto(){
+    public function paginacionProducto()
+    {
         require_once '../model/producto.php';
 
-        $oProducto=new producto();
-        $result=$oProducto->paginacionProducto($_GET['codigoProducto'], $_GET['nombreProducto']);
+        $oProducto = new producto();
+        $result = $oProducto->paginacionProducto($_GET['codigoProducto'], $_GET['nombreProducto']);
         echo json_encode($result);
     }
-
 }
-
-?>

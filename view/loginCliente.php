@@ -44,7 +44,7 @@ if (isset($_GET['mensaje'])) {
         <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(249, 201, 242) 5px dashed;">
             <div class="card-body">
                 <div class="col text-center">
-                    <img class="img-circle elevation-2" src="../image/PNG_LOGO.png" width="40%">
+                    <img style="border-radius: 8px;" src="../image/PNG_LOGO.png" width="50%">
                 </div>
                 <br>
                 <p class="login-box-msg">Inicia sesión para continuar</p>

@@ -87,11 +87,19 @@ if (isset($_GET['filtroCodigoProducto'])) {
                                     <td><?php echo $registro['cantidad']; ?></td>
                                     <td>$<?php echo $registro['valorUnitario']; ?></td>
                                     <td>
-                                        <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="idProducto(<?php echo $registro['IdProducto'] . ',' . $registro['cantidad']; ?>)"><i class="fas fa-minus"></i> Restar Cantidad</button>
-                                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                        <a href="seguimientoProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-light"><i class="fas fa-exchange-alt"></i> Seguimiento Cambios</a>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-success">Acciones</button>
+                                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                                                <span class="sr-only"></span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu" style="margin: 4px;">
+                                                <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="idProducto(<?php echo $registro['IdProducto'] . ',' . $registro['cantidad']; ?>)"><i class="fas fa-minus"></i> Cantidad</button>
+                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                                            </div>
+                                        </div>
                                     </td>
+
                                 </tr>
                             <?php }
                         } else { //en caso de que no tengo informacion, mostrara un mensaje

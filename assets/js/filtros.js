@@ -1,68 +1,46 @@
-function buscarProducto(){
-    var codigoProducto = document.getElementById("codigoProducto").value;
-        var nombreProducto = document.getElementById("nombreProducto").value;
-        $.ajax({
-            url: '../controller/productoServicioController.php',
-            type: 'GET',
-            data: {
-                codigoProducto:codigoProducto,
-                nombreProducto:nombreProducto,
-                funcion:"busquedaProducto"}
-        }).done(function (data){
+function buscarCliente(){
+    var tipoDocumento = document.getElementById("tipoDocumento2").value;
+    var documentoIdentidad = document.getElementById("documentoIdentidad2").value;
+
+    $.ajax({
+        url: '../controller/clienteController.php',
+        type: 'GET',
+        data: {tipoDocumento:tipoDocumento,documentoIdentidad:documentoIdentidad,funcion:"buscarReservacionPorCC"}
+    }).done(function (data){
         // console.log(data);
-        var datosProducto=JSON.parse(data);
-        var contenedor=document.getElementById("listaProducto");
+        var datos=JSON.parse(data);
+        var contenedor=document.getElementById("listarCliente");
         contenedor.innerHTML="";
-        for(i=0; i<datosProducto.length; i++){
-            agregarProducto(datosProducto[i]);
+        for(i=0; i<datos.length; i++){
+        agregarBusqueda(datos[i]);
         }
     })
 }
 
-function agregarProducto(datosProducto){
-    var tr=document.createElement("tr");
-    var idProducto=document.createElement("input");
-    idProducto.value=datosFactura['IdProducto'];
-    idProducto.style="display:none";
-    var td1 = document.createElement("td");
-    td1.innerHTML=datosFactura['codigoProducto'];
-    var td3 = document.createElement("td");
-    td3.innerHTML=datosFactura['nombreProducto'];
-    var td4 = document.createElement("td");
-    td4.innerHTML = datosFactura['cantidad'];
-    var td5 = document.createElement("td");
-    td5.innerHTML = datosFactura['precio'];
-    var td6 = document.createElement("td");
-    var botonEditar = document.createElement("a")
-    botonEditar.href=window.location.href="formularioEditarProducto.php?idProducto="+datosProducto['IdProducto'];
-    botonEditar.className="btn btn-warning";
-    var i = document.createElement("i");
-    i.className="fas fa-edit";
-    botonEditar.appendChild(i);
-    botonEditar.innerHTML="Editar";
+function agregarBusqueda(datos){
+    var nuevoTR=document.createElement("tr"); //creamos un fila de una tabla
+    nuevoTR.id=datos['idCliente'];
 
-    td6.appendChild(botonEditar);
+    var TD1=document.createElement("td");
+    TD1.innerHTML=datos['tipoDocumento'];
+    var TD2=document.createElement("td");
+    TD2.innerHTML=datos['documentoIdentidad'];
+    var TD3=document.createElement("td");
+    TD3.innerHTML=datos['primerNombre']+datos['segundoNombre'];
+    var TD4=document.createElement("td");
+    TD4.innerHTML=datos['primerApellido']+datos['segundoApellido'];
+    var TD6=document.createElement("td");
+    TD6.innerHTML=datos['email']
+    var TD5=document.createElement("td");
+    TD5.innerHTML=datos['telefono'];
 
+    nuevoTR.appendChild(TD1);
+    nuevoTR.appendChild(TD2);
+    nuevoTR.appendChild(TD3);
+    nuevoTR.appendChild(TD4);
+    nuevoTR.appendChild(TD6);
+    nuevoTR.appendChild(TD5);
 
-
-
-    // var botonSeleccionar=document.createElement("button");
-    // botonSeleccionar.className="btn btn-info";
-    // botonSeleccionar.innerHTML="Seleccionar";
-    // botonSeleccionar.type="button";
-    // // botonSeleccionar.data-bs-dismiss;"modal";
-    // botonSeleccionar.addEventListener('click', function(){
-    //     agregarCliente(datos['idCliente'], datos['tipoDocumento'], datos['documentoIdentidad'], datos['primerNombre'], datos['segundoNombre'],
-    //     datos['primerApellido'], datos['segundoApellido']);
-    // });
-
-    tr.appendChild(idProducto);
-    tr.appendChild(td1);
-    tr.appendChild(td3);
-    tr.appendChild(td4);
-    tr.appendChild(td5);
-    tr.appendChild(td6);
-    
-    var contenedor = document.getElementById("listaProducto");
-    contenedor.appendChild(tr);
+    var contenedor=document.getElementById("listarCliente");
+    contenedor.appendChild(nuevoTR);
 }

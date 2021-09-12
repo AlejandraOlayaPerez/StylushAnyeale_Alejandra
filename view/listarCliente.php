@@ -42,7 +42,21 @@ $oCliente = new cliente();
 
         <div class="card border border-dark">
             <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-                <h1 class="card-title">Usuarios </h1>
+                <div class="row">
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Tipo de Documento: </label>
+                        <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="buscarCliente()">
+                            <option value="" selected>Selecciones una opción</option>
+                            <option value="TI">Tarjeta de Identidad</option>
+                            <option value="CC">Cedula Ciudadanía</option>
+                            <option value="CE">Cedula Extranjería</option>
+                        </select>
+                    </div>
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Documento: </label>
+                        <input type="number" class="form-control" id="documentoIdentidad2" name="documentoIdentidad" placeholder="Documento Identidad" onchange="buscarCliente()">
+                    </div>
+                </div>
                 <!--Paginacion-->
                 <div class="card-tools">
                     <ul class="pagination pagination-sm float-right border border-dark">
@@ -70,29 +84,8 @@ $oCliente = new cliente();
                             <th>Telefono</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        if (count($consulta) > 0) {
-                            foreach ($consulta as $registro) {
-                        ?>
-                                <tr>
-                                    <td><?php echo $registro['tipoDocumento']; ?></td>
-                                    <td><?php echo $registro['documentoIdentidad']; ?></td>
-                                    <td><?php echo $registro['primerNombre'] . " " . $registro['segundoNombre']; ?></td>
-                                    <td><?php echo $registro['primerApellido'] . " " . $registro['segundoApellido']; ?></td>
-                                    <td><?php echo $registro['email']; ?></td>
-                                    <td><?php echo $registro['telefono']; ?></td>
-                                </tr>
-                            <?php }
-                        } else { //en caso de que no tengo informacion, mostrara un mensaje
-                            ?>
-                            <!-- no hay ningun registro -->
-                            <tr>
-                                <td colspan="6" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay Clientes disponibles</td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
+                    <tbody id="listarCliente">
+
                     </tbody>
                 </table>
             </div>
@@ -101,7 +94,7 @@ $oCliente = new cliente();
 </body>
 
 </html>
-
-<?php
-require_once 'footer.php';
-?>
+<script>
+    buscarCliente()
+</script>
+<?php require_once 'footer.php'; ?>
