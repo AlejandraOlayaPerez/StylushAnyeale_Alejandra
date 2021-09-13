@@ -1,6 +1,12 @@
     <?php
     require_once 'permisosCliente.php';
     
+    require_once '../controller/reservacionController.php';
+    if (isset($_POST['documentoIdentidad']) != "") {
+        $oReservacionController = new reservacionController();
+        $oReservacion = $oReservacionController->crearReservacion();
+    }
+    
     if (isset($_GET['idCliente'])) {
         $idCliente = $_GET['idCliente'];
     } else {
@@ -11,11 +17,7 @@
     require_once '../model/reservaciones.php';
     $oReservacion = new reservacion();
 
-    require_once '../controller/reservacionController.php';
-    if (isset($_POST['documentoIdentidad']) != "") {
-        $oReservacionController = new reservacionController();
-        $oReservacion = $oReservacionController->crearReservacion();
-    }
+    
     ?>
     <!DOCTYPE html>
     <html lang="es">

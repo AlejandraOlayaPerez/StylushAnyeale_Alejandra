@@ -150,7 +150,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
                     <h1>Stylus Anyeale</h1>
                     <p>"Nuestro nombre es Stylush Anyeale, brindamos atencion completa con nuestros servicios y cada dia iremos mejorando mas. "</p>
-                    <a class="btn btn-info" href="">Conoce sobre nosotros</a>
+                    <a class="btn btn-info" href="conoceNosotros.php">Conoce sobre nosotros</a>
                 </div>
             </div>
 

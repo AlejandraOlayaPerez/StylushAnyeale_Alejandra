@@ -247,6 +247,27 @@ class productoServicioController
         return $oServicio;
     }
 
+    public function detalleProducto($idProducto)
+    {
+        require_once '../model/producto.php';
+
+        $oProducto=new producto();
+        $oProducto->detalleProducto($idProducto);
+
+        return $oProducto;
+    }
+
+    public function vistaProducto()
+    {
+        require_once '../model/producto.php';
+
+        $oProducto=new producto();
+        $consulta=$oProducto->vistaProducto();
+
+        return $consulta;
+
+    }
+
     public function consultarServicioIdServicio($idServicio)
     {
         require_once '../model/detalle.php';

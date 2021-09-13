@@ -119,7 +119,7 @@ class cliente
         }
         return count($result);
 
-        return $result;
+        
     }
 
     public function consultarCorreoElectronico($email)

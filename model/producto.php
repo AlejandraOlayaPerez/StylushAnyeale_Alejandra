@@ -4,7 +4,6 @@ require_once 'conexionDB.php';
 class producto
 {
     public $IdProducto = 0;
-    public $idCategoria = "";
     public $codigoProducto = "";
     public $nombreProducto = "";
     public $cantidad = "";
@@ -110,13 +109,63 @@ class producto
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
-       
+
         $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
+    }
+
+    function vistaProducto()
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT p.IdProducto, p.nombreProducto, p.descripcionProducto, p.costoProducto, 
+        d.fotoProducto1, d.fotoProducto2, d.fotoProducto3, d.fotoProducto4, d.fotoProducto5 
+        FROM producto p 
+        INNER JOIN detallefoto d 
+        ON p.IdProducto=d.idProducto 
+        WHERE p.eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function detalleProducto($IdProducto)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT P.IdProducto, p.nombreProducto, p.descripcionProducto, p.costoProducto, 
+        d.fotoProducto1, d.fotoProducto2, d.fotoProducto3, d.fotoProducto4, d.fotoProducto5 
+        FROM producto p 
+        INNER JOIN detallefoto d 
+        ON p.IdProducto=d.idProducto 
+        WHERE p.eliminado=false AND p.IdProducto=$IdProducto";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            //se registra la consulta en los parametros
+            $this->IdProducto = $registro['IdProducto'];
+            $this->nombreProducto=$registro['nombreProducto'];
+            $this->descripcionProducto=$registro['descripcionProducto'];
+            $this->costoProducto=$registro['costoProducto'];
+            $this->fotoProducto1=$registro['fotoProducto1'];
+            $this->fotoProducto2=$registro['fotoProducto2'];
+            $this->fotoProducto3=$registro['fotoProducto3'];
+            $this->fotoProducto4=$registro['fotoProducto4'];
+            $this->fotoProducto5=$registro['fotoProducto5'];
+        }
     }
 
     function paginacionProducto($codigoProducto, $nombreProducto)
@@ -215,7 +264,7 @@ class producto
             $this->IdProducto = $registro['IdProducto'];
             $this->codigoProducto = $registro['codigoProducto'];
             $this->nombreProducto = $registro['nombreProducto'];
-            $this->cantidad=$registro['cantidad'];
+            $this->cantidad = $registro['cantidad'];
             $this->recomendaciones = $registro['recomendaciones'];
             $this->valorUnitario = $registro['valorUnitario'];
             $this->costoProducto = $registro['costoProducto'];
@@ -257,7 +306,6 @@ class producto
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -269,7 +317,6 @@ class producto
         $sql = "UPDATE producto SET cantidad=cantidad+$cantidad WHERE IdProducto=$idProducto";
 
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -281,7 +328,6 @@ class producto
         $sql = "UPDATE producto SET cantidad=cantidad-$this->cantidad WHERE IdProducto=$this->idProducto";
 
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
