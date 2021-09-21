@@ -20,3 +20,7 @@ function trEliminar(idContenedor){
     }
     
 }
+
+function separadorMiles(){
+    
+}
