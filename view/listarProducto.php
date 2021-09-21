@@ -2,12 +2,6 @@
 require_once 'headPagina.php';
 require_once '../model/producto.php';
 $oProducto = new producto();
-
-if (isset($_GET['filtroCodigoProducto'])) {
-    $filtroCodigoProducto = $_GET['filtroCodigoProducto'];
-} else {
-    $filtroCodigoProducto = "";
-}
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +28,7 @@ if (isset($_GET['filtroCodigoProducto'])) {
         if (isset($_GET['page'])) $pagina = $_GET['page'];
         else $pagina = 1;
 
-        $consulta = $oProducto->mostrarProducto($pagina, $filtroCodigoProducto);
+        $consulta = $oProducto->mostrarProducto($pagina);
         $numeroRegistro = $oProducto->numRegistro;
         $numPagina = intval($numeroRegistro / 10); //intval, traera el resultado en Entero en caso de que sea decimal
         if (fmod($numeroRegistro, 10) > 0) $numPagina++; //fmod es el modulo, para conocer el residuo
@@ -44,10 +38,19 @@ if (isset($_GET['filtroCodigoProducto'])) {
 
         <div class="card border border-dark">
             <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-                <form action="" method="GET">
-                    <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Busca un producto: </label>
-                    <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Puedes buscar por codigo o nombre del producto" name="filtroCodigoProducto" onchange="this.form.submit()" value="<?php echo $filtroCodigoProducto; ?>">
-                </form>
+                <div class="row">
+                    <div class="col col-md-6">
+                        <form action="" method="GET">
+                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600; margin-right: 10px;">Busca un producto:</label>
+                            <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca el codigo o nombre de un producto" value="" id="busquedaProducto" onkeyup="buscarProducto()">
+                        </form>
+                    </div>
+                    <div class="col col-md-6 float-right">
+                        <a class="btn btn-info" href="tags.php"><i class="fas fa-tags"></i> Ver. Tags</a>
+                        <a class="btn btn-info" href="categoria.php"><i class="fas fa-sitemap"></i> Ver. Categoria</a>
+                    </div>
+                </div>
+
                 <!--Paginacion-->
                 <div class="card-tools">
                     <ul class="pagination pagination-sm float-right border border-dark">
@@ -75,42 +78,8 @@ if (isset($_GET['filtroCodigoProducto'])) {
                             <th><a class="btn btn-info" href="nuevoProducto.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        if (count($consulta) > 0) {
-                            foreach ($consulta as $registro) {
-                        ?>
-                                <tr>
+                    <tbody id="productosBusqueda">
 
-                                    <td><?php echo $registro['codigoProducto']; ?></td>
-                                    <td><?php echo $registro['nombreProducto']; ?></td>
-                                    <td><?php echo $registro['cantidad']; ?></td>
-                                    <td>$<?php echo $registro['valorUnitario']; ?></td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success">Acciones</button>
-                                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                                                <span class="sr-only"></span>
-                                            </button>
-                                            <div class="dropdown-menu" role="menu" style="margin: 4px;">
-                                                <a href="formularioEditarProducto.php?idProducto=<?php echo $registro['IdProducto']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                                                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default" onclick="idProducto(<?php echo $registro['IdProducto'] . ',' . $registro['cantidad']; ?>)"><i class="fas fa-minus"></i> Cantidad</button>
-                                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarProducto(<?php echo $registro['IdProducto']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                </tr>
-                            <?php }
-                        } else { //en caso de que no tengo informacion, mostrara un mensaje
-                            ?>
-                            <!-- no hay ningun registro -->
-                            <tr>
-                                <td colspan="5" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay productos disponibles</td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
                     </tbody>
                 </table>
             </div>
@@ -120,9 +89,12 @@ if (isset($_GET['filtroCodigoProducto'])) {
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script>
+    buscarProducto();
+</script>
+
+<?php require_once 'footer.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -169,7 +141,7 @@ require_once 'footer.php';
                 </div>
                 <div class="modal-footer justify-content-between">
                     <input type="text" id="idProducto" name="idProducto" style="display: none;">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary" name="funcion" value="actualizarCantidad">Actualizar</button>
                 </div>
             </form>

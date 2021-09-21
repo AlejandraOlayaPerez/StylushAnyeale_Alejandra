@@ -40,7 +40,8 @@ class cargo{
 
         //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
         $inicio=(($pagina-1)*10);
-        $sql="SELECT c.idCargo, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.IdServicio) as nombreServicio FROM cargo c WHERE c.eliminado=false LIMIT 10 OFFSET $inicio";
+        $sql="SELECT c.idCargo, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.IdServicio) 
+        as nombreServicio FROM cargo c WHERE c.eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result=mysqli_query($conexion,$sql);
@@ -82,7 +83,6 @@ class cargo{
             
         //se ejecuta la consulta
         $result=mysqli_query($conexion,$sql);
-        echo $sql;
         return $result;
     }
 

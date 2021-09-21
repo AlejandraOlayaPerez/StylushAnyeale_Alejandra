@@ -145,7 +145,7 @@ class reservacionController
         $horaFinal->add(new DateInterval('PT' . $tiempoDuracion . 'M'));
         $horaFinal->format("H:i:s");
 
-        if ($oReservacion->domicilio == "SI") {
+        if ($oReservacion->domicilio == 1) {
             $horaFinal->add(new DateInterval('PT30M'));
             $oReservacion->direccion = $_POST['direccion'];
         }
@@ -163,6 +163,7 @@ class reservacionController
                 // echo "registro reservacion";
                 header("location: ../view/listarReservacion.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+reservacion+ha+sido+registrada+de+manera+correcta");
             }else{
+                // echo "error";
                 header("location: ../view/nuevaReservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             }
         }
@@ -199,7 +200,7 @@ class reservacionController
         $horaFinal->add(new DateInterval('PT' . $tiempoDuracion . 'M'));
         $horaFinal->format("H:i:s");
 
-        if ($oReservacion->domicilio == "SI") {
+        if ($oReservacion->domicilio == 1) {
             $horaFinal->add(new DateInterval('PT30M'));
             $oReservacion->direccion = $_POST['direccion'];
         }

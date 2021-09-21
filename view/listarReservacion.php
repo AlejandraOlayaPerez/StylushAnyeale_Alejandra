@@ -1,6 +1,9 @@
 <?php
 session_start();
 require_once 'permisosCliente.php';
+
+date_default_timezone_set('America/Bogota');
+$fechaActual = Date("Y-m-d");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -78,6 +81,7 @@ require_once 'permisosCliente.php';
                         $oReservacion = new reservacion();
                         $consulta = $oReservacion->listarReservacionesPorIdCliente($_SESSION['idCliente']);
                         foreach ($consulta as $registro) {
+                            if ($registro['fechaReservacion']>=$fechaActual){
                         ?>
                             <div class="col col-xl-4 col-md-6 col-12 d-flex align-items-stretch flex-column">
                                 <div class="card bg-light d-flex flex-fill">
@@ -105,6 +109,7 @@ require_once 'permisosCliente.php';
                                     </div>
                                 </div>
                             </div>
+                            <?php } ?>
                         <?php } ?>
                     </div>
                 </div>

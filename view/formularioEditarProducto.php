@@ -1,127 +1,116 @@
 <?php
 require_once 'headPagina.php';
 require_once '../controller/productoServicioController.php';
-
-$oProductoServicioController = new productoServicioController();
-$oProducto = $oProductoServicioController->consultarProducto($_GET['idProducto']);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDITAR PRODUCTO</title>
+    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/editarProducto.css" type="text/css">
+    <title>Stylush Anyeale</title>
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="card card-primary">
-            <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR PRODUCTO</label>
-            </div>
-            <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
-                <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-                    <input type="text" name="IdProducto" value="<?php echo $_GET['idProducto']; ?>" style="display: none;">
 
-                    <div class="row" style="margin: 5px; ">
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Codigo Producto</label>
-                            <input class="form-control" type="text" name="codigoProducto" placeholder="Codigo Producto" value="<?php echo $oProducto->codigoProducto; ?>">
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Producto</label>
-                            <input class="form-control" type="text" name="nombreProducto" placeholder="Nombre Producto" value="<?php echo $oProducto->nombreProducto; ?>">
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Recomendaciones</label>
-                            <input class="form-control" type="text" name="Recomendaciones" placeholder="Recomendaciones" value="<?php echo $oProducto->recomendaciones; ?>">
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Valor Unitario</label>
-                            <input class="form-control" type="text" name="valorUnitario" placeholder="Valor Unitario" value="<?php echo $oProducto->valorUnitario; ?>">
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Costo Producto</label>
-                            <input class="form-control" type="text" name="costoProducto" placeholder="Costo Producto" value="<?php echo $oProducto->costoProducto; ?>">
+        <!--editar informacion producto-->
+
+        <div class="card-body">
+            <?php
+            require_once '../controller/productoServicioController.php';
+            $oProductoServicioController = new productoServicioController();
+            $oProducto = $oProductoServicioController->consultarProducto($_GET['idProducto']);
+            ?>
+            <form action="../controller/productoServicioController.php" method="GET">
+                <input type="text" name="IdProducto" value="<?php echo $_GET['idProducto']; ?>" style="display: none;">
+
+                <div class="row" style="margin: 5px; ">
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Codigo Producto</label>
+                        <input class="form-control" type="text" id="codigoProducto" name="codigoProducto" value="<?php echo $oProducto->codigoProducto; ?>" placeholder="Codigo Producto" onchange="validarCampo(this);" required maxlength="20">
+                        <span id="codigoProductoSpan"></span>
+                    </div>
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Producto</label>
+                        <input class="form-control" type="text" id="nombreProducto" name="nombreProducto" value="<?php echo  $oProducto->nombreProducto; ?>" placeholder="Nombre Producto" onchange="validarCampo(this);" required maxlength="50" minlength="2">
+                        <span id="nombreProductoSpan"></span>
+                    </div>
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Producto</label>
+                        <input class="form-control" type="text" id="cantidad" name="cantidad" value="<?php echo  $oProducto->cantidad; ?>" placeholder="Cantidad" onchange="validarCampo(this);" required minlength="1">
+                        <span id="cantidadSpan"></span>
+                    </div>
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Descripcion Producto</label>
+                        <textarea class="form-control" rows="3" type="text" id="descripcion" name="descripcion" value="<?php echo $oProducto->descripcionProducto; ?>" placeholder="Describe el producto" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                        <span id="descripcionSpan"></span>
+                    </div>
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Caracteristicas</label>
+                        <textarea class="form-control " rows="3" type="text" id="caracteristicas" name="caracteristicas" value="<?php echo $oProducto->caracteristicas; ?>" placeholder="Describe las caracteristicas del producto" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                        <span id="caracteristicasSpan"></span>
+                    </div>
+                    <div class="col col-xl-4 col-md-6 col-12">
+                        <label for="" class="form-label">Valor Unitario</label>
+                        <input class="form-control" type="text" id="valorUnitario" name="valorUnitario" value="<?php echo $oProducto->valorUnitario; ?>" placeholder="Valor Unitario" onchange="validarCampo(this);" required>
+                        <span id="valorUnitarioSpan"></span>
+                    </div>
+                </div>
+
+                <button style="margin: 5px;" class="btn btn-success float-right" type="button" onclick="validarInformacion"><i class="fas fa-edit"></i> Actualizar Informacion</button>
+
+            </form>
+        </div>
+
+        <!--editar imagenes producto-->
+
+        <div class="card">
+            <div class="card-header">
+                <button type="button" class="btn btn-success float-right"><i class="fas fa-plus-circle"></i> Agregar imagen</button>
+            </div>
+            <form>
+                <div class="card-body">
+                    <div id="main-content" class="file_manager">
+                        <div class="container">
+                            <div class="row clearfix" id="imagenCard">
+                                <?php
+                                require_once '../controller/imagenController.php';
+                                $oImagenController = new imagenController();
+                                $consulta = $oImagenController->consultarImagenesId($_GET['idProducto']);
+                                foreach ($consulta as $registro) {
+                                ?>
+                                    <div class="col-lg-3 col-md-4 col-sm-12">
+                                        <div class="card">
+                                            <div class="file">
+                                                <a href="javascript:void(0);">
+                                                    <div class="hover">
+                                                        <button type="button" class="btn btn-icon btn-danger" onclick="eliminarFoto(<?php echo $registro['idFoto']; ?>);">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="image">
+                                                        <img src="../<?php echo $registro['fotoProducto']; ?>" alt="img" class="img-fluid" style="width=100px; height=auto; max-height=100px">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                    <a href="listarProducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                    <button type="submit" class="btn btn-success" name="funcion" value="actualizarProducto"><i class="fas fa-edit"></i> Actualizar Producto</button>
-                </div>
             </form>
         </div>
+
+
+
+
+        <!--Editar tags-->
     </div>
 </body>
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
-
-<script>
-    $(function() {
-        $.validator.setDefaults({
-            submitHandler: function() {
-                this.submit();
-            }
-        });
-        $('#formUsuario').validate({
-
-            rules: {
-                codigoProducto: {
-                    required: true,
-                },
-                tipoProducto: {
-                    required: true,
-                },
-                nombreProducto: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 30,
-                },
-                valorUnitario: {
-                    required: true,
-                },
-                costoProducto: {
-                    required: true,
-                },
-            },
-            messages: {
-                codigoProducto: {
-                    required: "Por favor, complete el campo vacio",
-                },
-                tipoProducto: {
-                    required: "Por favor, complete el campo vacio",
-                },
-                nombreProducto: {
-                    required: "Por favor, ingrese un nombre del producto",
-                    minlength: "Minimo 5 letras para el Nombrdel producto",
-                    maxlength: "Maximo 30 letras para el Nombrdel producto"
-                },
-                valorUnitario: {
-                    required: "Por favor, complete el campo vacio",
-                },
-                costoProducto: {
-                    required: "Por favor, complete el campo vacio",
-                },
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.col').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-    });
-</script>
+<?php require_once 'footer.php'; ?>

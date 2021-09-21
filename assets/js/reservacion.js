@@ -20,7 +20,16 @@ $.ajax({
         for(i=0; i<datos.length; i++){
         agregarEstilista(datos[i]);     
         }
-        
+        // if(datos.length==0){
+        //     var horaReservacion=document.getElementById("estilista");
+
+        //     var optionHorario=document.createElement("option");
+        //     optionHorario.value="";
+        //     optionHorario.innerHTML="No hay estilista Disponibles";
+        //     optionHorario.disabled=true;
+        //     optionHorario.selected=true;
+        //     horaReservacion.appendChild(optionHorario);   
+        // }
     });
 }
 

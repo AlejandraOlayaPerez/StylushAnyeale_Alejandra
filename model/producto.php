@@ -8,21 +8,22 @@ class producto
     public $nombreProducto = "";
     public $cantidad = "";
     public $detalle = "";
-    public $recomendaciones = "";
+    public $descripcionProducto = "";
+    public $caracteristicas = "";
     public $valorUnitario = "";
     public $costoProducto = "";
     public $numRegistro = "";
     public $numPagina = "";
 
-    function nuevoProducto()
+    function nuevoProducto($idProducto)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO producto (codigoProducto, tipoProducto, nombreProducto, cantidad, recomendaciones, valorUnitario, costoProducto, eliminado)
-    VALUES ('$this->codigoProducto', '$this->tipoProducto', '$this->nombreProducto', $this->cantidad, '$this->recomendaciones', $this->valorUnitario, $this->costoProducto, false)";
+        $sql = "INSERT INTO producto (idProducto, codigoProducto, nombreProducto, descripcionProducto, caracteristicas, valorUnitario, eliminado)
+    VALUES ($idProducto, '$this->codigoProducto', '$this->nombreProducto', '$this->descripcionProducto', '$this->caracteristicas', $this->valorUnitario, false)";
 
         $result = mysqli_query($conexion, $sql);
         return $result;
@@ -125,12 +126,7 @@ class producto
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT p.IdProducto, p.nombreProducto, p.descripcionProducto, p.costoProducto, 
-        d.fotoProducto1, d.fotoProducto2, d.fotoProducto3, d.fotoProducto4, d.fotoProducto5 
-        FROM producto p 
-        INNER JOIN detallefoto d 
-        ON p.IdProducto=d.idProducto 
-        WHERE p.eliminado=false";
+        $sql="SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.idProducto=p.IdProducto LIMIT 1) as fotoProducto FROM producto p WHERE p.eliminado=false";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -157,14 +153,14 @@ class producto
         foreach ($result as $registro) {
             //se registra la consulta en los parametros
             $this->IdProducto = $registro['IdProducto'];
-            $this->nombreProducto=$registro['nombreProducto'];
-            $this->descripcionProducto=$registro['descripcionProducto'];
-            $this->costoProducto=$registro['costoProducto'];
-            $this->fotoProducto1=$registro['fotoProducto1'];
-            $this->fotoProducto2=$registro['fotoProducto2'];
-            $this->fotoProducto3=$registro['fotoProducto3'];
-            $this->fotoProducto4=$registro['fotoProducto4'];
-            $this->fotoProducto5=$registro['fotoProducto5'];
+            $this->nombreProducto = $registro['nombreProducto'];
+            $this->descripcionProducto = $registro['descripcionProducto'];
+            $this->costoProducto = $registro['costoProducto'];
+            $this->fotoProducto1 = $registro['fotoProducto1'];
+            $this->fotoProducto2 = $registro['fotoProducto2'];
+            $this->fotoProducto3 = $registro['fotoProducto3'];
+            $this->fotoProducto4 = $registro['fotoProducto4'];
+            $this->fotoProducto5 = $registro['fotoProducto5'];
         }
     }
 
@@ -188,22 +184,21 @@ class producto
         return $result;
     }
 
-    function mostrarProducto2()
+    function mostrarProducto2($producto)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM producto WHERE eliminado=false";
+        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$producto%' OR nombreProducto LIKE '%$producto%')";
 
-        //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
     }
 
-    function mostrarProducto($pagina, $filtroCodigoProducto)
+    function mostrarProducto($pagina)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
@@ -211,7 +206,7 @@ class producto
         $conexion = $oConexion->conexion();
 
         //Buscar numero de registro por filtros
-        $sql = "SELECT count(nombreModulo) as numRegistro FROM modulo WHERE eliminado=false;";
+        $sql = "SELECT count(nombreProducto) as numRegistro FROM producto WHERE eliminado=false;";
         $result = mysqli_query($conexion, $sql);
         foreach ($result as $registro) {
             $this->numRegistro = $registro['numRegistro'];
@@ -219,11 +214,7 @@ class producto
         //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
         $inicio = (($pagina - 1) * 10);
 
-        if ($filtroCodigoProducto != "") {
-            $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$filtroCodigoProducto%' OR nombreProducto LIKE '%$filtroCodigoProducto%') LIMIT 10 OFFSET $inicio";
-        } else {
-            $sql = "SELECT * FROM producto WHERE eliminado=false LIMIT 10 OFFSET $inicio";
-        }
+        $sql = "SELECT * FROM producto WHERE eliminado=false LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -264,10 +255,10 @@ class producto
             $this->IdProducto = $registro['IdProducto'];
             $this->codigoProducto = $registro['codigoProducto'];
             $this->nombreProducto = $registro['nombreProducto'];
+            $this->descripcionProducto = $registro['descripcionProducto'];
             $this->cantidad = $registro['cantidad'];
-            $this->recomendaciones = $registro['recomendaciones'];
+            $this->caracteristicas = $registro['caracteristicas'];
             $this->valorUnitario = $registro['valorUnitario'];
-            $this->costoProducto = $registro['costoProducto'];
         }
     }
 

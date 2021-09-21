@@ -30,7 +30,7 @@ function agregarBusqueda(datos){
     td3.innerHTML=datos['cantidad'];
     var td4 = document.createElement("td");
     td4.innerHTML = datos['valorUnitario'];
-
+    
     tr.appendChild(idProducto);
     tr.appendChild(td1);
     tr.appendChild(td2);

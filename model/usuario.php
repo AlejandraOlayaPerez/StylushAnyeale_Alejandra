@@ -367,6 +367,22 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function listarCargoUsuario($idCargo)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        //sentencia para seleccionar un empleado 
+        $sql = "SELECT CONCAT(u.primerNombre,' ',u.segundoNombre) AS nombre, CONCAT(u.primerApellido,' ',u.segundoApellido) AS apellido, u.tipoDocumento, u.documentoIdentidad, u.telefono, u.idUser FROM cargo c INNER JOIN usuario u ON c.idCargo=u.idCargo WHERE c.idCargo=$idCargo";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     function listarUsuarioCargoEstilista()
     {
         //se instancia el objeto conectar

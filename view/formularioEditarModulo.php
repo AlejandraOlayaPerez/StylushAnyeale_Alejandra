@@ -30,7 +30,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
         <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
           <div class="row" style="margin: 5px;">
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="">Nombre_Modulo</label>
+              <label for="">Nombre Modulo</label>
               <input type="text" name="idModulo" value="<?php echo $oModulo->idModulo; ?>" style="display:none;">
               <input class="form-control" type="text" name="nombreModulo" value="<?php echo $oModulo->nombreModulo; ?>" required>
             </div>
@@ -56,7 +56,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
         </div>
         <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
           <a href="listarModulo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-          <button type="submit" class="btn btn-success" name="funcion" value="actualizarModulo"><i class="fas fa-edit"></i>Actualizar Modulo</button>
+          <button type="submit" class="btn btn-success" name="funcion" value="actualizarModulo"><i class="fas fa-edit"></i> Actualizar Modulo</button>
         </div>
       </form>
     </div>

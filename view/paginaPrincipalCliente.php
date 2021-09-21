@@ -173,7 +173,10 @@ if (isset($_POST['correoElectronico']) != "") {
             <div class="row featurette">
                 <div class="col-md-7 order-md-2">
                     <h1 class="featurette-heading">¡Reserva con nosotros!</h1>
-                    <p class="lead">""</p>
+                    <p class="lead">Stylush Anyeale te permite la posibilidad de realizar una reservación de los servicios 
+                        que se ofrecen como salón de belleza, estas reservaciones son dependiendo de tu disponibilidad 
+                        o tu estilista de preferencia.  Reservar es muy sencillo y podrás hacerlo desde la comodidad de 
+                        tu ubicación, tu puedes escoger tu horario y fecha de reservación. </p>
                 </div>
                 <div class="col-md-5 order-md-1">
                     <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false" src="../image/cosmetica-1024x718.jpg">
@@ -185,7 +188,9 @@ if (isset($_POST['correoElectronico']) != "") {
             <div class="row featurette">
                 <div class="col-md-7">
                     <h1 class="featurette-heading">Productos y Servicios</h1>
-                    <p class="lead">""</p>
+                    <p class="lead">Stylush Anyeale de brinda la posibilidad de conocer nuestros servicios y 
+                        productos de manera virtual, puedes realizar reservaciones o comprar nuestros productos 
+                        de manera online y tener la certeza de la compra que se realizo.</p>
                 </div>
                 <div class="col-md-5">
                     <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false" src="../image/interior.jpg">

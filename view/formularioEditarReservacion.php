@@ -1,5 +1,4 @@
 <?php
-require_once 'permisosCliente.php';
 session_start();
 
 require_once '../controller/reservacionController.php';
@@ -204,9 +203,9 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                                 <span id="domicilioSpan"></span>
                                             </div>
                                             <div class="col-md-6" id="direccion" <?php if ($oReservacion->domicilio == "0") echo "style='display: none;'"; ?>>
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Direccion</label>
-                                                <input type="text" class="form-control" id="direccion" name="direccion" value="<?php $oReservacion->direccion; ?>" required>
-                                                <span id="direccion"></span>
+                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Dirección</label>
+                                                <input type="text" class="form-control" id="direccionCampo" name="direccion" value="<?php echo $oReservacion->direccion; ?>" onchange="validarCampo(this);" minlength="5" maxlength="200">
+                                                <span id="direccionCampoSpan"></span>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -227,7 +226,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                         </div>
                                         <br>
                                         <button style="margin: 5px" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
-                                        <button type="button" class="btn btn-success float-right" onclick="validarPaginaFinal();"><i class="fas fa-arrow-circle-right"></i> Crear Reservacion</button>
+                                        <button type="button" class="btn btn-success float-right" onclick="validarPaginaFinal();"><i class="fas fa-arrow-circle-right"></i> Actualizar Reservacion</button>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +275,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         // evento.preventDefault();
         var valido = true;
         // agregar el id de cada campo de la página para poder validar
-        var campos = ["fechaReservacion", "horaReservacion", "domicilio"];
+        var campos = ["servicio", "estilista", "fechaReservacion", "horaReservacion", "domicilio", "direccionCampo"];
         campos.forEach(element => {
             var campo = document.getElementById(element);
             if (!validarCampo(campo))
@@ -310,9 +309,6 @@ if (isset($_POST['documentoIdentidad']) != "") {
             case "password":
                 valido = validarPassword(campo, span);
                 break;
-            case "time":
-                valido = validarTime(campo, span);
-                break;
         }
         return valido;
     }
@@ -335,7 +331,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         $(campo).removeClass('is-invalid');
         $(campo).addClass('is-valid');
         span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
+        span.innerHTML = "Valor correcto";
         return true;
     }
 
@@ -357,7 +353,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         $(campo).removeClass('is-invalid');
         $(campo).addClass('is-valid');
         span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
+        span.innerHTML = "El campo es valido";
         return true;
     }
 
@@ -372,7 +368,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         $(campo).removeClass('is-invalid');
         $(campo).addClass('is-valid');
         span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
+        span.innerHTML = "Valor correcto";
         return true;
     }
 
@@ -381,28 +377,13 @@ if (isset($_POST['documentoIdentidad']) != "") {
             $(campo).removeClass('is-valid');
             $(campo).addClass('is-invalid');
             span.style = "color:red; font-size: 10pt";
-            span.innerHTML = "Por favor, Seleccione su fecha de reservacion";
+            span.innerHTML = "Por favor, Seleccione su fecha de nacimiento";
             return false;
         }
         $(campo).removeClass('is-invalid');
         $(campo).addClass('is-valid');
         span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
-        return true;
-    }
-
-    function validarTime(campo, span) {
-        if (campo.required && campo.value == "") {
-            $(campo).removeClass('is-valid');
-            $(campo).addClass('is-invalid');
-            span.style = "color:red; font-size: 10pt";
-            span.innerHTML = "Por favor, Seleccione su hora de reservacion";
-            return false;
-        }
-        $(campo).removeClass('is-invalid');
-        $(campo).addClass('is-valid');
-        span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
+        span.innerHTML = "Valor correcto";
         return true;
     }
 
@@ -425,7 +406,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         $(campo).removeClass('is-invalid');
         $(campo).addClass('is-valid');
         span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
+        span.innerHTML = "Valor correcto";
         return true;
     }
 
@@ -463,7 +444,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         $(campo).removeClass('is-invalid');
         $(campo).addClass('is-valid');
         span.style = "color:green; font-size: 10pt";
-        span.innerHTML = "El valor del campo es valido";
+        span.innerHTML = "Valor correcto";
         return true;
     }
     traerEstilistas();

@@ -72,32 +72,20 @@ if (isset($_GET['mensaje'])) {
             </div>
             <div class="col col-md-6">
               <label for="" class="form-label" style="color: black;">Documento Identidad</label>
-              <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php $oCliente->documentoIdentidad; ?>" onchange="validarCampo(this);" min="5" max="13" required>
+              <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oCliente->documentoIdentidad; ?>" onchange="validarCampo(this);" min="5" max="13" required>
               <span id="documentoIdentidadSpan"></span>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
-              <label for="" class="form-label" style="color: black;">Primer Nombre</label>
-              <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oCliente->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
+              <label for="" class="form-label" style="color: black;">Nombre</label>
+              <input type="text" class="form-control" id="Nombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oCliente->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
               <span id="primerNombreSpan"></span>
             </div>
             <div class="col-md-6">
-              <label for="" class="form-label" style="color: black;">Primer Apellido</label>
-              <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oCliente->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
+              <label for="" class="form-label" style="color: black;">Apellido</label>
+              <input type="text" class="form-control" id="Apellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oCliente->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
               <span id="primerApellidoSpan"></span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <label for="" class="form-label" style="color: black;">Direccion</label>
-              <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" value="<?php echo $oCliente->direccion; ?>" minlength="10" onchange="validarCampo(this);" required>
-              <span id="direccionSpan"></span>
-            </div>
-            <div class="col-md-6">
-              <label for="" class="form-label" style="color: black;">telefono</label>
-              <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oCliente->telefono; ?>" onchange="validarCampo(this);" minlength="10" maxlength="12" required>
-              <span id="telefonoSpan"></span>
             </div>
           </div>
           <div class="row">

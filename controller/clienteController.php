@@ -62,6 +62,7 @@ class clienteController
             // echo "Usuario o contraseña incorrecto";
             header("location: ../view/loginCliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
         }
+        return $email;
     }
 
     public function cerrarSesion()

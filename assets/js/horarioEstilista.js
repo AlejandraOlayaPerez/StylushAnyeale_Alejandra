@@ -18,6 +18,16 @@ if(fechaReservacion!="" && estilista!=""&& domicilio!=""){
             for(i=0; i<horariosDisponibles.length; i++){
                 agregarHorario(horariosDisponibles[i]);
             }
+            if(horariosDisponibles.length==0){
+                var horaReservacion=document.getElementById("horaReservacion");
+
+                var optionHorario=document.createElement("option");
+                optionHorario.value="";
+                optionHorario.innerHTML="No hay horarios Disponibles";
+                optionHorario.disabled=true;
+                optionHorario.selected=true;
+                horaReservacion.appendChild(optionHorario);   
+            }
         })
     }
 }

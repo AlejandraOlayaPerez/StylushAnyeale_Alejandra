@@ -61,14 +61,13 @@
 
 
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarProductos.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarEmpresa.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/permisoHabilitar.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/contarTabla.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/limpiarFormFiltros.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/listarPedido.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
 <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/general.js"></script>
 
 
 

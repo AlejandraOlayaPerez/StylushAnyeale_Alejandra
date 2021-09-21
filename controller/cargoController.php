@@ -72,6 +72,7 @@ class cargoController{
 
         if ($result) {
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+el+registro+del+cargo");
+            // echo "registro";
         }else{
             header("location: ../view/listarCargo.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }

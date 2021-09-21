@@ -47,7 +47,7 @@ $idCargo = $_GET['idCargo'];
 
                         <?php
                         $oUsuario = new usuario();
-                        $consulta = $oUsuario->listarUsuarioPorCargo($idCargo);
+                        $consulta = $oUsuario->listarCargoUsuario($idCargo);
                         if (count($consulta) > 0) {
                             foreach ($consulta as $registro) {
                         ?>

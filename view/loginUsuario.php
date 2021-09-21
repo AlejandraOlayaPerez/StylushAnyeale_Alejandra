@@ -49,7 +49,7 @@ if (isset($_GET['mensaje'])) {
     <div class="login-logo">
 
     </div>
-    <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(249, 201, 242) 5px dashed; box-shadow: 10px 5px 5px #ffffff;">
+    <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(249, 201, 242) 5px dashed; box-shadow: 10px 10px 10px rgb(200, 199, 200);">
       <div class="card-body">
         <div class="col text-center">
           <img class="img-circle elevation-2" src="../image/PNG_LOGO.png" width="40%">

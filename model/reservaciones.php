@@ -50,6 +50,7 @@ class reservacion
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 
@@ -284,7 +285,7 @@ class reservacion
         INNER JOIN reservacion r ON c.idCliente=r.idCliente 
         INNER JOIN usuario u ON u.idUser=r.idUser 
         INNER JOIN servicios s ON r.idServicio=s.IdServicio 
-        WHERE r.eliminado=false AND r.idCliente=$idCliente";
+        WHERE r.eliminado=false AND r.idCliente=$idCliente AND r.validar=false";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);

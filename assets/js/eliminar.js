@@ -34,9 +34,8 @@ function validarReservacion(idReservacion){
     document.getElementById("validarReservacion").value=idReservacion;
 }
 
-function idProducto(idProducto, cantidad){
+function idProducto(idProducto){
     document.getElementById("idProducto").value=idProducto;
-    document.getElementById("cantidad").value=cantidad;
 }
 
 function eliminarReservacion(idReservacion){
@@ -58,8 +57,16 @@ function eliminarEmpleadoCargo(idUser, idCargo){
     document.getElementById("eliminarCargo").value=idCargo;
 }
 
-function eliminarProducto(IdProducto){
-    document.getElementById("eliminarProducto").value=IdProducto;
+function eliminarProducto(campo){
+    document.getElementById("eliminarProducto").value=campo.value;
+}
+
+function eliminarTags(campo){
+    document.getElementById("eliminarTags").value=campo.value;
+}
+
+function eliminarCategoria(campo){
+    document.getElementById("eliminarCategoria").value=campo.value;
 }
 
 function eliminarServicio(IdServicio){ 

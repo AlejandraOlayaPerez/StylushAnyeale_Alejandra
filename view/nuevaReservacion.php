@@ -1,5 +1,4 @@
     <?php
-    require_once 'permisosCliente.php';
     
     require_once '../controller/reservacionController.php';
     if (isset($_POST['documentoIdentidad']) != "") {
@@ -208,7 +207,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="-webkit-text-fill-color: black;">Domicilio</label>
-                                                    <select class="form-control" id="domicilio" name="domicilio" value="<?php echo $oReservacion->domicilio; ?>" onchange="confirmarDireccion();" required>
+                                                    <select class="form-control" id="domicilio" name="domicilio" value="<?php echo $oReservacion->domicilio; ?>" onchange="confirmarDireccion(this);" required>
                                                         <option value="" selected>Selecciones una opción</option>
                                                         <option value="1" <?php if ($oReservacion->domicilio == "1") {
                                                                                 echo "selected";
@@ -220,9 +219,9 @@
                                                     <span id="domicilioSpan"></span>
                                                 </div>
                                                 <div class="col-md-6" id="direccion" style="display: none;">
-                                                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Direccion</label>
-                                                    <input type="text" class="form-control" id="direccion" name="direccion" value="<?php echo $oReservacion->direccion; ?>" required>
-                                                    <span id="direccionSpan"></span>
+                                                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Dirección</label>
+                                                    <input type="text" class="form-control" id="direccionCampo" name="direccion" value="<?php echo $oReservacion->direccion; ?>" onchange="validarCampo(this);" minlength="5" maxlength="200">
+                                                    <span id="direccionCampoSpan"></span>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -233,7 +232,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label" style="-webkit-text-fill-color: black;">Hora Reservacion</label>
-                                                    <select select class="form-select" id="horaReservacion" name="horaReservacion" value="<?php echo $oReservacion->horaReservacion; ?>" required disabled>
+                                                    <select select class="form-select" id="horaReservacion" name="horaReservacion" value="<?php echo $oReservacion->horaReservacion; ?>" onchange="validarCampo(this);" required disabled>
                                                         <option value="" disabled selected>Selecciones una opción</option>
 
                                                     </select>
@@ -271,213 +270,195 @@
         });
     </script>
 
-    <script>
-        //crear una función con los campos de cada pagina
-        function validarPagina1() {
-            var valido = true;
-            // agregar el id de cada campo de la página para poder validar
-            var campos = ["tipoDocumento", "documentoIdentidad", "primerNombre", "primerApellido", "telefono"];
-            campos.forEach(element => {
-                var campo = document.getElementById(element);
-                if (!validarCampo(campo))
-                    valido = false;
-            });
-            if (valido)
-                stepper.next();
-        }
+<script>
+  //crear una función con los campos de cada pagina
+  function validarPagina1() {
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["tipoDocumento", "documentoIdentidad", "primerNombre", "primerApellido", "telefono"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
+    });
+    if (valido)
+      stepper.next();
+  }
 
-        function validarPaginaFinal() {
-            // evento.preventDefault();
-            var valido = true;
-            // agregar el id de cada campo de la página para poder validar
-            var campos = ["fechaReservacion", "horaReservacion", "domicilio", "direccion"];
-            campos.forEach(element => {
-                var campo = document.getElementById(element);
-                if (!validarCampo(campo))
-                    valido = false;
-            });
-            if (valido)
-                document.getElementById('formulario').submit();
-        }
+  function validarPaginaFinal() {
+    // evento.preventDefault();
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["servicio", "estilista", "fechaReservacion", "horaReservacion", "domicilio", "direccionCampo"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
+    });
+    if (valido)
+      document.getElementById('formulario').submit();
+  }
 
-        function validarCampo(campo) {
-            var span = document.getElementById(campo.id + "Span");
-            //console.log(campo.id + "span");
-            var valido = false;
-            // agregar en el switch un caso por cada tipo de dato y llamar la función de validación
-            switch (campo.type) {
-                case "text":
-                    valido = validarTexto(campo, span);
-                    break;
-                case "number":
-                    valido = validarNumber(campo, span);
-                    break;
-                case "select-one":
-                    valido = validarSelect(campo, span);
-                    break;
-                case "date":
-                    valido = validarDate(campo, span);
-                    break;
-                case "email":
-                    valido = validarEmail(campo, span);
-                    break;
-                case "password":
-                    valido = validarPassword(campo, span);
-                    break;
-                case "time":
-                    valido = validarTime(campo, span);
-                    break;
-            }
-            return valido;
-        }
-        //crear una función por cada tipo de dato, ya que cada tipo tiene sus validaciones correspondientes
-        function validarTexto(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, Complete el campo vacio";
-                return false;
-            }
-            if (campo.value != "" && campo.value.length < campo.minLength) {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Longitud mínima " + campo.minLength;
-                return false;
-            }
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
+  function validarCampo(campo) {
+    var span = document.getElementById(campo.id + "Span");
+    //console.log(campo.id + "span");
+    var valido = false;
+    // agregar en el switch un caso por cada tipo de dato y llamar la función de validación
+    switch (campo.type) {
+      case "text":
+        valido = validarTexto(campo, span);
+        break;
+      case "number":
+        valido = validarNumber(campo, span);
+        break;
+      case "select-one":
+        valido = validarSelect(campo, span);
+        break;
+      case "date":
+        valido = validarDate(campo, span);
+        break;
+      case "email":
+        valido = validarEmail(campo, span);
+        break;
+      case "password":
+        valido = validarPassword(campo, span);
+        break;
+    }
+    return valido;
+  }
+  //crear una función por cada tipo de dato, ya que cada tipo tiene sus validaciones correspondientes
+  function validarTexto(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Complete el campo vacio";
+      return false;
+    }
+    if (campo.value != "" && campo.value.length < campo.minLength) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Longitud mínima " + campo.minLength;
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
 
-        function validarNumber(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, complete el campo vacio";
-                return false;
-            }
-            if (campo.value.length < campo.minLength) {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Debe tener un minimo de " + campo.minLength + " numeros";
-                return false;
-            }
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
+  function validarNumber(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, complete el campo vacio";
+      return false;
+    }
+    if (campo.value.length < campo.minLength) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Debe tener un minimo de " + campo.minLength + " numeros";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "El campo es valido";
+    return true;
+  }
 
-        function validarSelect(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, seleccione unas de las opciones";
-                return false;
-            }
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
+  function validarSelect(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, seleccione unas de las opciones";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
 
-        function validarDate(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, Seleccione su fecha de reservacion";
-                return false;
-            }
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
+  function validarDate(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Seleccione su fecha de nacimiento";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
 
-        function validarTime(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, Seleccione su hora de reservacion";
-                return false;
-            }
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
+  function validarEmail(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Complete el campo vacio";
+      return false;
+    }
+    emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    if (!emailRegex.test(campo.value)) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Ingrese un correo electronico valido, ejemplo: example@email.com";
+      return false;
+    }
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
 
-        function validarEmail(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, Complete el campo vacio";
-                return false;
-            }
-            emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-            if (!emailRegex.test(campo.value)) {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, Ingrese un correo electronico valido, ejemplo: example@email.com";
-                return false;
-            }
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
+  function validarPassword(campo, span) {
+    if (campo.required && campo.value == "") {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, Complete el campo vacio";
+      return false;
+    }
+    if (campo.value.length < campo.minLength) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Debe tener un minimo de " + campo.minLength + " caracteres";
+      return false;
+    }
+    var campoV = campo.value;
+    var espacios = false;
+    var cont = 0;
+    while (!espacios && (cont < campoV.length)) {
+      if (campoV.charAt(cont) == " ")
+        espacios = true;
+      cont++;
+    }
+    if (espacios) {
+      $(campo).removeClass('is-valid');
+      $(campo).addClass('is-invalid');
+      span.style = "color:red; font-size: 10pt";
+      span.innerHTML = "Por favor, La contraseña no debe tener espacios";
+      return false;
+    }
 
-        function validarPassword(campo, span) {
-            if (campo.required && campo.value == "") {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, Complete el campo vacio";
-                return false;
-            }
-            if (campo.value.length < campo.minLength) {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Debe tener un minimo de " + campo.minLength + " caracteres";
-                return false;
-            }
-            var campoV = campo.value;
-            var espacios = false;
-            var cont = 0;
-            while (!espacios && (cont < campoV.length)) {
-                if (campoV.charAt(cont) == " ")
-                    espacios = true;
-                cont++;
-            }
-            if (espacios) {
-                $(campo).removeClass('is-valid');
-                $(campo).addClass('is-invalid');
-                span.style = "color:red; font-size: 10pt";
-                span.innerHTML = "Por favor, La contraseña no debe tener espacios";
-                return false;
-            }
-
-            $(campo).removeClass('is-invalid');
-            $(campo).addClass('is-valid');
-            span.style = "color:green; font-size: 10pt";
-            span.innerHTML = "El valor del campo es valido";
-            return true;
-        }
-    </script>
+    $(campo).removeClass('is-invalid');
+    $(campo).addClass('is-valid');
+    span.style = "color:green; font-size: 10pt";
+    span.innerHTML = "Valor correcto";
+    return true;
+  }
+</script>

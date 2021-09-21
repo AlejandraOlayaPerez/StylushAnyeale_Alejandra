@@ -73,6 +73,15 @@ class imagenController
         return $oFoto;
     }
 
+    public function consultarImagenesId($idProducto){
+        require_once '../model/imagen.php';
+
+        $oFoto=new foto();
+        $oFoto->consultarImagenesIdProducto($idProducto);
+
+        return $oFoto;
+    }
+
     public function actualizarFotoCliente(){
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
