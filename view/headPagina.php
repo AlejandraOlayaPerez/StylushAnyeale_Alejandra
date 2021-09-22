@@ -155,6 +155,10 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
       <aside class="control-sidebar control-sidebar-dark">
       </aside>
 
+      <?php
 
+echo "hola";
+
+      ?>
 
       <?php require_once 'footer.php'; ?>
