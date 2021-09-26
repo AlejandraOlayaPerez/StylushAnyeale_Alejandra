@@ -36,7 +36,7 @@ class reservacion
 
 
     //funcion para crear una reservacion
-    function nuevaReservacion($horaFinal)
+    function nuevaReservacion($horaFinal, $costo)
     {
         //instancia la clase conectar
         $oConexion = new conectar();
@@ -44,9 +44,9 @@ class reservacion
         $conexion = $oConexion->conexion();
 
         //sentencia que me permite insertar una reservacion
-        $sql = "INSERT INTO reservacion (idReservacion, idCliente, idUser, idServicio, nombres, apellidos, telefono, fechaReservacion, horaReservacion, horaFinal, domicilio, direccion,validar, eliminado)
+        $sql = "INSERT INTO reservacion (idReservacion, idCliente, idUser, idServicio, nombres, apellidos, telefono, fechaReservacion, horaReservacion, horaFinal, domicilio, direccion, precio, validar, eliminado)
         VALUES ($this->idReservacion, $this->idCliente, $this->idUser, $this->idServicio, '$this->nombres', '$this->apellidos', $this->telefono, '$this->fechaReservacion', '$this->horaReservacion', '$horaFinal',
-        '$this->domicilio', '$this->direccion', false, false)";
+        '$this->domicilio', '$this->direccion', $costo, false, false)";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -90,28 +90,29 @@ class reservacion
     }
 
     //esta funcion me trae las reservaciones que existen con el nombre del cliente
-    function mostrarReservacion($filtroFecha, $filtroDomicilio, $filtroReservaciones)
+    function mostrarReservacion($fecha, $domicilio, $validar, $cancelar)
     {
         //instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT c.primerNombre, c.primerApellido, r.idReservacion, 
-        r.domicilio, r.direccion, r.fechaReservacion, r.horaReservacion, r.validar, 
-        (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio
-         FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente 
-        WHERE r.eliminado=false ";
+        $sql = "SELECT *, 
+        (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio 
+        FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente ";
 
         //concatenamos a la consulta.
-        if ($filtroFecha != "") {
-            $sql .= "AND r.fechaReservacion='$filtroFecha' ";
+        if ($fecha != "") {
+            $sql .= "WHERE r.fechaReservacion='$fecha' ";
         }
-        if ($filtroDomicilio != "") {
-            $sql .= "AND r.domicilio='$filtroDomicilio' ";
+        if ($domicilio != "") {
+            $sql .= "WHERE r.domicilio=$domicilio ";
         }
-        if ($filtroReservaciones != "") {
-            $sql .= "AND r.validar=$filtroReservaciones";
+        if ($validar != "") {
+            $sql .= "WHERE r.validar=$validar";
+        }
+        if ($cancelar != "") {
+            $sql .= "WHERE r.eliminado=$cancelar";
         }
 
         //se ejecuta la consulta en la base de datos
@@ -278,7 +279,7 @@ class reservacion
 
         //sentencia para listar las reservaciones
         $sql = "SELECT c.idCliente, 
-        r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.validar, r.direccion, r.precio, 
+        r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.validar, r.direccion, r.precio,
         s.IdServicio, s.nombreServicio, 
         u.idUser, CONCAT(u.primerNombre,' ',u.primerApellido) as estilista 
         FROM cliente c 

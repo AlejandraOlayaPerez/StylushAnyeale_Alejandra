@@ -22,8 +22,9 @@ $fechaActual = Date("Y-m-d");
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
+    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/listarReservacion.css" type="text/css">
     <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -62,8 +63,6 @@ $fechaActual = Date("Y-m-d");
         </header>
 
         <main>
-            <br>
-            <br>
             <?php
             require_once '../controller/mensajeController.php';
 
@@ -73,58 +72,65 @@ $fechaActual = Date("Y-m-d");
             }
             ?>
 
-            <div class="row">
-                <div class="col-md-12">
+            <section class="section services-section" id="services">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="section-title">
+                                <h2>¡Tus Reservacion!</h2>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <?php
                         require_once '../model/reservaciones.php';
                         $oReservacion = new reservacion();
                         $consulta = $oReservacion->listarReservacionesPorIdCliente($_SESSION['idCliente']);
                         foreach ($consulta as $registro) {
-                            if ($registro['fechaReservacion']>=$fechaActual){
+                            if ($registro['fechaReservacion'] >= $fechaActual) {
                         ?>
-                            <div class="col col-xl-4 col-md-6 col-12 d-flex align-items-stretch flex-column">
-                                <div class="card bg-light d-flex flex-fill">
-                                    <div class="card-header text-muted border-bottom-0" style="background-color: rgb(119, 167, 191);">
-                                        <h1 style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong><?php echo $registro['nombreServicio']; ?></strong></h1>
-                                    </div>
-                                    <div class="card-body pt-0" style="background-color: #ddecf0;">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <h1 class="card-title pricing-card-title" style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><small class="text-muted fw-light"><strong>Precio: $</strong><?php echo $registro['precio']; ?></small></h1> <br>
-                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Estilista: </strong><?php echo $registro['estilista']; ?></p>
-                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Fecha: </strong><?php echo $registro['fechaReservacion']; ?></p>
-                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Hora: </strong><?php echo $registro['horaReservacion']; ?></p>
-                                                <?php if ($registro['domicilio'] == 1) {
-                                                ?>
-                                                    <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Domicilio: </strong><?php if ($registro['domicilio']) echo "SI"; ?> </p>
-                                                    <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Direccion: </strong><?php echo $registro['direccion']; ?></p>
-                                                <?php } ?>
-                                            </div>
+                                <div class="col col-xl-4 col-md-6 col-12">
+                                    <div class="feature-box-1">
+                                        <div class="icon">
+                                            <i class="fas fa-calendar-week"></i>
+                                        </div>
+                                        <div class="feature-content">
+                                            <h1 class="card-title pricing-card-title" style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><small class="text-muted fw-light"><strong>Precio: $</strong><?php echo $registro['precio']; ?></small></h1> <br>
+                                            <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Estilista: </strong><?php echo $registro['estilista']; ?></p>
+                                            <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Fecha: </strong><?php echo $registro['fechaReservacion']; ?></p>
+                                            <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Hora: </strong><?php echo $registro['horaReservacion']; ?></p>
+                                            <?php if ($registro['domicilio'] == 1) {
+                                            ?>
+                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Domicilio: </strong><?php if ($registro['domicilio']) echo "SI"; ?> </p>
+                                                <p style="-webkit-text-fill-color: black; font-family: 'Times New Roman', Times, serif;"><strong>Direccion: </strong><?php echo $registro['direccion']; ?></p>
+                                            <?php } ?>
+                                        </div>
+                                        <br>
+                                        <div class="footer-content">
+                                            <a href="formularioEditarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
+                                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
                                         </div>
                                     </div>
-                                    <div class="card-footer" style="background-color: rgb(119, 167, 191);">
-                                        <a href="formularioEditarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
-                                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                    </div>
                                 </div>
-                            </div>
                             <?php } ?>
                         <?php } ?>
                     </div>
+                    <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/" class="btn btn-dark"> <i class="fas fa-home"></i> Inicio</a>
                 </div>
-           
-   
-    </main>
+            </section>
 
 
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/adminlte.min.js"></script>
-    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+        </main>
+
+
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/popper.min.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/adminlte.min.js"></script>
+        <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/eliminar.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     </div>
 </body>
 

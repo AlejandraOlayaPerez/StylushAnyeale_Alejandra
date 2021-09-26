@@ -37,6 +37,9 @@ switch ($funcion) {
     case "traerProductos":
         $oPedidoController->traerProductos();
         break;
+    case "buscarPedido":
+        $oPedidoController->buscarPedido();
+        break;
 
     case "actualizarEmpresa":
         $oPedidoController->actualizarEmpresa();
@@ -225,6 +228,10 @@ class pedidoController
 
     public function actualizarPedidoProducto()
     {
+        //instanciamos mensajeController.php
+        require_once 'mensajeController.php';
+        $oMensaje = new mensajes();
+
         //recibimos pedido
         $idPedido = $_GET['idPedido'];
         //recibimos arreglo de los idProducto
@@ -242,9 +249,13 @@ class pedidoController
             //recorrer arreglos que se envian desde javascript de php
             //count=length
             for ($i = 0; $i < count($idProducto); $i++) {
+                //Se nesesita instanciar nuevamente, para reiniciar la variable IdProducto cada vez que recorre el ciclo for.
+                $oPedido = new pedido();
                 //consulta los productos en la tabla detalle por pedido y producto
                 $result = $oPedido->consultarProductosIdPedido($idPedido, $idProducto[$i]);
                 //si la consulta nos trae un producto
+                // echo "id producto a guardar ".$idProducto[$i];
+                // echo "id Producto existente". $oPedido->idProducto;
                 if ($oPedido->idProducto != "") {
                     //actualiza la cantidad, por la nueva cantidad y eliminado de los productos existentes
                     $result = $oPedido->actualizarCantidad($cantidad[$i], $idPedido, $idProducto[$i]);
@@ -261,16 +272,19 @@ class pedidoController
                 // si result es false
                 if (!$result) {
                     //mostramos mensaje
-                    echo "error al registrar los productos";
+                    // echo "error al registrar los productos";
+                    header("location: ../view/formularioEditarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
                     //rompemos for
                     break;
                 } else {
                     //se ejecuto correctamente
-                    echo "se actualizo correctamente";
+                    header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+pedido");
+                    // echo "se actualizo correctamente";
                 }
             }
         } else {
-            echo "error eliminado producto del pedido";
+            // echo "error eliminado producto del pedido";
+            header("location: ../view/formularioEditarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -283,15 +297,23 @@ class pedidoController
         return $oPedido;
     }
 
-    public function listarPedido()
-    {
+    public function buscarPedido(){
         require_once '../model/pedido.php';
 
-        $fechaFiltro = $_GET['fechaFiltro'];
+        $oPedido=new pedido();
+        $result=$oPedido->listarPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo']);
+        echo json_encode($result);
+    }
 
-        $oPedido = new pedido();
-        $result = $oPedido->listarPedido($fechaFiltro);
-        return $fechaFiltro;
+    public function listarPedido()
+    {
+        // require_once '../model/pedido.php';
+
+        // $fechaFiltro = $_GET['fechaFiltro'];
+
+        // $oPedido = new pedido();
+        // $result = $oPedido->listarPedido();
+        // return $fechaFiltro;
     }
 
     public function consultarProductosIdPedido($idPedido)

@@ -67,7 +67,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
     <nav class="main-header navbar navbar-expand navbar-black navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
@@ -80,7 +80,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php" class="brand-link">
+      <a href="anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php" class="brand-link">
         <img src="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">INICIO</span>
       </a>
@@ -114,7 +114,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
             ?>
               <li class="nav-item menu">
                 <a href="" class="nav-link">
-                <i class="<?php echo $registroModulo['icono']; ?>"></i>
+                  <i class="<?php echo $registroModulo['icono']; ?>"></i>
                   <p><?php echo $registroModulo['nombreModulo']; ?></p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -123,7 +123,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                   foreach ($result as $registro) {
                   ?>
                     <li class="nav-item">
-                      <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
+                      <a href="/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
                         <i class="fas fa-check-circle"></i>
                         <p><?php echo $registro['nombrePagina']; ?></p>
                       </a>
@@ -154,11 +154,5 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 
       <aside class="control-sidebar control-sidebar-dark">
       </aside>
-
-      <?php
-
-echo "hola";
-
-      ?>
 
       <?php require_once 'footer.php'; ?>

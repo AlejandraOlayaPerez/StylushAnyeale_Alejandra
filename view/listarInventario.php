@@ -47,30 +47,30 @@ $fechaActual = Date("Y-m-d");
                 </table>
             </div>
         </div>
-    </div>
-    <hr>
-    <div class="card">
-        <div class="card-header border-0" style="background-color: rgba(255, 255, 204, 255);">
-            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Busca un producto:</label>
-            <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca el codigo o nombre de un producto" value="" id="busquedaProducto" onkeyup="buscarProducto()">
-        </div>
-        <div class="card-body table-responsive p-0">
-            <table class="table table-striped table-valign-middle">
-                <thead>
-                    <tr style="background-color: rgb(249, 201, 242);">
-                        <th>Codigo</th>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Valor Unitario</th>
-                    </tr>
-                </thead>
-                <tbody id="productosBusqueda">
 
-                </tbody>
-            </table>
+        <hr>
+        <div class="card">
+            <div class="card-header border-0" style="background-color: rgba(255, 255, 204, 255);">
+                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Busca un producto:</label>
+                <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca el codigo o nombre de un producto" value="" id="busquedaProducto" onkeyup="buscarProducto()">
+            </div>
+            <div class="card-body table-responsive p-0">
+                <table class="table table-striped table-valign-middle">
+                    <thead>
+                        <tr style="background-color: rgb(249, 201, 242);">
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Valor Unitario</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productosBusqueda">
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
 
     <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/inventario.js"></script>
     <script>

@@ -72,9 +72,9 @@ $oModulo = new modulo();
                                 <tr>
                                     <td><?php echo $registro['nombreModulo']; ?></td>
                                     <td>
-                                        <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarModulo.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
+                                        <a href="/anyeale_proyecto/StylushAnyeale_Alejandra/view/formularioEditarModulo.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
                                         <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario3" onclick="eliminarModulo(<?php echo $registro['idModulo']; ?>)"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                                        <a href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPagina.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-light"><i class="fas fa-file"></i> Ver. Pagina</a>
+                                        <a href="/anyeale_proyecto/StylushAnyeale_Alejandra/view/listarPagina.php?idModulo=<?php echo $registro['idModulo']; ?>" class="btn btn-light"><i class="fas fa-file"></i> Ver. Pagina</a>
                                     </td>
                                 </tr>
                             <?php }

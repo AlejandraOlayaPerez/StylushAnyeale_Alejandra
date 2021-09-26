@@ -1,4 +1,3 @@
-
 function limpiarFiltroReservacion(){
     var Form = document.getElementById("formLimpiar");
 
@@ -19,6 +18,14 @@ function limpiarFiltroReservacion(){
             case "select-one":
             elements[i].selectedIndex = -1;
             break;
+
+            case "text":
+            elements[i].value = "";
+            break;
+
+            case "number":
+            elements[i].value = "";
+            break
 
             default:
             break;

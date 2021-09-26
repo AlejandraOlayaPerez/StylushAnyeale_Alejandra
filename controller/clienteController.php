@@ -55,7 +55,7 @@ class clienteController
             $_SESSION['idCliente'] = $oCliente->getIdCliente();
             $_SESSION['nombreUser'] = $oCliente->getNombreUser();
             // echo "Inicio sesion correctamente";
-            header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
+            header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
         } else {
             //error al iniciar sesion
             //usuario o contraseña incorrecto
@@ -70,7 +70,7 @@ class clienteController
         session_start();
         session_unset(); //borra las variables de sesion
         session_destroy(); //destruye o elimina la sesion
-        header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
+        header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
         die();
     }
 

@@ -36,21 +36,27 @@ $oProducto = new producto();
         ?>
 
 
-        <div class="card border border-dark">
+        <div class="card">
             <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
                 <div class="row">
-                    <div class="col col-md-6">
-                        <form action="" method="GET">
-                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600; margin-right: 10px;">Busca un producto:</label>
-                            <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca el codigo o nombre de un producto" value="" id="busquedaProducto" onkeyup="buscarProducto()">
-                        </form>
+                    <div class="col-md-6">
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca el codigo o nombre de un producto" value="" id="busquedaProducto" onkeyup="buscarProducto()">
+                        </div>
                     </div>
                     <div class="col col-md-6 float-right">
                         <a class="btn btn-info" href="tags.php"><i class="fas fa-tags"></i> Ver. Tags</a>
                         <a class="btn btn-info" href="categoria.php"><i class="fas fa-sitemap"></i> Ver. Categoria</a>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="card">
+            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
                 <!--Paginacion-->
                 <div class="card-tools">
                     <ul class="pagination pagination-sm float-right border border-dark">
@@ -140,7 +146,7 @@ $oProducto = new producto();
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <input type="text" id="idProducto" name="idProducto" style="display: none;">
+                    <input type="text" id="idProducto" name="idProducto">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary" name="funcion" value="actualizarCantidad">Actualizar</button>
                 </div>

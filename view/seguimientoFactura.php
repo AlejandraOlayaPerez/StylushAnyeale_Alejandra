@@ -15,7 +15,7 @@ $oSeguimiento = new seguimiento();
     <div class="container">
         <div class="row text-center justify-content-center mb-5">
             <div class="col-xl-6 col-lg-8">
-                <h2 class="font-weight-bold">Sección de seguimiento de producto</h2>
+                <h2 class="font-weight-bold">Sección de seguimiento de factura</h2>
             </div>
         </div>
         <section class="timeline_area section_padding_130">
@@ -25,11 +25,11 @@ $oSeguimiento = new seguimiento();
                         <div class="apland-timeline-area">
                             <div class="single-timeline-area">
                                 <div class="timeline-date wow fadeInLeft" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeft;">
-                                    <p>PRODUCTO</p>
+                                    <p>FACTURA</p>
                                 </div>
                                 <div class="row">
                                     <?php
-                                    $consulta = $oSeguimiento->consultarSeguimientoProducto($_GET['idProducto']);
+                                    $consulta = $oSeguimiento->consultarSeguimientoFactura($_GET['idFactura']);
                                     if (count($consulta) > 0) {
                                         foreach ($consulta as $registro) {
                                     ?>

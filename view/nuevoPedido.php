@@ -56,7 +56,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 
                                 <div class="bs-stepper-content">
                                     <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                                        <div class="row" style="margin: 5px;">
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <label for="">Fecha Pedido</label>
                                                 <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
@@ -75,33 +75,33 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                                 <span id="responsablePedidoSpan"></span>
                                             </div>
                                         </div>
-                                        <div class="row" style="margin: 5px;">
+                                        <div class="row">
                                             <div class="col-md-6">
                                                 <br>
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-empresa" onclick="buscarEmpresa()">Seleccionar Empresa</button>
                                             </div>
-                                            <div class="container">
-                                                <br>
-                                                <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <label for="">Nit: </label>
-                                                        <input class="form-control" type="text" name="Nit" id="Nit" readonly onchange="validarCampo(this);" required>
-                                                        <span id="NitSpan"></span>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="">Empresa: </label>
-                                                        <input class="form-control" type="text" name="empresa" id="nombreEmpresa" readonly onchange="validarCampo(this);" required>
-                                                        <span id="nombreEmpresaSpan"></span>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label for="">Direccion: </label>
-                                                        <input class="form-control" type="text" name="direccion" id="direccion" readonly onchange="validarCampo(this);" required>
-                                                        <span id="direccionSpan"></span>
-                                                    </div>
-                                                </div>
+
+                                            <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="">Nit: </label>
+                                                <input class="form-control" type="text" name="Nit" id="Nit" readonly onchange="validarCampo(this);" required>
+                                                <span id="NitSpan"></span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="">Empresa: </label>
+                                                <input class="form-control" type="text" name="empresa" id="nombreEmpresa" readonly onchange="validarCampo(this);" required>
+                                                <span id="nombreEmpresaSpan"></span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="">Direccion: </label>
+                                                <input class="form-control" type="text" name="direccion" id="direccion" readonly onchange="validarCampo(this);" required>
+                                                <span id="direccionSpan"></span>
                                             </div>
                                         </div>
+
                                         <br>
                                         <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                                         <a style="margin: 5px;" href="listarPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
@@ -202,7 +202,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                 </button>
             </div>
             <div class="modal-body">
-            <div class="row">
+                <div class="row">
                     <div class="col-md-12">
                         <label for="" class="form-label">Buscar: </label>
                         <div class="input-group m-b-0">

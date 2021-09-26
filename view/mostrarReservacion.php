@@ -2,38 +2,9 @@
 require_once 'headPagina.php';
 require_once '../model/reservaciones.php';
 require_once '../model/conexionDB.php';
-
-date_default_timezone_set('America/Bogota');
-if (isset($_GET['filtroFecha'])) {
-    $filtroFecha = $_GET['filtroFecha'];
-} else {
-    $filtroFecha = Date("Y-m-d");
-}
-
-$filtroDomicilio = "";
-$filtroReservaciones = "";
-
-if (isset($_GET['filtroDomicilio'])) {
-    $filtroDomicilio = $_GET['filtroDomicilio'];
-}
-
-if (isset($_GET['filtroReservaciones'])) {
-    $filtroReservaciones = $_GET['filtroReservaciones'];
-}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESERVACIONES</title>
-</head>
-
 <body>
-
     <div class="container-fluid">
         <?php
         require_once '../controller/mensajeController.php';
@@ -44,46 +15,49 @@ if (isset($_GET['filtroReservaciones'])) {
         }
         ?>
 
-
         <div class="card">
             <div class="card-header border-0">
                 <form id="formLimpiar" action="" method="GET">
                     <div class="row">
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por fecha: </label>
-                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion por fecha: </label>
+                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fecha" name="fecha" onchange="mostrarReservacion()">
                         </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion por Domicilio: </label>
-                            <select class="form-select" name="filtroDomicilio" onchange="this.form.submit()">
-                                <option value="" selected>Selecciones una opción</option>
-                                <option value="1" <?php if ($filtroDomicilio == "1") {
-                                                        echo "selected";
-                                                    } ?>>SI</option>
-                                <option value="0" <?php if ($filtroDomicilio == "0") {
-                                                        echo "selected";
-                                                    } ?>>NO</option>
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion por Domicilio: </label>
+                            <select class="form-select" id="domicilio" name="cancelado" onchange="mostrarReservacion()">
+                                <option value="" disabled selected>Selecciones una opción</option>
+                                <option value="1">Reservacion con domicilio</option>
+                                <option value="0">Reservacion sin domicilio</option>
                             </select>
                         </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Reservacion sin realizar: </label>
-                            <select class="form-select" name="filtroReservaciones" onchange="this.form.submit()">
-                                <option value="" selected>Selecciones una opción</option>
-                                <option value="1" <?php if ($filtroReservaciones == "1") {
-                                                        echo "selected";
-                                                    } ?>>SI</option>
-                                <option value="0" <?php if ($filtroReservaciones == "0") {
-                                                        echo "selected";
-                                                    } ?>>NO</option>
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion sin realizar: </label>
+                            <select class="form-select" id="validar" name="validar" onchange="mostrarReservacion()">
+                                <option value="" disabled selected>Selecciones una opción</option>
+                                <option value="1">Reservaciones validados</option>
+                                <option value="0">Reservaciones sin validar</option>
                             </select>
                         </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <br>
-                            <input type="button" class="btn btn-light" value="Limpiar Filtros" onclick="limpiarFiltroReservacion()">
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion Canceladas: </label>
+                            <select class="form-select" id="cancelado" name="cancelado" onchange="mostrarReservacion()">
+                                <option value="" disabled selected>Selecciones una opción</option>
+                                <option value="1">Reservaciones canceladas</option>
+                                <option value="0">Reservaciones sin cancelar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="button" class="btn btn-info" value="Limpiar Filtros" onclick="limpiarFiltroReservacion()">
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                     <thead>
@@ -95,54 +69,31 @@ if (isset($_GET['filtroReservaciones'])) {
                             <th>Domicilio</th>
                             <th>Direccion</th>
                             <th>¿Reservacion realizada?</th>
-                            <th></th>
+                            <th>¿Reservacion cancelada?</th>
+                            <th><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-empresa" onclick="cliente();"><i class="fas fa-user-plus"></i> Crear reservacion</button></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        $oReservacion = new reservacion();
-                        $consulta = $oReservacion->mostrarReservacion($filtroFecha, $filtroDomicilio, $filtroReservaciones);
-                        if (count($consulta) > 0) {
-                            foreach ($consulta as $registro) {
-                        ?>
-                                <tr>
-                                    <td><?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?></td>
-                                    <td><?php echo $registro['nombreServicio']; ?></td>
-                                    <td><?php echo $registro['fechaReservacion']; ?></td>
-                                    <td><?php echo $registro['horaReservacion']; ?></td>
-                                    <td><?php if ($registro['domicilio']) echo "SI";
-                                        else echo "NO";  ?><?php if ($registro['domicilio'] == 0) ?></td>
-                                    <td><?php if ($registro['domicilio'] == 0) echo "NO";
-                                        else echo $registro['direccion'] ?>
-                                    <td><?php if ($registro['validar']) echo "SI";
-                                        else echo "NO"; ?><?php if ($registro['validar'] == 0) ?></td>
-                                    <td>
-                                        <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="validarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                                    </td>
-                                </tr>
-                            <?php }
-                        } else { //en caso de que no tengo informacion, mostrara un mensaje
-                            ?>
-                            <!-- no hay ningun registro -->
-                            <tr>
-                                <td colspan="9" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay reservaciones disponibles</td>
-                            </tr>
-                        <?php } ?>
+                    <tbody id="listarReservacion">
+
                     </tbody>
                 </table>
             </div>
         </div>
         <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
-    
- 
 </body>
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/general.js"></script>
+<script>
+    mostrarReservacion();
+</script>
+
+
+
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -156,10 +107,79 @@ require_once 'footer.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/reservacionController.php" method="GET">
-                    <input type="text" name="idReservacion" id="validarReservacion" style="display:none;">
+                    <input type="text" name="idReservacion" id="validarReservacion" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="funcion" value="validarReservacion"><i class="fas fa-check-circle"></i> Reservacion relizada</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancelarReservacion" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Label">Cancelar Reservacion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea cancelar la reservacion?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="../controller/reservacionController.php" method="GET">
+                    <input type="text" name="idReservacion" id="reservacion" style="display:none;">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success" name="funcion" value="cancelarReservacion"><i class="fas fa-trash-alt"></i> Cancelar Reservacion</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-empresa">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Seleccione Cliente</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Tipo de Documento: </label>
+                        <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="cliente()">
+                            <option value="" selected>Selecciones una opción</option>
+                            <option value="TI">Tarjeta de Identidad</option>
+                            <option value="CC">Cedula Ciudadanía</option>
+                            <option value="CE">Cedula Extranjería</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Documento: </label>
+                        <input type="number" class="form-control" id="documentoIdentidad2" name="documentoIdentidad" onchange="cliente()">
+                    </div>
+                </div>
+
+                <hr>
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Tipo Documento</th>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cliente">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>

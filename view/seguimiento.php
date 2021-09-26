@@ -1,19 +1,23 @@
 <?php
 require_once 'headPagina.php';
+require_once '../model/seguimiento.php';
+$oSeguimiento = new seguimiento();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USUARIO</title>
+    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/seguimiento.css" type="text/css">
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
+        <div class="row text-center justify-content-center mb-5">
+            <div class="col-xl-6 col-lg-8">
+                <h2 class="font-weight-bold">Sección de seguimiento</h2>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12">

@@ -25,30 +25,38 @@ class PDF extends FPDF{
     function header(){
         
         //logo
-        $this->image('../image/PNG_logo.png',10,15,50);  //(LINK, POSICION HORIZONTAL, POSICION VERTICAL, TAMAÑO)
+        $this->image('../image/PNG_logo.png',15,15,50);  //(LINK, POSICION HORIZONTAL, POSICION VERTICAL, TAMAÑO)
 
         $this->SetFont('times','B',30);
         $this->Cell(90); //UBICACION DEL TITULO
-        $this->Cell(30,20,'STYLUSH ANYEALE',0,1,'C'); //(MARGEN HORIZONTAL, MARGEN VERTICAL, TITULO, CUADRADO 0:QUITA 1:PONE,'',ORIENTACION DE TEXTO  )
+        $this->Cell(30,15,'STYLUSH ANYEALE',0,1,'C'); //(MARGEN HORIZONTAL, MARGEN VERTICAL, TITULO, CUADRADO 0:QUITA 1:PONE,'',ORIENTACION DE TEXTO  )
+       
+        $this->SetFont('times', 'I',12);
+        $this->Cell(75);
+        $this->Cell(44,0, '"Estilo y confianza te brindan Stylush Anyeale"',0,1,'L');
+        $this->ln(35);
+
+        $this->SetFont('times', 'B',20);
+        $this->Cell(60);
+        $this->Cell(5,10, 'Informacion del pedido',0,1,'R');
+
 
         $this->SetFont('times','',15);
-        $this->Cell(65);
-        $this->Cell(20,5,"Fecha: $this->fechaPedido",0,1,'C');
+        $this->Cell(10);
+        $this->Cell(5,5,"Fecha: $this->fechaPedido",0,1,'C');
         
-        $this->Cell(83);
-        $this->Cell(20,5,"Documento Identidad: $this->documentoIdentidad",0,1,'C');
+        $this->Cell(27.5);
+        $this->Cell(5,5,"Documento Identidad: $this->documentoIdentidad",0,1,'C');
 
-        $this->Cell(84);
-        $this->Cell(20,5,"Nombre y apellido: $this->responsablePedido",0,1,'C');
+        $this->Cell(28.5);
+        $this->Cell(5,5,"Nombre y apellido: $this->responsablePedido",0,1,'C');
 
-        $this->Cell(62);
-        $this->Cell(20,5,"NIT Empresa: $this->NIT",0,1,'C');
+        $this->Cell(15);
+        $this->Cell(5,5,"NIT Empresa: $this->NIT",0,1,'C');
 
-        $this->Cell(65);
-        $this->Cell(20,5,"Empresa: $this->empresa",0,1,'C');
-
-        $this->ln(15);
-        
+        $this->Cell(12);
+        $this->Cell(5,5,"Empresa: $this->empresa",0,1,'C');
+        $this->ln(5);
     }
 
     function footer(){
@@ -72,7 +80,6 @@ class PDF extends FPDF{
     }
 
     function ImprovedTable($header, $dataProducto){
-
         $this->SetFillColor(249, 201, 242);
         $this->SetTextColor(3, 3, 3);
         $this->SetDrawColor(3, 3, 3);

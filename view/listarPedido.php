@@ -1,21 +1,9 @@
 <?php
 require_once 'headPagina.php';
+require_once '../model/pedido.php';
+$oPedido = new pedido();
 
 $idUser = $_SESSION['idUser'];
-
-date_default_timezone_set('America/Bogota');
-$fechaActual = date("Y-m-d");
-if (isset($_GET['filtroFecha'])) {
-    $filtroFecha = $_GET['filtroFecha'];
-} else {
-    $filtroFecha = Date("Y-m-d");
-}
-
-if (isset($_GET['filtroCodigoPedido'])) {
-    $filtroCodigoPedido = $_GET['filtroCodigoPedido'];
-} else {
-    $filtroCodigoPedido = "";
-}
 ?>
 
 <!DOCTYPE html>
@@ -41,23 +29,45 @@ if (isset($_GET['filtroCodigoPedido'])) {
 
         <br>
         <div class="card">
-            <div class="card-header border-0">
+            <div class="card-header">
                 <form id="formLimpiar" action="" method="GET">
                     <div class="row">
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedido por fecha: </label>
-                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" name="filtroFecha" onchange="this.form.submit()" value="<?php echo $filtroFecha; ?>">
-                            <br>
-                            <input type="button" class="btn btn-light" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedido por fecha: </label>
+                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaPedido" name="fechaPedido" value="" onchange="consultaPedido()">
                         </div>
-
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <br>
-
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos recibidos: </label>
+                            <select class="form-select" id="recibido" name="recibido" onchange="consultaPedido()">
+                                <option value="" disabled selected>Selecciones una opción</option>
+                                <option value="1">Pedidos recibidos</option>
+                                <option value="0">Pedidos no recibidos</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos cancelados: </label>
+                            <select class="form-select" id="cancelado" name="cancelado" onchange="consultaPedido()">
+                                <option value="" disabled selected>Selecciones una opción</option>
+                                <option value="1">Pedidos cancelados</option>
+                                <option value="0">Pedidos sin cancelar</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos por codigo: </label>
+                            <input type="number" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="codigo" name="codigo" placeholder="Digite codigo producto" onkeyup="consultaPedido()">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="button" class="btn btn-light" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
                         </div>
                     </div>
                 </form>
             </div>
+        </div>
+
+        <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                     <thead>
@@ -69,57 +79,8 @@ if (isset($_GET['filtroCodigoPedido'])) {
                             <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-plus-circle"></i> Crear Pedido</a></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        require_once '../model/pedido.php';
-                        require_once '../model/conexionDB.php';
-                        $oPedido = new pedido();
-                        $consulta = $oPedido->listarPedido($filtroFecha);
-                        if (count($consulta) > 0) {
-                            foreach ($consulta as $registro) {
-                        ?>
-                                <tr>
-                                    <input type="text" value="<?php echo $registro['idPedido']; ?>" style="display:none;">
-                                    <td><?php echo $registro['idPedido']; ?></td>
-                                    <td><?php echo $registro['fechaPedido']; ?></td>
-                                    <td><?php if ($registro['entregaPedido']) echo "SI";
-                                        else echo "NO"; ?></td>
-                                    <td><?php if ($registro['eliminado']) echo "SI";
-                                        else echo "NO"; ?></td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success">Acciones</button>
-                                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-                                                <span class="sr-only"></span>
-                                            </button>
-                                            <div class="dropdown-menu" role="menu">
-                                                <?php
-                                                if ($registro['fechaPedido'] == $fechaActual and !$registro['entregaPedido'] and !$registro['eliminado']) {
-                                                ?>
-                                                    <a href="formularioEditarPedido.php?idPedido=<?php echo $registro['idPedido']; ?>" class="dropdown-item"><i class="fas fa-edit"></i> Editar</a>
-                                                <?php
-                                                }
-                                                if (!$registro['entregaPedido'] and !$registro['eliminado']) {
-                                                ?>
-                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="comprobarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-check-circle"></i> Validar</a>
-                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#cancelarPedido" onclick="cancelarPedido(<?php echo $registro['idPedido']; ?>,<?php echo $idUser; ?>)"><i class="fas fa-trash-alt"></i> Cancelar</a>
-                                                <?php }
-                                                ?>
-                                                <a class="dropdown-item" href="http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/detallePedido.php?idPedido=<?php echo $registro['idPedido']; ?>"><i class="fas fa-barcode"></i> Detalle</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php }
-                        } else { //en caso de que no tengo informacion, mostrara un mensaje
-                            ?>
-                            <!-- no hay ningun registro -->
-                            <tr>
-                                <td colspan="5" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay pedido disponibles</td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
+                    <tbody id="filtroPedido">
+
                     </tbody>
                 </table>
             </div>
@@ -129,9 +90,12 @@ if (isset($_GET['filtroCodigoPedido'])) {
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/general.js"></script>
+<script>
+    consultaPedido();
+</script>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -145,11 +109,11 @@ require_once 'footer.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/pedidoController.php" method="GET">
-                    
-                    <input type="text" name="idPedido" id="validarPedido" style="display:none;">
-                    <input type="text" name="idUser" id="validarUsuario" style="display:none;">
+
+                    <input type="text" name="idPedido" id="validarPedido" style="display: none;">
+                    <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success" name="funcion" value="validarPedido"><i class="fas fa-check-circle"></i>Validar Pedido</button>
+                    <button type="submit" class="btn btn-success" name="funcion" value="validarPedido"><i class="fas fa-check-circle"></i> Validar Pedido</button>
                 </form>
             </div>
         </div>
@@ -171,11 +135,10 @@ require_once 'footer.php';
             </div>
             <div class="modal-footer">
                 <form action="../controller/pedidoController.php" method="GET">
-                    <input type="text" name="idPedido" id="cancelarPedido" style="display: none;">
                     <input type="text" name="idPedido" id="pedido" style="display: none;">
-                    <input type="text" name="idUser" id="cancelarUsuario" style="display:none;">
+                    <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" name="funcion" value="cancelarPedido"><i class="fas fa-trash-alt"></i>Cancelar Pedido</button>
+                    <button type="submit" class="btn btn-danger" name="funcion" value="cancelarPedido"><i class="fas fa-trash-alt"></i> Cancelar Pedido</button>
                 </form>
             </div>
         </div>

@@ -128,6 +128,25 @@ class servicio
         }
     }
 
+    function consultarCosto($idServicio)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base de datos
+        $conexion = $oConexion->conexion();
+        //consulta para retornar un solo registro
+
+        $sql = "SELECT * FROM servicios WHERE IdServicio=$idServicio";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            //se registra la consulta en los parametros
+            $this->costo = $registro['costo'];
+        }
+    }
+
     function actualizarServicio()
     {
         //se instancia el objeto conectar

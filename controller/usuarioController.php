@@ -237,7 +237,7 @@ class usuarioController
             $_SESSION['idUser'] = $oUsuario->getIdUser();
             $_SESSION['nombreUser'] = $oUsuario->getNombreUser();
             // echo "Inicio sesion correctamente";
-            header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php");
+            header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php");
         } else {
             //error al iniciar sesion
             //usuario o contraseña incorrecto
@@ -252,7 +252,7 @@ class usuarioController
         session_start();
         session_unset(); //borra las variables de sesion
         session_destroy(); //destruye o elimina la sesion
-        header("location: http://localhost/anyeale_proyecto/StylushAnyeale_Alejandra/view/loginUsuario.php");
+        header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/loginUsuario.php");
         die();
     }
 

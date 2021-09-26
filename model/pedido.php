@@ -52,7 +52,7 @@ class pedido
     }
 
     //esta funcion me permitira mostrar toda la informacion
-    function listarPedido($filtroFecha)
+    function listarPedido($fecha, $recibido, $cancelado, $codigo)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
@@ -62,12 +62,44 @@ class pedido
         //sentencia para seleccionar un pedido
         $sql = "SELECT * FROM pedido ";
 
-        if ($filtroFecha != "") {
-            $sql .= " WHERE fechaPedido='$filtroFecha' ";
+        if ($fecha != "") {
+            $sql .= " WHERE fechaPedido='$fecha' ";
+        }
+        if ($recibido != "") {
+            $sql .= " WHERE entregaPedido=$recibido ";
+        }
+        if ($cancelado != "") {
+            $sql .= " WHERE eliminado=$cancelado ";
+        }
+        if ($codigo != "") {
+            $sql .= " WHERE (idPedido LIKE '%$codigo%') ";
         }
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function paginacionPedido($pagina){
+        //se instancia el objeto conectar
+        $oConexion=new conectar();
+        //se establece conexión con la base datos
+        $conexion=$oConexion->conexion();
+
+        //Buscar numero de registro por filtros
+        $sql="SELECT count(idPedido) as numRegistro FROM pedido";
+        $result=mysqli_query($conexion, $sql);
+        foreach ($result as $registro){
+            $this->numRegistro=$registro['numRegistro'];
+        }
+
+        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
+        $inicio=(($pagina-1)*10);
+        $sql="SELECT * FROM pedido LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result=mysqli_query($conexion,$sql);
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }

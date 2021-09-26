@@ -30,26 +30,28 @@ function eliminarUsuarioRol(idUser){
     document.getElementById("eliminarUsuarioRol").value=idUser;
 }
 
-function validarReservacion(idReservacion){
-    document.getElementById("validarReservacion").value=idReservacion;
+function validarReservacion(campo){
+    document.getElementById("validarReservacion").value=campo.value;
 }
 
-function idProducto(idProducto){
-    document.getElementById("idProducto").value=idProducto;
+function idProducto(campo){
+    document.getElementById("idProducto").value=campo.value;
 }
 
 function eliminarReservacion(idReservacion){
     document.getElementById("eliminarReservacion").value=idReservacion;
 }
 
-function comprobarPedido(idPedido, idUser){
-    document.getElementById("validarPedido").value=idPedido;
-    document.getElementById("validarUsuario").value=idUser;
+function comprobarPedido(campo){
+    document.getElementById("validarPedido").value=campo.value;
 }
 
-function cancelarPedido(idPedido, idUser){
-    document.getElementById("pedido").value=idPedido;
-    document.getElementById("cancelarUsuario").value=idUser;
+function cancelarPedido(campo){
+    document.getElementById("pedido").value=campo.value;
+}
+
+function cancelarReservacion(campo){
+    document.getElementById("reservacion").value=campo.value;
 }
 
 function eliminarEmpleadoCargo(idUser, idCargo){
