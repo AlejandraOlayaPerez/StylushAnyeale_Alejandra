@@ -26,6 +26,7 @@ class producto
     VALUES ($idProducto, '$this->codigoProducto', '$this->nombreProducto', '$this->descripcionProducto', '$this->caracteristicas', $this->valorUnitario, false)";
 
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 

@@ -29,12 +29,18 @@ $oTags = new tags();
     // echo $numPagina;
     ?>
 
-    <div class="card border border-dark">
-        <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-            <form action="" method="GET">
-                <label class="card-title" style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600; margin-right: 10px;">Buscar Tags:</label>
-                <input type="text" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca una Tags" value="" id="tagsBusqueda" onkeyup="buscarTags()">
-            </form>
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group m-b-0">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-search"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Buscar tags.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca una Tags" value="" id="tagsBusqueda" onkeyup="buscarTags()">
+                    </div>
+                </div>
+            </div>
             <!--Paginacion-->
             <div class="card-tools">
                 <ul class="pagination pagination-sm float-right border border-dark">
@@ -50,7 +56,8 @@ $oTags = new tags();
                 </ul>
             </div>
         </div>
-
+    </div>
+    <div class="card">
         <div class="card-body table-responsive p-0">
             <table class="table table-striped table-valign-middle">
                 <thead>
@@ -92,7 +99,7 @@ $oTags = new tags();
     </div>
 </div>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/filtros.js"></script>
 <script>
     buscarTags();
 </script>

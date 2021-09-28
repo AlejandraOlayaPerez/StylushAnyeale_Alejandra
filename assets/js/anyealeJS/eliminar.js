@@ -8,8 +8,8 @@ function eliminarCargo(idCargo){
     document.getElementById("eliminarCargo").value=idCargo;
 }
 
-function eliminarUsuario(idUser){
-    document.getElementById("eliminarUser").value=idUser;
+function eliminarUsuario(campo){
+    document.getElementById("eliminarUser").value=campo.value;
 }
 
 function eliminarRol(idRol){

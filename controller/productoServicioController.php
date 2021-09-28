@@ -112,13 +112,13 @@ class productoServicioController
                 echo $idPalabraClave = $_POST['tags'];
                 $registro = $oTags->actualizarTagsProducto($idProducto, $idPalabraClave);
                 if ($registro) {
-                    // echo "se registro correctamente";
-                    header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
+                    echo "se registro correctamente";
+                    // header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
                 }
             }
         } else {
-            // echo "error";
-            header("location: /view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            echo "error";
+            // header("location: ../view/nuevoProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -432,12 +432,12 @@ class productoServicioController
             $oProducto->idProducto = $_GET['idProducto'];
             $result = $oProducto->restarProducto();
             if ($result) {
-                // header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+cantidad");
+                header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+cantidad");
             } else {
-                // header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             }
         } else {
-            // header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 

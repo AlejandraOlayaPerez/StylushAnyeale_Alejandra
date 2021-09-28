@@ -23,8 +23,8 @@ class usuario
     public $estadoCivil = "";
     public $direccion = "";
     public $barrio = "";
-    public $imgBiografia="";
-    public $imgPerfil="";
+    public $imgBiografia = "";
+    public $imgPerfil = "";
     public $numRegistro = "";
     public $numPagina = "";
     public $eliminado = "";
@@ -55,24 +55,26 @@ class usuario
     //las variables dentro de los parentesis son parametros que se requieren al utilizar la funcion
 
     //esta funcion me trae un usuario diferente a su propio ID pero con igual tipoDocumento y documento Identidad
-    function documentoIdUsuario(){
+    function documentoIdUsuario()
+    {
         $oConexion = new conectar();
         $conexion = $oConexion->conexion();
 
         $sql = "SELECT * FROM usuario WHERE tipoDocumento='$this->tipoDocumento' AND documentoIdentidad=$this->documentoIdentidad";
 
         $result = mysqli_query($conexion, $sql);
-        return count(mysqli_fetch_all($result, MYSQLI_ASSOC)); 
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
 
-    public function documentoIdUsuarioExiste($idUser, $tipoDocumento, $documentoIdentidad){
+    public function documentoIdUsuarioExiste($idUser, $tipoDocumento, $documentoIdentidad)
+    {
         $oConexion = new conectar();
         $conexion = $oConexion->conexion();
 
         $sql = "SELECT * FROM usuario WHERE idUser!=$idUser AND tipoDocumento='$tipoDocumento' AND documentoIdentidad=$documentoIdentidad";
 
         $result = mysqli_query($conexion, $sql);
-        return count(mysqli_fetch_all($result, MYSQLI_ASSOC)); 
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
 
     public function nuevoUsuario()
@@ -106,7 +108,7 @@ class usuario
 
         //sentencia que nos permite conocer la existencia de un correo electronico
         $sql = "SELECT * FROM usuario WHERE  correoElectronico='$correoElectronico'";
-        
+
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -129,7 +131,7 @@ class usuario
 
         //sentencia que nos permite conocer la existencia de un correo electronico
         $sql = "SELECT * FROM usuario WHERE idUser=$idUser AND contrasena='$contrasena'";
-        
+
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -141,9 +143,10 @@ class usuario
         return count($result);
     }
 
- 
 
-    public function consultarCorreoElectronicoExiste($correoElectronico, $idUser){
+
+    public function consultarCorreoElectronicoExiste($correoElectronico, $idUser)
+    {
         //instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
@@ -151,7 +154,7 @@ class usuario
 
         //sentencia que nos permite conocer la existencia de un correo electronico
         $sql = "SELECT * FROM usuario WHERE idUser!=$idUser AND  correoElectronico='$correoElectronico'";
-        
+
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -180,6 +183,7 @@ class usuario
         }
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         //retorna el resultado de la consulta.
         return $result;
     }
@@ -209,27 +213,29 @@ class usuario
         //arreglo asosiativo de la base de datos
     }
 
-    function nuevoUsuarioRegistroMasivo($idUser, $idCargo){
-        $result="";
-       foreach($idUser as $registro){
-           $this->idUser=$registro;
-           $result=$this->nuevoUsuarioPorCargo($idCargo);
-           if(!$result) 
-           break;
-       }
-       return $result;
-   }
+    function nuevoUsuarioRegistroMasivo($idUser, $idCargo)
+    {
+        $result = "";
+        foreach ($idUser as $registro) {
+            $this->idUser = $registro;
+            $result = $this->nuevoUsuarioPorCargo($idCargo);
+            if (!$result)
+                break;
+        }
+        return $result;
+    }
 
-   function nuevoUsuarioRegistroMasivoRol($idUser, $idRol){
-    $result="";
-   foreach($idUser as $registro){
-       $this->idUser=$registro;
-       $result=$this->nuevoUsuarioPorRol($idRol);
-       if(!$result) 
-       break;
-   }
-   return $result;
-}
+    function nuevoUsuarioRegistroMasivoRol($idUser, $idRol)
+    {
+        $result = "";
+        foreach ($idUser as $registro) {
+            $this->idUser = $registro;
+            $result = $this->nuevoUsuarioPorRol($idRol);
+            if (!$result)
+                break;
+        }
+        return $result;
+    }
 
     function nuevoUsuarioPorCargo($idCargo)
     {
@@ -350,7 +356,7 @@ class usuario
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
-    
+
     function listarUsuarioPorCargo($idServicio)
     {
         //se instancia el objeto conectar
@@ -399,7 +405,7 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function listarUsuario($pagina, $filtroUsuario)
+    function listarUsuario($pagina)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
@@ -414,12 +420,30 @@ class usuario
         }
 
         $inicio = (($pagina - 1) * 10);
-        if ($filtroUsuario!=""){
-            $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio WHERE (documentoIdentidad LIKE '%$filtroUsuario%')";
-        }else{
-            $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio";
+
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+ 
+    function ajaxUsuario($busquedaUsuario, $documento)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE (primerNombre LIKE '%$busquedaUsuario%' OR segundoNombre LIKE '%$busquedaUsuario%' OR primerApellido LIKE '%$busquedaUsuario%' OR segundoApellido LIKE '%$busquedaUsuario%') ";
+
+        // if ($busquedaUsuario != "") {
+        //     $sql .= " 
+        // }
+        if ($documento != "") {
+            $sql .= " AND (documentoIdentidad LIKE '%$documento%' ";
         }
-        
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -508,7 +532,7 @@ class usuario
     function actualizarContrasenaUsuario($idUser, $contrasena)
     {
         //funcion para encriptar la contraseña utilizando el metodo md5
-        $contrasena=md5($contrasena);
+        $contrasena = md5($contrasena);
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.

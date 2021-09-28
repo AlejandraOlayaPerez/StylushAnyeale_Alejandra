@@ -29,7 +29,7 @@ $oSeguimiento = new seguimiento();
                                 </div>
                                 <div class="row">
                                     <?php
-                                    $oPedido = $oSeguimiento->consultarSeguimientoPedido($_GET['idPedido']);
+                                    $consulta = $oSeguimiento->consultarSeguimientoPedido($_GET['idPedido']);
                                     if (count($consulta) > 0) {
                                         foreach ($consulta as $registro) {
                                     ?>
@@ -63,6 +63,7 @@ $oSeguimiento = new seguimiento();
                         </div>
                     </div>
                 </div>
+                <a href="listarPedido.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
             </div>
         </section>
     </div>

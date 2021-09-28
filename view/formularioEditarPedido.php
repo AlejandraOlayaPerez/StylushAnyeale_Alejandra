@@ -33,21 +33,19 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                         </div>
                     </div>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Nit: </label>
-                                <input class="form-control" type="text" name="Nit" id="Nit" value="<?php echo $oPedido->Nit; ?>" readonly>
-                                <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Empresa: </label>
-                                <input class="form-control" type="text" name="empresa" id="nombreEmpresa" value="<?php echo $oPedido->empresa; ?>" readonly>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Direccion: </label>
-                                <input class="form-control" type="text" name="direccion" id="direccion" value="<?php echo $oPedido->direccion; ?>" readonly>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="">Nit: </label>
+                            <input class="form-control" type="text" name="Nit" id="Nit" value="<?php echo $oPedido->Nit; ?>" readonly>
+                            <input type="text" name="idEmpresa" id="idEmpresa" style="display:none;">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Empresa: </label>
+                            <input class="form-control" type="text" name="empresa" id="nombreEmpresa" value="<?php echo $oPedido->empresa; ?>" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Direccion: </label>
+                            <input class="form-control" type="text" name="direccion" id="direccion" value="<?php echo $oPedido->direccion; ?>" readonly>
                         </div>
                     </div>
                     <hr>
@@ -83,7 +81,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                             </tr>
                         </thead>
                         <tbody id="listarProducto">
-                              
+
                         </tbody>
                     </table>
                 </div>
@@ -96,13 +94,14 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
     </div>
 </body>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarEmpresa.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/editarPedido.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarProductos.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/AgregarEmpresa.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/editarPedido.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/AgregarProductos.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
 <script>
     productosPedido();
 </script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/validaciones.js"></script>
 
 <!--Modal empresa-->
 <div class="modal fade" id="modal-empresa">

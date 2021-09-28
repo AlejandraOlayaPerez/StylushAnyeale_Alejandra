@@ -37,7 +37,7 @@ $oProducto = new producto();
 
 
         <div class="card">
-            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif;">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-group m-b-0">
@@ -52,11 +52,6 @@ $oProducto = new producto();
                         <a class="btn btn-info" href="categoria.php"><i class="fas fa-sitemap"></i> Ver. Categoria</a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
                 <!--Paginacion-->
                 <div class="card-tools">
                     <ul class="pagination pagination-sm float-right border border-dark">
@@ -72,7 +67,9 @@ $oProducto = new producto();
                     </ul>
                 </div>
             </div>
+        </div>
 
+        <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                     <thead>
@@ -95,7 +92,8 @@ $oProducto = new producto();
 
 </html>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/eliminar.js"></script>
 <script>
     buscarProducto();
 </script>
@@ -146,7 +144,7 @@ $oProducto = new producto();
                     </div>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <input type="text" id="idProducto" name="idProducto">
+                    <input type="text" id="idProducto" name="idProducto" style="display: none;">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary" name="funcion" value="actualizarCantidad">Actualizar</button>
                 </div>

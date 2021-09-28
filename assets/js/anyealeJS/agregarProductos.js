@@ -59,7 +59,9 @@ function agregarProductoModal(producto){
 
 }
 
+var tab=0;
 function agregarProducto(idProducto, codigo, producto, boton){
+    tab+=1;
     trEliminar("listarProducto");
     var contenedor=document.getElementById("listarProducto");
     var nuevoProducto=document.createElement("tr"); //creamos un fila de una tabla
@@ -86,6 +88,7 @@ function agregarProducto(idProducto, codigo, producto, boton){
     inputCantidad.min=1;
     inputCantidad.max=100;
     inputCantidad.required=true;
+    inputCantidad.tabIndex=tab;
     inputCantidad.addEventListener('change', function(){
         validarCampo(this);
     });

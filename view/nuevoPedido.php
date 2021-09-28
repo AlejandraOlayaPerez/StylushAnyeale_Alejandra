@@ -236,9 +236,10 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
     </div>
 </div>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarEmpresa.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/AgregarProductos.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/AgregarEmpresa.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/validaciones.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/AgregarProductos.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
 <?php require_once 'footer.php'; ?>
 
 <script>

@@ -34,7 +34,8 @@ $idUser = $_SESSION['idUser'];
                     <div class="row">
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedido por fecha: </label>
-                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaPedido" name="fechaPedido" value="" onchange="consultaPedido()">
+                            <input type="date" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaPedido" name="fechaPedido" value="" onchange="consultaPedido()" >
+                            
                         </div>
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos recibidos: </label>
@@ -91,11 +92,11 @@ $idUser = $_SESSION['idUser'];
 </html>
 
 <?php require_once 'footer.php'; ?>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/general.js"></script>
-<script>
-    consultaPedido();
-</script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/listarPedido.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/eliminar.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/limpiarFormFiltros.js"></script>
+
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -109,7 +110,6 @@ $idUser = $_SESSION['idUser'];
             </div>
             <div class="modal-footer">
                 <form action="../controller/pedidoController.php" method="GET">
-
                     <input type="text" name="idPedido" id="validarPedido" style="display: none;">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

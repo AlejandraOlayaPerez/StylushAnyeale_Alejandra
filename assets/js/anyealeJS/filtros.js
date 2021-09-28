@@ -1,3 +1,4 @@
+cargarJS();
 //funcion para buscar Clientes
 function buscarCliente(){
     var tipoDocumento = document.getElementById("tipoDocumento2").value;
@@ -259,128 +260,7 @@ function agregarCategoria(categoria){
     contenedor.appendChild(categoriatr);
 }
 
-//LISTAR PEDIDO
 
-function consultaPedido(){
-    var fecha = document.getElementById("fechaPedido").value;
-    var recibido = document.getElementById("recibido").value;
-    var cancelado = document.getElementById("cancelado").value;
-    var codigo = document.getElementById("codigo").value;
-
-    $.ajax({
-        url: '../controller/pedidoController.php',
-        type: 'GET',
-        data: {fecha:fecha, recibido:recibido, cancelado:cancelado, codigo:codigo,funcion:"buscarPedido"}
-    }).done(function (data){
-        // console.log(data);
-        var pedido=JSON.parse(data);
-        var contenedor=document.getElementById("filtroPedido");
-        contenedor.innerHTML="";
-        for(i=0; i<pedido.length; i++){
-        agregarPedido(pedido[i]);
-        }
-        if(pedido.length==0){
-            crearTr(5, "filtroPedido");
-        }
-    })
-}
-
-function agregarPedido(pedido){
-    var tr = document.createElement("tr");
-    tr.id=pedido['idPedido'];
-
-    var tdCodigo = document.createElement("td");
-    tdCodigo.innerHTML = pedido['idPedido'];
-    var tdFecha = document.createElement("td");
-    tdFecha.innerHTML = pedido['fechaPedido'];
-    var tdRecibido = document.createElement("td");
-    if(pedido['entregaPedido']==1){tdRecibido.innerHTML="SI"}else{tdRecibido.innerHTML="NO"};
-    var tdCancelado = document.createElement("td");
-    if(pedido['eliminado']==1){tdCancelado.innerHTML="SI"}else{tdCancelado.innerHTML="NO"};
-
-    var tdBotones=document.createElement("td");
-    var div1 = document.createElement("div");
-    div1.className="btn-group";
-
-    var boton1=document.createElement("button");
-    boton1.type="button";
-    boton1.className="btn btn-success";
-    boton1.innerHTML="Acciones";
-    var boton2=document.createElement("button");
-    boton2.type="button";
-    boton2.className="btn btn-success dropdown-toggle";
-    boton2.setAttribute("data-toggle", "dropdown");
-    var span=document.createElement("span");
-    span.className="sr-only";
-
-    div1.appendChild(boton1);
-    div1.appendChild(boton2);
-    boton2.appendChild(span);
-
-    var div2=document.createElement("div");
-    div2.className="dropdown-menu";
-    div2.role="menu";
-
-    var botonEditar=document.createElement("a");
-    botonEditar.href="formularioEditarPedido.php?idPedido="+pedido['idPedido'];
-    botonEditar.className="dropdown-item";
-    botonEditar.innerHTML='<i class="fas fa-edit"></i> Editar';
-
-    var botonSeguimiento=document.createElement("a");
-    botonSeguimiento.href="seguimientoPedido.php?idPedido="+pedido['idPedido'];
-    botonSeguimiento.className="dropdown-item";
-    botonSeguimiento.innerHTML='<i class="fas fa-info"></i> Seguimiento';
-
-    var botonEliminar=document.createElement("a");
-    botonEliminar.className="dropdown-item";
-    botonEliminar.setAttribute("data-bs-toggle", "modal");
-    botonEliminar.setAttribute("data-bs-target", "#cancelarPedido");
-    botonEliminar.value=pedido['idPedido'];
-    botonEliminar.addEventListener('click', function(){
-        cancelarPedido(this);
-    });
-    botonEliminar.innerHTML='<i class="fas fa-trash-alt"></i> Eliminar';
-
-    var botonValidar=document.createElement("a");
-    botonValidar.className="dropdown-item";
-    botonValidar.setAttribute("data-bs-toggle", "modal");
-    botonValidar.setAttribute("data-bs-target", "#eliminarFormulario");
-    botonValidar.value=pedido['idPedido'];
-    botonValidar.addEventListener('click', function(){
-        comprobarPedido(this);
-    });
-    botonValidar.innerHTML='<i class="fas fa-check-circle"></i> Validar';
-
-    var botonPDF=document.createElement("a");
-    botonPDF.className="dropdown-item";
-    botonPDF.href="pedidoPDF.php?idPedido="+pedido['idPedido'];
-    botonPDF.innerHTML='<i class="fas fa-print"></i> Imprimir Pedido';
-    
-    const fecha = new Date();
-    fechaActual = fecha.getFullYear() + "-" + 0 + (fecha.getMonth() +1) + "-" + fecha.getDate();
-
-    div1.appendChild(div2);
-    if(pedido['fechaPedido']==fechaActual && pedido['entregaPedido']==0 && pedido['eliminado']==0){
-        div2.appendChild(botonEditar);
-    }
-    if (pedido['entregaPedido']==0 && pedido['eliminado']==0){
-        div2.appendChild(botonValidar);
-        div2.appendChild(botonEliminar);
-    }
-    div2.appendChild(botonPDF);
-    div2.appendChild(botonSeguimiento);
-
-    tdBotones.appendChild(div1);
-
-    tr.appendChild(tdCodigo);
-    tr.appendChild(tdFecha);
-    tr.appendChild(tdRecibido);
-    tr.appendChild(tdCancelado);
-    tr.appendChild(tdBotones);
-
-    var contenedor=document.getElementById("filtroPedido");
-    contenedor.appendChild(tr);
-}
 
 //Mostrar Reservacion
 
@@ -425,8 +305,7 @@ function reservas(reservacion){
     if(reservacion['domicilio']==1){tdDomicilio.innerHTML="SI"}else{tdDomicilio.innerHTML="NO"};
     var tdDireccion = document.createElement("td");
     tdDireccion.innerHTML=reservacion['direccion'];
-    var tdValidar = document.createElement("td");
-    if(reservacion['validar']==1){tdValidar.innerHTML="SI"}else{tdValidar.innerHTML="NO"};
+    c
     var tdCancelar = document.createElement("td");
     if(reservacion['eliminado']==1){tdCancelar.innerHTML="SI"}else{tdCancelar.innerHTML="NO"};
 
@@ -546,5 +425,79 @@ function agregarBusqueda(datos){
 
     var contenedor=document.getElementById("cliente");
     contenedor.appendChild(nuevoTR);
+
+}
+
+//busqueda de usuarios
+
+function consultarUsuario(){
+    var busquedaUsuario = document.getElementById("busquedaUsuario").value;
+    var documento = document.getElementById("documento").value;
+    
+    $.ajax({
+        url: '../controller/usuarioController.php',
+        type: 'GET',
+        data: {busquedaUsuario:busquedaUsuario, documento:documento, funcion:"buscarUsariosAjax"}
+    }).done(function (data){
+        console.log(data);
+        var user=JSON.parse(data);
+        var contenedor=document.getElementById("usuario");
+        contenedor.innerHTML="";
+        for(i=0; i<user.length; i++){
+            usuario(user[i]);
+        }
+        if(user.length==0){
+            crearTr(7, "usuario");
+        }
+    })
+}
+
+function usuario(user){
+    var tr = document.createElement("tr");
+    tr.id=user['idUser'];
+    
+    var tdTipo = document.createElement("td");
+    tdTipo.innerHTML = user['tipoDocumento'];
+    var tdDocumento = document.createElement("td");
+    tdDocumento.innerHTML = user['documentoIdentidad'];
+    var tdNombre = document.createElement("td");
+    tdNombre.innerHTML = user['primerNombre']+" "+user['primerApellido'];
+    var tdCorreo = document.createElement("td");
+    tdCorreo.innerHTML = user['correoElectronico'];
+    var tdRol = document.createElement("td");
+    tdRol.innerHTML = user['Rol'];
+    var tdHabilitado = document.createElement("td");
+    if(user['eliminado']==1){tdHabilitado.innerHTML="SI"}else{tdHabilitado.innerHTML="NO"};
+    var tdBoton = document.createElement("td");
+    var botonDeshabilitar=document.createElement("a");
+    botonDeshabilitar.className="btn btn-danger";
+    botonDeshabilitar.setAttribute("data-bs-toggle", "modal");
+    botonDeshabilitar.setAttribute("data-bs-target", "#eliminarFormulario");
+    botonDeshabilitar.value=user['idUser'];
+    botonDeshabilitar.addEventListener('click', function(){
+        eliminarUsuario(this);
+    });
+    botonDeshabilitar.innerHTML='<i class="fas fa-user-slash"></i> Deshabilitar';
+
+    var botonHabilitar = document.createElement("a");
+    botonHabilitar.href="../controller/usuarioController.php?funcion=habilitarDeshabilitarUsuario&habilitar=true&idUser="+user['idUser'];
+    botonHabilitar.className="btn btn-info";
+    botonHabilitar.innerHTML='<i class="far fa-user"></i> Habilitar';
+
+    if(user['eliminado']==0){
+        tdBoton.appendChild(botonHabilitar);
+    }else{
+        tdBoton.appendChild(botonDeshabilitar);
+    }
+    
+    tr.appendChild(tdTipo);
+    tr.appendChild(tdDocumento);
+    tr.appendChild(tdNombre);
+    tr.appendChild(tdCorreo);
+    tr.appendChild(tdRol);
+    tr.appendChild(tdHabilitado);
+    tr.appendChild(tdBoton);
+    var contenedor=document.getElementById("usuario");
+    contenedor.appendChild(tr);
 
 }

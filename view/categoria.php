@@ -92,7 +92,7 @@ $oCategoria = new categoria();
     </div>
 </div>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/filtros.js"></script>
 <script>
     buscarCategoria();
 </script>

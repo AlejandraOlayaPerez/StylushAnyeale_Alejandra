@@ -72,7 +72,7 @@ $fechaActual = Date("Y-m-d");
         </div>
     </div>
 
-    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/inventario.js"></script>
+    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/inventario.js"></script>
     <script>
         buscarProducto();
         buscarFactura();

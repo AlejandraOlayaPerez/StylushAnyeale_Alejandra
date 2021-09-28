@@ -29,6 +29,7 @@ class tags{
         VALUES ($idProducto, NULL, '$this->tags')";
 
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 

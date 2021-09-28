@@ -44,6 +44,9 @@ switch ($funcion) {
     case "eliminarUsuarioDeRol":
         $oUsuarioController->eliminarUsuarioDeRol();
         break;
+    case "buscarUsariosAjax":
+        $oUsuarioController->buscarUsariosAjax();
+        break;
 }
 
 class usuarioController
@@ -120,7 +123,7 @@ class usuarioController
     public function habilitarDeshabilitarUsuario()
     {
         //define variables y se asigna el valor que tiene GET.
-        $habilitar = $_GET['habilitar'];
+       echo  $habilitar = $_GET['habilitar'];
         $idUser = $_GET['idUser'];
 
         require_once '../model/usuario.php'; //esta importando el contenido del archivo para ser accesible las funciones y atributos.
@@ -130,11 +133,13 @@ class usuarioController
 
         $oUser = new usuario(); //se define y se instancia el objeto user
         if ($oUser->comprobarEliminado($habilitar, $idUser)) { //si se va por la parte del si es correcta
-            if ($habilitar == true) header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+habilitado+correctamente");
-            else header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+deshabilitado+correctamente");
+            // if ($habilitar == true) header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+habilitado+correctamente");
+            if ($habilitar == true) echo "usuario habilitado";
+            else echo "usuario deshabilitado";
+            // else header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+deshabilitado+correctamente");
         } else { //si se va por la parte del no,  la funcion presento algun error
-            header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-            // echo "error";
+            // header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            echo "error";
         }
     }
 
@@ -371,8 +376,14 @@ class usuarioController
         }else{
             // echo "error";
             header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-        }
+        }   
+    }
 
-        
+    public function buscarUsariosAjax(){
+        require_once '../model/usuario.php';
+
+        $oUsuario = new usuario();
+        $result = $oUsuario->ajaxUsuario($_GET['busquedaUsuario'], $_GET['documento']);
+        echo json_encode($result);
     }
 }
