@@ -39,7 +39,8 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
                 font-size: 3.5rem;
             }
         }
-        .card{
+
+        .card {
             box-shadow: 10px 10px 10px rgb(209, 208, 208);
         }
     </style>
@@ -48,14 +49,6 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
 
 <body>
     <div class="container">
-        <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
         <div class="main-body">
 
             <?php
@@ -129,7 +122,7 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                            <a href="paginaPrincipalCliente.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                                <a href="paginaPrincipalCliente.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
                                                 <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarFotoCliente"><i class="fas fa-edit"></i>Actualizar foto</button>
                                             </div>
                                         </div>

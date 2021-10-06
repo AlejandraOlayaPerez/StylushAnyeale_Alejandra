@@ -11,7 +11,7 @@ class tags{
         $result="";
        foreach($tags as $registro){
            $this->tags=$registro;
-           $result=$this->actualizarTagsProductos($idProducto);
+           $result=$this->crearTags($idProducto);
            if(!$result) 
            break;
        }

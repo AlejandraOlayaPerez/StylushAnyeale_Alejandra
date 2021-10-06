@@ -96,7 +96,12 @@ $oProducto = new producto();
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
                           <label for="" class="form-label">Valor Unitario</label>
-                          <input class="form-control" type="text" id="valorUnitario" name="valorUnitario" placeholder="Valor Unitario" onclick="validarCampo(this);" required>
+                          <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                            </div>
+                            <input class="form-control" type="text" id="valorUnitario" name="valorUnitario" placeholder="Valor Unitario" onkeyup="separadorMilesCuadroTexto(this);" required>
+                          </div>
                           <span id="valorUnitarioSpan"></span>
                         </div>
                       </div>
@@ -148,8 +153,10 @@ $oProducto = new producto();
 </html>
 
 <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/select2/js/select2.full.min.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/general.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/eliminar.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/limpiarFormFiltros.js"></script>
+<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/validaciones.js"></script>
 <?php require_once 'footer.php'; ?>
 <script>
   $(function() {
@@ -211,31 +218,4 @@ $oProducto = new producto();
       document.getElementById('formulario').submit();
     }
   }
-</script>
-
-<script>
-    var valorUnitario = document.getElementById('valorUnitario');
-
-    valorUnitario.addEventListener('keyup', (e) => {
-        var entrada = e.target.value.split('.').join('');
-        entrada = entrada.split('').reverse();
-
-        var salida = [];
-        var aux = '';
-
-        var paginador = Math.ceil(entrada.length / 3);
-
-        for (let i = 0; i < paginador; i++) {
-            for (let j = 0; j < 3; j++) {
-
-                if (entrada[j + (i * 3)] != undefined) {
-                    aux += entrada[j + (i * 3)];
-                }
-            }
-            salida.push(aux);
-            aux = '';
-
-            e.target.value = salida.join('.').split("").reverse().join('');
-        }
-    }, false);
 </script>

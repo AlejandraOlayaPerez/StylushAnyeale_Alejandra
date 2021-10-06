@@ -12,6 +12,11 @@ if (isset($_SESSION['idCliente'])) {
 <html lang="es">
 
 <head>
+    <style>
+        body {
+            background-color: yellow;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,21 +32,12 @@ if (isset($_SESSION['idCliente'])) {
     <title>Iniciar sesion</title>
 </head>
 
-<?php
-require_once '../controller/mensajeController.php';
-
-if (isset($_GET['mensaje'])) {
-    $oMensaje = new mensajes();
-    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-}
-?>
-
-<body class="hold-transition login-page" style="background-color: rgb(249, 201, 242);">
+<body class="hold-transition login-page" style="background-color: rgba(255, 255, 204, 255)">
     <div class="login-box">
         <div class="login-logo">
 
         </div>
-        <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(249, 201, 242) 5px dashed;">
+        <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(255, 255, 204, 255) 5px dashed; ; box-shadow: 20px 20px 20px black;">
             <div class="card-body">
                 <div class="col text-center">
                     <img style="border-radius: 8px;" src="../image/PNG_LOGO.png" width="50%">

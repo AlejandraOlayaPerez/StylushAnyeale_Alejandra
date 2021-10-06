@@ -301,9 +301,14 @@ class pedidoController
         require_once '../model/pedido.php';
 
         $oPedido=new pedido();
-        $result=$oPedido->listarPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo']);
-        echo json_encode($result);
+        $paginacion = $oPedido->paginacionPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $producto=$oPedido->listarPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo'], $_GET['pagina']);
+        echo json_encode($producto);
     }
+
 
     public function listarPedido()
     {

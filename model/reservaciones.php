@@ -279,7 +279,7 @@ class reservacion
 
         //sentencia para listar las reservaciones
         $sql = "SELECT c.idCliente, 
-        r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.validar, r.direccion, r.precio,
+        r.idReservacion, r.fechaReservacion, r.horaReservacion, r.horaFinal, r.domicilio, r.validar, r.direccion, r.precio,
         s.IdServicio, s.nombreServicio, 
         u.idUser, CONCAT(u.primerNombre,' ',u.primerApellido) as estilista 
         FROM cliente c 

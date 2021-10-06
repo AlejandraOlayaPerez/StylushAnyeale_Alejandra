@@ -1,3 +1,10 @@
+cargarJS();
+//Cargar archivos al momemto de carga la pagina.
+function cargarJS(){
+    buscarProducto();
+    buscarFactura();
+}
+
 function buscarProducto(){
     var busquedaProducto = document.getElementById("busquedaProducto").value;
 
@@ -30,12 +37,25 @@ function agregarBusqueda(datos){
     td3.innerHTML=datos['cantidad'];
     var td4 = document.createElement("td");
     td4.innerHTML = datos['valorUnitario'];
+    var td5 = document.createElement("td");
+    var botonRestar=document.createElement("a");
+    botonRestar.className="btn btn-info";
+    botonRestar.setAttribute("data-toggle", "modal");
+    botonRestar.setAttribute("data-target", "#modal-default");
+    botonRestar.value=datos['IdProducto'];
+    botonRestar.addEventListener('click', function(){
+        idProducto(this);
+    });
+    botonRestar.innerHTML='<i class="fas fa-pen"></i> Cantidad';
+
+    td5.appendChild(botonRestar);
     
     tr.appendChild(idProducto);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
+    tr.appendChild(td5);
     
     var contenedor = document.getElementById("productosBusqueda");
     contenedor.appendChild(tr);

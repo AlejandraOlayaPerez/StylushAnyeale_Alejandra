@@ -151,6 +151,7 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
     contenedor.appendChild(trBody);
     }
     
+    
 
     var pagina=1;
     var numPagina=0;
@@ -159,18 +160,22 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
     function buscarProducto(){
         var codigoProducto = document.getElementById("codigoProducto").value;
         var nombreProducto = document.getElementById("nombreProducto").value;
-        $.ajax({
-            url: '../controller/clienteController.php',
-            type: 'GET',
-            data: {
-                codigoProducto:codigoProducto,
-                nombreProducto:nombreProducto,
-                funcion:"paginacionProducto"}
-        }).done(function (data){
-            var numRegistro=JSON.parse(data);
-            var numeroRegistro = numRegistro[0]['numRegistro'];
-            numPagina=parseInt(numeroRegistro/5);
-            if(numeroRegistro%5>0) numPagina++;
+           
+    $.ajax({
+        url: '../controller/clienteController.php',
+        type: 'GET',
+        data: {
+            codigoProducto:codigoProducto,
+            nombreProducto:nombreProducto,
+            pagina:pagina,
+            funcion:"buscarProductoAjax"}
+    }).done(function (data){
+        console.log(data);
+        var datos = data.split("®");
+        //paginacion
+            var numRegistro=parseInt(datos[0]);
+            numPagina=parseInt(numRegistro/5);
+            if(numRegistro%5>0) numPagina++;
 
             var contenedorUL = document.getElementById("contenedorUL");
             contenedorUL.innerHTML="";
@@ -179,15 +184,12 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
             li1.className="page-item";
             var a1 = document.createElement("button");
             a1.className="page-link";
+            a1.value=1;
             a1.style.fontFamily="Times New Roman', Times, serif";
-            // a1.addEventListener('click', function(){
-            //     pagina=1;
-            //     buscarProducto();
-            // });
-            // // a1.href="cajero.php?pagina=1";
-            // a1.innerHTML="&laquo;";
-            // li1.innerHTML="<a onClick='pagina=1;
-            //      buscarProducto();'"
+            a1.addEventListener('click', function(){
+                modificarPagina(this.value);
+            });
+            a1.innerHTML="&laquo;";
             li1.appendChild(a1);
             contenedorUL.appendChild(li1);
 
@@ -196,12 +198,11 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
                 li2.className="page-item";
                 var a2 = document.createElement("button");
                 a2.className="page-link";
+                a2.value=i;
                 a2.style.fontFamily="Times New Roman', Times, serif";
                 a2.addEventListener('click', function(i){
-                    pagina=i;
-                    buscarProducto();
+                    modificarPagina(this.value);
                 });
-                // a2.href="cajero.php?pagina="+i;
                 a2.innerHTML=i;
 
                 li2.appendChild(a2);
@@ -213,28 +214,16 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
             var a3 = document.createElement("button");
             a3.className="page-link";
             a3.style.fontFamily="Times New Roman', Times, serif";
+            a3.value=numPagina;
             a3.addEventListener('click', function(){
-                pagina=numPagina;
-                buscarProducto();
+                modificarPagina(this.value);
             });
-            // a3.href="cajero.php?pagina="+numPagina;
             a3.innerHTML="&raquo;";
 
             li3.appendChild(a3);
             contenedorUL.appendChild(li3);
-        })
 
-    $.ajax({
-        url: '../controller/clienteController.php',
-        type: 'GET',
-        data: {
-            codigoProducto:codigoProducto,
-            nombreProducto:nombreProducto,
-            pagina:pagina,
-            funcion:"buscarProductoAjax"}
-    }).done(function (data){
-        // console.log(data);
-        var datosProducto=JSON.parse(data);
+        var datosProducto=JSON.parse(datos[1]);
         var contenedor=document.getElementById("informacionProducto");
         contenedor.innerHTML="";
         for(i=0; i<datosProducto.length; i++){
@@ -243,8 +232,10 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
     })
 }
 
-
-
+function modificarPagina(campo){
+    pagina=campo;
+    buscarProducto();
+}
 
 function agregarProducto(datosProducto){
     var contenedor=document.getElementById("informacionProducto");

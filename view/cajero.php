@@ -21,89 +21,31 @@ $oCliente = new cliente();
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
     <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
+
 </head>
 
 <body class="hold-transition layout-top-nav">
-    <div class="container">
+    <div class="container-md">
         <div class="wrapper">
+
             <nav class="main-header navbar navbar-expand-md navbar-dark navbar-black">
-                <div class="container">
-                    <a href="paginaPrincipalGerente.php" class="navbar-brand">
-                        <img src="../image/PNG_LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                        <span class="brand-text font-weight-light">Stylush Anyeale</span>
-                    </a>
-
-                    <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <div class="container-fluid">
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li class="nav-item dropdown">
-                                        <a href="" class="nav-link"><strong>Fecha: </strong><?php echo $fechaActual; ?></a>
-
-                                    </li>
-                                    <li class="nav-item">
-                                        <div id="relojnumerico" class="reloj" onload="cargarReloj()" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:white;letter-spacing: 5px;text-align: center;"></div>
-                                    </li>
-
-                                    <script>
-                                        function cargarReloj() {
-
-                                            // Haciendo uso del objeto Date() obtenemos la hora, minuto y segundo 
-                                            var fechahora = new Date();
-                                            var hora = fechahora.getHours();
-                                            var minuto = fechahora.getMinutes();
-                                            var segundo = fechahora.getSeconds();
-
-                                            // Variable meridiano con el valor 'AM' 
-                                            var meridiano = "AM";
-
-
-                                            // Si la hora es igual a 0, declaramos la hora con el valor 12 
-                                            if (hora == 0) {
-
-                                                hora = 12;
-
-                                            }
-
-                                            // Si la hora es mayor a 12, restamos la hora - 12 y mostramos la variable meridiano con el valor 'PM' 
-                                            if (hora > 12) {
-
-                                                hora = hora - 12;
-
-                                                // Variable meridiano con el valor 'PM' 
-                                                meridiano = "PM";
-
-                                            }
-
-                                            // Formateamos los ceros '0' del reloj 
-                                            hora = (hora < 10) ? "0" + hora : hora;
-                                            minuto = (minuto < 10) ? "0" + minuto : minuto;
-                                            segundo = (segundo < 10) ? "0" + segundo : segundo;
-
-                                            // Enviamos la hora a la vista HTML 
-                                            var tiempo = hora + ":" + minuto + ":" + segundo + " " + meridiano;
-                                            document.getElementById("relojnumerico").innerText = tiempo;
-                                            document.getElementById("relojnumerico").textContent = tiempo;
-
-                                            // Cargamos el reloj a los 500 milisegundos 
-                                            setTimeout(cargarReloj, 500);
-
-                                        }
-
-                                        // Ejecutamos la función 'CargarReloj' 
-                                        cargarReloj();
-                                    </script>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a href="paginaPrincipalGerente.php" class="navbar-brand">
+                            <img src="../image/PNG_LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                            <span class="brand-text font-weight-light">Stylush Anyeale</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:white;letter-spacing: 5px;text-align: center;"><strong>Fecha: </strong><?php echo $fechaActual; ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="relojnumerico" class="nav-link" onload="cargarReloj()" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:white;letter-spacing: 5px;text-align: center;"></a>
+                    </li>
+                </ul>
             </nav>
+
+
 
             <?php
             require_once '../controller/usuarioController.php';
@@ -237,7 +179,7 @@ $oCliente = new cliente();
                             </tr>
                             <tr>
                                 <td colspan="3"></td>
-                                <td><button type="button" class="btn btn-success" onclick="enviarFormulario()">Generar Factura</button></td>
+                                <td><button type="submit" class="btn btn-success">Generar Factura</button></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -264,9 +206,12 @@ $oCliente = new cliente();
         <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
         <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
-        <script src="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/demo.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/agregarReservacion.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/cajero.js"></script>
+
+
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/agregarReservacion.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/cajero.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/relogAutomatico.js"></script>
+
     </div>
 </body>
 
@@ -349,7 +294,7 @@ $oCliente = new cliente();
                 <div class="card-body table-responsive p-0">
                     <div class="card-tools">
                         <ul class="pagination pagination-sm float-right border border-dark" id="contenedorUL">
-                            
+
                         </ul>
                     </div>
                     <table class="table table-striped table-valign-middle">

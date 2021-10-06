@@ -65,14 +65,14 @@ function validarNumber(campo, span) {
     span.innerHTML = "Por favor, complete el campo vacio";
     return false;
   }
-  if (campo.value < campo.min) {
+  if (campo.value.length < campo.min) {
     $(campo).removeClass('is-valid');
     $(campo).addClass('is-invalid');
     span.style = "color:red; font-size: 10pt";
     span.innerHTML = "Debe tener un mínimo de " + campo.min + " números";
     return false;
   }
-  if (campo.value > campo.max) {
+  if (campo.value.length > campo.max) {
     $(campo).removeClass('is-valid');
     $(campo).addClass('is-invalid');
     span.style = "color:red; font-size: 10pt";
@@ -200,6 +200,8 @@ function validarPassword(campo, span) {
     span.innerHTML = "Por favor, La contraseña no debe tener espacios";
     return false;
   }
+
+  
 
   $(campo).removeClass('is-invalid');
   $(campo).addClass('is-valid');

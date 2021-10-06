@@ -232,9 +232,12 @@
             <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
             <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
             <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/reservacion.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/horarioEstilista.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/direccion.js"></script>
+
+            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/reservacion.js"></script>
+            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/horarioEstilista.js"></script>
+            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/direccion.js"></script>
+            <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
+
         </div>
     </body>
 

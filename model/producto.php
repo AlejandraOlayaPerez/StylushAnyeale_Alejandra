@@ -93,11 +93,19 @@ class producto
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
-        $where = "WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
+        // $where = "WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')"
+        // $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%') LIMIT 5 OFFSET $inicio"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
+
+        $where = "eliminado=false ";
+        if ($codigoProducto != "") {
+            $where .= "AND codigoProducto LIKE '%$codigoProducto%' ";
+        }
+        if ($nombreProducto != "") {
+            $where .= "AND  nombreProducto LIKE '%$nombreProducto%' ";
+        }
 
         $inicio = (($pagina - 1) * 5);
-        $sql = "SELECT * FROM producto $where LIMIT 5 OFFSET $inicio"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
-
+        $sql = "SELECT * FROM producto WHERE $where LIMIT 5 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -105,19 +113,52 @@ class producto
         return $result;
     }
 
-    function busquedaProducto($codigoProducto, $nombreProducto)
+    function productos($codigo, $nombre, $pagina)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $where = "eliminado=false ";
+        if ($codigo != "") {
+            $where .= " AND codigoProducto LIKE '%$codigo%'" ;
+        }
+        if ($nombre != "") {
+            $where .= " AND nombreProducto LIKE '%$nombre%' ";
+        }
+        
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT * FROM producto WHERE $where ORDER BY nombreProducto ASC LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
+        return $result;
+    }
+
+    function paginacionProducto($codigoProducto, $nombreProducto, $pagina)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
-
-        //se ejecuta la consulta en la base de datos
+        //Buscar numero de registro por filtros
+        $where = "eliminado=false ";
+        if ($codigoProducto != "") {
+            $where .= "AND codigoProducto LIKE '%$codigoProducto%' ";
+        }
+        if ($nombreProducto != "") {
+            $where .= "AND  nombreProducto LIKE '%$nombreProducto%' ";
+        }
+        $sql = "SELECT count(codigoProducto) as numRegistro FROM producto WHERE $where";
         $result = mysqli_query($conexion, $sql);
-        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        return $result;
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
     }
 
     function vistaProducto()
@@ -127,7 +168,7 @@ class producto
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql="SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.idProducto=p.IdProducto LIMIT 1) as fotoProducto FROM producto p WHERE p.eliminado=false";
+        $sql = "SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.idProducto=p.IdProducto LIMIT 1) as fotoProducto FROM producto p WHERE p.eliminado=false";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -165,25 +206,7 @@ class producto
         }
     }
 
-    function paginacionProducto($codigoProducto, $nombreProducto)
-    {
-        //Instancia clase conectar
-        $oConexion = new conectar();
-        //Establece conexion con la base de datos.
-        $conexion = $oConexion->conexion();
-        $where = "WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
-        $sql = "SELECT count(codigoProducto) as numRegistro FROM producto $where";
-        //se ejecuta la consulta en la base de datos
-        $result = mysqli_query($conexion, $sql);
-        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        foreach ($result as $registro) {
-            $this->numRegistro = $registro['numRegistro'];
-        }
-        //se ejecuta la consulta en la base de datos
-        $result = mysqli_query($conexion, $sql);
-        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        return $result;
-    }
+
 
     function mostrarProducto2($producto)
     {
@@ -342,5 +365,19 @@ class producto
             $this->IdProducto = $registro['IdProducto'];
             $this->cantidad = $registro['cantidad'];
         }
+    }
+    function busquedaProducto($codigoProducto, $nombreProducto)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
     }
 }

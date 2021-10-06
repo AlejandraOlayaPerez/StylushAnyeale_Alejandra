@@ -137,12 +137,12 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Nombre</label>
-                                                <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required>
+                                                <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                                 <span id="primerNombreSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Apellido</label>
-                                                <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required>
+                                                <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                                 <span id="primerApellidoSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
@@ -241,9 +241,11 @@ if (isset($_POST['documentoIdentidad']) != "") {
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/reservacion.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/horarioEstilista.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/direccion.js"></script>
+        
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/reservacion.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/horarioEstilista.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/direccion.js"></script>
+        
 
     </div>
 </body>

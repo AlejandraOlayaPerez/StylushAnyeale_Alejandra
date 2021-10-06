@@ -15,13 +15,6 @@ $oGestionController = new gestionController();
 $oRol = $oGestionController->consultarRolId($_GET['idRol']);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>DETALLE ROL</title>
-</head>
-
 <body>
     <div class="container-fluid">
 

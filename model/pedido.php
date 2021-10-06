@@ -52,56 +52,64 @@ class pedido
     }
 
     //esta funcion me permitira mostrar toda la informacion
-    function listarPedido($fecha, $recibido, $cancelado, $codigo)
+    function listarPedido($fecha, $recibido, $cancelado, $codigo, $pagina)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
-
-        //sentencia para seleccionar un pedido
-        $sql = "SELECT * FROM pedido ";
-
+       
+        $where = "1 ";
         if ($fecha != "") {
-            $sql .= " WHERE fechaPedido='$fecha' ";
+            $where .= " AND fechaPedido='$fecha' ";
         }
         if ($recibido != "") {
-            $sql .= " WHERE entregaPedido=$recibido ";
+            $where .= " AND entregaPedido=$recibido ";
         }
         if ($cancelado != "") {
-            $sql .= " WHERE eliminado=$cancelado ";
+            $where .= " AND eliminado=$cancelado ";
         }
         if ($codigo != "") {
-            $sql .= " WHERE (idPedido LIKE '%$codigo%') ";
+            $where .= " AND idPedido LIKE '%$codigo%' ";
         }
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT * FROM pedido WHERE $where ORDER BY fechaPedido DESC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
+        return $result;
     }
 
-    function paginacionPedido($pagina){
-        //se instancia el objeto conectar
-        $oConexion=new conectar();
-        //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
+    function paginacionPedido($fecha, $recibido, $cancelado, $codigo){
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
 
-        //Buscar numero de registro por filtros
-        $sql="SELECT count(idPedido) as numRegistro FROM pedido";
-        $result=mysqli_query($conexion, $sql);
-        foreach ($result as $registro){
-            $this->numRegistro=$registro['numRegistro'];
+        $where = "1 ";
+        if ($fecha != "") {
+            $where .= " AND fechaPedido='$fecha' ";
+        }
+        if ($recibido != "") {
+            $where .= " AND entregaPedido=$recibido ";
+        }
+        if ($cancelado != "") {
+            $where .= " AND eliminado=$cancelado ";
+        }
+        if ($codigo != "") {
+            $where .= " AND idPedido LIKE '%$codigo%' ";
         }
 
-        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
-        $inicio=(($pagina-1)*10);
-        $sql="SELECT * FROM pedido LIMIT 10 OFFSET $inicio";
-
-        //se ejecuta la consulta en la base de datos
-        $result=mysqli_query($conexion,$sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $sql = "SELECT count(idPedido) as numRegistro FROM pedido WHERE $where";
+        $result = mysqli_query($conexion, $sql);
+        // echo $sql;
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
     }
 
     //esta funcion me permite consultar un pedido

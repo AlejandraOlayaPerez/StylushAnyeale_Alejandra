@@ -109,16 +109,16 @@ class productoServicioController
 
         if ($result) {
             if ($this->imagenesProducto($idProducto)) {
-                echo $idPalabraClave = $_POST['tags'];
+                $idPalabraClave = $_POST['tags'];
                 $registro = $oTags->actualizarTagsProducto($idProducto, $idPalabraClave);
                 if ($registro) {
-                    echo "se registro correctamente";
-                    // header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
+                    // echo "se registro correctamente";
+                    header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
                 }
             }
         } else {
-            echo "error";
-            // header("location: ../view/nuevoProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error";
+            header("location: ../view/nuevoProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -145,7 +145,7 @@ class productoServicioController
                 $numImagen += 1;
                 //Movemos y validamos que el archivo se haya cargado correctamente
                 //El primer campo es el origen y el segundo el destino
-                unlink($target_path);
+                // unlink($target_path);
                 if (move_uploaded_file($source, $target_path)) {
                     require_once '../model/imagen.php';
                     $oImagen = new foto();
@@ -395,8 +395,12 @@ class productoServicioController
         require_once '../model/producto.php';
 
         $oProducto = new producto();
-        $result = $oProducto->buscarProducto($_GET['busquedaProducto']);
-        echo json_encode($result);
+        $paginacion = $oProducto->paginacionProducto($_GET['codigo'], $_GET['nombre'], $_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos=$oProducto->productos($_GET['codigo'], $_GET['nombre'],$_GET['pagina']);
+        echo json_encode($datos);
     }
 
     public function rangoFechas()

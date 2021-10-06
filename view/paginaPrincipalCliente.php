@@ -52,7 +52,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/"><i class="fas fa-home"></i> Inicio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -108,13 +108,13 @@ if (isset($_POST['correoElectronico']) != "") {
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="../image/maquillaje.jpg" style="height: 100%; width: auto;" class="d-block w-100" alt="...">
+                    <img src="../image/maquillaje.jpg" style="height: auto; width: 100%; max-width: 720px;" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../image/como-mantener-pelo-alisado-noche.jpg" style="height: 100%; width: auto;" class="d-block w-100" alt="...">
+                    <img src="../image/como-mantener-pelo-alisado-noche.jpg" style="height: auto; width: 100%;" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../image/manicura_pedicura.jpg" style="height: 100%; width: auto;" class="d-block w-100" alt="...">
+                    <img src="../image/manicura_pedicura.jpg" style="height: auto; width: 100%;" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -204,7 +204,7 @@ if (isset($_POST['correoElectronico']) != "") {
             <form action="" method="POST">
                 <div class="card" style="background-color: rgba(255, 255, 204, 255);">
                     <div class="card-body row">
-                        <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                        <div class="col-md-5 text-center d-flex align-items-center justify-content-center">
                             <div class="">
                                 <h1><strong>¡CONTACTANOS!</strong></h1>
                                 <p class="lead mb-1"><strong>Direccion: </strong> </p>
@@ -216,7 +216,7 @@ if (isset($_POST['correoElectronico']) != "") {
                         </div>
 
 
-                        <div class="col-7">
+                        <div class="col-md-7">
                             <div class="form-group">
                                 <label for="">Nombre</label>
                                 <input type="text" id="inputName" name="nombre" class="form-control" />

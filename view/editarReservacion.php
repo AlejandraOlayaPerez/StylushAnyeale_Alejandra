@@ -131,7 +131,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                             </div>
                                         </div>
                                         <br>
-                                        <a type="button" href="listarReservacion.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                        <a type="button" href="mostrarReservacion.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
                                         <button class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                                     </div>
                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -220,9 +220,10 @@ if (isset($_POST['documentoIdentidad']) != "") {
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
         <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/reservacion.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/horarioEstilista.js"></script>
-        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/direccion.js"></script>
+
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/reservacion.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/horarioEstilista.js"></script>
+        <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/direccion.js"></script>
 
     </div>
 </body>

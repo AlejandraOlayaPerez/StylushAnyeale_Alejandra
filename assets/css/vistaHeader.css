@@ -1,0 +1,83 @@
+body{
+    background-color: rgba(252, 252, 232, 0.123);
+}
+.cabecera{
+    background-color: #90AACB !important;
+    border-radius: 8px;
+}
+
+.titulo{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: black !important;
+}
+.titulo:hover
+{
+    text-decoration: underline #90AACB !important;
+    /* border-bottom: gray !important; */
+    /* font-weight: bold !important; */
+    /* text-transform: uppercase !important; */
+    color: #FEF1E6 !important;
+}
+
+#img{
+  opacity: .8
+}
+
+.cabeceraCard{
+    background-color: #F9D5A7 !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 300 !important;
+    color: black !important;
+}
+
+.bodyCard{
+    background-color: #f5e2ca !important;
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    /* opacity: 50%; */
+    font-family: 'Times New Roman', Times, serif !important;
+    color: black !important;
+}
+
+.desingSelect{
+    background-color: #F3F1E6 !important;
+    border-radius: 2px solid;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: black !important;
+}
+
+.input{
+    background-color: #F3F1E6 !important;
+    border-radius: 2px solid;
+    font-family: 'Times New Roman', Times, serif !important;
+    color: black !important;
+}
+
+.imgCard{
+    height: 200px;
+    border-radius: 2%;
+
+}
+
+.cardProducto{
+    background-color: #F3F1E6 !important;
+    height: 100px;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 600 !important;
+    color: black !important;
+}
+
+.piePagina{
+    background-color: #90AACB;
+    margin: 5px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    color: black;
+    height: 90%;
+}
+

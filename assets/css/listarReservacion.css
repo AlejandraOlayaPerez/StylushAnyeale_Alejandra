@@ -6,6 +6,7 @@ body{margin-top:20px;}
   padding: 32px;
   box-shadow: 0 0 30px rgba(31, 45, 61, 0.125);
   margin: 15px 0;
+  height: 365px;
   position: relative;
   z-index: 1;
   border-radius: 10px;
@@ -26,7 +27,7 @@ body{margin-top:20px;}
   width: 70px;
   height: 70px;
   line-height: 70px;
-  background: #fc5356;
+  background: black;
   color: #ffffff;
   text-align: center;
   border-radius: 50%;
@@ -52,7 +53,7 @@ body{margin-top:20px;}
   right: 0;
   border-radius: 10px;
   width: 0;
-  background: #20247b;
+  background: #ebebeb;
   z-index: -1;
   -moz-transition: ease all 0.35s;
   -o-transition: ease all 0.35s;
@@ -84,7 +85,7 @@ body{margin-top:20px;}
 }
 .section-title h2 {
     font-weight: 700;
-    color: #20247b;
+    color: black;
     font-size: 45px;
     margin: 0 0 15px;
     border-left: 5px solid #fc5356;

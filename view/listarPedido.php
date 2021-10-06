@@ -6,40 +6,20 @@ $oPedido = new pedido();
 $idUser = $_SESSION['idUser'];
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PEDIDO</title>
-</head>
-
 <body>
     <div class="container-fluid">
-        <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
-
-        <br>
         <div class="card">
             <div class="card-header">
-                <form id="formLimpiar" action="" method="GET">
+                <form id="formLimpiar" action="" method="POST">
                     <div class="row">
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedido por fecha: </label>
-                            <input type="date" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaPedido" name="fechaPedido" value="" onchange="consultaPedido()" >
-                            
+                            <input type="date" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaPedido" value="" onchange="consultaPedido()">
+
                         </div>
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos recibidos: </label>
-                            <select class="form-select" id="recibido" name="recibido" onchange="consultaPedido()">
+                            <select class="form-select" id="recibido" onchange="consultaPedido()">
                                 <option value="" disabled selected>Selecciones una opción</option>
                                 <option value="1">Pedidos recibidos</option>
                                 <option value="0">Pedidos no recibidos</option>
@@ -47,7 +27,7 @@ $idUser = $_SESSION['idUser'];
                         </div>
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos cancelados: </label>
-                            <select class="form-select" id="cancelado" name="cancelado" onchange="consultaPedido()">
+                            <select class="form-select" id="cancelado" onchange="consultaPedido()">
                                 <option value="" disabled selected>Selecciones una opción</option>
                                 <option value="1">Pedidos cancelados</option>
                                 <option value="0">Pedidos sin cancelar</option>
@@ -55,13 +35,21 @@ $idUser = $_SESSION['idUser'];
                         </div>
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos por codigo: </label>
-                            <input type="number" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="codigo" name="codigo" placeholder="Digite codigo producto" onkeyup="consultaPedido()">
+                            <input type="number" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="codigo" placeholder="Digite codigo producto" onkeyup="consultaPedido()">
                         </div>
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-6">
                             <input type="button" class="btn btn-light" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 float-right">
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm float-right border border-dark" id="contenedorUL">
+
+                            </ul>
                         </div>
                     </div>
                 </form>
