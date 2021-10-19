@@ -72,6 +72,9 @@ function buscarProducto() {
         for (i = 0; i < producto.length; i++) {
             productoBusqueda(producto[i]);
         }
+        if (producto.length == 0) {
+            crearTr(5, "productosBusqueda");
+        }
     })
 }
 

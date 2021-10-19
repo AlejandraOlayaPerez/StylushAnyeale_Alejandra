@@ -7,30 +7,22 @@ $oCategoria = new categoria();
 
 <body>
     <div class="container-fluid">
-        <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
         <div class="card">
-            <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                <label class="card-title" style="-webkit-text-fill-color: black;">NUEVA CATEGORIA</label>
+            <div class="card-header cardHeader">
+                <label class="card-title" style="-webkit-text-fill-color: black;">Nueva Categoria</label>
             </div>
             <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
                 <input type="text" name="funcion" value="nuevaCategoria" style="display: none;">
-                <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                <div class="card-body cardBody">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Categoria</label>
+                            <label for="" class="form-label">Nueva categoria</label>
                             <input class="form-control" type="text" id="categoria" name="nombreCategoria" placeholder="Categoria" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="categoriaSpan"></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                <div class="card-footer cardFooter">
                     <a href="tags.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Categoria</button>
                 </div>
@@ -42,7 +34,7 @@ $oCategoria = new categoria();
 </html>
 
 <?php require_once 'footer.php'; ?>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
     function validarPaginaFinal() {

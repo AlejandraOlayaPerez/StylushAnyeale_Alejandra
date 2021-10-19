@@ -4,28 +4,29 @@ require_once 'conexionDB.php';
 class servicio
 {
     public $idServicio = 0;
+    public $idProducto = "";
+    public $idCategoria = "";
     public $codigoServicio = "";
     public $nombreServicio = "";
     public $detalleServicio = "";
-    PUBLIC $tiempoDuracion = "";
+    public $tiempoDuracion = "";
     public $cantidadUsar = "";
     public $costo = "";
     public $numRegistro = "";
     public $numPagina = "";
 
 
-    function nuevoServicio()
+    function nuevoServicio($idServicio)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO servicios (IdServicio, codigoServicio, nombreServicio, detalleServicio, tiempoDuracion, costo, eliminado)
-        VALUES ($this->idServicio, '$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->tiempoDuracion, $this->costo, false)";
+        $sql = "INSERT INTO servicios (IdServicio, idCategoria, codigoServicio, nombreServicio, detalleServicio, tiempoDuracion, costo, eliminado)
+        VALUES ($idServicio, $this->idCategoria, '$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->tiempoDuracion, $this->costo, false)";
 
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -36,7 +37,7 @@ class servicio
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM servicios WHERE IdServicio='$idServicio'";
+        $sql = "SELECT * FROM servicios WHERE IdServicio=$idServicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -104,6 +105,68 @@ class servicio
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function eliminarProductoServicio($idServicio)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "UPDATE detalle SET eliminado=1 WHERE IdServicio=$idServicio";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function consultarProductosIdServicio($idServicio, $idProducto){
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM detalle WHERE IdServicio=$idServicio AND idProducto=$idProducto";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        foreach ($result as $registro) {
+            //se registra la consulta en los parametros
+            $this->idProducto = $registro['idProducto'];
+            $this->codigoProducto = $registro['codigoProducto'];
+            $this->producto = $registro['producto'];
+            $this->cantidad = $registro['cantidad'];
+        }
+    }
+
+    function guardarProducto($idServicio, $idProducto,  $codigoProducto,  $producto, $cantidad, $precio)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO detalle (idProducto, IdServicio, codigoProducto, producto, cantidad, precio) 
+        VALUES ($idProducto, $idServicio, '$codigoProducto', '$producto', $cantidad, $precio)";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        echo $sql;
+        return $result;
+    }
+
+    function actualizarCantidad($cantidad, $idServicio, $idProducto)
+    {
+        $oConexion = new conectar();
+        $conexion = $oConexion->conexion();
+
+        $sql = "UPDATE detalle SET eliminado=false, cantidad=$cantidad WHERE IdServicio=$idServicio AND idProducto=$idProducto";
+
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
     function consultarServicio($idServicio)
     {
         //se instancia el objeto conectar
@@ -120,6 +183,7 @@ class servicio
         foreach ($result as $registro) {
             //se registra la consulta en los parametros
             $this->idServicio = $registro['IdServicio'];
+            $this->idCategoria = $registro['idCategoria'];
             $this->codigoServicio = $registro['codigoServicio'];
             $this->nombreServicio = $registro['nombreServicio'];
             $this->detalleServicio = $registro['detalleServicio'];
@@ -165,7 +229,23 @@ class servicio
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
+        return $result;
+    }
+
+    function actualizarCategoriaServicio()
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base de datos
+        $conexion = $oConexion->conexion();
+        //consulta para actualizar el registro
+
+        //sentencia para actualizar un producto
+        $sql = "UPDATE servicios SET idCategoria=$this->idCategoria
+        WHERE IdServicio=$this->idServicio";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
         return $result;
     }
 
@@ -181,6 +261,47 @@ class servicio
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function paginacionServicio($servicio)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $where = "eliminado=false ";
+        if ($servicio != "") {
+            $where .= " AND nombreServicio LIKE '%$servicio%' ";
+        }
+
+        $sql = "SELECT count(codigoServicio) as numRegistro FROM servicios WHERE $where";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    function servicios($servicio, $pagina)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $where = "eliminado=false ";
+        if ($servicio != "") {
+            $where .= " AND nombreServicio LIKE '%$servicio%' ";
+        }
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT * FROM servicios WHERE $where ORDER BY nombreServicio ASC LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
     }
 }

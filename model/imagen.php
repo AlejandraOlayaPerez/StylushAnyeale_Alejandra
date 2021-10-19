@@ -115,6 +115,21 @@ class foto
         return $result;
     }
 
+    public function insertarImagenesServicio()
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO detalleFoto(idProducto, IdServicios, idUser, idCliente, fotoProducto)
+     VALUES (NULL, $this->idServicio, NULL, NULL, '$this->fotoProducto')";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
     public function consultarImagenesIdProducto($idProducto)
     {
         //se instancia el objeto conectar

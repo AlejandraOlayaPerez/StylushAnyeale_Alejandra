@@ -9,7 +9,7 @@ $idUser = $_SESSION['idUser'];
 <body>
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header cardHeader">
                 <form id="formLimpiar" action="" method="POST">
                     <div class="row">
                         <div class="col-md-3">
@@ -41,26 +41,29 @@ $idUser = $_SESSION['idUser'];
                     <br>
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="button" class="btn btn-light" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
+                            <input type="button" class="btn btn-info" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
                         </div>
                     </div>
 
-                    <div class="col-md-6 float-right">
-                        <div class="card-tools">
-                            <ul class="pagination pagination-sm float-right border border-dark" id="contenedorUL">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-tools">
+                                <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
 
-                            </ul>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
+        <div class="card-body table-responsive p-0" style="height:550px;">
+                <table class="table colorestabla">
                     <thead>
-                        <tr style="background-color: rgb(249, 201, 242);">
+                        <tr class="estiloTr">
                             <th>Codigo Pedido</th>
                             <th>Fecha Pedido</th>
                             <th>¿Pedido recibido?</th>
@@ -80,23 +83,20 @@ $idUser = $_SESSION['idUser'];
 </html>
 
 <?php require_once 'footer.php'; ?>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/listarPedido.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/eliminar.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/limpiarFormFiltros.js"></script>
+<?php require_once 'linkjs.php'; ?>
 
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h5 class="modal-title" id="Label">Pedido recibido</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <p>¿Su pedido fue recibido?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer estiloModalBody">
                 <form action="../controller/pedidoController.php" method="GET">
                     <input type="text" name="idPedido" id="validarPedido" style="display: none;">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
@@ -114,14 +114,14 @@ $idUser = $_SESSION['idUser'];
 <div class="modal fade" id="cancelarPedido" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h5 class="modal-title" id="Label">Cancelar Pedido</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <p>¿Desea cancelar el pedido?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer estiloModalBody">
                 <form action="../controller/pedidoController.php" method="GET">
                     <input type="text" name="idPedido" id="pedido" style="display: none;">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">

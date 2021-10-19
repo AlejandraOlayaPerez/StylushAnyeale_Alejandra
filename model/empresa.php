@@ -27,6 +27,47 @@ class empresa
         return $result;
     }
 
+    public function paginacionEmpresa($empresa, $pagina){
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        //Buscar numero de registro por filtros
+        $where = "eliminado=false ";
+        if ($empresa != "") {
+            $where .= "AND nombreEmpresa LIKE '%$empresa%' ";
+        }
+
+        $sql = "SELECT count(idEmpresa) as numRegistro FROM empresa WHERE $where";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    public function empresa($empresa, $pagina){
+          //se instancia el objeto conectar
+          $oConexion = new conectar();
+          //se establece conexión con la base datos
+          $conexion = $oConexion->conexion();
+  
+          $where = "eliminado=false ";
+        if ($empresa != "") {
+            $where .= "AND nombreEmpresa LIKE '%$empresa%' ";
+        }
+  
+          $inicio = (($pagina - 1) * 10);
+          $sql = "SELECT * FROM empresa WHERE $where ORDER BY nombreEmpresa ASC LIMIT 10 OFFSET $inicio";
+  
+          //se ejecuta la consulta en la base de datos
+          $result = mysqli_query($conexion, $sql);
+          $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+          // echo $sql;
+          return $result;
+    }
+
     public function buscarEmpresa($empresa)
     {
         //instancia la clase conectar

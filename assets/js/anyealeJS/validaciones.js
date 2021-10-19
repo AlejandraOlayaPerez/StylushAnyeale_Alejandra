@@ -65,14 +65,14 @@ function validarNumber(campo, span) {
     span.innerHTML = "Por favor, complete el campo vacio";
     return false;
   }
-  if (campo.value.length < campo.min) {
+  if (campo.value < campo.min) {
     $(campo).removeClass('is-valid');
     $(campo).addClass('is-invalid');
     span.style = "color:red; font-size: 10pt";
     span.innerHTML = "Debe tener un mínimo de " + campo.min + " números";
     return false;
   }
-  if (campo.value.length > campo.max) {
+  if (campo.value > campo.max) {
     $(campo).removeClass('is-valid');
     $(campo).addClass('is-invalid');
     span.style = "color:red; font-size: 10pt";

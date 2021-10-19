@@ -113,9 +113,8 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
     <br>
     <br>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">

@@ -1,9 +1,9 @@
 <?php
+session_start(); //¡FUNDAMENTAL!
 require_once '../controller/correoController.php';
-
+require_once 'linkHead.php';
 if (isset($_POST['correoElectronico']) != "") {
-    echo $_POST['correoElectronico'];
-
+    $_POST['correoElectronico'];
     $oCorreo = new correo();
     $correoDestino = "stylushAnyeale@gmail.com";
     $nombre = $_POST['nombre'];
@@ -13,48 +13,22 @@ if (isset($_POST['correoElectronico']) != "") {
     $oCorreo = $oCorreo->enviarCorreoCliente($correoDestino, $nombre, $correoElectronico, $asunto, $mensaje);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
+    <?php require_once 'linkHead.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stylush Anyeale</title>
-
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/all.min.css" rel="stylesheet">
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/carousel.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/ionicons.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/css-font.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/"><i class="fas fa-home"></i> Inicio</a>
+                <a class="navbar-brand" href="/anyeale_proyecto/StylushAnyeale_Alejandra/"><i class="fas fa-home"></i> Inicio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -66,7 +40,6 @@ if (isset($_POST['correoElectronico']) != "") {
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
                     </ul>
                     <?php
-                    session_start(); //¡FUNDAMENTAL!
                     if (isset($_SESSION['idCliente'])) {
                     ?>
                         <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-right: 60px;">
@@ -108,13 +81,13 @@ if (isset($_POST['correoElectronico']) != "") {
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="../image/maquillaje.jpg" style="height: auto; width: 100%; max-width: 720px;" class="d-block w-100" alt="...">
+                    <img src="../image/maquillaje.jpg" style="height: auto; max-height: 500px; width: 90% !important;" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../image/como-mantener-pelo-alisado-noche.jpg" style="height: auto; width: 100%;" class="d-block w-100" alt="...">
+                    <img src="../image/como-mantener-pelo-alisado-noche.jpg" style="height: auto; max-height: 500px; width: 90% !important;" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="../image/manicura_pedicura.jpg" style="height: auto; width: 100%;" class="d-block w-100" alt="...">
+                    <img src="../image/manicura_pedicura.jpg" style="height: auto; max-height: 500px; width: 90% !important;" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -207,10 +180,10 @@ if (isset($_POST['correoElectronico']) != "") {
                         <div class="col-md-5 text-center d-flex align-items-center justify-content-center">
                             <div class="">
                                 <h1><strong>¡CONTACTANOS!</strong></h1>
-                                <p class="lead mb-1"><strong>Direccion: </strong> </p>
-                                <p class="lead mb-1"><strong>Telefono: </strong> </p>
+                                <p class="lead mb-1"><strong>Direccion: </strong> Carr 18 N 24 A 34</p>
+                                <p class="lead mb-1"><strong>Telefono: </strong> 3204995486</p>
                                 <p class="lead mb-1"><strong>Correo Electronico: </strong> StylushAnyeale@gmail.com </p>
-                                <p class="lead mb-2"><a href="https://www.instagram.com/__anyeale/?hl=es"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/channel/UCAIAHNzp71toK21oTYZtN1Q"><i class="fab fa-youtube"></i></a> <a href=""><i class="fab fa-whatsapp"></i></a></p>
+                                <p class="lead mb-2"><a href="https://www.instagram.com/__anyeale/?hl=es"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/channel/UCAIAHNzp71toK21oTYZtN1Q"><i class="fab fa-youtube"></i></a> <a href="https://wa.link/nc743x"><i class="fab fa-whatsapp"></i></a></p>
 
                             </div>
                         </div>
@@ -242,12 +215,7 @@ if (isset($_POST['correoElectronico']) != "") {
             </form>
         </footer>
     </main>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/dist/js/adminlte.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <?php require_once 'linkFooter.php'; ?>
 </body>
 
 </html>

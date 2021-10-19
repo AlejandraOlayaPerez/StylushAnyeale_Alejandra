@@ -1,4 +1,5 @@
 <?php
+require_once 'linkHead.php';
 //si no esta definida o no tiene valor e redirige al login
 //en caso contrario no hace nada
 $url = str_replace("/anyeale_proyecto/StylushAnyeale_Alejandra/", "", $_SERVER['REQUEST_URI']);
@@ -24,7 +25,6 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 <html lang="en">
 
 <head>
-  <?php require_once 'linkHead.php'; ?>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">

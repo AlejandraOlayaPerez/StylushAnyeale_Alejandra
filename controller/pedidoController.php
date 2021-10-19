@@ -56,6 +56,9 @@ switch ($funcion) {
     case "buscarProducto":
         $oPedidoController->buscarProducto();
         break;
+    case "listarEmpresa":
+        $oPedidoController->listarEmpresa();
+        break;
 }
 
 class pedidoController
@@ -78,13 +81,12 @@ class pedidoController
 
         require_once '../model/producto.php';
         $oProducto = new producto();
-
         $oProducto->idPedido = $_GET['idPedido'];
-        $oProducto->traerIdCantidad();
-        $oProducto->IdProducto;
-        $oProducto->cantidad;
+        $cantidad = $oProducto->traerIdCantidad();
 
-        $resultSuma = $oProducto->sumarPedido($oProducto->cantidad, $oProducto->IdProducto);
+        foreach ($cantidad as $registro) {
+            $resultSuma = $oProducto->sumarPedido($registro['cantidad'], $registro['IdProducto']);
+        }
 
         $oPedido = new pedido();
         $oPedido->idPedido = $_GET['idPedido'];
@@ -218,10 +220,10 @@ class pedidoController
         $oSeguimiento->seguimientoEditarPedido($fechaActual, $horaActual);
 
         if ($result) {
-            header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido");
+            header("location: ../view/formularioEditarPedido.php?idPedido=$oPedido->idPedido " . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido" . "&ventana=informacion");
             // echo "actualizo";
         } else {
-            header("location: ../view/formularioEditarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/formularioEditarPedido.php?idPedido=$oPedido->idPedido " . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=informacion");
             // echo "error";
         }
     }
@@ -237,7 +239,7 @@ class pedidoController
         //recibimos arreglo de los idProducto
         $idProducto = $_GET['productos'];
         //recibimos arreglo de cantidad
-        print_r($cantidad = $_GET['cantidadProducto']);
+        ($cantidad = $_GET['cantidadProducto']);
 
         //instanciamos pedido
         require_once '../model/pedido.php';
@@ -273,18 +275,18 @@ class pedidoController
                 if (!$result) {
                     //mostramos mensaje
                     // echo "error al registrar los productos";
-                    header("location: ../view/formularioEditarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                    header("location: ../view/formularioEditarPedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
                     //rompemos for
                     break;
                 } else {
                     //se ejecuto correctamente
-                    header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+pedido");
+                    header("location: ../view/formularioEditarPedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+pedido" . "&ventana=producto");
                     // echo "se actualizo correctamente";
                 }
             }
         } else {
             // echo "error eliminado producto del pedido";
-            header("location: ../view/formularioEditarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/formularioEditarPedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
         }
     }
 
@@ -297,15 +299,16 @@ class pedidoController
         return $oPedido;
     }
 
-    public function buscarPedido(){
+    public function buscarPedido()
+    {
         require_once '../model/pedido.php';
 
-        $oPedido=new pedido();
+        $oPedido = new pedido();
         $paginacion = $oPedido->paginacionPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo']);
         echo $paginacion;
         $delimitador = "®";
         echo $delimitador;
-        $producto=$oPedido->listarPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo'], $_GET['pagina']);
+        $producto = $oPedido->listarPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo'], $_GET['pagina']);
         echo json_encode($producto);
     }
 
@@ -328,6 +331,14 @@ class pedidoController
         $oDetalle = new detalle();
         $result = $oDetalle->consultarProductosIdPedido($idPedido);
         return $result;
+    }
+
+    public function consultarPorPedidoProducto($idPedido)
+    {
+        require_once '../model/detalle.php';
+
+        $oDetalle = new detalle();
+        return $oDetalle->consultarPorPedidoProducto($idPedido);
     }
 
     public function consultarEmpresaId($idEmpresa)
@@ -354,11 +365,11 @@ class pedidoController
         $oMensaje = new mensajes();
 
         if ($result) {
-            // header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+actualizado+correctamente+la+empresa");
-            echo "actualizo";
+            header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+empresa");
+            // echo "actualizo";
         } else {
-            // header("location: ../view/listarEmpresa.php?tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-            echo "error";
+            header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error";
         }
     }
 
@@ -421,8 +432,12 @@ class pedidoController
         require_once '../model/producto.php';
 
         $oProducto = new producto();
-        $result = $oProducto->mostrarProducto2($_GET['producto']);
-        echo json_encode($result);
+        $paginacion = $oProducto->paginacionProductoPedido($_GET['producto'], $_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos = $oProducto->productoPedido($_GET['producto'], $_GET['pagina']);
+        echo json_encode($datos);
     }
 
     public function traerProductos()
@@ -432,5 +447,18 @@ class pedidoController
         $oDetalle = new detalle();
         $result = $oDetalle->consultarProductosIdPedido($_POST['idPedido']);
         echo json_encode($result);
+    }
+
+    public function listarEmpresa()
+    {
+        require_once '../model/empresa.php';
+
+        $oEmpresa = new empresa();
+        $paginacion = $oEmpresa->paginacionEmpresa($_GET['empresa'], $_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos = $oEmpresa->empresa($_GET['empresa'], $_GET['pagina']);
+        echo json_encode($datos);
     }
 }

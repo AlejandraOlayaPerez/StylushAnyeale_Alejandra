@@ -28,6 +28,21 @@ class detalle
         return $result;
     }
 
+    function guardarServicio($idServicio, $idProducto,  $codigoProducto,  $producto, $cantidad, $precio)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO detalle (idProducto, idPedido, idServicio, codigoProducto, producto, cantidad, precio) 
+    VALUES ($idProducto, NULL, $idServicio, '$codigoProducto', '$producto', $cantidad, $precio)";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
 
     function guardarProductoServicio($idServicio, $idProducto,  $codigoProducto,  $producto, $cantidad, $precio)
     {
@@ -130,6 +145,27 @@ class detalle
         return $result;
     }
 
+    // function consultarProductosIdServicio($idServicio, $idProducto){
+    //     //Instancia clase conectar
+    //     $oConexion = new conectar();
+    //     //Establece conexion con la base de datos.
+    //     $conexion = $oConexion->conexion();
+
+    //     $sql = "SELECT * FROM detalle WHERE IdServicio=$idServicio AND idProducto=$idProducto";
+
+    //     //se ejecuta la consulta
+    //     $result = mysqli_query($conexion, $sql);
+    //     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    //     foreach ($result as $registro) {
+    //         //se registra la consulta en los parametros
+    //         $this->idProducto = $registro['idProducto'];
+    //         $this->codigoProducto = $registro['codigoProducto'];
+    //         $this->producto = $registro['producto'];
+    //         $this->cantidad = $registro['cantidad'];
+    //     }
+    // }
+
     function listarProductoPorPedido($idPedido)
     {
         //Instancia clase conectar
@@ -160,6 +196,20 @@ class detalle
         return $result;
     }
 
+    function consultarPorPedidoProducto($idPedido)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM detalle WHERE idPedido=$idPedido";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
     function consultarProductosIdServicio($idServicio)
     {
         //Instancia clase conectar
@@ -167,7 +217,7 @@ class detalle
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM detalle WHERE idServicio=$idServicio AND eliminado=false";
+        $sql = "SELECT * FROM detalle WHERE IdServicio=$idServicio AND eliminado=false";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);

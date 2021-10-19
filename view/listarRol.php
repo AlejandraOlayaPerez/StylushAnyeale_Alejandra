@@ -16,15 +16,6 @@ $oRol = new Rol();
     <div class="container-fluid">
 
         <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
-
-        <?php
         /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,
                 el valor preterminado sera 1*/
         if (isset($_GET['page'])) $pagina = $_GET['page'];
@@ -97,9 +88,8 @@ $oRol = new Rol();
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <!-- Modal -->
 <div class="modal fade" id="eliminarFormulario2" tabindex="-1" aria-labelledby="Label" aria-hidden="true">

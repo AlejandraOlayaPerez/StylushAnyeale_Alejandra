@@ -112,6 +112,8 @@ class pedido
         return $this->numRegistro;
     }
 
+    
+
     //esta funcion me permite consultar un pedido
     function consultarPedido($idPedido)
     {
@@ -132,6 +134,7 @@ class pedido
             $this->idPedido = $registro['idPedido'];
             $this->documentoIdentidad = $registro['documentoIdentidad'];
             $this->responsablePedido = $registro['responsablePedido'];
+            $this->idEmpresa = $registro['idEmpresa'];
             $this->Nit = $registro['Nit'];
             $this->empresa = $registro['empresa'];
             $this->direccion = $registro['direccion'];
@@ -155,6 +158,7 @@ class pedido
         echo $sql;
         return $result;
     }
+    
 
     function eliminarProductoPedido($idPedido)
     {
@@ -169,20 +173,6 @@ class pedido
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
-
-    // function actualizarEliminadoProducto($idPedido)
-    // {
-    //     //se instancia el objeto conectar
-    //     $oConexion = new conectar();
-    //     //se establece conexión con la base datos
-    //     $conexion = $oConexion->conexion();
-
-    //     $sql = "UPDATE detalle SET eliminado=0 WHERE idPedido=$idPedido";
-
-    //     //se ejecuta la consulta
-    //     $result = mysqli_query($conexion, $sql);
-    //     return $result;
-    // }
 
     function consultarProductosIdPedido($idPedido, $idProducto)
     {

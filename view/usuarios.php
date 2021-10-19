@@ -1,11 +1,3 @@
-<?php
-require_once '../controller/mensajeController.php';
-
-if (isset($_GET['mensaje'])) {
-    $oMensaje = new mensajes();
-    echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-}
-?>
 
 <?php
 /*Isset si al variable page esta definida y su valor es difeente a nulo, si es nulo,

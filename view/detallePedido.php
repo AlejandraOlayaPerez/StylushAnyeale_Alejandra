@@ -1,108 +1,127 @@
 <?php
 require_once 'headPagina.php';
-require_once '../model/pedido.php';
 require_once '../controller/pedidoController.php';
-
-$idPedido = $_GET['idPedido'];
-
 $oPedidoController = new pedidoController();
-$oPedido = $oPedidoController->consultarPedidoId($idPedido);
+$oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DETALLE PEDIDO</title>
+    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/detallePedido.min.css" type="text/css">
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="card-header" style="background-color: rgb(249, 201, 242);">
-            <label class="card-title" style="-webkit-text-fill-color: black;">DETALLE PEDIDO</label>
+        <div class="page-header">
+            <h1 class="page-title tituloPedido">
+                Pedido
+                <small class="page-info">
+                    <i class="fas fa-arrow-right"></i>
+                    <?php echo $oPedido->idPedido; ?>
+                </small>
+            </h1>
+            <a class="btn btn-info" onclick="javascript:window.print()">
+                <i class="fas fa-print"></i>
+               Imprimir
+            </a>
         </div>
-        <div class="card card-ligth">
-            <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+
+
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1">
                 <div class="row">
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label>Fecha pedido: </label>
-                        <input class="form-control" type="text" value="<?php echo $oPedido->fechaPedido; ?>" disabled>
+                    <div class="col-md-12">
+                        <div class="text-center tituloInformacion">
+                            <i class="fas fa-info fa-2x text-info-m2 mr-1"></i>
+                            <span class="text-default-d3">Informacion del pedido</span>
+                        </div>
                     </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label>documentoIdentidad: </label>
-                        <input class="form-control" type="text" value="<?php echo $oPedido->documentoIdentidad; ?>" disabled>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            <span class="text-md textPedido align-middle">Fecha: </span>
+                            <span class="textPedido2 align-middle"><?php echo $oPedido->fechaPedido; ?></span>
+                        </div>
+                        <div>
+                            <span class="text-md textPedido align-middle">Documento: </span>
+                            <span class="textPedido2 align-middle"><?php echo $oPedido->documentoIdentidad; ?></span>
+                        </div>
+                        <div>
+                            <span class="text-md textPedido align-middle">Responsable: </span>
+                            <span class="textPedido2 align-middle"><?php echo $oPedido->responsablePedido; ?></span>
+                        </div>
                     </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label>Responsable Pedido: </label>
-                        <input class="form-control" type="text" value="<?php echo $oPedido->responsablePedido; ?>" disabled>
+
+                    <div class="col-md-6 align-self-start d-md-flex justify-content-end">
+                        <div>
+                            <div>
+                                <span class="text-md textPedido align-middle">Nit: </span>
+                                <span class="textPedido2 align-middle"><?php echo $oPedido->Nit; ?></span>
+                            </div>
+                            <div>
+                                <span class="text-md textPedido align-middle">Empresa: </span>
+                                <span class="textPedido2 align-middle"><?php echo $oPedido->empresa; ?></span>
+                            </div>
+                            <div>
+                                <span class="text-md textPedido align-middle">Nit: </span>
+                                <span class="textPedido2 align-middle"><?php echo $oPedido->direccion; ?></span>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label>NIT Empresa: </label>
-                        <input class="form-control" type="text" value="<?php echo $oPedido->Nit; ?>" disabled>
+                </div>
+
+                <br>
+
+                <div class="card">
+                    <div class="card-body table-responsive p-0" style="height: 200px;">
+                        <table class="table">
+                            <thead class="tablaHead">
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tablatbody">
+                                <?php
+                                $consulta = $oPedidoController->consultarPorPedidoProducto($_GET['idPedido']);
+                                foreach ($consulta as $registro) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $registro['codigoProducto']; ?></td>
+                                        <td><?php echo $registro['producto']; ?></td>
+                                        <td><?php echo $registro['cantidad']; ?></td>
+                                        <td><?php echo $registro['precio']; ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label>Empresa: </label>
-                        <input class="form-control" type="text" value="<?php echo $oPedido->empresa; ?>" disabled>
-                    </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label>Direccion: </label>
-                        <input class="form-control" type="text" value="<?php echo $oPedido->direccion; ?>" disabled>
+                </div>
+
+                <div class="row" style="height: 200px;">
+                    <div class="col-md-6">
+                        <span class="text-md textPedido align-middle">Informacion de pago </span>
+                        <div>
+                            <span class="text-md textPedido align-middle">Total: </span>
+                            <span class="textPedido2 align-middle">$</span>
+                        </div>
+                        <div>
+                            <span class="text-md textPedido align-middle">SubTotal: </span>
+                            <span class="textPedido2 align-middle">$</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                <a href="pedidoPDF.php?idPedido=<?php echo $_GET['idPedido']; ?>" class="btn btn-info"><i class="fas fa-print"></i> Imprimir Pedido</a>
-            </div>
         </div>
-
-        <div class="card">
-            <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                    <thead>
-                        <tr style="background-color: rgb(249, 201, 242);">
-                            <th>Codigo</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        require_once '../model/detalle.php';
-                        $oPedidoController = new pedidoController();
-                        $oDetalle = $oPedidoController->consultarProductosIdPedido($idPedido);
-                        if (count($oDetalle) > 0) {
-                            foreach ($oDetalle as $registro) {
-                        ?>
-                                <tr style="background-color: rgba(255, 255, 204, 255);">
-                                    <td><?php echo $registro['codigoProducto']; ?></td>
-                                    <td><?php echo $registro['producto']; ?></td>
-                                    <td><?php echo $registro['cantidad']; ?></td>
-                                    <td><?php echo $registro['precio']; ?></td>
-                                </tr>
-                            <?php }
-                        } else { //en caso de que no tengo informacion, mostrara un mensaje
-                            ?>
-                            <!-- no hay ningun registro -->
-                            <tr>
-                                <td colspan="4" style="font-family: 'Times New Roman', Times, serif; text-align: center; font-weight: 600;">No hay productos en este pedido</td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <a href="listarPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="listarPedido.php" style="height: 50px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
+    <?php require_once 'linkjs.php'; ?>
 </body>
-
-</html>
-
-<?php
-require_once 'footer.php';
-?>

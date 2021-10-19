@@ -13,14 +13,7 @@ if (isset($_GET['ventana'])) { //
     $ventana = "calendario";
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PERFIL</title>
-</head>
 
 <body>
     <div class="container-fluid">
@@ -54,15 +47,6 @@ if (isset($_GET['ventana'])) { //
                 </div>
             </div>
 
-            <?php
-            require_once '../controller/mensajeController.php';
-
-            if (isset($_GET['mensaje'])) {
-                $oMensaje = new mensajes();
-                echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-            }
-            ?>
-
             <div class="row">
                 <div class="col-5 col-sm-3">
                     <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
@@ -95,6 +79,5 @@ if (isset($_GET['ventana'])) { //
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>

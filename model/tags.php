@@ -1,53 +1,10 @@
 <?php
 require_once 'conexionDB.php';
 
-class tags{
-    public $idPalabrasClaves=0;
-    public $idProducto="";
-    public $IdServicio="";
-    public $palabrasClaves="";
-
-    function actualizarTagsProducto($idProducto, $tags){
-        $result="";
-       foreach($tags as $registro){
-           $this->tags=$registro;
-           $result=$this->crearTags($idProducto);
-           if(!$result) 
-           break;
-       }
-       return $result;
-   }
-
-   function crearTags($idProducto)
-    {
-        //instancia la clase conectar
-        $oConexion = new conectar();
-        //se establece la conexión con la base datos
-        $conexion = $oConexion->conexion();
-
-        $sql = "INSERT INTO palabrasClaves (idProducto, IdServicios, palabraClave) 
-        VALUES ($idProducto, NULL, '$this->tags')";
-
-        $result = mysqli_query($conexion, $sql);
-        echo $sql;
-        return $result;
-    }
-
-    function actualizarTagsProductos($idProducto){
-        //se instancia el objeto conectar
-        $oConexion=new conectar();
-        //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
-
-        //sentencia que permite actualizar un  cargo
-        $sql="UPDATE palabrasClaves SET idProducto=$idProducto
-        WHERE idPalabraClave=$this->idPalabrasClaves";
-            
-        //se ejecuta la consulta
-        $result=mysqli_query($conexion,$sql);
-        echo $sql;
-        return $result;
-    }
+class tags
+{
+    public $idTags = 0;
+    public $tags = "";
 
     function nuevaTags()
     {
@@ -56,66 +13,96 @@ class tags{
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO palabrasClaves (idProducto, IdServicios, palabraClave) 
-        VALUES (NULL, NULL, '$this->palabraClave')";
+        $sql = "INSERT INTO tags (tags, eliminado) 
+        VALUES ('$this->tags', false)";
 
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
 
-    function listarTags($pagina){
-        //se instancia el objeto conectar
-        $oConexion=new conectar();
-        //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
+    function consultarTagsIdServicio($idServicio)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
 
-        //Buscar numero de registro por filtros
-        $sql="SELECT count(idPalabraClave) as numRegistro FROM palabrasclaves WHERE eliminado=false;";
-        $result=mysqli_query($conexion, $sql);
-        foreach ($result as $registro){
-            $this->numRegistro=$registro['numRegistro'];
-        }
-
-        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
-        $inicio=(($pagina-1)*10);
-        $sql="SELECT * FROM palabrasclaves WHERE eliminado=false LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT * FROM palabrasclaves p RIGHT JOIN tags t ON t.idTags=p.idTags and p.IdServicios=$idServicio";
 
         //se ejecuta la consulta en la base de datos
-        $result=mysqli_query($conexion,$sql);
+        $result = mysqli_query($conexion, $sql);
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function mostrarTags($tags){
-        //se instancia el objeto conectar
-        $oConexion=new conectar();
-        //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
+    function consultarTagsIdProducto($idProducto)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
 
-        if ($tags != "") {
-            $sql = "SELECT * FROM palabrasclaves WHERE eliminado=false AND  (palabraClave LIKE '%$tags%')"; //FUNCION PARA BUSCAR TANTO EN CENTRO, LADO DERECHO Y IZQUIERDO
-        } else {
-            $sql = "SELECT * FROM palabrasclaves WHERE eliminado=false";
-        }
+        $sql = "SELECT * FROM palabrasclaves p RIGHT JOIN tags t ON t.idTags=p.idTags and p.idProducto=$idProducto";
 
         //se ejecuta la consulta en la base de datos
-        $result=mysqli_query($conexion,$sql);
+        $result = mysqli_query($conexion, $sql);
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     function tags(){
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM tags WHERE eliminado=false";
+
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function paginacionTags($tags)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $where = "eliminado=false ";
+        if ($tags != "") {
+            $where .= " AND tags LIKE '%$tags%' ";
+        }
+
+        $sql = "SELECT count(idTags) as numRegistro FROM tags WHERE $where";
+        $result = mysqli_query($conexion, $sql);
+
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    function mostrarTags($tags, $pagina)
+    {
         //se instancia el objeto conectar
-        $oConexion=new conectar();
+        $oConexion = new conectar();
         //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
-        
-        $sql = "SELECT * FROM palabrasclaves WHERE eliminado=false";
+        $conexion = $oConexion->conexion();
+
+        $where = "eliminado=false ";
+        if ($tags != "") {
+            $where .= " AND tags LIKE '%$tags%' ";
+        }
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT * FROM tags WHERE $where ORDER BY tags ASC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
-        $result=mysqli_query($conexion,$sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
+        return $result;
     }
 
     function eliminarTags()
@@ -126,48 +113,47 @@ class tags{
         $conexion = $oConexion->conexion();
 
         //consulta para eliminar el registro
-        $sql = "UPDATE palabrasclaves SET eliminado=1 WHERE idPalabraClave=$this->idPalabraClave";
+        $sql = "UPDATE tags SET eliminado=1 WHERE idTags=$this->idTags";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
 
-    function consultarTags($idTags){
+    function consultarTags($idTags)
+    {
         //se instancia el objeto conectar
-        $oConexion=new conectar();
+        $oConexion = new conectar();
         //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
+        $conexion = $oConexion->conexion();
 
         //esta sentencia me permite consultar un cargo
-        $sql="SELECT * FROM palabrasClaves WHERE idPalabraClave=$idTags";
+        $sql = "SELECT * FROM tags WHERE idTags=$idTags";
 
         //se ejecuta la consulta
-        $result=mysqli_query($conexion,$sql);
-        $result=mysqli_fetch_all($result,MYSQLI_ASSOC);
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-        foreach($result as $registro){ 
-        //se registra la consulta en los parametros
-        $this->idPalabraClave=$registro['idPalabraClave'];
-        $this->palabraClave=$registro['palabraClave'];
+        foreach ($result as $registro) {
+            //se registra la consulta en los parametros
+            $this->idTags = $registro['idTags'];
+            $this->tags = $registro['tags'];
         }
     }
 
-    function actualizarTags(){
+    function actualizarTags()
+    {
         //se instancia el objeto conectar
-        $oConexion=new conectar();
+        $oConexion = new conectar();
         //se establece conexión con la base datos
-        $conexion=$oConexion->conexion();
+        $conexion = $oConexion->conexion();
 
         //sentencia que permite actualizar un  cargo
-        $sql="UPDATE palabrasClaves SET palabraClave='$this->palabraClave'
-        WHERE idPalabraClave=$this->idPalabraClave";
-            
+        $sql = "UPDATE tags SET tags='$this->tags'
+        WHERE idTags=$this->idTags";
+
         //se ejecuta la consulta
-        $result=mysqli_query($conexion,$sql);
+        $result = mysqli_query($conexion, $sql);
         return $result;
     }
 }
-
-
-?>

@@ -7,14 +7,6 @@ $oTags = new tags();
 
 <body>
     <div class="container-fluid">
-        <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
         <div class="card card-primary">
             <div class="card-header" style="background-color: rgb(249, 201, 242);">
                 <label class="card-title" style="-webkit-text-fill-color: black;">NUEVA TAGS</label>
@@ -42,7 +34,7 @@ $oTags = new tags();
 </html>
 
 <?php require_once 'footer.php'; ?>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
     function validarPaginaFinal() {

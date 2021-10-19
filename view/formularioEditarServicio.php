@@ -1,194 +1,267 @@
 <?php
 require_once 'headPagina.php';
+require_once 'linkHead.php';
 require_once '../model/servicio.php';
 require_once '../controller/productoServicioController.php';
 
+if (isset($_GET['ventana'])) { //
+    $ventana = $_GET['ventana'];
+} else {
+    $ventana = "informacion";
+}
+
 $oProductoServicioController = new productoServicioController();
 $oServicio = $oProductoServicioController->consultarServicio($_GET['idServicio']);
+$oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio']);
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EDITAR SERVICIO</title>
-</head>
 
 <body>
     <div class="container-fluid">
-        <div class="card-header" style="background-color: rgb(249, 201, 242);">
-            <label class="card-title" style="-webkit-text-fill-color: black;">EDITAR SERVICIO</label>
-        </div>
-        <div class="card card-ligth">
-            <form action="../controller/productoServicioController.php" method="GET">
-                <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?>" style="display: none;">
-                <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-                    <div class="row">
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label>Codigo Servicio: </label>
-                            <input class="form-control" type="text" name="codigoServicio" value="<?php echo $oServicio->codigoServicio; ?>">
+
+        <div class="card cardHeader">
+            <div class="card-header">
+                <h2>Actualizar Servicio</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5 col-sm-3">
+                        <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link textLink <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Informacion</a>
+                            <a class="nav-link textLink <?php if ($ventana == "tags") echo "active"; ?>" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false">Tags</a>
+                            <a class="nav-link textLink <?php if ($ventana == "categoria") echo "active"; ?>" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false">Categoria</a>
+                            <a class="nav-link textLink <?php if ($ventana == "foto") echo "active"; ?>" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false">Imagenes</a>
+                            <a class="nav-link textLink <?php if ($ventana == "producto") echo "active"; ?>" id="vert-tabs-producto-tab" data-toggle="pill" href="#vert-tabs-producto" role="tab" aria-controls="vert-tabs-producto" aria-selected="false">Producto</a>
                         </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label>Servicio: </label>
-                            <input class="form-control" type="text" name="nombreServicio" value="<?php echo $oServicio->nombreServicio; ?>">
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label>Detalle: </label>
-                            <input class="form-control" type="text" name="detalleServicio" value="<?php echo $oServicio->detalleServicio; ?>">
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Duracion Servicio</label>
-                            <select class="form-control" id="tiempoDuracion" name="tiempoDuracion" onchange="validarCampo(this);" required>
-                                <option value="" selected>Selecciones una opción</option>
-                                <option value="10" <?php if ($oServicio->tiempoDuracion == "10") {
-                                                        echo "selected";
-                                                    } ?>>10 MINUTOS</option>
-                                <option value="15" <?php if ($oServicio->tiempoDuracion == "15") {
-                                                        echo "selected";
-                                                    } ?>>15 MINUTOS</option>
-                                <option value="20" <?php if ($oServicio->tiempoDuracion == "20") {
-                                                        echo "selected";
-                                                    } ?>>20 MINUTOS</option>
-                                <option value="25" <?php if ($oServicio->tiempoDuracion == "25") {
-                                                        echo "selected";
-                                                    } ?>>25 MINUTOS</option>
-                                <option value="30" <?php if ($oServicio->tiempoDuracion == "30") {
-                                                        echo "selected";
-                                                    } ?>>30 MINUTOS</option>
-                                <option value="35" <?php if ($oServicio->tiempoDuracion == "35") {
-                                                        echo "selected";
-                                                    } ?>>35 MINUTOS</option>
-                                <option value="40" <?php if ($oServicio->tiempoDuracion == "40") {
-                                                        echo "selected";
-                                                    } ?>>40 MINUTOS</option>
-                                <option value="45" <?php if ($oServicio->tiempoDuracion == "45") {
-                                                        echo "selected";
-                                                    } ?>>45 MINUTOS</option>
-                                <option value="50" <?php if ($oServicio->tiempoDuracion == "50") {
-                                                        echo "selected";
-                                                    } ?>>50 MINUTOS</option>
-                                <option value="55" <?php if ($oServicio->tiempoDuracion == "55") {
-                                                        echo "selected";
-                                                    } ?>>55 MINUTOS</option>
-                                <option value="60" <?php if ($oServicio->tiempoDuracion == "60") {
-                                                        echo "selected";
-                                                    } ?>>60 MINUTOS</option>
-                            </select>
-                            <span id="tiempoDuracionSpan"></span>
-                        </div>
-                        <div class="col col-xl-4 col-md-6 col-12">
-                            <label>Costo: </label>
-                            <input class="form-control" type="text" name="costo" value="<?php echo $oServicio->costo; ?>">
+                    </div>
+                    <div class="col-7 col-sm-9">
+                        <div class="tab-content" id="vert-tabs-tabContent">
+                            <div class="tab-pane text-left fade show <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
+                                <form action="../controller/productoServicioController.php" method="GET">
+                                    <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
+                                    <div class="row">
+                                        <div class="col col-xl-4 col-md-6 col-12">
+                                            <label>Codigo Servicio: </label>
+                                            <input class="form-control" type="text" name="codigoServicio" value="<?php echo $oServicio->codigoServicio; ?>">
+                                        </div>
+                                        <div class="col col-xl-4 col-md-6 col-12">
+                                            <label>Servicio: </label>
+                                            <input class="form-control" type="text" name="nombreServicio" value="<?php echo $oServicio->nombreServicio; ?>">
+                                        </div>
+                                        <div class="col col-xl-4 col-md-6 col-12">
+                                            <label>Detalle: </label>
+                                            <input class="form-control" type="text" name="detalleServicio" value="<?php echo $oServicio->detalleServicio; ?>">
+                                        </div>
+                                        <div class="col col-xl-4 col-md-6 col-12">
+                                            <label for="" class="form-label">Duracion Servicio</label>
+                                            <select class="form-control" id="tiempoDuracion" name="tiempoDuracion" onchange="validarCampo(this);" required>
+                                                <option value="" selected>Selecciones una opción</option>
+                                                <option value="10" <?php if ($oServicio->tiempoDuracion == "10") {
+                                                                        echo "selected";
+                                                                    } ?>>10 MINUTOS</option>
+                                                <option value="15" <?php if ($oServicio->tiempoDuracion == "15") {
+                                                                        echo "selected";
+                                                                    } ?>>15 MINUTOS</option>
+                                                <option value="20" <?php if ($oServicio->tiempoDuracion == "20") {
+                                                                        echo "selected";
+                                                                    } ?>>20 MINUTOS</option>
+                                                <option value="25" <?php if ($oServicio->tiempoDuracion == "25") {
+                                                                        echo "selected";
+                                                                    } ?>>25 MINUTOS</option>
+                                                <option value="30" <?php if ($oServicio->tiempoDuracion == "30") {
+                                                                        echo "selected";
+                                                                    } ?>>30 MINUTOS</option>
+                                                <option value="35" <?php if ($oServicio->tiempoDuracion == "35") {
+                                                                        echo "selected";
+                                                                    } ?>>35 MINUTOS</option>
+                                                <option value="40" <?php if ($oServicio->tiempoDuracion == "40") {
+                                                                        echo "selected";
+                                                                    } ?>>40 MINUTOS</option>
+                                                <option value="45" <?php if ($oServicio->tiempoDuracion == "45") {
+                                                                        echo "selected";
+                                                                    } ?>>45 MINUTOS</option>
+                                                <option value="50" <?php if ($oServicio->tiempoDuracion == "50") {
+                                                                        echo "selected";
+                                                                    } ?>>50 MINUTOS</option>
+                                                <option value="55" <?php if ($oServicio->tiempoDuracion == "55") {
+                                                                        echo "selected";
+                                                                    } ?>>55 MINUTOS</option>
+                                                <option value="60" <?php if ($oServicio->tiempoDuracion == "60") {
+                                                                        echo "selected";
+                                                                    } ?>>60 MINUTOS</option>
+                                            </select>
+                                            <span id="tiempoDuracionSpan"></span>
+                                        </div>
+                                        <div class="col col-xl-4 col-md-6 col-12">
+                                            <label for="" class="form-label">Costo</label>
+                                            <div class="input-group m-b-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                </div>
+                                                <input class="form-control" type="text" id="costo" value="<?php echo $oServicio->costo; ?>" name="costo" placeholder="Costo" required minlength="1" maxlength="30" onkeyup="separadorMilesCuadroTexto(this);">
+                                            </div>
+                                            <span id="costoSpan"></span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarInformacion"><i class="fas fa-edit"></i> Actualizar Informacion</button>
+                                </form>
+                            </div>
+                            <div class="tab-pane <?php if ($ventana == "tags") echo "active"; ?>" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+                                <form action="../controller/productoServicioController.php" method="GET">
+                                    <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Etiquetas (Tags)</label>
+                                        <select class="form-control select2" multiple="multiple" data-placeholder="Seleccione las etiquetas" id="tags" name="tags[]" onchange="validarCampo(this);" required>
+                                            <option disabled>Seleccione las etiquetas</option>
+                                            <?php
+                                            foreach ($oTags as $registro) {
+                                            ?>
+                                                <option value="<?php echo $registro['idTags']; ?>" <?php if ($registro['IdServicios'] != "") {
+                                                                                                        echo "selected";
+                                                                                                    } ?>><?php echo $registro['tags']; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                        <span id="tagsSpan"></span>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarTagsServicio"><i class="fas fa-edit"></i> Actualizar Tags</button>
+                                </form>
+                            </div>
+                            <div class="tab-pane <?php if ($ventana == "categoria") echo "active"; ?>" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
+                                <form action="../controller/productoServicioController.php" method="GET">
+                                    <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
+                                    <?php
+                                    require_once '../model/categoria.php';
+                                    $oCategoria = new categoria();
+                                    $consulta = $oCategoria->categoria();
+                                    ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="" class="form-label">Categoria</label>
+                                            <select class="form-control" id="idCategoria" name="idCategoria" onchange="validarCampo(this);" required>
+                                                <option selected>Selecciones una opción</option>
+                                                <?php
+
+                                                foreach ($consulta as $registro) {
+                                                ?>
+                                                    <option value="<?php echo $registro['idCategoria']; ?>" <?php if ($oServicio->idCategoria == $registro['idCategoria']) {
+                                                                                                                echo "selected";
+                                                                                                            } ?>> <?php echo $registro['nombreCategoria']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarCategoriaServicio"><i class="fas fa-edit"></i> Actualizar Categoria</button>
+                                </form>
+                            </div>
+                            <div class="tab-pane <?php if ($ventana == "foto") echo "active"; ?>" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
+                                <form action="../controller/productoServicioController.php" method="POST">
+
+                                </form>
+                            </div>
+                            <div class="tab-pane <?php if ($ventana == "producto") echo "active"; ?>" id="vert-tabs-producto" role="tabpanel" aria-labelledby="vert-tabs-producto-tab">
+                                <form action="../controller/productoServicioController.php" method="GET">
+                                    <input type="text" id="idServicio" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
+                                    <div class="card-body table-responsive p-0" style="height: 300px;">
+                                        <div class="table">
+                                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#pagoProducto" onclick="productoConsultar()"><i class="fas fa-plus-square"></i> Agregar Productos</button>
+                                            <thead>
+                                                <tr class="estiloTr">
+                                                    <th>Codigo</th>
+                                                    <th>Productos</th>
+                                                    <th>cantidad</th>
+                                                    <th>Eliminar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="listarProducto">
+
+                                            </tbody>
+                                            </table>
+                                        </div>
+                                        <br>
+                                        <button type="submit" style="margin-bottom: 5px; margin-left: 5px;" class="btn btn-success" name="funcion" value="actualizarProductoServicio"><i class="fas fa-edit"></i> Actualizar Productos</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                    <a href="listarServicio.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                    <button type="submit" class="btn btn-success" name="funcion" value="actualizarServicio"><i class="fas fa-edit"></i> Actualizar Servicio</button>
-                </div>
-            </form>
-        </div>
-
-
-
-        <div class="card border border-dark">
-            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
-                <h1 class="card-title">EDITAR PRODUCTOS </h1>
-                <button type="button" class="btn btn-success  float-right" data-toggle="modal" data-target="#modal-default">Agregar Productos</button>
-            </div>
-            <form action="../controller/productoServicioController.php" method="GET">
-                <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?>" style="display: none;">
-
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle">
-                        <thead>
-                            <tr style="background-color: rgb(249, 201, 242);">
-                                <th>Codigo</th>
-                                <th>productos</th>
-                                <th>cantidad</th>
-                                <th>Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="listarProducto">
-                            <?php
-                            require_once '../model/detalle.php';
-                            $oProductoServicioController = new productoServicioController();
-                            $oDetalle = $oProductoServicioController->consultarProductosIdServicio($_GET['idServicio']);
-                            if (count($oDetalle) > 0) {
-                                foreach ($oDetalle as $registro) {
-                            ?>
-                                    <tr id="<?php echo $registro['idProducto']; ?>">
-                                        <input type="text" name="idProducto" value="<?php echo $registro['idProducto']; ?>" style="display: none;">
-                                        <td><?php echo $registro['codigoProducto']; ?></td>
-                                        <td><?php echo $registro['producto']; ?></td>
-                                        <td><input class="form-control" type="number" value="<?php echo $registro['cantidad']; ?>"></td>
-                                        <td><input type="button" class="btn btn-danger" value="Eliminar" onclick="eliminarTR(<?php echo $registro['idProducto']; ?>)"></td>
-                                    </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-                <br>
-                <button type="submit" style="margin-bottom: 5px; margin-left: 5px;" class="btn btn-success" name="funcion" value="actualizarServicioProducto"><i class="fas fa-edit"></i> Actualizar Productos</button>
-            </form>
-        </div>
-    </div>
-
-
-
-    <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Agregar Productos</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table align-middle table-responsive">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Codigo</th>
-                                <th>Producto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            require_once '../model/producto.php';
-                            require_once '../model/conexiondb.php';
-
-                            $oProducto = new producto();
-                            $Consulta = $oProducto->mostrarProducto2();
-                            foreach ($Consulta as $registro) {
-                            ?>
-
-                                <tr>
-                                    <td><button type="button" class="btn btn-success" data-dismiss="modal" onclick="agregarProducto('<?php echo $registro['IdProducto'] ?>','<?php echo $registro['codigoProducto']; ?>','<?php echo $registro['nombreProducto']; ?>')">Agregar</button></td>
-                                    <td><?php echo $registro['codigoProducto']; ?></td>
-                                    <td><?php echo $registro['nombreProducto']; ?></td>
-                                </tr>
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
             </div>
         </div>
     </div>
+    <a href="listarServicio.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 </body>
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
+<script>
+    $(function() {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
+
+<div class="modal fade estiloModalBody" id="pagoProducto">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header estiloModalHeader">
+                <h4 class="modal-title">Agregar Productos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body estiloModalBody">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="form-label">Buscar: </label>
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por Codigo o Nombre" class="form-control" id="producto" name="producto" onkeyup="productoConsultar()">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <table class="table colorestabla">
+                    <thead>
+                        <tr class="estiloTr">
+                            <th></th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productoResultado">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer estiloModalHeader">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

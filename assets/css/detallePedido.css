@@ -1,0 +1,57 @@
+
+.tituloPedido {
+    color: black!important;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+
+.tituloInformacion {
+    font-size: 200%!important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-weight: 600 !important;
+}
+
+.textPedido {
+    color: black !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 20px !important;
+    font-weight: 300 !important;
+}
+
+.textPedido2 {
+    color: black !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 18px !important;
+}
+
+.tablaHead {
+    background-color: #FEF1E6 !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: black !important;
+}
+
+.tablatbody{
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 20px !important;
+    color: black !important;
+}
+
+.page-header {
+    margin: 0 0 1rem;
+    padding-bottom: 1rem;
+    padding-top: .5rem;
+    border-bottom: 1px dotted #e2e2e2;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.page-title {
+    padding: 0;
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 300;
+}

@@ -66,9 +66,8 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
   $(function() {

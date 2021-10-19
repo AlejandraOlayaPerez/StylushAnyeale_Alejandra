@@ -2,110 +2,68 @@
 require_once 'headPagina.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUEVA EMPRESA</title>
-</head>
-
 <body>
 
     <div class="container-fluid">
-        <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
-        <div class="card card-primary">
-            <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                <label class="card-title" style="-webkit-text-fill-color: black;">NUEVA EMPRESA</label>
+        <div class="card cardHeader">
+            <div class="card-header">
+                <label class="card-title" style="-webkit-text-fill-color: black;">Nueva Empresa</label>
             </div>
             <form action="../controller/pedidoController.php" method="GET" id="formUsuario">
-                <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                <input type="text" name="funcion" value="nuevaEmpresa" style="display: none;">
+                <div class="card-body">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Nit</label>
-                            <input type="text" class="form-control" name="Nit" placeholder="NIT">
+                            <input type="text" class="form-control" id="Nit" name="Nit" placeholder="NIT" onchange="validarCampo(this);" required maxlength="10" minlength="2">
+                            <span id="NitSpan"></span>
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Nombre Empresa</label>
-                            <input type="text" class="form-control" name="nombreEmpresa" placeholder="Nombre Empresa">
+                            <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre Empresa" onchange="validarCampo(this);" required maxlength="50" minlength="2">
+                            <span id="nombreEmpresaSpan"></span>
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="">Direccion</label>
-                            <input type="text" class="form-control" name="direccion" placeholder="Direccion">
+                            <label for="">dirección</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" onchange="validarCampo(this);" required maxlength="100" minlength="2">
+                            <span id="direccionSpan"></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                    <a href="listarEmpresa.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
-                    <button type="submit" class="btn btn-success" name="funcion" value="nuevaEmpresa"><i class="fas fa-save"></i> Registrar Empresa</button>
+                <div class="card-footer cardFooter">
+                    <?php
+                    if (isset($_GET['pedido'])) {
+                    ?>
+                        <a href="nuevoPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Volver al pedido</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="listarEmpresa.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                    <?php } ?>
+                    <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Empresa</button>
                 </div>
             </form>
         </div>
-
     </div>
 </body>
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
-    $(function() {
-        $.validator.setDefaults({
-            submitHandler: function() {
-                this.submit();
-            }
+    function validarPaginaFinal() {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["Nit", "nombreEmpresa", "direccion"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
         });
-        $('#formUsuario').validate({
-
-            rules: {
-                Nit: {
-                    required: true,
-                },
-                nombreEmpresa: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 30,
-                },
-                direccion: {
-                    required: true,
-                },
-            },
-            messages: {
-                Nit: {
-                    required: "Por favor, complete el campo vacio",
-                },
-                nombreEmpresa: {
-                    required: "Por favor, ingrese un nombre  de la empresa",
-                    minlength: "Minimo 5 letras para el Nombre de la empresa",
-                    maxlength: "Maximo 30 letras para el Nombre de la empresa"
-                },
-                direccion: {
-                    required: "Por favor, complete el campo vacio",
-                },
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.col').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-    });
+        if (valido) {
+            document.getElementById('formUsuario').submit();
+        }
+    }
 </script>

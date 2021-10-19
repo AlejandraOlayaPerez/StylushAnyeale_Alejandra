@@ -64,9 +64,8 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
   $(function() {

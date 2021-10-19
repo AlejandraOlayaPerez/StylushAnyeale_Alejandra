@@ -33,7 +33,7 @@ function consultaPedido() {
             funcion: "buscarPedido"
         }
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         var datos = data.split("®");
         //paginacion
         var numRegistro = parseInt(datos[0]);
@@ -175,11 +175,15 @@ function agregarPedido(pedido) {
 
     var botonPDF = document.createElement("a");
     botonPDF.className = "dropdown-item";
-    botonPDF.href = "pedidoPDF.php?idPedido=" + pedido['idPedido'];
-    botonPDF.innerHTML = '<i class="fas fa-print"></i> Imprimir Pedido';
+    botonPDF.href = "detallePedido.php?idPedido=" + pedido['idPedido'];
+    botonPDF.innerHTML = '<i class="fas fa-eye"></i> Vista Pedido';
 
-    const fecha = new Date();
-    fechaActual = fecha.getFullYear() + "-" + 0 + (fecha.getMonth() + 1) + "-" + fecha.getDate();
+    var fecha = new Date();
+    if (fecha.getMonth()+1 < 10) {
+        fechaActual = fecha.getFullYear() + "-0" + (fecha.getMonth()+1) + "-" + fecha.getDate();
+    } else {
+        fechaActual = fecha.getFullYear() + "-" + (fecha.getMonth()+1) + "-" + fecha.getDate();
+    }
 
     div1.appendChild(div2);
     if (pedido['fechaPedido'] == fechaActual && pedido['entregaPedido'] == 0 && pedido['eliminado'] == 0) {

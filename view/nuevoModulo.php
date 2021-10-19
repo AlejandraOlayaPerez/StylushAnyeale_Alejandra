@@ -6,28 +6,9 @@ require_once '../model/conexionDB.php';
 $oModulo = new modulo();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NUEVO MODULO</title>
-</head>
-
 <body>
 
   <div class="container-fluid">
-
-    <?php
-    require_once '../controller/mensajeController.php';
-
-    if (isset($_GET['mensaje'])) {
-      $oMensaje = new mensajes();
-      echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-    }
-    ?>
 
     <div class="card card-primary">
       <div class="card-header" style="background-color: rgb(249, 201, 242);">
@@ -70,7 +51,7 @@ $oModulo = new modulo();
 
 
 </html>
-
+<?php require_once 'linkjs.php'; ?>
 
 <script>
   $(function() {

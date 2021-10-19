@@ -8,6 +8,12 @@ class PDF extends FPDF{
     public $responsablePedido="";
     public $NIT="";
     public $empresa="";
+    public $direccion="";
+    public $codigoProducto="";
+    public $producto="";
+    public $cantidad="";
+    public $precio="";
+    public $idPedido="";
  
 
     function LoadData(){
@@ -25,7 +31,7 @@ class PDF extends FPDF{
     function header(){
         
         //logo
-        $this->image('../image/PNG_logo.png',15,15,50);  //(LINK, POSICION HORIZONTAL, POSICION VERTICAL, TAMAÑO)
+        $this->image('../image/PNG_logo.png',15,15,35);  //(LINK, POSICION HORIZONTAL, POSICION VERTICAL, TAMAÑO)
 
         $this->SetFont('times','B',30);
         $this->Cell(90); //UBICACION DEL TITULO
@@ -36,9 +42,15 @@ class PDF extends FPDF{
         $this->Cell(44,0, '"Estilo y confianza te brindan Stylush Anyeale"',0,1,'L');
         $this->ln(35);
 
+        $this->SetFont('times', 'B', 20);
+        $this->Cell(60);
+        $this->Cell(5, 10, "Pedido: $this->idPedido",0,1,'C');
+
         $this->SetFont('times', 'B',20);
         $this->Cell(60);
         $this->Cell(5,10, 'Informacion del pedido',0,1,'R');
+
+        
 
 
         $this->SetFont('times','',15);
@@ -122,6 +134,7 @@ $pdf->SetMargins(20, 10, 80);
 $pdf->AliasNbPages();
 $pdf->SetFont('times', '', '12');
 $data=$pdf->LoadData();
+
 $pdf->fechaPedido=$data->fechaPedido;
 $pdf->documentoIdentidad=$data->documentoIdentidad;
 $pdf->responsablePedido=$data->responsablePedido;
@@ -133,4 +146,3 @@ $dataProducto=$pdf->loadDataProductos();
 $pdf->ImprovedTable($header,$dataProducto);
 $pdf->SetTitle("FacturaPedido");  
 $pdf->Output('I','AnyealeFacturaPedido.pdf');
-?>

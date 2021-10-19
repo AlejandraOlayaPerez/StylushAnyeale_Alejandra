@@ -6,14 +6,6 @@ require_once '../model/conexionDB.php';
 
 <body>
     <div class="container-fluid">
-        <?php
-        require_once '../controller/mensajeController.php';
-
-        if (isset($_GET['mensaje'])) {
-            $oMensaje = new mensajes();
-            echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-        }
-        ?>
 
         <div class="card">
             <div class="card-header border-0">
@@ -86,9 +78,7 @@ require_once '../model/conexionDB.php';
 </html>
 
 <?php require_once 'footer.php'; ?>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/filtros.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/limpiarFormFiltros.js"></script>
+<?php require_once 'linkjs.php'; ?>
 
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">

@@ -1,50 +1,27 @@
 <?php
 require_once 'headPagina.php';
 require_once '../model/usuario.php';
-require_once '../model/conexionDB.php';
 require_once '../model/cargo.php';
 
 $idCargo = $_GET['idCargo'];
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USUARIO EN CARGO</title>
-</head>
-
 <body>
-
-
-    <?php
-    require_once '../controller/mensajeController.php';
-
-    if (isset($_GET['mensaje'])) {
-        $oMensaje = new mensajes();
-        echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-    }
-    ?>
-
     <div class="container-fluid">
         <div class="card">
             <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
+                <table class="table colorestabla">
                     <thead>
-                        <tr style="background-color: rgb(249, 201, 242);">
+                        <tr class="estiloTr">
                             <th>Tipo Documento</th>
                             <th>Documento</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Telefono</th>
-                            <th><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-empresa"><i class="fas fa-user-plus"></i> Agregar Usuario</button></th>
+                            <th><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-empresa" onclick="mostrarUsuario();"><i class="fas fa-user-plus"></i> Agregar Usuario</button></th>
                         </tr>
                     </thead>
                     <tbody>
-
                         <?php
                         $oUsuario = new usuario();
                         $consulta = $oUsuario->listarCargoUsuario($idCargo);
@@ -80,9 +57,8 @@ $idCargo = $_GET['idCargo'];
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -113,7 +89,7 @@ require_once 'footer.php';
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/Anyeale_proyecto/StylushAnyeale_Alejandra/controller/usuarioController.php" method="GET">
-                <input type="text" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
+                <input type="text" id="idCargo" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
                 <div class="modal-header">
                     <h4 class="modal-title">Seleccionar Usuarios</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -121,29 +97,29 @@ require_once 'footer.php';
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table class="table align-middle">
-                        <thead>
-                            <tr>
-                                <th>Selección</th>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            require_once '../model/usuario.php';
-                            $oUsuario = new usuario();
-                            $consulta = $oUsuario->mostrarUsuario($_GET['idCargo']);
-                            foreach ($consulta as $registro) {
-                            ?>
-                                <tr>
-                                    <td><input type="checkbox" name="cargoUsuario[]" value="<?php echo $registro['idUser']; ?>"></td>
-                                    <td><?php echo $registro['primerNombre']; ?></td>
-                                    <td><?php echo $registro['primerApellido']; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-tools">
+                                <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive p-0">
+                            <table class="table colorestabla">
+                                <thead>
+                                    <tr class="estiloTr">
+                                        <th>Selección</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mostrarUsuario">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

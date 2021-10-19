@@ -61,10 +61,11 @@ class reservacion
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM reservacion WHERE idReservacion='$idReservacion'";
+        $sql = "SELECT * FROM reservacion WHERE idReservacion=$idReservacion";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }

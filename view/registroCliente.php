@@ -102,24 +102,8 @@ if (isset($_POST['documentoIdentidad']) != "") {
       </div>
     </div>
 
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
-    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/validaciones.js"></script>
-
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/mensajeController.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-      <?php
-      require_once '../controller/mensajeController.php';
-
-      if (isset($_GET['mensaje'])) {
-        $oMensaje = new mensajes();
-        echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-      }
-      ?>
-    </script>
+    <?php require_once 'linkFooter.php'; ?>
+    <?php require_once 'linkjs.php'; ?>
 </body>
 
 </html>

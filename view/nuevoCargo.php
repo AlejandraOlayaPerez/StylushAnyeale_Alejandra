@@ -18,14 +18,6 @@ $oCargo = new cargo();
 
 <body>
   <div class="container-fluid">
-    <?php
-    require_once '../controller/mensajeController.php';
-
-    if (isset($_GET['mensaje'])) {
-      $oMensaje = new mensajes();
-      echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-    }
-    ?>
     <div class="card card-primary">
       <div class="card-header" style="background-color: rgb(249, 201, 242);">
         <label class="card-title" style="-webkit-text-fill-color: black;">NUEVO CARGO</label>
@@ -68,9 +60,8 @@ $oCargo = new cargo();
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
   $(function() {

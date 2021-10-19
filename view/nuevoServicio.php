@@ -1,25 +1,8 @@
 <?php
 require_once 'headPagina.php';
-require_once '../model/conexionDB.php';
 require_once '../model/servicio.php';
-require_once '../model/producto.php';
-require_once '../controller/productoServicioController.php';
-
 $oServicio = new servicio();
-
-date_default_timezone_set('America/Bogota');
-$fechaActual = Date("Y-m-d");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUEVO SERVICIO</title>
-</head>
 
 <body>
     <div class="container-fluid">
@@ -27,25 +10,40 @@ $fechaActual = Date("Y-m-d");
             <div class="col-md-12">
                 <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
                     <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                        <label class="card-title">NUEVO SERVICIO</label>
+                        <label class="card-title">Nuevo Servicio</label>
                     </div>
 
-                    <form id="formulario" action="../controller/productoServicioController.php" method="GET">
+                    <form id="formulario" action="../controller/productoServicioController.php" method="POST" enctype="multipart/form-data">
                         <input type="text" name="funcion" value="crearServicio" style="display: none;">
+                        <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                         <div class="card-body p-0">
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
                                     <div class="step" data-target="#logins-part">
                                         <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
                                             <span class="bs-stepper-circle">1</span>
-                                            <span class="bs-stepper-label">Datos servicio</span>
+                                            <span class="bs-stepper-label">Imagen</span>
                                         </button>
                                     </div>
                                     <div class="line"></div>
                                     <div class="step" data-target="#information-part">
                                         <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
                                             <span class="bs-stepper-circle">2</span>
+                                            <span class="bs-stepper-label">Servicio</span>
+                                        </button>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="step" data-target="#producto-part">
+                                        <button type="button" class="step-trigger" role="tab" aria-controls="producto-part" id="producto-part-trigger">
+                                            <span class="bs-stepper-circle">3</span>
                                             <span class="bs-stepper-label">Productos</span>
+                                        </button>
+                                    </div>
+                                    <div class="line"></div>
+                                    <div class="step" data-target="#clave-part">
+                                        <button type="button" class="step-trigger" role="tab" aria-controls="clave-part" id="clave-part-trigger">
+                                            <span class="bs-stepper-circle">4</span>
+                                            <span class="bs-stepper-label">Etiqueta</span>
                                         </button>
                                     </div>
                                 </div>
@@ -53,22 +51,37 @@ $fechaActual = Date("Y-m-d");
                                 <div class="bs-stepper-content">
 
                                     <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-
                                         <div class="row" style="margin: 5px;">
+                                            <div class="col col-md-12">
+                                                <div class="col col-md-6">
+                                                    <label for="">Fotos</label>
+                                                    <input name="fotos[]" id="fotos" type="file" class="form-control" multiple accept="image/*" onchange="validarCampo(this);" required>
+                                                    <span id="fotosSpan"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
+                                        <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarServicio.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                    </div>
+
+                                    <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                                        <div class="row">
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Codigo Servicio</label>
                                                 <input class="form-control" type="text" id="codigoServicio" name="codigoServicio" placeholder="Codigo Servicio" onchange="validarCampo(this);" required minlength="2" maxlength="30">
-                                                <span style="font-family: 'Times New Roman', Times, serif; font-size: 10px;" id="codigoServicioSpan"></span>
+                                                <span id="codigoServicioSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Servicio</label>
                                                 <input class="form-control" type="text" id="nombreServicio" name="nombreServicio" placeholder="Nombre Servicio" onchange="validarCampo(this);" required minlength="5" maxlength="30">
-                                                <span style="font-family: 'Times New Roman', Times, serif; font-size: 10px;" id="nombreServicioSpan"></span>
+                                                <span id="nombreServicioSpan"></span>
                                             </div>
 
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Detalle Servicio</label>
-                                                <input class="form-control" type="text" name="detalleServicio" placeholder="DetalleServicio">
+                                                <textarea class="form-control" rows="3" type="text" id="detalleServicio" name="detalleServicio" placeholder="Describe el servicio" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                                                <span id="detalleServicioSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Duracion Servicio</label>
@@ -112,72 +125,28 @@ $fechaActual = Date("Y-m-d");
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label for="" class="form-label">Costo</label>
-                                                <input class="form-control" type="number" id="costo" name="costo" placeholder="Costo" onchange="validarCampo(this);" required minlength="1" maxlength="30">
-                                                <span style="font-family: 'Times New Roman', Times, serif; font-size: 10px;" id="costoSpan"></span>
+                                                <div class="input-group m-b-0">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                    </div>
+                                                    <input class="form-control" type="text" id="costo" name="costo" placeholder="Costo" required minlength="1" maxlength="30" onkeyup="separadorMilesCuadroTexto(this);">
+                                                </div>
+                                                <span id="costoSpan"></span>
                                             </div>
                                         </div>
                                         <br>
-                                        <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
-                                        <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarServicio.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                                        <br>
+                                        <button class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
+                                        <button class="btn btn-info float-right" type="button" onclick="validarPagina2()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                                     </div>
 
-                                    <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
 
+                                    <div id="producto-part" class="content" role="tabpanel" aria-labelledby="producto-part-trigger">
                                         <div class="row">
                                             <div class="col-ms-6">
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">Agregar Productos</button>
-
-                                                <div class="modal fade" id="modal-default">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4 class="modal-title">Agregar Productos</h4>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <table class="table align-middle table-responsive">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th></th>
-                                                                            <th>Codigo</th>
-                                                                            <th>Producto</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <?php
-                                                                        require_once '../model/producto.php';
-                                                                        require_once '../model/conexiondb.php';
-
-                                                                        $oProducto = new producto();
-                                                                        $Consulta = $oProducto->mostrarProducto2();
-                                                                        foreach ($Consulta as $registro) {
-                                                                        ?>
-
-                                                                            <tr>
-                                                                                <td><button type="button" class="btn btn-success" data-dismiss="modal" onclick="agregarProducto('<?php echo $registro['IdProducto'] ?>','<?php echo $registro['codigoProducto']; ?>','<?php echo $registro['nombreProducto']; ?>')">Agregar</button></td>
-                                                                                <td><?php echo $registro['codigoProducto']; ?></td>
-                                                                                <td><?php echo $registro['nombreProducto']; ?></td>
-                                                                            </tr>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                            <div class="modal-footer justify-content-between">
-                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#pagoProducto" onclick="productoConsultar()"><i class="fas fa-plus-square"></i> Agregar Productos</button>
                                             </div>
-                                            <div class="container">
-                                                <br>
-                                                <table class="table align-middle">
-
+                                            <div class="card-body table-responsive p-0">
+                                                <table class="table table-striped table-valign-middle">
                                                     <thead>
                                                         <tr>
                                                             <th>Codigo</th>
@@ -193,7 +162,53 @@ $fechaActual = Date("Y-m-d");
                                             </div>
                                         </div>
                                         <br>
-                                        <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
+                                        <button class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
+                                        <button type="button" class="btn btn-success" onclick="validarPagina3();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
+                                    </div>
+
+                                    <div id="clave-part" class="content" role="tabpanel" aria-labelledby="clave-part-trigger">
+                                        <div class="row">
+                                            <?php
+                                            require_once '../model/tags.php';
+                                            $oTags = new tags();
+                                            $result = $oTags->tags();
+                                            ?>
+                                            <div class="col col-xl-4 col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="" class="form-label">Etiquetas (Tags)</label>
+                                                    <select class="select2" multiple="multiple" data-placeholder="Seleccione las etiquetas" style="width: 100%; font-family: 'Times New Roman', Times, serif;" id="tags" name="tags[]" onchange="validarCampo(this);" required>
+                                                        <option disabled>Seleccione las etiquetas</option>
+                                                        <?php
+                                                        foreach ($result as $registro) {
+                                                        ?>
+                                                            <option value="<?php echo $registro['idTags']; ?>"><?php echo $registro['tags']; ?></option>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                    <span id="tagsSpan"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col col-xl-4 col-md-6 col-12">
+                                                <?php
+                                                require_once '../model/categoria.php';
+                                                $oCategoria = new categoria();
+                                                $consulta = $oCategoria->categoria();
+                                                ?>
+                                                <label for="" class="form-label">Categoria</label>
+                                                <select class="form-control" id="idCategoria" name="idCategoria" onchange="validarCampo(this);" required>
+                                                    <option value="" selected>Selecciones una opción</option>
+                                                    <?php foreach ($consulta as $registro) {
+                                                    ?>
+                                                        <option value="<?php echo $registro['idCategoria']; ?>"><?php echo $registro['nombreCategoria']; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                                <span id="idCategoriaSpan"></span>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <button class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
                                         <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Servicio</button>
                                     </div>
                                 </div>
@@ -208,8 +223,76 @@ $fechaActual = Date("Y-m-d");
 
 </html>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
+<div class="modal fade estiloModalBody" id="pagoProducto">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header estiloModalHeader">
+                <h4 class="modal-title">Agregar Productos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body estiloModalBody">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="form-label">Buscar: </label>
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por Codigo o Nombre" class="form-control" id="producto" name="producto" onkeyup="productoConsultar()">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <table class="table colorestabla">
+                    <thead>
+                        <tr class="estiloTr">
+                            <th></th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productoResultado">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer estiloModalHeader">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<?php require_once 'linkjs.php'; ?>
 <?php require_once 'footer.php'; ?>
+
+<script>
+    $(function() {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+
+        //Initialize Select2 Elements
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        })
+    })
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -217,13 +300,25 @@ $fechaActual = Date("Y-m-d");
     })
 </script>
 
-
 <script>
     //crear una función con los campos de cada pagina
     function validarPagina1() {
         var valido = true;
         // agregar el id de cada campo de la página para poder validar
-        var campos = ["codigoServicio", "nombreServicio", "tiempoDuracion", "costo"];
+        var campos = ["fotos"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido)
+            stepper.next();
+    }
+    //crear una función con los campos de cada pagina
+    function validarPagina2() {
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["codigoServicio", "nombreServicio", "detalleServicio", "tiempoDuracion", "costo"];
         campos.forEach(element => {
             var campo = document.getElementById(element);
             if (!validarCampo(campo))
@@ -233,15 +328,41 @@ $fechaActual = Date("Y-m-d");
             stepper.next();
     }
 
+    function validarPagina3() {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var contenedor = document.getElementById("listarProducto");
+        var tr = contenedor.querySelectorAll('tr');
+        var inputs = contenedor.querySelectorAll('input');
+        // console.log(tr);
+        if (tr.length == 0) {
+            valido = false;
+            alert("Por favor, seleccione minimo un producto");
+        }
+
+        for (var i = 0; i < inputs.length; i++) {
+            valido = validarCampo(inputs[i]);
+            if (!valido) {
+                break;
+            }
+        }
+        if (valido)
+            stepper.next();
+    }
+
     function validarPaginaFinal() {
-        var listarProducto = document.getElementById('listarProducto');
-        // var producto=$('listarProducto').find('input[name="productos[]"]');
-        var productos = document.getElementsByName('productos[]');
-        console.log(productos.length);
-        if (productos.length > 0) {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["tags", "idCategoria"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido) {
             document.getElementById('formulario').submit();
-        } else {
-            alert("Seleccione un producto");
         }
     }
 </script>

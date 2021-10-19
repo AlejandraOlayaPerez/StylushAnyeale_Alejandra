@@ -1,4 +1,4 @@
-<?php
+aaajs<?php
     
     require_once '../controller/reservacionController.php';
     if (isset($_POST['documentoIdentidad']) != "") {
@@ -227,16 +227,8 @@
                 </div>
             </div>
 
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/jquery/jquery.min.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/js/adminlte.min.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/reservacion.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/horarioEstilista.js"></script>
-            <script src="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/js/anyealeJS/direccion.js"></script>
-            <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
+            <?php require_once 'linkFooter.php'; ?>
+            <?php require_once 'linkjs.php'; ?>
 
         </div>
     </body>

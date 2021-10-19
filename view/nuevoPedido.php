@@ -15,23 +15,13 @@ $oUsuarioController = new usuarioController();
 $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUEVO PEDIDO</title>
-</head>
-
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
-                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                        <label class="card-title">NUEVO PEDIDO</label>
+                <div class="card cardHeader">
+                    <div class="card-header">
+                        <label class="card-title">Nuevo Pedido</label>
                     </div>
 
                     <form action="../controller/pedidoController.php" method="GET" id="formulario">
@@ -66,7 +56,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 
                                             <div class="col-md-6">
                                                 <label for="">Documento Identidad</label>
-                                                <input class="form-control" type="number" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" readonly onchange="validarCampo(this);" required>
+                                                <input class="form-control" type="text" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" readonly onchange="validarCampo(this);" required min="8" max="12">
                                                 <span id="documentoIdentidadSpan"></span>
                                             </div>
                                             <div class="col-md-6">
@@ -110,7 +100,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                         <div class="row">
                                             <div class="col-ms-6">
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default" onclick="productoConsultar()">Agregar Productos</button>
+                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#pagoProducto" onclick="productoConsultar()"><i class="fas fa-plus-square"></i> Agregar Productos</button>
                                             </div>
                                             <div class="card-body table-responsive p-0">
                                                 <table class="table table-striped table-valign-middle">
@@ -148,13 +138,13 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 <div class="modal fade" id="modal-empresa">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h4 class="modal-title">Seleccionar Empresas</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="form-label">Buscar: </label>
@@ -172,7 +162,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                 <table class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
-                            <th><a class="btn btn-info" href="nuevaEmpresa.php"><i class="fas fa-plus-square"></i> Crear</a></th>
+                            <th><a class="btn btn-info" href="nuevaEmpresa.php?pedido=pedido"><i class="fas fa-plus-square"></i> Crear</a></th>
                             <th>Nit</th>
                             <th>Empresa</th>
                             <th>Direccion</th>
@@ -183,7 +173,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer justify-content-between">
+            <div class="modal-footer estiloModalBody">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -192,16 +182,16 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 
 <!--Modal de productos-->
 
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
+<div class="modal fade estiloModalBody" id="pagoProducto">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h4 class="modal-title">Agregar Productos</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="" class="form-label">Buscar: </label>
@@ -213,12 +203,22 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                         </div>
                     </div>
                 </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
                 <hr>
 
-                <table class="table table-striped table-valign-middle">
+                <table class="table colorestabla">
                     <thead>
-                        <tr>
+                        <tr class="estiloTr">
                             <th></th>
                             <th>Codigo</th>
                             <th>Producto</th>
@@ -229,17 +229,16 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            </div>
+            <div class="modal-footer estiloModalHeader">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
         </div>
+        </div>
+       
     </div>
 </div>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/AgregarEmpresa.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/validaciones.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/AgregarProductos.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script>
+
+<?php require_once 'linkjs.php'; ?>
 <?php require_once 'footer.php'; ?>
 
 <script>

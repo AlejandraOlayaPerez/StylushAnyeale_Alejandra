@@ -72,10 +72,15 @@ function separadorMiles(entrada) {
 }
 
 function separadorMilesPrecio(campo,entrada) {
-    
-    var entrada = entrada.split('.');
-    var centavo=entrada[1];
-    entrada=entrada[0];
+    // try{
+        var entrada = entrada.split('.');
+        var centavo=entrada[1];
+        entrada=entrada[0];
+    // }catch{
+    //     var centavo=0;
+    // }
+
+   
     entrada = entrada.split('').reverse();
     var salida = [];
     var aux = '';
@@ -91,5 +96,5 @@ function separadorMilesPrecio(campo,entrada) {
         salida.push(aux);
         aux = '';
     }
-    campo.innerHTML = salida.join('.').split("").reverse().join('')+","+centavo;
+    campo.innerHTML = "$"+salida.join('.').split("").reverse().join('')+","+centavo;
 }

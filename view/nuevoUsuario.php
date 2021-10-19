@@ -9,25 +9,9 @@ if (isset($_POST['documentoIdentidad']) != "") {
   $oUsuario = $oUsuarioController->registrarUsuario();
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NUEVO USUARIO</title>
-</head>
 
 <body>
   <div class="container-fluid">
-    <?php
-    require_once '../controller/mensajeController.php';
-    if (isset($_GET['mensaje'])) {
-      $oMensaje = new mensajes();
-      echo $oMensaje->mensaje($_GET['tipoMensaje'], $_GET['mensaje']);
-    }
-    ?>
     <div class="row">
       <div class="col-md-12">
         <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
@@ -230,7 +214,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
 </html>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/validaciones.js"></script>
+<?php require_once 'linkjs.php'; ?>
 <?php require_once 'footer.php'; ?>
 
 <script>

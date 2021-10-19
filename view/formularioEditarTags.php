@@ -5,7 +5,7 @@ require_once '../controller/productoServicioController.php';
 
 require_once '../controller/productoServicioController.php';
 $oProductoServicioController = new productoServicioController();
-$oTags = $oProductoServicioController->consultarTags($_GET['idPalabrasClaves']);
+$oTags = $oProductoServicioController->consultarTags($_GET['idTags']);
 ?>
 
 <body>
@@ -16,13 +16,13 @@ $oTags = $oProductoServicioController->consultarTags($_GET['idPalabrasClaves']);
             </div>
             <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
                 <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-                    <input type="text" name="idPalabraClave" value="<?php echo $_GET['idPalabrasClaves']; ?>" style="display: none;">
+                    <input type="text" name="idTags" value="<?php echo $_GET['idTags']; ?>" style="display: none;">
 
                     <div class="row" style="margin: 5px;">
 
                         <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Tags</label>
-                            <input type="text" class="form-control" id="palabraClave" name="palabraClave" placeholder="Tags" value="<?php echo $oTags->palabraClave; ?>">
+                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags" value="<?php echo $oTags->tags; ?>">
                         </div>
                     </div>
                 </div>
@@ -38,9 +38,8 @@ $oTags = $oProductoServicioController->consultarTags($_GET['idPalabrasClaves']);
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
     $(function() {

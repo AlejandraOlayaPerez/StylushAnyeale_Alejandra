@@ -28,6 +28,65 @@ class seguimiento
         return $result;
     }
 
+    function seguimientoNuevoProducto($fechaSeguimiento, $horaSeguimiento)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO seguimiento (idUser, idPedido, idProducto, idServicio, idFactura, observacion, fechaSeguimiento, horaSeguimiento)
+        VALUES ($this->idUser, NULL, $this->idProducto, NULL, NULL, 'Ha creado un nuevo producto', '$fechaSeguimiento', '$horaSeguimiento')";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function seguimientoNuevoServicio($fechaSeguimiento, $horaSeguimiento)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO seguimiento (idUser, idPedido, idProducto, idServicio, idFactura, observacion, fechaSeguimiento, horaSeguimiento)
+        VALUES ($this->idUser, NULL, NULL, $this->idServicio, NULL, 'Ha creado un nuevo servicio', '$fechaSeguimiento', '$horaSeguimiento')";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function seguimientoEliminarProducto($fechaSeguimiento, $horaSeguimiento)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO seguimiento (idUser, idPedido, idProducto, idServicio, idFactura, observacion, fechaSeguimiento, horaSeguimiento)
+        VALUES ($this->idUser, NULL, $this->idProducto, NULL, NULL, 'Se ha eliminado el producto', '$fechaSeguimiento', '$horaSeguimiento')";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function seguimientoEliminarServicio($fechaSeguimiento, $horaSeguimiento){
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO seguimiento (idUser, idPedido, idProducto, idServicio, idFactura, observacion, fechaSeguimiento, horaSeguimiento)
+        VALUES ($this->idUser, NULL, NULL, $this->idServicio, NULL, 'Se ha eliminado el servicio', '$fechaSeguimiento', '$horaSeguimiento')";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
     function seguimientoActualizarCantidadProducto($fechaSeguimiento, $horaSeguimiento)
     {
         //instancia la clase conectar

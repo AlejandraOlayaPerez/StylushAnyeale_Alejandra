@@ -57,9 +57,8 @@ $listarDeUsuarioDiferente = $oGestionController->usuarioDiferenteEnRol($idRol);
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <script>
   $(function() {

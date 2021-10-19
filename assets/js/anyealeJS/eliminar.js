@@ -23,7 +23,11 @@ function eliminarModulo(idModulo){
 function eliminarPagina(idPagina, idModulo){
     var p =document.getElementById("eliminarPagina").value=idPagina;
     var m=document.getElementById("eliminarModulo").value=idModulo;
+}
 
+function  eliminarDetalleCategoria(idProducto) {
+    document.getElementById("idProducto").value=idProducto;
+    
 }
 
 function eliminarUsuarioRol(idUser){
@@ -34,7 +38,7 @@ function validarReservacion(campo){
     document.getElementById("validarReservacion").value=campo.value;
 }
 
-function idProducto(campo){
+function cantidadInventario(campo){
     document.getElementById("idProducto").value=campo.value;
 }
 
@@ -71,10 +75,10 @@ function eliminarCategoria(campo){
     document.getElementById("eliminarCategoria").value=campo.value;
 }
 
-function eliminarServicio(IdServicio){ 
-    document.getElementById("eliminarServicio").value=IdServicio;
+function eliminarServicio(campo){ 
+    document.getElementById("eliminarServicio").value=campo.value;
 }
 
-function eliminarEmpresa(IdEmpresa){ 
-    document.getElementById("eliminarEmpresa").value=IdEmpresa;
+function eliminarEmpresa(campo){ 
+    document.getElementById("eliminarEmpresa").value=campo.value;
 }

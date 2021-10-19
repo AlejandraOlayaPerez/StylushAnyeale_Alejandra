@@ -250,6 +250,54 @@ class usuario
         return $result;
     }
 
+    function paginacionUsuario($busquedaUsuario, $documento, $pagina)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        //Buscar numero de registro por filtros
+        $where = "1 ";
+        if ($busquedaUsuario != "") {
+            $where .= "AND primerNombre LIKE '%$busquedaUsuario%' OR segundoNombre LIKE '%$busquedaUsuario%' ";
+        }
+        if ($documento != "") {
+            $where .= "AND documentoIdentidad=$documento ";
+        }
+        $sql = "SELECT count(idUser) as numRegistro, u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE $where";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    function usuarios($busquedaUsuario, $documento, $pagina)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $where = "1 ";
+        if ($busquedaUsuario != "") {
+            $where .= "AND primerNombre LIKE '%$busquedaUsuario%' OR segundoNombre LIKE '%$busquedaUsuario%' ";
+        }
+        if ($documento != "") {
+            $where .= "AND documentoIdentidad=$documento ";
+        }
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE $where ORDER BY primerNombre ASC LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
+        return $result;
+    }
+
     function nuevoUsuarioPorRol($idRol)
     {
         //instancia la clase conectar
@@ -295,21 +343,6 @@ class usuario
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function mostrarUsuario($idCargo)
-    {
-        //se instancia el objeto conectar
-        $oConexion = new conectar();
-        //se establece conexión con la base datos
-        $conexion = $oConexion->conexion();
-
-        //sentencia para seleccionar un empleado 
-        $sql = "SELECT * FROM usuario WHERE idCargo!=$idCargo OR idCargo IS NULL AND eliminado=false;";
-
-        //se ejecuta la consulta en la base de datos
-        $result = mysqli_query($conexion, $sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
 
     function mostrarUsuarioRol($idRol)
     {
@@ -422,28 +455,6 @@ class usuario
         $inicio = (($pagina - 1) * 10);
         $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u LIMIT 10 OFFSET $inicio";
 
-
-        //se ejecuta la consulta en la base de datos
-        $result = mysqli_query($conexion, $sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
- 
-    function ajaxUsuario($busquedaUsuario, $documento)
-    {
-        //Instancia clase conectar
-        $oConexion = new conectar();
-        //Establece conexion con la base de datos.
-        $conexion = $oConexion->conexion();
-
-        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE (primerNombre LIKE '%$busquedaUsuario%' OR segundoNombre LIKE '%$busquedaUsuario%' OR primerApellido LIKE '%$busquedaUsuario%' OR segundoApellido LIKE '%$busquedaUsuario%') ";
-
-        // if ($busquedaUsuario != "") {
-        //     $sql .= " 
-        // }
-        if ($documento != "") {
-            $sql .= " AND (documentoIdentidad LIKE '%$documento%' ";
-        }
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);

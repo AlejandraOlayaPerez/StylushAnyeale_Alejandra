@@ -1,6 +1,7 @@
 body{
     background-color: rgba(252, 252, 232, 0.123);
 }
+
 .cabecera{
     background-color: #90AACB !important;
     border-radius: 8px;
@@ -79,5 +80,29 @@ body{
     font-size: 20px;
     color: black;
     height: 90%;
+}
+
+.estiloLi{
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 20px !important;
+    color: black !important;
+    text-decoration: none;
+    margin-right: 8px;
+    /* background-color: pink !important; */
+}
+
+.estilo{
+    background-color: #90aacb00 !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    font-size: 20px !important;
+    color: black !important;
+    margin-top: 10px !important;
+}
+
+.barraLateral{
+   height: auto;
+   width: 200px;
+  
+   overflow-y: scroll;
 }
 

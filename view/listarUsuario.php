@@ -8,24 +8,41 @@ $oUsuario = new usuario();
 
 <body>
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif;">
-                <!--filtro-->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="input-group m-b-0">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+        <div class="card cardHeader">
+            <div class="card-header">
+                <form id="formLimpiar" action="" method="POST">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Buscar usuario.." data-bs-toggle="tooltip" data-bs-placement="right" title="Busca por nombre del usuario" value="" id="busquedaUsuario" onkeyup="consultarUsuario()">
                             </div>
-                            <input type="text" class="form-control" placeholder="Buscar usuario.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca por nombre del usuario" value="" id="busquedaUsuario" onkeyup="consultarUsuario()">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="number" class="form-control" placeholder="Buscar documento.." data-bs-toggle="tooltip" data-bs-placement="right" title="Busca por el documento identidad" value="" id="documento" onchange="consultarUsuario()">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="button" class="btn btn-info" value="Borrar Filtro" onclick="limpiarFiltroReservacion()">
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="input-group m-b-0">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="number" class="form-control" placeholder="Buscar documento.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca por documento identidad" value="" id="documento" onkeyup="consultarUsuario()">
+                </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -34,9 +51,9 @@ $oUsuario = new usuario();
 
         <div class="card">
             <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
+                <table class="table colorestabla" style="padding: 15px;">
                     <thead>
-                        <tr style="background-color: rgb(249, 201, 242);">
+                        <tr class="estiloTr">
                             <th>Tipo Documento</th>
                             <th>Documento</th>
                             <th>Nombre y apellido</th>
@@ -52,13 +69,11 @@ $oUsuario = new usuario();
                 </table>
             </div>
         </div>
+        <br>
     </div>
 </body>
 
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/filtros.js"></script>
-<script>
-    consultarUsuario();
-</script>
+<?php require_once 'linkjs.php'; ?>
 <?php require_once 'footer.php'; ?>
 
 

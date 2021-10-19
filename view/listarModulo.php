@@ -5,12 +5,6 @@ require_once '../model/modulo.php';
 $oModulo = new modulo();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>MODULO</title>
-</head>
 
 <body>
     <div class="container-fluid">
@@ -96,9 +90,8 @@ $oModulo = new modulo();
 
 </html>
 
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
+<?php require_once 'linkjs.php'; ?>
 
 <!-- Modal -->
 <div class="modal fade" id="eliminarFormulario3" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
