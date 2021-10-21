@@ -13,7 +13,7 @@ function buscarProducto() {
     var nombre = document.getElementById("busquedaProductoNombre").value;
 
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'GET',
         data: {
             codigo: codigo,
@@ -22,7 +22,7 @@ function buscarProducto() {
             funcion: "buscarProductoInventario"
         }
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         var datos = data.split("®");
         //paginacion
         var numRegistro = parseInt(datos[0]);

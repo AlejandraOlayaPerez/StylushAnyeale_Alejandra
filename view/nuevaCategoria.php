@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/categoria.php';
 
 $oCategoria = new categoria();
@@ -11,7 +11,7 @@ $oCategoria = new categoria();
             <div class="card-header cardHeader">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Nueva Categoria</label>
             </div>
-            <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
+            <form action="../controller/productoserviciocontroller.php" method="GET" id="formUsuario">
                 <input type="text" name="funcion" value="nuevaCategoria" style="display: none;">
                 <div class="card-body cardBody">
                     <div class="row">

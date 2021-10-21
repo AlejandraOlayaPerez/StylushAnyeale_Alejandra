@@ -7,7 +7,7 @@ function buscarProducto() {
     var nombreProducto = document.getElementById("nombreProducto").value;
 
     $.ajax({
-        url: '../controller/clienteController.php',
+        url: '../controller/clientecontroller.php',
         type: 'GET',
         data: {
             codigoProducto: codigoProducto,

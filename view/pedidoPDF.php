@@ -119,7 +119,7 @@ class PDF extends FPDF{
     $sumaPrecio+=$row['precio'];
     $this->Ln();
     }
-    //SUMA
+    
     $this->Cell($w[0]+$w[1]+$w[2], 6,'Total: ', 'LRBT');
     $this->Cell($w[3],6,number_format($sumaPrecio, 2), 'LRBT',0,'R');
     

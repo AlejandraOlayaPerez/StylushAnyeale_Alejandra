@@ -1,17 +1,13 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/servicio.php';
-require_once '../controller/productoServicioController.php';
+require_once '../controller/productoserviciocontroller.php';
 
 $idServicio = $_GET['idServicio'];
 
 $oProductoServicioController = new productoServicioController();
 $oServicio = $oProductoServicioController->consultarServicio($idServicio);
 ?>
-
-<head>
-    <title>DETALLE SERVICIO</title>
-</head>
 
 <body>
     <div class="container-fluid">

@@ -6,9 +6,9 @@ function cargarJS() {
 
 function buscarEmpresa() {
     var empresa = document.getElementById("empresa").value;
-
+   
     $.ajax({
-        url: '../controller/pedidoController.php',
+        url: '../controller/pedidocontroller.php',
         type: 'GET',
         data: {
             empresa: empresa,

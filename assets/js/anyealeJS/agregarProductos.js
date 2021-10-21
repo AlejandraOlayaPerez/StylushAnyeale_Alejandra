@@ -9,7 +9,7 @@ function productoConsultar() {
     var producto = document.getElementById("producto").value;
 
     $.ajax({
-        url: '../controller/pedidoController.php',
+        url: '../controller/pedidocontroller.php',
         type: 'GET',
         data: {
             producto: producto,

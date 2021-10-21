@@ -6,7 +6,7 @@ var idServicio = document.getElementById("servicio").value;
 
 if(fechaReservacion!="" && estilista!=""&& domicilio!=""){
     $.ajax({
-        url: '../controller/reservacionController.php',
+        url: '../controller/reservacioncontroller.php',
         type: 'POST',
         data: {estilista:estilista, fechaReservacion:fechaReservacion,domicilio:domicilio,idServicio:idServicio, funcion: "mostrarHorariosDisponibles"}
         }).done(function (data){

@@ -1,9 +1,8 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/tags.php';
-require_once '../controller/productoServicioController.php';
+require_once '../controller/productoserviciocontroller.php';
 
-require_once '../controller/productoServicioController.php';
 $oProductoServicioController = new productoServicioController();
 $oTags = $oProductoServicioController->consultarTags($_GET['idTags']);
 ?>
@@ -11,24 +10,25 @@ $oTags = $oProductoServicioController->consultarTags($_GET['idTags']);
 <body>
     <div class="container-fluid">
         <div class="card card-primary">
-            <div class="card-header" style="background-color: rgb(249, 201, 242);">
+            <div class="card-header">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Editar Tag</label>
             </div>
-            <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
+            <form action="../controller/productoserviciocontroller.php" method="GET" id="formUsuario">
+            <input type="text" name="funcion" value="actualizarTags" style="display: none;">
                 <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                     <input type="text" name="idTags" value="<?php echo $_GET['idTags']; ?>" style="display: none;">
 
-                    <div class="row" style="margin: 5px;">
-
+                    <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
                             <label for="">Tags</label>
-                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags" value="<?php echo $oTags->tags; ?>">
+                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags" value="<?php echo $oTags->tags; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
+                            <span id="tagsSpan"></span>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
                     <a href="tags.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
-                    <button type="submit" class="btn btn-success" name="funcion" value="actualizarTags"><i class="fas fa-edit"></i> Actualizar Tag</button>
+                    <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i> Actualizar Tag</button>
                 </div>
             </form>
         </div>
@@ -42,37 +42,18 @@ $oTags = $oProductoServicioController->consultarTags($_GET['idTags']);
 <?php require_once 'linkjs.php'; ?>
 
 <script>
-    $(function() {
-        $.validator.setDefaults({
-            submitHandler: function() {
-                this.submit();
-            }
-        });
-        $('#formUsuario').validate({
-
-            rules: {
-                palabraClave: {
-                    required: true,
-                    minlength: 2,
-                },
-            },
-            messages: {
-                cargo: {
-                    required: "Por favor, complete el campo vacio",
-                    minlength: "Longitud mínima 2",
-                },
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.col').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
+  function validarPaginaFinal() {
+    // evento.preventDefault();
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["tags"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
     });
+    if (valido) {
+      document.getElementById('formUsuario').submit();
+    }
+  }
 </script>

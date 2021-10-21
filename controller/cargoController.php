@@ -44,7 +44,7 @@ class cargoController
     {
         require_once '../model/cargo.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oCargo = new cargo();
@@ -52,9 +52,9 @@ class cargoController
         $result = $oCargo->nuevoCargo();
 
         if ($result) {
-            header("location: ../view/listarCargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+cargo");
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+cargo");
         } else {
-            header("location: ../view/listarCargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -77,14 +77,14 @@ class cargoController
         $oCargo->idServicio = $_GET['idServicio'];
         $result = $oCargo->actualizarCargo();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarCargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+el+registro+del+cargo");
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+el+registro+del+cargo");
             // echo "registro";
         } else {
-            header("location: ../view/listarCargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -96,13 +96,13 @@ class cargoController
         $oCargo->idCargo = $_GET['idCargo'];
         $oCargo->eliminarCargo();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oCargo->eliminarCargo()) {
-            header("location: ../view/listarCargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+el+registro+del+cargo");
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+el+registro+del+cargo");
         } else {
-            header("location: ../view/listarCargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -116,14 +116,14 @@ class cargoController
         $oUsuario = new usuario();
         $result = $oUsuario->nuevoUsuarioPorCargo($idCargo, $idUser);
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+empleado+al+cargo");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+empleado+al+cargo");
             // echo "nuevo";
         } else {
-            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "Error";
         }
     }
@@ -136,14 +136,14 @@ class cargoController
         $oUsuario = new usuario();
         $result = $oUsuario->eliminarUsuarioCargo($_GET['idUser']);
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+el+empleado+al+cargo");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+el+empleado+al+cargo");
             // echo "eliminar";
         } else {
-            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "Error";
         }
     }

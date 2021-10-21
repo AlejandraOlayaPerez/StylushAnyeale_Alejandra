@@ -188,31 +188,6 @@ class usuario
         return $result;
     }
 
-    function mostrarUsuariosPorIdRol($idRol, $pagina)
-    {
-        //Instancia clase conectar
-        $oConexion = new conectar();
-        //Establece conexion con la base de datos.
-        $conexion = $oConexion->conexion();
-
-        //Buscar numero de registro por filtros
-        $sql = "SELECT count(documentoIdentidad) as numRegistro FROM usuario WHERE idRol=$idRol AND eliminado=false;";
-        $result = mysqli_query($conexion, $sql);
-        foreach ($result as $registro) {
-            $this->numRegistro = $registro['numRegistro'];
-        }
-        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
-        $inicio = (($pagina - 1) * 10);
-        //Esta consulta nos permite conocer los usuarios registrados en un rol
-        $sql = "SELECT * FROM usuario WHERE idRol=$idRol AND eliminado=false LIMIT 10 OFFSET $inicio";
-
-        //se ejecuta la consulta en la base de datos
-        $result = mysqli_query($conexion, $sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-        //arreglo asosiativo de la base de datos
-    }
-
     function nuevoUsuarioRegistroMasivo($idUser, $idCargo)
     {
         $result = "";

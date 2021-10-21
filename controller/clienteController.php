@@ -22,7 +22,6 @@ switch ($funcion) {
     case "actualizarCliente":
         $oClienteController->actualizarCliente();
         break;
-
     case "buscarReservacionPorCC":
         $oClienteController->buscarReservacionPorCC();
         break;
@@ -43,7 +42,7 @@ class clienteController
         $contrasena = $_POST['contrasena'];
         $oCliente->iniciarSesion($email, $contrasena);
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oCliente->getIdCliente() != 0) {
@@ -53,12 +52,12 @@ class clienteController
             $_SESSION['idCliente'] = $oCliente->getIdCliente();
             $_SESSION['nombreUser'] = $oCliente->getNombreUser();
             // echo "Inicio sesion correctamente";
-            header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
+            header("location: /anyeale_proyecto/stylushAnyeale_alejandra/view/paginaprincipalcliente.php");
         } else {
             //error al iniciar sesion
             //usuario o contraseña incorrecto
             // echo "Usuario o contraseña incorrecto";
-            header("location: ../view/loginCliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
+            header("location: ../view/logincliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
         }
         return $email;
     }
@@ -68,13 +67,13 @@ class clienteController
         session_start();
         session_unset(); //borra las variables de sesion
         session_destroy(); //destruye o elimina la sesion
-        header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php");
+        header("location: /anyeale_proyecto/stylushAnyeale_alejandra/view/paginaprincipalcliente.php");
         die();
     }
 
     public function registrarCliente()
     {
-       
+
         require_once '../model/cliente.php';
         $oCliente = new cliente();
 
@@ -88,7 +87,7 @@ class clienteController
         $oCliente->contrasena = $_POST['contrasena'];
         $confirmarContrasena = $_POST['confirmarContrasena'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oCliente->contrasena != $confirmarContrasena) {
@@ -121,15 +120,15 @@ class clienteController
         }
 
         return $oCliente;
-
     }
 
-    public function actualizarCliente(){
+    public function actualizarCliente()
+    {
         require_once '../model/cliente.php';
 
         $idCliente = $_POST['idCliente'];
 
-        $oCliente=new cliente();
+        $oCliente = new cliente();
         $oCliente->tipoDocumento = $_POST['tipoDocumento'];
         $oCliente->documentoIdentidad = $_POST['documentoIdentidad'];
         $oCliente->primerNombre = $_POST['primerNombre'];
@@ -150,28 +149,28 @@ class clienteController
         $yearNacimiento = $yearNacimiento[0]; //arreglo 1
         $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oCliente->consultarCorreoElectronicoExiste($oCliente->email, $idCliente) != 0) {
             // echo "error correo";
-            header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico");
+            header("location: ../view/perfilcliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico");
         } else {
             if ($oCliente->documentoIdUsuarioExiste($idCliente, $oCliente->tipoDocumento, $oCliente->documentoIdentidad) != 0) {
                 // echo "error documento";
-                header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad");
+                header("location: ../view/perfilcliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad");
             } else {
                 if ($edadUsuario < 15) {
                     // echo "error fecha";
-                    header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años");
+                    header("location: ../view/perfilcliente.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años");
                 } else {
                     $result = $oCliente->actualizarCliente($idCliente);
                     if ($result) {
                         // echo "actualizo";
-                        header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion");
+                        header("location: ../view/perfilcliente.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion");
                     } else {
                         // echo "error actualizar";
-                        header("location: ../view/perfilCliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                        header("location: ../view/perfilcliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
                     }
                 }
             }
@@ -180,7 +179,7 @@ class clienteController
         return $oCliente; //Cuando se devuelven los datos.
     }
 
-    
+
 
     public function consultarCliente($idCliente)
     {
@@ -202,11 +201,12 @@ class clienteController
         return $oCliente;
     }
 
-    public function fotoPerfilCliente($idCliente){
+    public function fotoPerfilCliente($idCliente)
+    {
         require_once '../model/imagen.php';
-        
-        $oFoto=new foto();
-        $result=$oFoto->mostrarFotoClientePerfil($idCliente);
+
+        $oFoto = new foto();
+        $result = $oFoto->mostrarFotoClientePerfil($idCliente);
 
         return $oFoto;
     }
@@ -228,11 +228,12 @@ class clienteController
         echo json_encode($result);
     }
 
-    public function mostrarReservacionIdCliente($idCliente){
+    public function mostrarReservacionIdCliente($idCliente)
+    {
         require_once '../model/reservaciones.php';
 
-        $oReservacion=new reservacion();
-        $result=$oReservacion->consultarReservacionId($idCliente);
+        $oReservacion = new reservacion();
+        $result = $oReservacion->consultarReservacionId($idCliente);
         return $result;
     }
 

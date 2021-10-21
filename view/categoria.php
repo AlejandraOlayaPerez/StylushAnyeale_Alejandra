@@ -1,4 +1,4 @@
-<?php require_once 'headPagina.php'; ?>
+<?php require_once 'headpagina.php'; ?>
 
 <div class="container-fluid">
     <div class="card">

@@ -12,7 +12,7 @@ function empresa() {
     var empresa = document.getElementById("empresa").value;
 
     $.ajax({
-        url: '../controller/pedidoController.php',
+        url: '../controller/pedidocontroller.php',
         type: 'GET',
         data: {
             empresa: empresa,

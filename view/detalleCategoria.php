@@ -1,12 +1,11 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/producto.php';
 require_once '../model/categoria.php';
 ?>
 
 <body>
     <div class="container-fluid">
-
         <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table colorestabla">
@@ -55,7 +54,7 @@ require_once '../model/categoria.php';
                 <p>¿Esta seguro que desea eliminar el producto de esta categoria?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/productoServicioController.php" method="GET">
+                <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display:none">
                     <input type="text" name="idProducto" id="idProducto" value="" >
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -102,7 +101,7 @@ require_once '../model/categoria.php';
                         </div>
                     </div>
                 </div>
-                <form action="../controller/productoServicioController.php" method="GET">
+                <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display: none;">
                     <div class="card-body table-responsive p-0">
                         <table class="table table-striped table-valign-middle">

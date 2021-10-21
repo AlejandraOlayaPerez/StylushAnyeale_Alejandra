@@ -1,7 +1,7 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/pedido.php';
-require_once '../controller/pedidoController.php';
+require_once '../controller/pedidocontroller.php';
 
 if (isset($_GET['ventana'])) { //
     $ventana = $_GET['ventana'];
@@ -102,13 +102,14 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                 </div>
             </div>
         </div>
-        <a href="listarPedido.php" style="margin-bottom: 5px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="listarpedido.php" style="margin-bottom: 5px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 
 </html>
 </body>
 
+<?php require_once 'footer.php'; ?>
 <?php require_once 'linkjs.php'; ?>
 
 <!--Modal empresa-->
@@ -139,7 +140,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                 <table class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
-                            <th><a class="btn btn-info" href="nuevaEmpresa.php?pedido=pedido"><i class="fas fa-plus-square"></i> Crear</a></th>
+                            <th><a class="btn btn-info" href="nuevaempresa.php?pedido=pedido"><i class="fas fa-plus-square"></i> Crear</a></th>
                             <th>Nit</th>
                             <th>Empresa</th>
                             <th>Direccion</th>

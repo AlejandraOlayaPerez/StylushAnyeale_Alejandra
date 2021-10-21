@@ -13,7 +13,7 @@ function consultarUsuario() {
     var documento = document.getElementById("documento").value;
 
     $.ajax({
-        url: '../controller/usuarioController.php',
+        url: '../controller/usuariocontroller.php',
         type: 'GET',
         data: {
             busquedaUsuario: busquedaUsuario,

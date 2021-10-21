@@ -1,7 +1,7 @@
 <?php
 session_start(); //¡FUNDAMENTAL!
 require_once '../controller/correoController.php';
-require_once 'linkHead.php';
+require_once 'linkhead.php';
 if (isset($_POST['correoElectronico']) != "") {
     $_POST['correoElectronico'];
     $oCorreo = new correo();
@@ -17,7 +17,6 @@ if (isset($_POST['correoElectronico']) != "") {
 <html lang="es">
 
 <head>
-    <?php require_once 'linkHead.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,16 +27,16 @@ if (isset($_POST['correoElectronico']) != "") {
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/anyeale_proyecto/StylushAnyeale_Alejandra/"><i class="fas fa-home"></i> Inicio</a>
+                <a class="navbar-brand" href="/anyeale_proyecto/stylushanyeale_alejandra/"><i class="fas fa-home"></i> Inicio</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="galeria.php"><i class="fas fa-image"></i> Galeria</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaProducto.php"><i class="fas fa-wine-bottle"></i> Producto</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaServicio.php"><i class="fas fa-cut"></i> Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarReservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaproducto.php"><i class="fas fa-wine-bottle"></i> Producto</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaservicio.php"><i class="fas fa-cut"></i> Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarreservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
                     </ul>
                     <?php
                     if (isset($_SESSION['idCliente'])) {
@@ -53,7 +52,7 @@ if (isset($_POST['correoElectronico']) != "") {
                                                 <li>
                                                     <hr class="dropdown-divider">
                                                 </li>
-                                                <li><a class="dropdown-item" href="../controller/clienteController.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
+                                                <li><a class="dropdown-item" href="../controller/clientecontroller.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -63,8 +62,8 @@ if (isset($_POST['correoElectronico']) != "") {
                     <?php } else {
                     ?>
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="registroCliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="logincliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="registrocliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
                         </ul>
                     <?php } ?>
                 </div>
@@ -107,7 +106,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
                     <h1>Productos</h1>
                     <p>"Puedes comprar nuestros productos atravez de esta plataforma, solo ingresa"</p>
-                    <a class="btn btn-info" href="vistaProducto.php">Ver. Productos</a>
+                    <a class="btn btn-info" href="vistaproducto.php">Ver. Productos</a>
                 </div>
 
                 <div class="col-lg-4">
@@ -115,7 +114,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
                     <h1>Servicios</h1>
                     <p>"Puedes explorar entre los servicios que ofrecemos, y para tu comodidad puedes realizar reservaciones segun tu tiempo al servicio que te interese, intentalo."</p>
-                    <a class="btn btn-info" href="vistaServicio.php">Ver. Servicios</a>
+                    <a class="btn btn-info" href="vistaservicio.php">Ver. Servicios</a>
                 </div>
 
                 <div class="col-lg-4">
@@ -123,7 +122,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
                     <h1>Stylus Anyeale</h1>
                     <p>"Nuestro nombre es Stylush Anyeale, brindamos atencion completa con nuestros servicios y cada dia iremos mejorando mas. "</p>
-                    <a class="btn btn-info" href="conoceNosotros.php">Conoce sobre nosotros</a>
+                    <a class="btn btn-info" href="conocenosotros.php">Conoce sobre nosotros</a>
                 </div>
             </div>
 
@@ -215,7 +214,7 @@ if (isset($_POST['correoElectronico']) != "") {
             </form>
         </footer>
     </main>
-    <?php require_once 'linkFooter.php'; ?>
+    <?php require_once 'linkfooter.php'; ?>
 </body>
 
 </html>

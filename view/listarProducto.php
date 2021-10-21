@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/producto.php';
 $oProducto = new producto();
 ?>

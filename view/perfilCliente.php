@@ -1,8 +1,10 @@
 <?php
 session_start();
 require_once 'permisosCliente.php';
+require_once 'linkhead.php';
+require_once 'linkcss';
 
-require_once '../controller/clienteController.php';
+require_once '../controller/clientecontroller.php';
 $oClienteController = new clienteController();
 $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
 ?>
@@ -14,17 +16,6 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stylush Anyeale</title>
-
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/all.min.css" rel="stylesheet">
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/carousel.css" rel="stylesheet">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/ionicons.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/css-font.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -44,7 +35,6 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
             box-shadow: 10px 10px 10px rgb(209, 208, 208);
         }
     </style>
-    <title>PERFIL</title>
 </head>
 
 <body>
@@ -112,7 +102,7 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
                         <div class="col-sm-12 mb-3">
                             <div class="card h-100">
                                 <div class="card-body">
-                                    <form action="../controller/imagenController.php" method="POST" enctype="multipart/form-data">
+                                    <form action="../controller/imagencontroller.php" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label for="">Actualizar foto de perfil</label>
@@ -247,7 +237,7 @@ $oCliente = $oClienteController->consultarCliente($_SESSION['idCliente']);
 
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <a href="paginaPrincipalCliente.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                        <a href="paginaprincipalcliente.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
                                         <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarCliente"><i class="fas fa-edit"></i>Actualizar Informacion</button>
                                     </div>
                                 </div>

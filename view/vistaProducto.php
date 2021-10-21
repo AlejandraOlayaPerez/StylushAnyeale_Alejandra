@@ -1,10 +1,10 @@
-<?php require_once 'headProducto.php'; ?>
+<?php require_once 'headproducto.php'; ?>
 
 <div class="row">
   <div class="col col-md-12">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb estilo">
-        <li class="breadcrumb-item"><a href="paginaPrincipalCliente.php">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="paginaprincipalcliente.php">Inicio</a></li>
         <li class="breadcrumb-item active" aria-current="page">Productos</li>
       </ol>
     </nav>
@@ -159,7 +159,7 @@
 <br>
 </div>
 </body>
-<?php require_once 'linkFooter.php'; ?>
+<?php require_once 'linkfooter.php'; ?>
 <?php require_once 'linkjs.php'; ?>
 
 </html>

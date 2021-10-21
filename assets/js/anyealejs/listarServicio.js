@@ -12,7 +12,7 @@ function buscarServicio() {
     var servicio = document.getElementById("busquedaServicio").value;
 
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'GET',
         data: {
             servicio: servicio,

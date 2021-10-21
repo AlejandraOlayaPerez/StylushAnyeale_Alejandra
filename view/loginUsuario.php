@@ -4,12 +4,12 @@
 
 session_start();
 if (isset($_SESSION['idUser'])) {
-  header("location: paginaPrincipalGerente.php");
+  header("location: paginaprincipalgerente.php");
   die(); // es para recomendado cuando se hace una rederigir, destruir o cerrar la pagina actual.
 }
 
 if (isset($_POST['correoElectronico']) != "") {
-  require_once '../controller/usuarioController.php';
+  require_once '../controller/usuariocontroller.php';
   $oUsuarioController = new usuarioController();
   $oUsuario = $oUsuarioController->iniciarSesion();
 }
@@ -22,7 +22,6 @@ if (isset($_POST['correoElectronico']) != "") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
   <title>Iniciar sesion</title>
 </head>
 
@@ -35,7 +34,7 @@ if (isset($_POST['correoElectronico']) != "") {
     <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(255, 255, 204, 255) 5px dashed; ; box-shadow: 20px 20px 20px black;">
       <div class="card-body">
         <div class="col text-center">
-          <img class="img-circle elevation-2" src="../image/PNG_LOGO.png" width="40%">
+          <img class="img-circle elevation-2" src="../image/logo.png" width="40%">
         </div>
         <br>
         <p class="login-box-msg">Inicia sesión para continuar</p>
@@ -51,7 +50,7 @@ if (isset($_POST['correoElectronico']) != "") {
           </p>
           <br>
           <button type="submit" class="btn btn-success" name="funcion" value="iniciarSesion"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
-          <a type="button" href="paginaPrincipalCliente.php" class="btn btn-dark float-right"><i class="fas fa-home"></i> Volver al inicio</a>
+          <a type="button" href="paginaprincipalcliente.php" class="btn btn-dark float-right"><i class="fas fa-home"></i> Volver al inicio</a>
         </form>
 
       </div>
@@ -60,6 +59,6 @@ if (isset($_POST['correoElectronico']) != "") {
 </body>
 
 
-<?php require_once 'linkFooter.php'; ?>
+<?php require_once 'linkfooter.php'; ?>
 
 </html>

@@ -31,8 +31,8 @@ switch ($funcion) {
     case "cancelarPedido":
         $oPedidoController->cancelarPedido();
         break;
-    case "listarPedido":
-        $oPedidoController->listarPedido();
+    case "listarpedido":
+        $oPedidoController->listarpedido();
         break;
     case "traerProductos":
         $oPedidoController->traerProductos();
@@ -56,8 +56,8 @@ switch ($funcion) {
     case "buscarProducto":
         $oPedidoController->buscarProducto();
         break;
-    case "listarEmpresa":
-        $oPedidoController->listarEmpresa();
+    case "listarempresa":
+        $oPedidoController->listarempresa();
         break;
 }
 
@@ -67,7 +67,7 @@ class pedidoController
     {
         require_once '../model/pedido.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $fechaActual = Date("Y-m-d");
@@ -93,14 +93,14 @@ class pedidoController
 
         if ($resultSuma) {
             if ($oPedido->validarPedido()) {
-                header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+validado+correctamente+el+pedido");
+                header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+validado+correctamente+el+pedido");
                 // echo "valido";
             } else {
-                header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
                 // echo "error";
             }
         } else {
-            header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error al sumar";
         }
     }
@@ -122,14 +122,14 @@ class pedidoController
         $oPedido->idPedido = $_GET['idPedido'];
         $result = $oPedido->eliminarPedido();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+cancelado+correctamente+el+pedido");
+            header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+cancelado+correctamente+el+pedido");
             // echo "valido";
         } else {
-            header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -137,9 +137,9 @@ class pedidoController
     public function nuevoPedido()
     {
         require_once '../model/pedido.php';
-        require_once 'configCrontroller.php';
+        require_once 'configcrontroller.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $Oconfig = new Config;
@@ -185,17 +185,17 @@ class pedidoController
                 $oProducto->IdProducto;
                 $oDetalle->guardarProducto($codigo, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->valorUnitario);
             }
-            header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+generado+el+pedido+correctamente");
+            header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+generado+el+pedido+correctamente");
             // echo "registro pedido";
         } else {
-            header("location: ../view/listarPedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarpedido.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
 
     public function actualizarPedido()
     {
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $fechaActual = Date("Y-m-d");
@@ -220,10 +220,10 @@ class pedidoController
         $oSeguimiento->seguimientoEditarPedido($fechaActual, $horaActual);
 
         if ($result) {
-            header("location: ../view/formularioEditarPedido.php?idPedido=$oPedido->idPedido " . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido" . "&ventana=informacion");
+            header("location: ../view/formularioeditarpedido.php?idPedido=$oPedido->idPedido " . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+pedido" . "&ventana=informacion");
             // echo "actualizo";
         } else {
-            header("location: ../view/formularioEditarPedido.php?idPedido=$oPedido->idPedido " . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=informacion");
+            header("location: ../view/formularioeditarpedido.php?idPedido=$oPedido->idPedido " . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=informacion");
             // echo "error";
         }
     }
@@ -231,7 +231,7 @@ class pedidoController
     public function actualizarPedidoProducto()
     {
         //instanciamos mensajeController.php
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         //recibimos pedido
@@ -275,18 +275,18 @@ class pedidoController
                 if (!$result) {
                     //mostramos mensaje
                     // echo "error al registrar los productos";
-                    header("location: ../view/formularioEditarPedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
+                    header("location: ../view/formularioeditarpedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
                     //rompemos for
                     break;
                 } else {
                     //se ejecuto correctamente
-                    header("location: ../view/formularioEditarPedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+pedido" . "&ventana=producto");
+                    header("location: ../view/formularioeditarpedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+pedido" . "&ventana=producto");
                     // echo "se actualizo correctamente";
                 }
             }
         } else {
             // echo "error eliminado producto del pedido";
-            header("location: ../view/formularioEditarPedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
+            header("location: ../view/formularioeditarpedido.php?idPedido=$idPedido" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
         }
     }
 
@@ -308,19 +308,19 @@ class pedidoController
         echo $paginacion;
         $delimitador = "®";
         echo $delimitador;
-        $producto = $oPedido->listarPedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo'], $_GET['pagina']);
+        $producto = $oPedido->listarpedido($_GET['fecha'], $_GET['recibido'], $_GET['cancelado'], $_GET['codigo'], $_GET['pagina']);
         echo json_encode($producto);
     }
 
 
-    public function listarPedido()
+    public function listarpedido()
     {
         // require_once '../model/pedido.php';
 
         // $fechaFiltro = $_GET['fechaFiltro'];
 
         // $oPedido = new pedido();
-        // $result = $oPedido->listarPedido();
+        // $result = $oPedido->listarpedido();
         // return $fechaFiltro;
     }
 
@@ -361,14 +361,14 @@ class pedidoController
         $oEmpresa->direccion = $_GET['direccion'];
         $result = $oEmpresa->actualizarEmpresa();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+empresa");
+            header("location: ../view/listarempresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+empresa");
             // echo "actualizo";
         } else {
-            header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarempresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -381,13 +381,13 @@ class pedidoController
         $oEmpresa->idEmpresa = $_GET['idEmpresa'];
         $result = $oEmpresa->eliminarEmpresa();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+la+empresa");
+            header("location: ../view/listarempresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+la+empresa");
         } else {
-            header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarempresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -395,7 +395,7 @@ class pedidoController
     {
         require_once '../model/empresa.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oEmpresa = new empresa();
@@ -409,10 +409,10 @@ class pedidoController
             $result = $oEmpresa->nuevaEmpresa();
 
             if ($result) {
-                header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+una+empresa");
+                header("location: ../view/listarempresa.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+una+empresa");
                 // echo "registro";
             } else {
-                header("location: ../view/listarEmpresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                header("location: ../view/listarempresa.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
                 // echo "error";
             }
         }
@@ -449,7 +449,7 @@ class pedidoController
         echo json_encode($result);
     }
 
-    public function listarEmpresa()
+    public function listarempresa()
     {
         require_once '../model/empresa.php';
 

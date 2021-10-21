@@ -1,10 +1,10 @@
-<?php require_once 'headReservacion.php'; ?>
+<?php require_once 'headreservacion.php'; ?>
 
 <div class="row">
     <div class="col col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb estilo">
-                <li class="breadcrumb-item"><a href="paginaPrincipalCliente.php">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="paginaprincipalcliente.php">Inicio</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Tus Reservaciones</li>
             </ol>
         </nav>
@@ -51,7 +51,7 @@
                                 </div>
                                 <br>
                                 <div class="footer-content">
-                                    <a href="formularioEditarReservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
+                                    <a href="formularioE¡editareeservacion.php?idReservacion=<?php echo $registro['idReservacion']; ?>" class="btn btn-success"> <i class="fas fa-edit"></i> Actualizar Reservacion</a>
                                     <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarFormulario" onclick="eliminarReservacion(<?php echo $registro['idReservacion']; ?>)"><i class="far fa-calendar-times"></i> Cancelar</a>
                                 </div>
                             </div>
@@ -59,16 +59,12 @@
                     <?php } ?>
                 <?php } ?>
             </div>
-            <!-- <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/" class="btn btn-dark"> <i class="fas fa-home"></i> Inicio</a> -->
-    
     </section>
 
 
 
 </main>
-</div>
-</body>
-<?php require_once 'linkFooter.php'; ?>
+<?php require_once 'linkfooter.php'; ?>
 <?php require_once 'linkjs.php'; ?>
 
 </html>

@@ -1,6 +1,7 @@
     <?php
-    require_once 'headReservacion.php';
-    require_once '../controller/reservacionController.php';
+    require_once 'permisoscliente.php';
+    require_once 'headreservacion.php';
+    require_once '../controller/reservacioncontroller.php';
     if (isset($_POST['documentoIdentidad']) != "") {
       $oReservacionController = new reservacionController();
       $oReservacion = $oReservacionController->crearReservacion();
@@ -20,8 +21,8 @@
       <div class="col col-md-12">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb estilo">
-            <li class="breadcrumb-item"><a href="paginaPrincipalCliente.php">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="listarReservacion.php">Tus Reservaciones</a></li>
+            <li class="breadcrumb-item"><a href="paginaprincipalcliente.php">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="listarreservacion.php">Tus Reservaciones</a></li>
             <li class="breadcrumb-item active" aria-current="page">Nueva Reservacion</li>
           </ol>
         </nav>
@@ -55,7 +56,7 @@
                 </div>
 
                 <?php
-                require_once '../controller/clienteController.php';
+                require_once '../controller/clientecontroller.php';
                 $oClienteController = new clienteController();
                 $oCliente = $oClienteController->consultarCliente($idCliente);
                 ?>
@@ -109,7 +110,7 @@
                     <?php
                     } else {
                     ?>
-                      <a type="button" href="paginaPrincipalCliente.php" class="btn btn-dark"><i class="fas fa-home"></i> Volver al inicio</a>
+                      <a type="button" href="paginaprincipalcliente.php" class="btn btn-dark"><i class="fas fa-home"></i> Volver al inicio</a>
                     <?php } ?>
 
                     <button class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>

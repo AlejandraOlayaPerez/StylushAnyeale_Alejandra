@@ -8,10 +8,10 @@ class config{
 
 function enlaceRaiz(){
     //Enlace de carpeta raiz.
-    $_SESSION['urlRaiz']="https://Anyeale_proyecto/StylushAnyeale_Alejandra/";
+    $_SESSION['urlRaiz']="https://anyeale_proyecto/stylushAnyeale_alejandra/";
 
     //Enlace de dominio
-    //return "https://www.stylushAnyeale.com/stylushAnyeale_Alejandra";
+    //return "https://www.stylushAnyeale.com/stylushanyeale_alejandra";
 }
 
 function generarCodigoPedido(){

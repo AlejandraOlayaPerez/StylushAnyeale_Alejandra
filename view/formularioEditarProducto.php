@@ -1,8 +1,8 @@
 <?php
-require_once 'headPagina.php';
-require_once 'linkHead.php';
+require_once 'headpagina.php';
+require_once 'linkhead.php';
 require_once '../model/producto.php';
-require_once '../controller/productoServicioController.php';
+require_once '../controller/productoserviciocontroller.php';
 
 if (isset($_GET['ventana'])) { //
     $ventana = $_GET['ventana'];
@@ -17,7 +17,6 @@ $oTags = $oProductoServicioController->consultarTagsidProducto($_GET['idProducto
 
 <body>
     <div class="container-fluid">
-
         <div class="card cardHeader">
             <div class="card-header">
                 <h2>Actualizar Producto</h2>
@@ -134,7 +133,7 @@ $oTags = $oProductoServicioController->consultarTagsidProducto($_GET['idProducto
                 </div>
             </div>
         </div>
-        <a href="listarProducto.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="listarproducto.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 

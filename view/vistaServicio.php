@@ -1,9 +1,9 @@
-<?php require_once 'headServicio.php'; ?>
+<?php require_once 'headservicio.php'; ?>
 <div class="row">
     <div class="col col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb estilo">
-                <li class="breadcrumb-item"><a href="paginaPrincipalCliente.php">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="paginaprincipalcliente.php">Inicio</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Servicios</li>
             </ol>
         </nav>
@@ -118,7 +118,7 @@
                     <div class="team-item">
                         <div class="mb-30 position-relative d-flex align-items-center">
                             <span class="socials d-inline-block">
-                                <a href="listarReservacion.php"><i class="fas fa-calendar-plus"></i> Reservar</a>
+                                <a href="listarreservacion.php"><i class="fas fa-calendar-plus"></i> Reservar</a>
                             </span>
                             <span class="img-holder d-inline-block">
                                 <img src="">
@@ -135,6 +135,6 @@
     </div>
 </div>
 </body>
-<?php require_once 'linkFooter.php'; ?>
+<?php require_once 'linkfooter.php'; ?>
 <?php require_once 'linkjs.php'; ?>
 </html>

@@ -1,8 +1,7 @@
 <?php
-require_once 'headPagina.php';
-require_once '../controller/usuarioController.php';
+require_once 'headpagina.php';
+require_once '../controller/usuariocontroller.php';
 require_once '../model/usuario.php';
-require_once '../controller/usuarioController.php';
 
 $idUser = $_SESSION['idUser'];
 
@@ -20,7 +19,7 @@ if (isset($_GET['ventana'])) { //
 
         <br>
 
-        <div class="card card-primary" style="background-color: rgba(255, 255, 204, 255);">
+        <div class="card tabsHeader">
             <?php
             $oUsuarioController = new usuarioController();
             $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
@@ -31,14 +30,14 @@ if (isset($_GET['ventana'])) { //
                         <div class="widget-user-header text-white" style="background: url('../image/Fondo_Negro.jpg') center center;"></div>
                         <div class="widget-user-image">
                             <?php
-                            require_once '../controller/imagenController.php';
+                            require_once '../controller/imagencontroller.php';
                             $oImagenController = new imagenController();
                             $oFoto = $oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
 
                             ?>
                             <img class="img-circle elevation-2" src="../<?php echo $oFoto->fotoPerfilUsuario; ?>" alt="User Avatar">
                         </div>
-                        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
+                        <div class="card-footer">
                             <div class="text-center">
                                 <h1 class="profile-username text-center"><?php echo $oUsuario->primerNombre . " " . $oUsuario->primerApellido; ?></h1>
                             </div>

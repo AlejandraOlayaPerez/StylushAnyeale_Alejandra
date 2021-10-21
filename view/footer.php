@@ -9,21 +9,7 @@
   </div>
 </footer>
 
-<?php require_once 'linkFooter.php'; ?>
-
-
-<!-- <script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/eliminar.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/permisoHabilitar.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/contarTabla.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/limpiarFormFiltros.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/listarPedido.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/validaciones.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/filtros.js"></script>
-<script src="/anyeale_proyecto/stylushAnyeale_Alejandra/assets/js/anyealeJS/general.js"></script> -->
-
-
-
-
+<?php require_once 'linkfooter.php'; ?>
 </body>
 
 </html>

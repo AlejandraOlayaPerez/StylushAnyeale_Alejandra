@@ -13,7 +13,7 @@ function buscarProducto() {
     var nombre = document.getElementById("busquedaProductoNombre").value;
 
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'GET',
         data: {
             codigo: codigo,

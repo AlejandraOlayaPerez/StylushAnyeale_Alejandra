@@ -1,20 +1,20 @@
 <?php
-require_once 'linkHead.php';
+
 //si no esta definida o no tiene valor e redirige al login
 //en caso contrario no hace nada
-$url = str_replace("/anyeale_proyecto/StylushAnyeale_Alejandra/", "", $_SERVER['REQUEST_URI']);
+$url = str_replace("/anyeale_proyecto/stylushanyeale_alejandra/", "", $_SERVER['REQUEST_URI']);
 $url = (explode("?", $url))[0];
-require_once '../controller/gestionController.php';
+require_once '../controller/gestioncontroller.php';
 $oGestionController = new gestionController();
 $oPagina = $oGestionController->consultarPaginaPorUrl($url);
 // print_r($oPagina);
 session_start();
-require_once '../controller/configCrontroller.php';
+require_once '../controller/configcrontroller.php';
 //Si la pagina requiere sesion y no inice sesion lo devuelve a loginç
 
 if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   // echo "<script>alert('no tiene permiso');</script>";
-  header("location: ../view/loginUsuario.php");
+  header("location: ../view/loginusuario.php");
   die(); // es para recomendado cuando se hace una rederecion, destruir o cerrar la pagina actual.
 } elseif ($oPagina->requireSession and isset($_SESSION['idUser'])) {
   //iniciar session
@@ -25,6 +25,10 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 <html lang="en">
 
 <head>
+  <?php
+  require_once 'linkhead.php';
+  require_once 'linkcss.php';
+  ?>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,16 +39,15 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 
 <body class="hold-transition light-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
-
     <nav class="main-header navbar navbar-expand navbar-black navbar-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/#" role="button"><i class="fas fa-bars"></i></a>
+          <a class="nav-link" data-widget="pushmenu" href="/anyeale_proyecto/stylushanyeale_alejandra/#" role="button"><i class="fas fa-bars"></i></a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a href="../controller/usuarioController.php?funcion=cerrarSesion" class="nav-link">
+          <a href="../controller/usuariocontroller.php?funcion=cerrarSesion" class="nav-link">
             <p><i class="fas fa-power-off"></i> Cerrar Sesion</p>
           </a>
         </li>
@@ -52,8 +55,8 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
     </nav>
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php" class="brand-link">
-        <img src="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <a href="/anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalgerente.php" class="brand-link">
+        <img src="/anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">INICIO</span>
       </a>
 
@@ -61,7 +64,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <?php
-            require_once '../controller/imagenController.php';
+            require_once '../controller/imagencontroller.php';
             $oImagenController = new imagenController();
             $oFoto = $oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
 
@@ -69,7 +72,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
             <img src="../<?php echo $oFoto->fotoPerfilUsuario; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="perfilEmpleado.php" class="d-block"><?php echo $_SESSION['nombreUser']; ?></a>
+            <a href="perfilempleado.php" class="d-block"><?php echo $_SESSION['nombreUser']; ?></a>
           </div>
         </div>
 
@@ -78,7 +81,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 
             <li class="nav-header">MODULOS</li>
             <?php
-            require_once '../controller/gestionController.php';
+            require_once '../controller/gestioncontroller.php';
             $oGestionController = new gestionController();
             $oModulo = $oGestionController->mostrarModulo($_SESSION['idUser']);
 
@@ -95,7 +98,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
                   foreach ($result as $registro) {
                   ?>
                     <li class="nav-item">
-                      <a href="/anyeale_proyecto/StylushAnyeale_Alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
+                      <a href="/anyeale_proyecto/stylushanyeale_alejandra/<?php echo $registro['enlace']; ?>" class="nav-link">
                         <i class="fas fa-check-circle"></i>
                         <p><?php echo $registro['nombrePagina']; ?></p>
                       </a>

@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/servicio.php';
 $oServicio = new servicio();
 ?>
@@ -8,12 +8,12 @@ $oServicio = new servicio();
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-default" style="background-color: rgba(255, 255, 204, 255);">
-                    <div class="card-header" style="background-color: rgb(249, 201, 242);">
+                <div class="card">
+                    <div class="card-header">
                         <label class="card-title">Nuevo Servicio</label>
                     </div>
 
-                    <form id="formulario" action="../controller/productoServicioController.php" method="POST" enctype="multipart/form-data">
+                    <form id="formulario" action="../controller/productoserviciocontroller.php" method="POST" enctype="multipart/form-data">
                         <input type="text" name="funcion" value="crearServicio" style="display: none;">
                         <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                         <div class="card-body p-0">
@@ -62,7 +62,7 @@ $oServicio = new servicio();
                                         </div>
                                         <br>
                                         <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
-                                        <a href="/Anyeale_proyecto/StylushAnyeale_Alejandra/view/listarServicio.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                        <a href="listarservicio.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                                     </div>
 
                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">

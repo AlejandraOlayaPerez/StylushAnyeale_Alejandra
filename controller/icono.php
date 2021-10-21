@@ -21,7 +21,6 @@ class icono
     public $servicio = "fas fa-cut";
     public $desServicio = "&#xf0c4;";
 
-
     public function descripcionIcono($icono)
     {
         switch ($icono) {

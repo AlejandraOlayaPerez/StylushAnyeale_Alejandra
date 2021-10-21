@@ -48,13 +48,13 @@ $oCliente = new cliente();
 
 
             <?php
-            require_once '../controller/usuarioController.php';
+            require_once '../controller/usuariocontroller.php';
             $oUsuarioController = new usuarioController();
             $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
             ?>
 
             <br>
-            <form action="../controller/facturaController.php" method="GET" id="formFactura">
+            <form action="../controller/facturacontroller.php" method="GET" id="formFactura">
                 <input type="text" name="funcion" value="registroFactura" style="display: none;">
                 <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                 <input type="text" name="fechaFactura" value="<?php echo $fechaActual; ?>" style="display: none;">
@@ -202,7 +202,7 @@ $oCliente = new cliente();
             </div>
         </footer>
 
-        <?php require_once 'linkFooter.php'; ?>
+        <?php require_once 'linkfooter.php'; ?>
         <?php require_once 'linkjs.php'; ?>
     </div>
 </body>

@@ -3,7 +3,7 @@ function buscarCliente(){
     var documentoIdentidad = document.getElementById("documentoIdentidad2").value;
 
     $.ajax({
-        url: '../controller/clienteController.php',
+        url: '../controller/clientecontroller.php',
         type: 'GET',
         data: {tipoDocumento:tipoDocumento,documentoIdentidad:documentoIdentidad,funcion:"buscarReservacionPorCC"}
     }).done(function (data){
@@ -96,7 +96,7 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
         var idCliente = document.getElementById("idCliente").value;
 
     $.ajax({
-        url: '../controller/reservacionController.php',
+        url: '../controller/reservacioncontroller.php',
         type: 'GET',
         data: {idCliente:idCliente,funcion:"buscarReservacionIdAjax"}
     }).done(function (data){
@@ -162,7 +162,7 @@ function agregarCliente(idCliente, tipoDocumento, documentoIdentidad, primerNomb
         var nombreProducto = document.getElementById("nombreProducto").value;
            
     $.ajax({
-        url: '../controller/clienteController.php',
+        url: '../controller/clientecontroller.php',
         type: 'GET',
         data: {
             codigoProducto:codigoProducto,

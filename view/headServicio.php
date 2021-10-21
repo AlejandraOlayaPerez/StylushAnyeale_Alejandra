@@ -5,13 +5,14 @@
 
 <head>
     <?php require_once 'linkHead.php'; ?>
+    <?php require_once 'linkcss.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/servicios.min.css" type="text/css">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/vistaHeader.min.css" type="text/css">
+    <link href="/Anyeale_proyecto/stylushanyeale_alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="/Anyeale_proyecto/stylushanyeale_alejandra/assets/css/servicios.min.css" type="text/css">
+    <link rel="stylesheet" href="/Anyeale_proyecto/stylushanyeale_alejandra/assets/css/vistaHeader.min.css" type="text/css">
 
     <title>Stylush Anyeale</title>
 </head>
@@ -21,8 +22,8 @@
         <div class="event-schedule-area-two cabecera">
             <div class="row">
                 <div class="col-md-8">
-                    <a href="/anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalCliente.php" class="brand-link">
-                        <img src="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" id="img" class="brand-image img-circle elevation-3">
+                    <a href="/Anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalcliente.php" class="brand-link">
+                        <img src="/Anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
                         <h1 class="titulo">Stylush Anyeale<h1>
                     </a>
                 </div>
@@ -39,11 +40,11 @@
                                             <li class="nav-item dropdown">
                                                 <a class="estiloLi nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><?php echo  $_SESSION['nombreUser']; ?></a>
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <li class="nav-item"><a class="dropdown-item" href="perfilCliente.php">Perfil</a></li>
+                                                    <li class="nav-item"><a class="dropdown-item" href="perfilcliente.php">Perfil</a></li>
                                                     <li>
                                                         <hr class="dropdown-divider">
                                                     </li>
-                                                    <li class="nav-item "><a class="dropdown-item" href="../controller/clienteController.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
+                                                    <li class="nav-item "><a class="dropdown-item" href="../controller/clientecontroller.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -70,8 +71,8 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
-                                <a class="nav-item nav-link titulo " href="listarReservacion.php"><i class="fas fa-shopping-bag"></i> Mis reservaciones</a>
-                                <a class="nav-item nav-link titulo " href="comentariosServicios.php"><i class="fas fa-comments"></i> Comentarios</a>
+                                <a class="nav-item nav-link titulo " href="listarreservacion.php"><i class="fas fa-shopping-bag"></i> Mis reservaciones</a>
+                                <a class="nav-item nav-link titulo " href="comentariosservicios.php"><i class="fas fa-comments"></i> Comentarios</a>
                             </div>
                         </div>
                     </nav>

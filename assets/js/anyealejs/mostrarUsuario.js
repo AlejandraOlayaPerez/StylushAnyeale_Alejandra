@@ -6,7 +6,7 @@ var numPagina = 0;
 function mostrarUsuario() {
     var idCargo = document.getElementById("idCargo").value;
     $.ajax({
-        url: '../controller/cargoController.php',
+        url: '../controller/cargocontroller.php',
         type: 'GET',
         data: {
             idCargo: idCargo,

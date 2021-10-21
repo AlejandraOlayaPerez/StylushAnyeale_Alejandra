@@ -1,6 +1,8 @@
 <?php
 require_once '../model/cliente.php';
 require_once '../controller/clienteController.php';
+require_once 'linkhead.php'; 
+
 $oCliente = new cliente();
 
 if (isset($_POST['documentoIdentidad']) != "") {
@@ -15,15 +17,6 @@ if (isset($_POST['documentoIdentidad']) != "") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/font-css.css">
-  <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-  <link href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-  <link rel="stylesheet" href="Anyeale_proyecto/StylushAnyeale_Alejandra/assests/plugins/toastr/toastr.min.css">
-  <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
-  <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
   <title>Registro</title>
 </head>
 
@@ -40,7 +33,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         <p class="login-box-msg" style="color:black">Registrese para continuar</p>
 
         <form id="formulario" action="" method="POST">
-          <input type="text" name="fotoPerfil" value="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/perfilPreterminado.png" style="display: none;">
+          <input type="text" name="fotoPerfil" value="/anyeale_proyecto/stylushAnyeale_alejandra/image/perfilpreterminado.png" style="display: none;">
           <div class="row">
             <div class="col col-md-6">
               <label for="" class="form-label" style="color: black;">Tipo de Documento</label>
@@ -102,7 +95,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
       </div>
     </div>
 
-    <?php require_once 'linkFooter.php'; ?>
+    <?php require_once 'linkfooter.php'; ?>
     <?php require_once 'linkjs.php'; ?>
 </body>
 

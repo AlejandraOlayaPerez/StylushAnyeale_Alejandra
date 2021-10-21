@@ -4,25 +4,24 @@ function eliminarEmpleado(idEmpleado, idCargo){
     document.getElementById("eliminarCargo").value=idCargo;
 }
 
-function eliminarCargo(idCargo){
-    document.getElementById("eliminarCargo").value=idCargo;
+function eliminarCargo(campo){
+    document.getElementById("eliminarCargo").value=campo.value;
 }
 
 function eliminarUsuario(campo){
     document.getElementById("eliminarUser").value=campo.value;
 }
 
-function eliminarRol(idRol){
-    document.getElementById("eliminarRol").value=idRol;
+function eliminarRol(campo){
+    document.getElementById("eliminarRol").value=campo.value;
 }
 
-function eliminarModulo(idModulo){
-    document.getElementById("eliminarModulo").value=idModulo;
+function eliminarModulo(campo){
+    document.getElementById("eliminarModulo").value=campo.value;
 }
 
-function eliminarPagina(idPagina, idModulo){
-    var p =document.getElementById("eliminarPagina").value=idPagina;
-    var m=document.getElementById("eliminarModulo").value=idModulo;
+function eliminarPagina(campo){
+    var p =document.getElementById("eliminarPagina").value=campo.value;
 }
 
 function  eliminarDetalleCategoria(idProducto) {
@@ -30,8 +29,8 @@ function  eliminarDetalleCategoria(idProducto) {
     
 }
 
-function eliminarUsuarioRol(idUser){
-    document.getElementById("eliminarUsuarioRol").value=idUser;
+function eliminarUsuarioRol(campo){
+    document.getElementById("eliminarUsuarioRol").value=campo.value;
 }
 
 function validarReservacion(campo){

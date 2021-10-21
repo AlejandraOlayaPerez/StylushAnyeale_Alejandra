@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/servicio.php';
 $oServicio = new servicio();
 ?>

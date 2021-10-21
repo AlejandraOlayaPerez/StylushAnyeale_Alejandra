@@ -10,7 +10,7 @@ function buscarCliente(){
     var documentoIdentidad = document.getElementById("documentoIdentidad2").value;
 
     $.ajax({
-        url: '../controller/clienteController.php',
+        url: '../controller/clientecontroller.php',
         type: 'GET',
         data: {tipoDocumento:tipoDocumento,documentoIdentidad:documentoIdentidad,funcion:"buscarReservacionPorCC"}
     }).done(function (data){
@@ -66,7 +66,7 @@ function mostrarReservacion(){
     
 
     $.ajax({
-        url: '../controller/reservacionController.php',
+        url: '../controller/reservacioncontroller.php',
         type: 'GET',
         data: {fecha:fecha, domicilio:domicilio, validar:validar, cancelado:cancelado,funcion:"buscarTodasReservacion"}
     }).done(function (data){

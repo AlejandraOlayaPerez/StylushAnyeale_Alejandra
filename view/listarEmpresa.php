@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/empresa.php';
 
 $oEmpresa = new empresa();
@@ -7,7 +7,6 @@ $oEmpresa = new empresa();
 
 <body>
     <div class="container-fluid">
-
         <div class="card">
             <div class="card-header cardHeader">
                 <div class="row">
@@ -55,7 +54,9 @@ $oEmpresa = new empresa();
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/empresa.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">

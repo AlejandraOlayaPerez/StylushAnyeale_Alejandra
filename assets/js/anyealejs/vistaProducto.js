@@ -19,7 +19,7 @@ function vistaProducto() {
     var buscar = document.getElementById("buscar").value;
 
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'GET',
         data: {
             categoria: categoria,
@@ -32,7 +32,7 @@ function vistaProducto() {
             funcion: "buscarProductosVista"
         }
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         var datos = data.split("®");
         //paginacion
         var numRegistro = parseInt(datos[0]);

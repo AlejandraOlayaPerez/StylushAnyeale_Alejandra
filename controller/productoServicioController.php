@@ -116,16 +116,16 @@ class productoServicioController
         $fechaActual = Date("Y-m-d");
         $horaActual = Date("H:i:s");
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
-        require_once 'configCrontroller.php';
+        require_once 'configcrontroller.php';
         $Oconfig = new Config();
 
         require_once '../model/producto.php';
         $oProducto = new producto();
 
-        require_once '../model/palabrasClaves.php';
+        require_once '../model/palabrasclaves.php';
         $oPalabraClave = new palabraClave();
 
         do {
@@ -144,8 +144,8 @@ class productoServicioController
         $oProducto->nombreProducto = $_POST['nombreProducto'];
         $oProducto->descripcionProducto = $_POST['descripcion'];
         $oProducto->caracteristicas = $_POST['caracteristicas'];
-        $oProducto->valorUnitario =str_replace(".", "", $_POST['valorUnitario'] );
-        $oProducto->costoProducto =str_replace(".","",$_POST['costo']);
+        $oProducto->valorUnitario = str_replace(".", "", $_POST['valorUnitario']);
+        $oProducto->costoProducto = str_replace(".", "", $_POST['costo']);
         $result = $oProducto->nuevoProducto($idProducto);
 
         if ($result) {
@@ -154,12 +154,12 @@ class productoServicioController
                 $registro = $oPalabraClave->actualizarTagsProducto($idProducto, $idTags);
                 if ($registro) {
                     // echo "se registro correctamente";
-                    header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
+                    header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
                 }
             }
         } else {
             // echo "error";
-            header("location: ../view/nuevoProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/nuevoproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -226,15 +226,15 @@ class productoServicioController
         $oProducto->valorUnitario = $_GET['valorUnitario'];
         $result = $oProducto->actualizarProducto();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/formularioEditarProducto.php?idProducto=$oProducto->IdProducto"."&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+el+producto");
+            header("location: ../view/formularioeditarproducto.php?idProducto=$oProducto->IdProducto" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+el+producto");
             // echo "registro";
         } else {
             // echo "error";
-            header("location: ../view/formularioEditarProducto.php?idProducto=$oProducto->IdProducto"."&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/formularioeditarproducto.php?idProducto=$oProducto->IdProducto" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -254,14 +254,14 @@ class productoServicioController
         $oProducto->IdProducto = $_GET['IdProducto'];
         $result = $oProducto->eliminarProducto();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
             // echo "elimino";
         } else {
-            header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -283,8 +283,6 @@ class productoServicioController
         $oProducto = new producto();
         return $oProducto->detalleFotoProducto($idProducto);;
     }
-
-
 
     public function buscarProductoInventario()
     {
@@ -317,7 +315,7 @@ class productoServicioController
         require_once '../model/producto.php';
         $oProducto = new producto();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         require_once '../model/seguimiento.php';
@@ -332,12 +330,12 @@ class productoServicioController
             $oProducto->idProducto = $_GET['idProducto'];
             $result = $oProducto->restarProducto();
             if ($result) {
-                header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+cantidad");
+                header("location: ../view/listarInventario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+cantidad");
             } else {
-                header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                header("location: ../view/listarInventario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             }
         } else {
-            header("location: ../view/listarProducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarInventario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -365,9 +363,9 @@ class productoServicioController
 
     public function actualizarTagsProducto()
     {
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
-        require_once '../model/palabrasClaves.php';
+        require_once '../model/palabrasclaves.php';
 
         $oPalabraClave = new palabraClave();
         $oPalabraClave->idProducto = $_GET['idProducto'];
@@ -378,10 +376,10 @@ class productoServicioController
             $palabras = $oPalabraClave->actualizarTagsProducto($oPalabraClave->idProducto, $idTags);
 
             if ($palabras) {
-                header("location: ../view/formularioEditarProducto.php?idProducto=$oPalabraClave->idProducto" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+las+tags+del+servicio" . "&ventana=tags");
+                header("location: ../view/formularioeditarproducto.php?idProducto=$oPalabraClave->idProducto" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+las+tags+del+servicio" . "&ventana=tags");
                 // echo "actualizo";
             } else {
-                header("location: ../view/formularioEditarProducto.php?idProducto=$oPalabraClave->idProducto" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=tags");
+                header("location: ../view/formularioeditarproducto.php?idProducto=$oPalabraClave->idProducto" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=tags");
                 // echo "error";
             }
         }
@@ -389,7 +387,7 @@ class productoServicioController
 
     public function actualizarCategoriaProducto()
     {
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
         require_once '../model/producto.php';
 
@@ -399,10 +397,10 @@ class productoServicioController
         $result = $oProducto->actualizarCategoriaProducto();
 
         if ($result) {
-            header("location: ../view/formularioEditarProducto.php?idProducto=$oProducto->idProducto" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+categoria+del+servicio" . "&ventana=categoria");
+            header("location: ../view/formularioeditarproducto.php?idProducto=$oProducto->idProducto" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+categoria+del+servicio" . "&ventana=categoria");
             // echo "actualizo";
         } else {
-            header("location: ../view/formularioEditarProducto.php?idProducto=$oProducto->idProducto" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=categoria");
+            header("location: ../view/formularioeditarproducto.php?idProducto=$oProducto->idProducto" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=categoria");
             // echo "error";
         }
     }
@@ -414,16 +412,16 @@ class productoServicioController
         $fechaActual = Date("Y-m-d");
         $horaActual = Date("H:i:s");
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
-        require_once 'configCrontroller.php';
+        require_once 'configcrontroller.php';
         $Oconfig = new Config();
 
         require_once '../model/servicio.php';
         $oServicio = new servicio();
 
-        require_once '../model/palabrasClaves.php';
+        require_once '../model/palabrasclaves.php';
         $oPalabraClave = new palabraClave();
 
         do {
@@ -466,12 +464,12 @@ class productoServicioController
                         $oDetalle->guardarServicio($idServicio, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->valorUnitario);
                     }
                     // echo "se registro correctamente";
-                    header("location: ../view/listarServicio.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+un+servicio");
+                    header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+un+servicio");
                 }
             }
         } else {
             // echo "error";
-            header("location: ../view/nuevoServicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/nuevoservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -568,7 +566,7 @@ class productoServicioController
     {
         $idServicio = $_GET['idServicio'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         require_once '../model/servicio.php';
@@ -583,19 +581,19 @@ class productoServicioController
         $result = $oServicio->actualizarServicio();
 
         if ($result) {
-            header("location: ../view/formularioEditarServicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+servicio" . "&ventana=informacion");
+            header("location: ../view/formularioeditarservicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion+del+servicio" . "&ventana=informacion");
             // echo "actualizo";
         } else {
-            header("location: ../view/formularioEditarServicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=informacion");
+            header("location: ../view/formularioeditarservicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=informacion");
             // echo "error";
         }
     }
 
     public function actualizarTagsServicio()
     {
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
-        require_once '../model/palabrasClaves.php';
+        require_once '../model/palabrasclaves.php';
 
         $oPalabraClave = new palabraClave();
         $oPalabraClave->idServicio = $_GET['idServicio'];
@@ -606,10 +604,10 @@ class productoServicioController
             $palabras = $oPalabraClave->actualizarTagsServicio($oPalabraClave->idServicio, $idTags);
 
             if ($palabras) {
-                header("location: ../view/formularioEditarServicio.php?idServicio=$oPalabraClave->idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+las+tags+del+servicio" . "&ventana=tags");
+                header("location: ../view/formularioeditarservicio.php?idServicio=$oPalabraClave->idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+las+tags+del+servicio" . "&ventana=tags");
                 // echo "actualizo";
             } else {
-                header("location: ../view/formularioEditarServicio.php?idServicio=$oPalabraClave->idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=tags");
+                header("location: ../view/formularioeditarservicio.php?idServicio=$oPalabraClave->idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=tags");
                 // echo "error";
             }
         }
@@ -617,7 +615,7 @@ class productoServicioController
 
     public function actualizarCategoriaServicio()
     {
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
         require_once '../model/servicio.php';
 
@@ -627,10 +625,10 @@ class productoServicioController
         $result = $oServicio->actualizarCategoriaServicio();
 
         if ($result) {
-            header("location: ../view/formularioEditarServicio.php?idServicio=$oServicio->idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+categoria+del+servicio" . "&ventana=categoria");
+            header("location: ../view/formularioeditarservicio.php?idServicio=$oServicio->idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+categoria+del+servicio" . "&ventana=categoria");
             // echo "actualizo";
         } else {
-            header("location: ../view/formularioEditarServicio.php?idServicio=$oServicio->idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=categoria");
+            header("location: ../view/formularioeditarservicio.php?idServicio=$oServicio->idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=categoria");
             // echo "error";
         }
     }
@@ -638,7 +636,7 @@ class productoServicioController
     public function actualizarProductoServicio()
     {
         //instanciamos mensajeController.php
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         //recibimos pedido
@@ -684,18 +682,18 @@ class productoServicioController
                 if (!$result) {
                     //mostramos mensaje
                     // echo "error al registrar los productos";
-                    header("location: ../view/formularioEditarServicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
+                    header("location: ../view/formularioeditarservicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
                     //rompemos for
                     break;
                 } else {
                     //se ejecuto correctamente
-                    header("location: ../view/formularioEditarServicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+servicio" . "&ventana=producto");
+                    header("location: ../view/formularioeditarservicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+los+productos+del+servicio" . "&ventana=producto");
                     // echo "se actualizo correctamente";
                 }
             }
         } else {
             // echo "error eliminado producto del pedido";
-            header("location: ../view/formularioEditarServicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
+            header("location: ../view/formularioeditarservicio.php?idServicio=$idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=producto");
         }
     }
 
@@ -752,14 +750,14 @@ class productoServicioController
         $oServicio->IdServicio = $_GET['IdServicio'];
         $result = $oServicio->eliminarServicio();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarServicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
             // echo "elimino";
         } else {
-            header("location: ../view/listarServicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             //echo "error";
         }
     }
@@ -809,7 +807,7 @@ class productoServicioController
         $oCategoria->idCategoria = $_GET['idCategoria'];
         $result = $oCategoria->eliminarCategoria();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
@@ -840,7 +838,7 @@ class productoServicioController
         $oCategoria->nombreCategoria = $_GET['nombreCategoria'];
         $result = $oCategoria->actualizarCategoria();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
@@ -856,7 +854,7 @@ class productoServicioController
     {
         require_once '../model/categoria.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oCategoria = new categoria();
@@ -875,7 +873,7 @@ class productoServicioController
         $productoCategoria = $_GET['categoriaProducto'];
         $idCategoria = $_GET['idCategoria'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         require_once '../model/categoria.php';
@@ -884,10 +882,10 @@ class productoServicioController
 
         if ($result) {
             // echo "registro";
-            header("location: ../view/detalleCategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+los+productos+en+esta+categoria");
+            header("location: ../view/detallecategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+los+productos+en+esta+categoria");
         } else {
             // echo "error";
-            header("location: ../view/detalleCategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/detallecategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -900,14 +898,14 @@ class productoServicioController
         $oProducto->idProducto = $_GET['idProducto'];
         $result = $oProducto->eliminarCategoriaProducto();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/detalleCategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            header("location: ../view/detallecategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
             // echo "elimino";
         } else {
-            header("location: ../view/detalleCategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/detallecategoria.php?idCategoria=$idCategoria" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -937,7 +935,7 @@ class productoServicioController
         $oTags->idTags = $_GET['idpalabraclave'];
         $result = $oTags->eliminarTags();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
@@ -968,7 +966,7 @@ class productoServicioController
         $oTags->tags = $_GET['tags'];
         $result = $oTags->actualizarTags();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
@@ -984,7 +982,7 @@ class productoServicioController
     {
         require_once '../model/tags.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oTags = new tags();

@@ -12,7 +12,7 @@ function buscarCategoria() {
     var categoria = document.getElementById("categoriaBusqueda").value;
 
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'GET',
         data: {
             categoria: categoria,

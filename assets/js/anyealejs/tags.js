@@ -12,7 +12,7 @@ function buscarTags() {
     var tags = document.getElementById("tagsBusqueda").value;
 
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'GET',
         data: {
             tags: tags,

@@ -1,5 +1,5 @@
 <?php
-require_once 'conexionDB.php';
+require_once 'conexiondb.php';
 
 class producto
 {

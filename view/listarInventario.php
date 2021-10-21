@@ -2,7 +2,6 @@
 
 <body>
     <div class="container-fluid">
-
         <div class="card">
             <div class="card-header cardHeader">
                 <div class="row">
@@ -32,7 +31,7 @@
                     </div>
                 </div>
             </div>
-        </div>´
+        </div>
 
         <div class="card">
             <div class="card-body table-responsive p-0">
@@ -51,42 +50,64 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
+    </div>
 
-        <?php require_once 'linkjs.php'; ?>
-        <?php require_once 'footer.php'; ?>
+    <?php require_once 'footer.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/inventario.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 
-
-        <div class="modal fade" id="modal-default">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Actualizar Cantidad</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="../controller/productoServicioController.php" method="GET">
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="" class="form-label">Actualizar Cantidad</label>
-                                    <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="" class="form-label">Justifica esta actualizacion</label>
-                                    <textarea class="form-control" rows="3" type="text" id="justificacion" name="justificacion" placeholder="Justifica esta actualizacion" required minlength="10" maxlength="500"></textarea>
-                                </div>
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header estiloModalHeader">
+                    <h4 class="modal-title">Actualizar Cantidad</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formUsuario" action="../controller/productoServicioController.php" method="GET" novalidate>
+                    <input type="text" name="funcion" value="actualizarCantidad" style="display: none;">
+                    <div class="modal-body estiloModalBody">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Actualizar Cantidad</label>
+                                <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad" onchange="validarCampo(this);" required min="1" max="">
+                                <span id="cantidadSpan"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Justifica esta actualizacion</label>
+                                <textarea class="form-control" rows="3" type="text" id="justificacion" name="justificacion" placeholder="Justifica esta actualizacion" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                                <span id="justificacionSpan"></span>
                             </div>
                         </div>
-                        <div class="modal-footer justify-content-between">
-                            <input type="text" id="idProducto" name="idProducto" style="display: none;">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-primary" name="funcion" value="actualizarCantidad">Actualizar</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer estiloModalBody">
+                        <input type="text" id="idProducto" name="idProducto" style="display: none;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i>Actualizar</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 </body>
+
+<script>
+    function validarPaginaFinal() {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["cantidad", "justificacion"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido) {
+            document.getElementById('formUsuario').submit();
+        }
+    }
+</script>

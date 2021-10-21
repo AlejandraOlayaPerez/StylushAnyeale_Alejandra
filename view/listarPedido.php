@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/pedido.php';
 $oPedido = new pedido();
 
@@ -15,7 +15,6 @@ $idUser = $_SESSION['idUser'];
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedido por fecha: </label>
                             <input type="date" class="form-control" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaPedido" value="" onchange="consultaPedido()">
-
                         </div>
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;">Pedidos recibidos: </label>
@@ -83,7 +82,12 @@ $idUser = $_SESSION['idUser'];
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarEmpresa.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarProductos.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarFormFiltros.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarPedido.min.js"></script>
 
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">

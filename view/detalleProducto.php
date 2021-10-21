@@ -1,20 +1,15 @@
-<?php require_once 'headProducto.php';
+<?php require_once 'headproducto.php';
 
-require_once '../controller/productoServicioController.php';
+require_once '../controller/productoserviciocontroller.php';
 $oProductoServicioController = new productoServicioController();
 ?>
-
-<head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/detalleProducto.min.css" type="text/css">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/chat.min.css" type="text/css">
-</head>
 
 <div class="row">
     <div class="col col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb estilo">
-                <li class="breadcrumb-item"><a href="paginaPrincipalCliente.php">Inicio</a></li>
-                <li class="breadcrumb-item"><a href="vistaProducto.php">Productos</a></li>
+                <li class="breadcrumb-item"><a href="paginaprincipalcliente.php">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="vistaproducto.php">Productos</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Detalle Producto</li>
             </ol>
         </nav>
@@ -66,7 +61,7 @@ $oProductoServicioController = new productoServicioController();
             <div class="card-header cabeceraCard">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4> <a href="vistaProducto.php"><i class="fas fa-reply-all"></i></a></h4>
+                        <h4> <a href="vistaproducto.php"><i class="fas fa-reply-all"></i></a></h4>
                     </div>
                 </div>
                 <h5> Detalle Producto</h5>
@@ -207,7 +202,7 @@ $oProductoServicioController = new productoServicioController();
     <h1>footer</h1>
 </div>
 
-<?php require_once 'linkFooter.php'; ?>
+<?php require_once 'linkfooter.php'; ?>
 <script>
     var campo = document.getElementById("precio");
     separadorMilesPrecio(campo, "<?php echo $oProducto->valorUnitario; ?>");

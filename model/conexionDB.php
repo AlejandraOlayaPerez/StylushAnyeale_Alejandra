@@ -6,10 +6,10 @@ class conectar{
     private $servidor="localhost";
     // private $servidor="31.170.167.52";
     //variable $baseDatos almace el nombre de la base de datos
- private $baseDatos="proyectostylushanyeale";
+    private $baseDatos="proyectostylushanyeale";
     // private $baseDatos="u587320923_anyeale";
     //variable $usuario almacena el usuario que tiene acceso a la base datos
-     private $usuario="root";
+    private $usuario="root";
     // private $usuario="u587320923_alejandra";
     // variable $contrasena almacena la contraseña del usuario
     private $contrasena="";

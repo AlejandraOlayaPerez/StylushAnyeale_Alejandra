@@ -1,10 +1,4 @@
-<?php
-require_once 'headPagina.php';
-require_once '../model/usuario.php';
-require_once '../model/conexiondb.php';
-
-$oUsuario = new usuario();
-?>
+<?php require_once 'headpagina.php'; ?>
 
 <body>
     <div class="container-fluid">
@@ -28,7 +22,6 @@ $oUsuario = new usuario();
                                 <input type="number" class="form-control" placeholder="Buscar documento.." data-bs-toggle="tooltip" data-bs-placement="right" title="Busca por el documento identidad" value="" id="documento" onchange="consultarUsuario()">
                             </div>
                         </div>
-
                     </div>
                     <br>
                     <div class="row">
@@ -74,7 +67,9 @@ $oUsuario = new usuario();
 </body>
 
 <?php require_once 'linkjs.php'; ?>
-<?php require_once 'footer.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarUsuario.min.js"></script>
 
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">

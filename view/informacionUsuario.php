@@ -1,14 +1,13 @@
 <?php
-require_once 'headPagina.php';
-require_once '../controller/usuarioController.php';
+require_once 'headpagina.php';
+require_once '../controller/usuariocontroller.php';
 
 $idUser = $_SESSION['idUser'];
 $oUsuarioController = new usuarioController();
 $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
 ?>
-
-<div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-    <form action="../controller/usuarioController.php" method="POST" id="formularioInformacion">
+<form action="../controller/usuariocontroller.php" method="POST" id="formularioInformacion">
+    <div class="card-body">
         <input type="text" name="funcion" value="ActualizarUsuario" style="display: none;">
         <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
         <input type="text" name="idRol" value="<?php echo $oUsuario->idRol; ?>" style="display: none;">
@@ -32,7 +31,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
 
             <div class="col col-xl-4 col-md-6 col-12">
                 <label for="" class="form-label">Documento identidad</label>
-                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="5" max="13" required>
+                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="1000" max="19999999999" required>
                 <span id="documentoIdentidadSpan"></span>
             </div>
 
@@ -127,13 +126,11 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
                 <span id="barrioSpan"></span>
             </div>
         </div>
-        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-            <button type="button" class="btn btn-success float-right" onclick="validarPaginaActualizar();"><i class="fas fa-edit"></i>Actualizar Informacion</button>
-        </div>
-    </form>
-</div>
+    </div>
+    <button style="margin: 10px;" type="button" class="btn btn-success float-right" onclick="validarPaginaActualizar();"><i class="fas fa-edit"></i>Actualizar Informacion</button>
+</form>
 
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 
 <script>
     function validarPaginaActualizar() {

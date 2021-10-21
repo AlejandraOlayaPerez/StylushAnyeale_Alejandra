@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 ?>
 
 <body>
@@ -9,7 +9,7 @@ require_once 'headPagina.php';
             <div class="card-header">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Nueva Empresa</label>
             </div>
-            <form action="../controller/pedidoController.php" method="GET" id="formUsuario">
+            <form action="../controller/pedidocontroller.php" method="GET" id="formUsuario">
                 <input type="text" name="funcion" value="nuevaEmpresa" style="display: none;">
                 <div class="card-body">
                     <div class="row">
@@ -34,11 +34,11 @@ require_once 'headPagina.php';
                     <?php
                     if (isset($_GET['pedido'])) {
                     ?>
-                        <a href="nuevoPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Volver al pedido</a>
+                        <a href="nuevopedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Volver al pedido</a>
                     <?php
                     } else {
                     ?>
-                        <a href="listarEmpresa.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                        <a href="listarempresa.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <?php } ?>
                     <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Empresa</button>
                 </div>
@@ -49,6 +49,7 @@ require_once 'headPagina.php';
 
 </html>
 
+<?php require_once 'footer.php'; ?>
 <?php require_once 'linkjs.php'; ?>
 
 <script>

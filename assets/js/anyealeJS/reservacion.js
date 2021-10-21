@@ -2,7 +2,7 @@ function traerEstilistas(){
 var idServicio = document.getElementById("servicio").value;
 
 $.ajax({ 
-    url: '../controller/usuarioController.php', //URL donde se va a realizar la peticion
+    url: '../controller/usuariocontroller.php', //URL donde se va a realizar la peticion
     type: 'POST', //metodo que se usara
     data: {idServicio:idServicio,funcion:"usuarioCargo"} //parametros para hacer la petecion
 }).done(function (data){

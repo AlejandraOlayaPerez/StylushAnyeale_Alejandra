@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/reservaciones.php';
 require_once '../model/conexionDB.php';
 ?>
@@ -71,7 +71,7 @@ require_once '../model/conexionDB.php';
                 </table>
             </div>
         </div>
-        <a href="home/paginaPrincipalGerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="home/paginaprincipalgerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 

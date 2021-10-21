@@ -22,7 +22,7 @@ function consultaPedido() {
     var codigo = document.getElementById("codigo").value;
 
     $.ajax({
-        url: '../controller/pedidoController.php',
+        url: '../controller/pedidocontroller.php',
         type: 'GET',
         data: {
             fecha: fecha,

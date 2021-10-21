@@ -1,10 +1,9 @@
 <?php
-require_once 'headPagina.php';
-require_once '../model/conexionDB.php';
+require_once 'headpagina.php';
 require_once '../model/pedido.php';
 require_once '../model/producto.php';
-require_once '../controller/usuarioController.php';
-require_once '../controller/pedidoController.php';
+require_once '../controller/usuariocontroller.php';
+require_once '../controller/pedidocontroller.php';
 
 $idUser = $_SESSION['idUser'];
 
@@ -94,7 +93,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 
                                         <br>
                                         <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
-                                        <a style="margin: 5px;" href="listarPedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                        <a style="margin: 5px;" href="listarpedido.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                                         <br>
                                     </div>
                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">

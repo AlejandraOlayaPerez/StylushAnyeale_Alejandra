@@ -79,7 +79,7 @@ class usuarioController
         $yearNacimiento = $yearNacimiento[0]; //arreglo 1
         $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oUsuario->contrasena != $confirmarContrasena) {
@@ -128,17 +128,17 @@ class usuarioController
 
         require_once '../model/usuario.php'; //esta importando el contenido del archivo para ser accesible las funciones y atributos.
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oUser = new usuario(); //se define y se instancia el objeto user
         if ($oUser->comprobarEliminado($habilitar, $idUser)) { //si se va por la parte del si es correcta
-            if ($habilitar == true) header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+habilitado+correctamente");
+            if ($habilitar == true) header("location: ../view/listarusuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+habilitado+correctamente");
             // if ($habilitar == true) echo "usuario habilitado";
             // else echo "usuario deshabilitado";
-            else header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+deshabilitado+correctamente");
+            else header("location: ../view/listarusuario.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+deshabilitado+correctamente");
         } else { //si se va por la parte del no,  la funcion presento algun error
-            header("location: ../view/listarUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarusuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -192,28 +192,28 @@ class usuarioController
         $yearNacimiento = $yearNacimiento[0]; //arreglo 1
         $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oUsuario->consultarCorreoElectronicoExiste($oUsuario->correoElectronico, $idUser) != 0) {
             // echo "error correo";
-            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico&ventana=informacion");
+            header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+del+correo+electronico&ventana=informacion");
         } else {
             if ($oUsuario->documentoIdUsuarioExiste($idUser, $oUsuario->tipoDocumento, $oUsuario->documentoIdentidad) != 0) {
                 // echo "error documento";
-                header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad&ventana=informacion");
+                header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+de+este+documento+identidad&ventana=informacion");
             } else {
                 if ($edadUsuario < 15) {
                     // echo "error fecha";
-                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años&ventana=informacion");
+                    header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Fecha+incorrecta+,+ +El+usuario+debe+mínimo+15+años&ventana=informacion");
                 } else {
                     $result = $oUsuario->actualizarUsuario($idUser);
                     if ($result) {
                         // echo "actualizo";
-                        header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion&ventana=informacion");
+                        header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+informacion&ventana=informacion");
                     } else {
                         // echo "error actualizar";
-                        header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=informacion");
+                        header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=informacion");
                     }
                 }
             }
@@ -232,7 +232,7 @@ class usuarioController
         $contrasena = $_POST['contrasena'];
         $oUsuario->iniciarSesion($correoElectronico, $contrasena);
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oUsuario->getIdUser() != 0) {
@@ -242,12 +242,12 @@ class usuarioController
             $_SESSION['idUser'] = $oUsuario->getIdUser();
             $_SESSION['nombreUser'] = $oUsuario->getNombreUser();
             // echo "Inicio sesion correctamente";
-            header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/paginaPrincipalGerente.php");
+            header("location: /anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalgerente.php");
         } else {
             //error al iniciar sesion
             //usuario o contraseña incorrecto
             // echo "Usuario o contraseña incorrecto";
-            header("location: ../view/loginUsuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
+            header("location: ../view/loginusuario.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Error+al+iniciar+sesion+,+revise+su+correo+y+contraseña");
         }
         return $oUsuario;
     }
@@ -257,7 +257,7 @@ class usuarioController
         session_start();
         session_unset(); //borra las variables de sesion
         session_destroy(); //destruye o elimina la sesion
-        header("location: /anyeale_proyecto/StylushAnyeale_Alejandra/view/loginUsuario.php");
+        header("location: /anyeale_proyecto/stylushanyeale_alejandra/view/loginusuario.php");
         die();
     }
 
@@ -280,7 +280,7 @@ class usuarioController
        echo  $contrasena = $_POST['contrasenaNueva'];
        echo  $confirmarContrasena = $_POST['confirmarContrasena'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oUsuario->consultarContrasena($idUser, $contrasenaActual) != 0) {
@@ -288,18 +288,18 @@ class usuarioController
                 $result = $oUsuario->actualizarContrasenaUsuario($idUser, $contrasena);
                 if ($result) {
                     // echo "actualizo contrasena";
-                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+contraseña+se+ha+actualizado+correctamente+su+contrasena&ventana=seguridad");
+                    header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+contraseña+se+ha+actualizado+correctamente+su+contrasena&ventana=seguridad");
                 } else {
                     // echo "error";
-                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=seguridad");
+                    header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error&ventana=seguridad");
                 }
             } else {
                 // echo "contraseñas diferentes";
-                header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+nueva+contrasena+y+confirmar+contraseña+son+diferentes&ventana=seguridad");
+                header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+nueva+contrasena+y+confirmar+contraseña+son+diferentes&ventana=seguridad");
             }
         } else {
             // echo "error contraseña actual";
-            header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+nueva+actual+es+diferente+a+la+registrada&ventana=seguridad");
+            header("location: ../view/perfilempleado.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=La+nueva+actual+es+diferente+a+la+registrada&ventana=seguridad");
         }
     }
 
@@ -320,7 +320,7 @@ class usuarioController
 
         require_once '../model/usuario.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje=new mensajes();
 
         $oUsuario=new usuario();
@@ -328,10 +328,10 @@ class usuarioController
 
         if($result){
             // echo "registro";
-            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+cargo");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+cargo");
         }else{
             // echo "error";
-            header("location: ../view/mostrarUsuarioCargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -344,13 +344,13 @@ class usuarioController
         $oUsuario = new usuario();
         $result = $oUsuario->actualiazadoEliminadoUsuario($idUser);
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=El+usuario+ha+sido+eliminado+del+rol");
+            header("location: ../view/listardetallerol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=El+usuario+ha+sido+eliminado+del+rol");
         } else {
-            header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listardetallerol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             //echo "Error al eliminar el usuario de rol";
         }
     }
@@ -362,7 +362,7 @@ class usuarioController
 
         require_once '../model/usuario.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje=new mensajes();
 
         $oUsuario=new usuario();
@@ -370,10 +370,10 @@ class usuarioController
 
         if($result){
             // echo "registro";
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+rol");
+            header("location: ../view/listardetallerol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+rol");
         }else{
             // echo "error";
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listardetallerol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
         }   
     }
 

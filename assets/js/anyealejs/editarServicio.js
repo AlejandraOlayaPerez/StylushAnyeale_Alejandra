@@ -8,7 +8,7 @@ function cargarJS() {
 function productoServicio(){
     var idServicio=document.getElementById("idServicio").value;
     $.ajax({
-        url: '../controller/productoServicioController.php',
+        url: '../controller/productoserviciocontroller.php',
         type: 'POST',
         data: {idServicio:idServicio, funcion:"traerServicio"}
     }).done(function (data){

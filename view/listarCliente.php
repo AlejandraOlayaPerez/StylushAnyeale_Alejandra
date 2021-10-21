@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/cliente.php';
 
 $oCliente = new cliente();
@@ -8,8 +8,8 @@ $oCliente = new cliente();
 <body>
     <div class="container-fluid">
 
-        <div class="card border border-dark">
-            <div class="card-header" style="background-color: rgb(249, 201, 242); font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;">
+        <div class="card border">
+            <div class="card-header">
                 <div class="row">
                     <div class="col col-xl-4 col-md-6 col-12">
                         <label for="" class="form-label">Tipo de Documento: </label>
@@ -24,20 +24,6 @@ $oCliente = new cliente();
                         <label for="" class="form-label">Documento: </label>
                         <input type="number" class="form-control" id="documentoIdentidad2" name="documentoIdentidad" placeholder="Documento Identidad" onchange="buscarCliente()">
                     </div>
-                </div>
-                <!--Paginacion-->
-                <div class="card-tools">
-                    <ul class="pagination pagination-sm float-right border border-dark">
-                        <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCliente.php?page=1">&laquo;</a></li>
-                        <?php
-                        for ($i = 1; $i <= $numPagina; $i++) {
-                        ?>
-                            <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCliente.php?page=<?php echo $i; ?>"><?php echo $i; ?></a></li>
-                        <?php
-                        }
-                        ?>
-                        <li class="page-item"><a class="page-link" style="font-family:'Times New Roman', Times, serif; -webkit-text-fill-color: black;" href="listarCliente.php?page=<?php echo $numPagina; ?>">&raquo;</a></li>
-                    </ul>
                 </div>
             </div>
             <div class="card-body table-responsive p-0">

@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/tags.php';
 
 $oTags = new tags();
@@ -43,7 +43,7 @@ $oTags = new tags();
             </table>
         </div>
     </div>
-    <a href="listarProducto.php" style="margin-bottom: 10px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+    <a href="listarproducto.php" style="margin-bottom: 10px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 
 </div>
 </body>

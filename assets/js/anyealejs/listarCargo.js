@@ -11,7 +11,7 @@ function cargarJS() {
 function consultarCargo() {
 
     $.ajax({
-        url: '../controller/cargoController.php',
+        url: '../controller/cargocontroller.php',
         type: 'GET',
         data: {
             pagina: pagina,
@@ -83,7 +83,7 @@ function agregarCargo(cargo) {
     var td2 = document.createElement("td");
 
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarCargo.php?idCargo=" + cargo['idCargo'];
+    botonEditar.href = "formularioeditarcargo.php?idCargo=" + cargo['idCargo'];
     botonEditar.style.margin = "2px";
     botonEditar.className = "btn btn-warning";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';
@@ -101,7 +101,7 @@ function agregarCargo(cargo) {
 
     var botonDetalle = document.createElement("a");
     botonDetalle.style.margin = "2px";
-    botonDetalle.href = "mostrarUsuarioCargo.php?idCargo=" + cargo['idCargo'];
+    botonDetalle.href = "mostrarusuariocargo.php?idCargo=" + cargo['idCargo'];
     botonDetalle.className = "btn btn-light";
     botonDetalle.innerHTML = '<i class="fas fa-user"></i> Ver. Usuario';
 

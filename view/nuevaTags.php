@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/tags.php';
 
 $oTags = new tags();
@@ -7,11 +7,11 @@ $oTags = new tags();
 
 <body>
     <div class="container-fluid">
-        <div class="card card-primary">
-            <div class="card-header" style="background-color: rgb(249, 201, 242);">
-                <label class="card-title" style="-webkit-text-fill-color: black;">NUEVA TAGS</label>
+        <div class="card">
+            <div class="card-header colorForm">
+                <label class="card-title" style="-webkit-text-fill-color: black;">Nueva Tags</label>
             </div>
-            <form action="../controller/productoServicioController.php" method="GET" id="formUsuario">
+            <form action="../controller/productoserviciocontroller.php" method="GET" id="formUsuario">
                 <input type="text" name="funcion" value="nuevaTags" style="display: none;">
                 <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                     <div class="row">

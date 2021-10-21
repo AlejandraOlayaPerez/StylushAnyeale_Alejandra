@@ -1,10 +1,10 @@
-<form action="../controller/gestionController.php" method="GET">
+<form action="../controller/gestioncontroller.php" method="GET">
     <input type="hidden" name="idRol" value="<?php echo $_GET['idRol']; ?>">
 
-    <table class="table table-bordered table-hover">
+    <table class="table">
         <thead>
             <input type="checkbox" onclick="habilitar(this)">
-            <label for=""> Seleccionar todo</label>
+            <label class="labelText"> Seleccionar todo</label>
         </thead>
         <tbody>
             <?php
@@ -13,8 +13,8 @@
             foreach ($consulta as $registro) {
             ?>
 
-                <tr data-widget="expandable-table" aria-expanded="true" style="background-color: rgb(249, 201, 242);">
-                    <td>
+                <tr data-widget="expandable-table" aria-expanded="true">
+                    <td class="tabsTr">
                         <i class="expandable-table-caret fas fa-caret-right fa-fw"></i>
                         <?php echo $registro['nombreModulo']; ?>
                     </td>
@@ -37,11 +37,11 @@
                                     foreach ($consulta as $registroPagina) {
                                     ?>
 
-                                        <tr style="background-color: rgb(249, 201, 242);">
-                                            <td>
+                                        <tr>
+                                            <td class="tabsTd">
                                                 <input type="checkbox" name="arregloPagina[]" value="<?php echo $registroPagina['idPagina']; ?>" <?php if ($oGestionController->verificarPermiso($registroPagina['idPagina'], $idRol)) echo "checked"; ?>>
                                                 <!--el checked es complemento a checkbox, que me dice que regitros ya estab seleccionados-->
-                                                <label for="check<?php echo $registroPagina['idPagina']; ?>">
+                                                <label class="labelText" for="check<?php echo $registroPagina['idPagina']; ?>">
                                                     <?php echo $registroPagina['nombrePagina']; ?>
                                                 </label>
                                             </td>
@@ -56,5 +56,5 @@
         </tbody>
     </table>
     <button type="submit" class="btn btn-success" name="funcion" value="ActualizarPermisoDePagina">Actualizar cambios</button>
-    <a href="listarRol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+    <a href="listarrol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 </form>

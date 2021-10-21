@@ -21,6 +21,12 @@ switch ($funcion) {
     case "eliminarRol":
         $oGestionController->eliminarRol();
         break;
+    case "buscarRol":
+        $oGestionController->buscarRol();
+        break;
+    case "buscarUsuarioRol":
+        $oGestionController->buscarUsuarioRol();
+        break;
 
     case "crearModulo":
         $oGestionController->nuevoModulo();
@@ -31,6 +37,9 @@ switch ($funcion) {
     case "eliminarModulo":
         $oGestionController->eliminarModulo();
         break;
+    case "buscarModulo":
+        $oGestionController->buscarModulo();
+        break;
 
     case "crearPagina":
         $oGestionController->nuevaPagina();
@@ -40,6 +49,9 @@ switch ($funcion) {
         break;
     case "eliminarPagina":
         $oGestionController->eliminarPagina();
+        break;
+    case "buscarPagina":
+        $oGestionController->buscarPagina();
         break;
 
     case "ActualizarPermisoDePagina":
@@ -52,7 +64,7 @@ class gestionController
 
     public function nuevoRol()
     {
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         require_once '../model/rol.php';
@@ -61,11 +73,11 @@ class gestionController
         $result = $oRol->nuevoRol();
 
         if ($result) {
-            header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");
+            header("location: ../view/listarrol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+correctamente+un+nuevo+rol");
             // echo "registro";
         } else {
             // echo "error";
-            header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarrol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -89,16 +101,6 @@ class gestionController
         return $listarDeUsuarioDiferente;
     }
 
-    public function mostrarUsuarioPorIdRol($idRol, $pagina)
-    {
-        require_once '../model/usuario.php';
-
-        $oUsuario = new usuario();
-        $listaUsuario = $oUsuario->mostrarUsuariosPorIdRol($idRol, $pagina);
-
-        return $listaUsuario;
-    }
-
     public function registrarUsuarioEnRol()
     {
         require_once '../model/usuario.php';
@@ -109,13 +111,13 @@ class gestionController
         $oUsuario = new usuario();
         $result = $oUsuario->actualizarUsuarioDeRol($idRol, $idUser);
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+usuario+al+rol");
+            header("location: ../view/listardetallerol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+usuario+al+rol");
         } else {
-            header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listardetallerol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "Error al registrar el usuario";
         }
     }
@@ -129,15 +131,15 @@ class gestionController
         $oRol->nombreRol = $_GET['nombreRol'];
         $oRol->actualizarRol();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oRol->actualizarRol()) {
-            header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+el+rol");
+            header("location: ../view/listarrol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+el+rol");
             die();
         } else {
             //echo "error";
-            header("location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarrol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             die();
         }
     }
@@ -150,24 +152,49 @@ class gestionController
         $oRol->idRol = $_GET['idRol'];
         $oRol->eliminarRol();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oRol->eliminarRol()) {
-            header("Location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+rol");
+            header("Location: ../view/listarrol.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+el+rol");
             //echo "elimino rol";
         } else {
-            header("Location: ../view/listarRol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("Location: ../view/listarrol.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             //echo "error";
         }
     }
+
+    public function buscarRol(){
+        require_once '../model/rol.php';
+
+        $oRol = new rol();
+        $paginacion = $oRol->paginacionRol($_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos = $oRol->rol($_GET['pagina']);
+        echo json_encode($datos);
+    }
+
+    public function buscarUsuarioRol(){
+        require_once '../model/rol.php';
+
+        $oRol = new rol();
+        $paginacion = $oRol->paginacionDetalleRol($_GET['idRol'], $_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos = $oRol->detalleRol($_GET['idRol'],$_GET['pagina']);
+        echo json_encode($datos);
+    }
+
 
     public function nuevoModulo()
     {
         require_once '../model/modulo.php';
         $idModulo = $_GET['idModulo'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oModulo = new modulo();
@@ -176,10 +203,10 @@ class gestionController
         $result = $oModulo->nuevoModulo($idModulo);
 
         if ($result) {
-            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
+            header("location: ../view/listarmodulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+modulo+correctamente");
             // echo "registro modulo";
         } else {
-            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarmodulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -203,14 +230,14 @@ class gestionController
         $oModulo->nombreModulo = $_GET['nombreModulo'];
         $oModulo->icono = $_GET['icono'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oModulo->actualizarModulo()) {
-            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+el+modulo+correctamente");
+            header("location: ../view/listarmodulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+el+modulo+correctamente");
             //echo "actualizo modulo";
         } else {
-            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarmodulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             //echo "error";
         }
     }
@@ -223,23 +250,36 @@ class gestionController
         $oModulo->idModulo = $_GET['idModulo'];
         $oModulo->eliminarModulo();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oModulo->eliminarModulo()) {
-            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+el+modulo+correctamente" . "&ventana=modulo");
+            header("location: ../view/listarmodulo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+el+modulo+correctamente" . "&ventana=modulo");
             //echo "elimino modulo";
         } else {
-            header("location: ../view/listarModulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=modulo");
+            header("location: ../view/listarmodulo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=modulo");
             //echo "error";
         }
+    }
+
+    public function buscarModulo()
+    {
+        require_once '../model/modulo.php';
+
+        $oModulo = new modulo();
+        $paginacion = $oModulo->paginacionModulo($_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos = $oModulo->modulo($_GET['pagina']);
+        echo json_encode($datos);
     }
 
     public function nuevaPagina()
     {
         require_once '../model/pagina.php';
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         $oPagina = new Pagina();
@@ -251,10 +291,10 @@ class gestionController
         $result = $oPagina->nuevoPagina();
 
         if ($result) {
-            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+creo+correctamente+una+nueva+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+creo+correctamente+una+nueva+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             // echo "nueva pagina";
         } else {
-            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             // echo "Error al registrar la pagina";
         }
     }
@@ -281,14 +321,14 @@ class gestionController
         $oPagina->menu = $_GET['menu'];
         $result = $oPagina->actualizarPagina();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+edito+correctamente+la+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+edito+correctamente+la+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             // echo "actualizoPagina";
         } else {
-            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             // echo "error";
         }
     }
@@ -300,16 +340,29 @@ class gestionController
         $oPagina->idPagina = $_GET['idPagina'];
         $oPagina->eliminarPagina();
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oPagina->eliminarPagina()) {
-            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+elimino+correctamente+la+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+elimino+correctamente+la+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             echo "pagina eliminada";
         } else {
-            header("location: ../view/listarPagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
+            header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
             echo "error";
         }
+    }
+
+    public function buscarPagina()
+    {
+        require_once '../model/pagina.php';
+
+        $oPagina = new pagina();
+        $paginacion = $oPagina->paginacionPagina($_GET['idModulo'], $_GET['pagina']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $datos = $oPagina->pagina($_GET['idModulo'], $_GET['pagina']);
+        echo json_encode($datos);
     }
 
     public function verificarPermiso($idPagina, $idRol)
@@ -331,7 +384,7 @@ class gestionController
         $arregloPagina = $_GET['arregloPagina'];
         $idRol = $_GET['idRol'];
 
-        require_once 'mensajeController.php';
+        require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         require_once '../model/permiso.php';
@@ -346,10 +399,10 @@ class gestionController
                 $idModulo = $oPagina->idModulo; //Se retorna toda la consulta y solo escoge el idModulo
                 $result = $oPermiso->insertarPermisoDeRol($idRol, $idModulo, $idPagina);
             }
-            header("location: ../view/listarDetalleRol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Los+permisos+del+rol+han+sido+actualizados+correctamente");
+            header("location: ../view/listardetallerol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Los+permisos+del+rol+han+sido+actualizados+correctamente");
             // echo "permiso";
         } else {
-            header("location: ../view/listarDetalleRol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listardetallerol.php" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
@@ -411,7 +464,7 @@ class gestionController
         $idPagina = $oPagina->idPagina;
 
 
-        require_once $_SERVER['DOCUMENT_ROOT'] . '/anyeale_proyecto/StylushAnyeale_Alejandra/model/permiso.php';
+        require_once $_SERVER['DOCUMENT_ROOT'] . '/anyeale_proyecto/stylushanyeale_alejandra/model/permiso.php';
 
         $oPermiso = new permiso();
         $result = $oPermiso->consultarPermisoUrl($idRol, $idPagina);

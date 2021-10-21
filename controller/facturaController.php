@@ -24,7 +24,7 @@ class facturaController
     require_once '../model/factura.php';
     $oFactura=new factura();
 
-    require_once 'configCrontroller.php';
+    require_once 'configcrontroller.php';
     $Oconfig=new Config;
        
     do {

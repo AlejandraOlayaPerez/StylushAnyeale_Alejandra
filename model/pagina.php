@@ -1,6 +1,6 @@
 <?php
 
-require_once 'conexionDB.php';
+require_once 'conexiondb.php';
 
 class pagina
 {
@@ -34,28 +34,39 @@ class pagina
         return $result;
     }
 
-    function ListarPagina($pagina)
+    public function paginacionPagina($idModulo, $pagina)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        //Buscar numero de registro por filtros
+
+        $sql = "SELECT count(idPagina) as numRegistro FROM pagina WHERE idModulo=$idModulo AND eliminado=false ORDER BY nombrePagina ASC";
+
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    function pagina($idModulo, $pagina)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        //Buscar numero de registro por filtros
-        $sql = "SELECT count(nombrePagina) as numRegistro FROM pagina WHERE idModulo=$this->idModulo AND eliminado=false;";
-        $result = mysqli_query($conexion, $sql);
-        foreach ($result as $registro) {
-            $this->numRegistro = $registro['numRegistro'];
-        }
-        //indicamos cuantos elementos vamos a tomar, se le indican los registros que se van a mostrar
         $inicio = (($pagina - 1) * 10);
-        //se registra la consulta sql
-        $sql = "SELECT * FROM pagina WHERE idModulo=$this->idModulo AND eliminado=false LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT * FROM pagina WHERE idModulo=$idModulo AND eliminado=false ORDER BY nombrePagina ASC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        //organiza resultado de la consulta y lo retorna
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
+        return $result;
     }
 
     function mostrarPagina()
@@ -137,21 +148,21 @@ class pagina
         // echo $url;
     }
 
-    function paginasPorModulo($idModulo, $idRol){
+    function paginasPorModulo($idModulo, $idRol)
+    {
         //se instancia el objeto conectar
         $oConexion = new conectar();
         //se establece conexión con la base de datos
         $conexion = $oConexion->conexion();
         //consulta para retornar un solo registro
 
-        $sql="SELECT * FROM pagina p INNER JOIN permiso per ON p.idPagina=per.IdPagina WHERE 
+        $sql = "SELECT * FROM pagina p INNER JOIN permiso per ON p.idPagina=per.IdPagina WHERE 
         p.idModulo=$idModulo AND p.menu=true AND per.idRol=$idRol";
 
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        
+
         return $result;
-        
     }
 
     function eliminarPagina()

@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/producto.php';
 $oProducto = new producto();
 ?>
@@ -13,7 +13,7 @@ $oProducto = new producto();
             <label class="card-title">NUEVO PRODUCTO</label>
           </div>
 
-          <form id="formulario" action="../controller/productoServicioController.php" method="POST"
+          <form id="formulario" action="../controller/productoserviciocontroller.php" method="POST"
             enctype="multipart/form-data">
             <input type="text" name="funcion" value="crearProducto" style="display: none;">
             <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">

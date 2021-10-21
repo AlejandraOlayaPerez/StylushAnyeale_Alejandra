@@ -8,7 +8,7 @@ function cargarJS() {
 function productosPedido() {
     var idPedido = document.getElementById("idPedido").value;
     $.ajax({
-        url: '../controller/pedidoController.php',
+        url: '../controller/pedidocontroller.php',
         type: 'POST',
         data: {
             idPedido: idPedido,

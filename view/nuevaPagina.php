@@ -1,63 +1,53 @@
 <?php
-require_once 'headPagina.php';
-require_once '../model/pagina.php';
-require_once '../model/conexiondb.php';
-
-$oPagina = new pagina();
-$idModulo = $_GET['idModulo'];
+require_once 'headpagina.php';
 ?>
 
 <body>
-
   <div class="container-fluid">
-
-    <div class="card card-primary">
-      <div class="card-header" style="background-color: rgb(249, 201, 242);">
-        <label class="card-title" style="-webkit-text-fill-color: black;">NUEVA PAGINA</label>
+    <div class="card">
+      <div class="card-header cardHeaderFondo">
+        <label class="card-title">Nueva Pagina</label>
       </div>
-      <form action="../controller/gestionController.php" method="GET" id="formUsuario">
-        <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+
+      <form action="../controller/gestioncontroller.php" method="GET" id="formUsuario">
+      <input type="text" name="idModulo" value="<?php echo $_GET['idModulo']; ?>" style="display: none;">
+      <input type="text" name="funcion" value="crearPagina" style="display: none;">
+        <div class="card-body cardBody">
           <div class="row" style="margin: 5px;">
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label">Nombre_Pagina</label>
-              <input type="text" name="idModulo" value="<?php echo $idModulo; ?>" style="display:none;">
-              <input type="text" class="form-control" id="" name="nombrePagina" placeholder="Nombre de la pagina" value="<?php echo $oPagina->nombrePagina; ?>">
+              <label for="" class="form-label" style="-webkit-text-fill-color: black;">Nombre Pagina</label>
+              <input type="text" name="idModulo" value="<?php echo $_GET['idModulo']; ?>" style="display:none;">
+              <input type="text" class="form-control" id="nombrePagina" name="nombrePagina" placeholder="Nombre de la pagina" onchange="validarCampo(this);" minlength="5" maxlength="50" required>
+              <span id="nombrePaginaSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label">Enlace_Pagina</label>
-              <input type="text" class="form-control" id="" name="enlace" placeholder="enlace de la pagina" value="<?php echo $oPagina->enlace; ?>">
+              <label for="" class="form-label" style="-webkit-text-fill-color: black;">Enlace Pagina</label>
+              <input type="text" class="form-control" id="enlace" name="enlace" placeholder="enlace de la pagina" onchange="validarCampo(this);" minlength="5" maxlength="100" required>
+              <span id="enlaceSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label">¿Se requiere inicio de sesion?</label>
-              <select class="form-select" id="" name="requireSession">
-
+              <label for="" class="form-label" style="-webkit-text-fill-color: black;">¿Se requiere inicio de sesion?</label>
+              <select class="form-select" id="requireSession" name="requireSession" onchange="validarCampo(this);" required>
                 <option value="" disabled selected>Selecciones una opción</option>
-                <option value="true" <?php if ($oPagina->requireSession == "SI") {
-                                        echo "selected";
-                                      } ?>>SI</option>
-                <option value="false" <?php if ($oPagina->requireSession == "NO") {
-                                        echo "selected";
-                                      } ?>>NO</option>
+                <option value="true">SI</option>
+                <option value="false">NO</option>
               </select>
+              <span id="requireSessionSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label">¿Requiere vista menu?</label>
-              <select class="form-select" id="" name="menu">
-
+              <label for="" class="form-label" style="-webkit-text-fill-color: black;">¿Requiere vista menu?</label>
+              <select class="form-select" id="menu" name="menu" onchange="validarCampo(this);" required>
                 <option value="" disabled selected>Selecciones una opción</option>
-                <option value="true" <?php if ($oPagina->menu == "SI") {
-                                        echo "selected";
-                                      } ?>>SI</option>
-                <option value="false" <?php if ($oPagina->menu == "NO") {
-                                        echo "selected";
-                                      } ?>>NO</option>
+                <option value="true">SI</option>
+                <option value="false">NO</option>
               </select>
+              <span id="menuSpan"></span>
             </div>
           </div>
         </div>
-        <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-          <a href="listarPagina.php?idModulo=<?php echo $idModulo; ?>" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
-          <button type="submit" class="btn btn-success" name="funcion" value="crearPagina"><i class="fas fa-save"></i> Registrar Pagina</button>
+        <div class="card-footer cardBody">
+          <a href="listarpagina.php?idModulo=<?php echo $idModulo; ?>" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+          <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-save"></i> Registrar Pagina</button>
         </div>
       </form>
     </div>
@@ -69,55 +59,21 @@ $idModulo = $_GET['idModulo'];
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 
 <script>
-  $(function() {
-    $.validator.setDefaults({
-      submitHandler: function() {
-        this.submit();
-      }
+  function validarPaginaFinal() {
+    // evento.preventDefault();
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["nombrePagina", "enlace", "requireSession", "menu"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
     });
-    $('#formUsuario').validate({
-
-      rules: {
-        nombrePagina: {
-          required: true,
-          minlength: 5,
-          maxlength: 30,
-        },
-        enlace: {
-          required: true,
-          minlength: 5,
-        },
-        requireSession: {
-          required: true,
-        },
-      },
-      messages: {
-        nombrePagina: {
-          required: "Por favor, ingrese un nombre en el Pagina",
-          minlength: "Minimo 5 letras para el Nombre del Pagina",
-          maxlength: "Maximo 30 letras para el Nombre del Pagina"
-        },
-        enlace: {
-          required: "Por favor, ingrese un enlace para la Pagina"
-        },
-        requireSession: {
-          required: "Por favor, seleccione una opcion para seleccionar"
-        },
-      },
-      errorElement: 'span',
-      errorPlacement: function(error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.col').append(error);
-      },
-      highlight: function(element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-      },
-      unhighlight: function(element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-      }
-    });
-  });
+    if (valido) {
+      document.getElementById('formUsuario').submit();
+    }
+  }
 </script>

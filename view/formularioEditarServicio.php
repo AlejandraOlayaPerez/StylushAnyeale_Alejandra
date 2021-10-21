@@ -1,8 +1,8 @@
 <?php
-require_once 'headPagina.php';
-require_once 'linkHead.php';
+require_once 'headpagina.php';
+require_once 'linkhead.php';
 require_once '../model/servicio.php';
-require_once '../controller/productoServicioController.php';
+require_once '../controller/productoserviciocontroller.php';
 
 if (isset($_GET['ventana'])) { //
     $ventana = $_GET['ventana'];
@@ -192,7 +192,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
             </div>
         </div>
     </div>
-    <a href="listarServicio.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+    <a href="listarservicio.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 </body>
 
 </html>
@@ -210,6 +210,8 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
         })
     })
 </script>
+
+
 
 <div class="modal fade estiloModalBody" id="pagoProducto">
     <div class="modal-dialog modal-xl">

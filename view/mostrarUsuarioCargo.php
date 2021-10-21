@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/usuario.php';
 require_once '../model/cargo.php';
 
@@ -50,7 +50,7 @@ $idCargo = $_GET['idCargo'];
                 </table>
             </div>
         </div>
-        <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="listarcargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 
 </body>
@@ -88,15 +88,15 @@ $idCargo = $_GET['idCargo'];
 <div class="modal fade" id="modal-empresa">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="/Anyeale_proyecto/StylushAnyeale_Alejandra/controller/usuarioController.php" method="GET">
+            <form action="../controller/usuarioController.php" method="GET">
                 <input type="text" id="idCargo" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
-                <div class="modal-header">
+                <div class="modal-header estiloModalBody">
                     <h4 class="modal-title">Seleccionar Usuarios</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body estiloModalBody">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-tools">
@@ -121,7 +121,7 @@ $idCargo = $_GET['idCargo'];
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer estiloModalBody">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="funcion" value="registrarUsuarioCargo">Registrar Usuarios</button>
                 </div>

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'conexionDB.php';
+require_once 'conexiondb.php';
 
 
 class foto
@@ -64,7 +64,7 @@ class foto
 
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
+      
         //retorna el resultado de la consulta.
         return $result;
     }

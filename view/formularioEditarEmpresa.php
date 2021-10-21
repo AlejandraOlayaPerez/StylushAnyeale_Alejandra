@@ -1,6 +1,6 @@
 <?php
-require_once 'headPagina.php';
-require_once '../controller/pedidoController.php';
+require_once 'headpagina.php';
+require_once '../controller/pedidocontroller.php';
 
 $idEmpresa = $_GET['idEmpresa'];
 $oPedidoController = new pedidoController();
@@ -13,7 +13,7 @@ $oEmpresa = $oPedidoController->consultarEmpresaId($idEmpresa);
             <div class="card-header">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Editar Empresa</label>
             </div>
-            <form action="../controller/pedidoController.php" method="GET" id="formUsuario">
+            <form action="../controller/pedidocontroller.php" method="GET" id="formUsuario">
                 <input type="text" name="funcion" value="actualizarEmpresa" style="display: none;">
                 <input type="text" name="idEmpresa" value="<?php echo $_GET['idEmpresa']; ?>" style="display: none;">
                 <div class="card-body">

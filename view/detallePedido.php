@@ -1,13 +1,10 @@
 <?php
-require_once 'headPagina.php';
-require_once '../controller/pedidoController.php';
+require_once 'headpagina.php';
+require_once 'linkcss.php';
+require_once '../controller/pedidocontroller.php';
 $oPedidoController = new pedidoController();
 $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
 ?>
-
-<head>
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/detallePedido.min.css" type="text/css">
-</head>
 
 <body>
     <div class="container-fluid">
@@ -121,7 +118,7 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
                 </div>
             </div>
         </div>
-        <a href="listarPedido.php" style="height: 50px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="listarpedido.php" style="height: 50px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
     <?php require_once 'linkjs.php'; ?>
 </body>
