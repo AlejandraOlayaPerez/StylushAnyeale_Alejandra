@@ -52,9 +52,17 @@
                 <div class="p-0">
                   <table class="table table-hover">
                     <tbody>
-                      <tr>
-                        <td></td>
-                      </tr>
+                      <?php 
+                      require_once '../controller/productoserviciocontroller.php'; 
+                      $oProductoServicioController= new productoServicioController();
+                      $consulta = $oProductoServicioController->mostrarCategoria();
+                      foreach ($onsulta as $registro){
+                        ?>
+                        <tr>
+                          <td><?php echo $registro['nombreCategoria']; ?></td>
+                        </tr>
+                      <?php }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -149,17 +157,11 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-    <footer class="piePagina">
-      <h7 class="piePagina">"Estilo y confianza te brinda Anyeale"</h7> <small>Aleja(2021)</small>
-    </footer>
-  </div>
-</div>
-<br>
 </div>
 </body>
 <?php require_once 'linkfooter.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/vistaProducto.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listacategoria.min.js"></script>
 
 </html>

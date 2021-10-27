@@ -17,6 +17,10 @@
 <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
 <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/dropzone/min/dropzone.min.css">
 
+<link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/summernote/summernote-bs4.min.css">
+ 
+  
+  <!-- <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/simplemde/simplemde.min.css"> -->
 
 <link href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/all.min.css" rel="stylesheet">
 <link href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/carousel.css" rel="stylesheet">

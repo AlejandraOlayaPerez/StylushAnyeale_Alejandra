@@ -10,7 +10,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
 <div class="container-fluid">
   <div class="card">
     <div class="card-header cardHeaderFondo">
-      <label class="card-title">Nuevo Modulo</label>
+      <label class="card-title">Editar Modulo</label>
     </div>
     <form id="formUsuario" action="../controller/gestioncontroller.php" method="GET">
       <div class="card-body cardBody">

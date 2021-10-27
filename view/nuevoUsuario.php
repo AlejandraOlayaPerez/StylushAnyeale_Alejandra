@@ -17,7 +17,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
         <label class="card-title">Nuevo Usuario</label>
       </div>
 
-      <form id="formulario" action="" method="POST">
+      <form id="formulario" action="" method="POST" novalidate>
         <div class="card-body cardBody">
           <div class="bs-stepper">
             <div class="bs-stepper-header" role="tablist">
@@ -35,9 +35,16 @@ if (isset($_POST['documentoIdentidad']) != "") {
                 </button>
               </div>
               <div class="line"></div>
+              <div class="step" data-target="#roles-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="roles-part" id="roles-part-trigger">
+                  <span class="bs-stepper-circle">3</span>
+                  <span class="bs-stepper-label">Roles</span>
+                </button>
+              </div>
+              <div class="line"></div>
               <div class="step" data-target="#registro-part">
                 <button type="button" class="step-trigger" role="tab" aria-controls="registro-part" id="registro-part-trigger">
-                  <span class="bs-stepper-circle">3</span>
+                  <span class="bs-stepper-circle">4</span>
                   <span class="bs-stepper-label">Usuario</span>
                 </button>
               </div>
@@ -46,7 +53,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
               <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                 <div class="row">
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Tipo de Documento</label>
+                    <label for="" class="form-label">Tipo de Documento <span class="text-danger">*</span></label>
                     <select class="form-control" id="tipoDocumento" name="tipoDocumento" onchange="validarCampo(this);" required>
                       <option value="" selected>Selecciones una opción</option>
                       <option value="TI" <?php if ($oUsuario->tipoDocumento == "TI") {
@@ -63,31 +70,31 @@ if (isset($_POST['documentoIdentidad']) != "") {
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Documento Identidad</label>
-                    <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="1000" max="19999999999" required>
+                    <label for="" class="form-label">Documento Identidad <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="1000" max="99999999999" required>
                     <span id="documentoIdentidadSpan"></span>
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Primer Nombre</label>
+                    <label for="" class="form-label">Primer Nombre <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oUsuario->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                     <span id="primerNombreSpan"></span>
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Segundo Nombre</label>
+                    <label for="" class="form-label">Segundo Nombre <small class="letraPequena">(Opcional)</small></label>
                     <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" placeholder="Segundo Nombre" value="<?php echo $oUsuario->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50">
                     <span id="segundoNombreSpan"></span>
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Primer Apellido</label>
+                    <label for="" class="form-label">Primer Apellido <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                     <span id="primerApellidoSpan"></span>
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Segundo apellido</label>
+                    <label for="" class="form-label">Segundo apellido <small class="letraPequena">(Opcional)</small></label>
                     <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" placeholder="Segundo Apellido" value="<?php echo $oUsuario->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50">
                     <span id="segundoApellidoSpan"></span>
                   </div>
@@ -103,13 +110,13 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
                 <div class="row">
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Fecha de Nacimiento</label>
+                    <label for="" class="form-label">Fecha de Nacimiento <span class="text-danger">*</span></label>
                     <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="<?php echo $oUsuario->fechaNacimiento; ?>" onchange="validarCampo(this);" required>
                     <span id="fechaNacimientoSpan"></span>
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Genero</label>
+                    <label for="" class="form-label">Genero <small class="letraPequena">(Opcional)</small></label>
                     <select class="form-select" id="genero" name="genero" onchange="validarCampo(this);">
                       <option value="" selected>Selecciones una opción</option>
                       <option value="Femenino" <?php if ($oUsuario->genero == "Femenino") {
@@ -126,7 +133,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Estado Civil</label>
+                    <label for="" class="form-label">Estado Civil <small class="letraPequena">(Opcional)</small></label>
                     <select class="form-select" name="estadoCivil" id="estadoCivil" onchange="validarCampo(this);">
                       <option value="" selected>Selecciones una opción</option>
                       <option value="Soltero" <?php if ($oUsuario->estadoCivil == "Soltero") {
@@ -146,13 +153,13 @@ if (isset($_POST['documentoIdentidad']) != "") {
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Direccion</label>
+                    <label for="" class="form-label">Direccion <small class="letraPequena">(Opcional)</small></label>
                     <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" value="<?php echo $oUsuario->direccion; ?>" minlength="10" onchange="validarCampo(this);">
                     <span id="direccionSpan"></span>
                   </div>
 
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Barrio</label>
+                    <label for="" class="form-label">Barrio <small class="letraPequena">(Opcional)</small></label>
                     <input type="text" class="form-control" id="barrio" name="barrio" placeholder="Barrio" value="<?php echo $oUsuario->barrio; ?>" minlength="5" onchange="validarCampo(this);">
                     <span id="barrioSpan"></span>
                   </div>
@@ -162,26 +169,73 @@ if (isset($_POST['documentoIdentidad']) != "") {
                 <button class="btn btn-info float-right" type="button" onclick="validarPagina2()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
               </div>
 
+              <div id="roles-part" class="content" role="tabpanel" aria-labelledby="roles-part-trigger">
+                <div class="row">
+                  <div class="col col-xl-4 col-md-6 col-12">
+                    <?php
+                    require_once '../model/rol.php';
+                    $oRol = new rol();
+                    $result = $oRol->listarRol();
+                    ?>
+                    <label for="" style="-webkit-text-fill-color: black;">Rol <span class="text-danger">*</span></label>
+                    <select select class="form-select" id="idRol" name="idRol" onchange="validarCampo(this);" required>
+                      <option value="" disabled selected>Selecciones una opción</option>
+                      <?php
+                      foreach ($result as $registro) {
+                      ?>
+                        <option value="<?php echo $registro['idRol']; ?>"><?php echo $registro['nombreRol']; ?></option>
+                      <?php
+                      }
+                      ?>
+                    </select>
+                    <span id="idRolSpan"></span>
+                  </div>
+                  <div class="col col-xl-4 col-md-6 col-12">
+                    <?php
+                    require_once '../model/rol.php';
+                    $oRol = new rol();
+                    $result = $oRol->mostrarServicio();
+                    ?>
+
+                    <label for="" style="-webkit-text-fill-color: black;">Servicio <span class="text-danger">*</span></label>
+                    <select select class="form-select" id="idCargo" name="idCargo" onchange="validarCampo(this);" required>
+                      <option value="" disabled selected>Selecciones una opción</option>
+                      <?php
+                      foreach ($result as $registro) {
+                      ?>
+                        <option value="<?php echo $registro['idCargo']; ?>"><?php echo $registro['rol']; ?></option>
+                      <?php
+                      }
+                      ?>
+                    </select>
+                    <span id="idCargoSpan"></span>
+                  </div>
+                </div>
+                <br>
+                <button style="margin: 5px;" class="btn btn-info" type="button" onclick="stepper.previous()"><i class="fas fa-arrow-circle-left"></i> Anterior</button>
+                <button class="btn btn-info float-right" type="button" onclick="validarPagina3()"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
+              </div>
+
               <div id="registro-part" class="content" role="tabpanel" aria-labelledby="registro-part-trigger">
 
                 <div class="row">
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">telefono</label>
+                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">telefono <span class="text-danger">*</span></label>
                     <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oUsuario->telefono; ?>" onchange="validarCampo(this);" min="3000000000" max="3999999999" required>
                     <span id="telefonoSpan"></span>
                   </div>
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Correo electronico</label>
+                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Correo electronico <span class="text-danger">*</span></label>
                     <input class="form-control" type="email" id="correoElectronico" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>" minlength="1" onchange="validarCampo(this);" required>
                     <span id="correoElectronicoSpan"></span>
                   </div>
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Contraseña</label>
+                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Contraseña <span class="text-danger">*</span></label>
                     <input class="form-control" type="password" id="contrasena" name="contrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                     <span id="contrasenaSpan"></span>
                   </div>
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Confirmar contraseña</label>
+                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Confirmar contraseña <span class="text-danger">*</span></label>
                     <input class="form-control" type="password" name="confirmarContrasena" id="confirmarContrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                     <span id="confirmarContrasenaSpan"></span>
                   </div>
@@ -234,6 +288,19 @@ if (isset($_POST['documentoIdentidad']) != "") {
     var valido = true;
     // agregar el id de cada campo de la página para poder validar
     var campos = ["fechaNacimiento", "genero", "estadoCivil", "direccion", "barrio"];
+    campos.forEach(element => {
+      var campo = document.getElementById(element);
+      if (!validarCampo(campo))
+        valido = false;
+    });
+    if (valido)
+      stepper.next();
+  }
+
+  function validarPagina3() {
+    var valido = true;
+    // agregar el id de cada campo de la página para poder validar
+    var campos = ["idRol", "idCargo"];
     campos.forEach(element => {
       var campo = document.getElementById(element);
       if (!validarCampo(campo))

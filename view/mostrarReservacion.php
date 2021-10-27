@@ -12,8 +12,11 @@ require_once '../model/conexionDB.php';
                 <form id="formLimpiar" action="" method="GET">
                     <div class="row">
                         <div class="col-md-3">
-                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion por fecha: </label>
-                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fecha" name="fecha" onchange="mostrarReservacion()">
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Fecha Inicio: </label>
+                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fecha" onchange="mostrarReservacion()">
+
+                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Fecha Final: </label>
+                            <input type="date" class="form-control datetimepicker-input" style="font-family:'Times New Roman', Times, serif; font-size: 20px;" id="fechaFinal" onchange="mostrarReservacion()">
                         </div>
                         <div class="col-md-3">
                             <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion por Domicilio: </label>
@@ -21,22 +24,6 @@ require_once '../model/conexionDB.php';
                                 <option value="" disabled selected>Selecciones una opción</option>
                                 <option value="1">Reservacion con domicilio</option>
                                 <option value="0">Reservacion sin domicilio</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion sin realizar: </label>
-                            <select class="form-select" id="validar" name="validar" onchange="mostrarReservacion()">
-                                <option value="" disabled selected>Selecciones una opción</option>
-                                <option value="1">Reservaciones validados</option>
-                                <option value="0">Reservaciones sin validar</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label style="font-family:'Times New Roman', Times, serif; font-size: 20px; font-weight: 600;"> Reservacion Canceladas: </label>
-                            <select class="form-select" id="cancelado" name="cancelado" onchange="mostrarReservacion()">
-                                <option value="" disabled selected>Selecciones una opción</option>
-                                <option value="1">Reservaciones canceladas</option>
-                                <option value="0">Reservaciones sin cancelar</option>
                             </select>
                         </div>
                     </div>
@@ -71,27 +58,31 @@ require_once '../model/conexionDB.php';
                 </table>
             </div>
         </div>
-        <a href="home/paginaprincipalgerente.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarreservacion.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/nuevaReservacion.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarFormFiltros.min.js"></script>
+
 
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h5 class="modal-title" id="Label">Validar Reservacion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <p>¿La reservacion ya fue realizada?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer estiloModalBody">
                 <form action="../controller/reservacionController.php" method="GET">
                     <input type="text" name="idReservacion" id="validarReservacion" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -105,14 +96,14 @@ require_once '../model/conexionDB.php';
 <div class="modal fade" id="cancelarReservacion" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h5 class="modal-title" id="Label">Cancelar Reservacion</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <p>¿Desea cancelar la reservacion?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer estiloModalBody">
                 <form action="../controller/reservacionController.php" method="GET">
                     <input type="text" name="idReservacion" id="reservacion" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -126,43 +117,60 @@ require_once '../model/conexionDB.php';
 <div class="modal fade" id="modal-empresa">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h4 class="modal-title">Seleccione Cliente</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="" class="form-label">Tipo de Documento: </label>
-                        <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="cliente()">
-                            <option value="" selected>Selecciones una opción</option>
-                            <option value="TI">Tarjeta de Identidad</option>
-                            <option value="CC">Cedula Ciudadanía</option>
-                            <option value="CE">Cedula Extranjería</option>
-                        </select>
+            <div class="modal-body estiloModalBody">
+                <div class="card estiloModalBody">
+                    <div class="card-header">
+                        <label for="" class="form-label">Buscar: </label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group m-b-0">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                    </div>
+                                    <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="cliente()">
+                                        <option value="" selected>Selecciones una opción</option>
+                                        <option value="TI">Tarjeta de Identidad</option>
+                                        <option value="CC">Cedula Ciudadanía</option>
+                                        <option value="CE">Cedula Extranjería</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group m-b-0">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                    </div>
+                                    <input type="number" class="form-control" id="documentoIdentidad2" placeholder="Busca por documento" name="documentoIdentidad" onchange="cliente()">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="" class="form-label">Documento: </label>
-                        <input type="number" class="form-control" id="documentoIdentidad2" name="documentoIdentidad" onchange="cliente()">
+                    <hr>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table colorestabla">
+                            <thead>
+                                <tr class="estiloTr">
+                                    <th></th>
+                                    <th>Tipo Documento</th>
+                                    <th>Documento</th>
+                                    <th>Nombres</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cliente">
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <hr>
-                <table class="table align-middle">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Tipo Documento</th>
-                            <th>Documento</th>
-                            <th>Nombres</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cliente">
-
-                    </tbody>
-                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

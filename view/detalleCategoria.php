@@ -2,10 +2,19 @@
 require_once 'headpagina.php';
 require_once '../model/producto.php';
 require_once '../model/categoria.php';
+require_once '../controller/productoserviciocontroller.php';
+
+$oProductoServicioController = new productoServicioController();
+$oCategoria = $oProductoServicioController->consultarCategoria($_GET['idCategoria']);
 ?>
 
 <body>
     <div class="container-fluid">
+        <div class="card">
+            <div class="card-header cardHeader">
+                <h4>Productos de la categoria: <?php echo $oCategoria->nombreCategoria; ?></h4>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table colorestabla">
@@ -34,29 +43,31 @@ require_once '../model/categoria.php';
                 </table>
             </div>
         </div>
-        <a href="categoria.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="categoria.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 
 </body>
 
 </html>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleCategoria.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <?php require_once 'footer.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-header estiloModalHeader">
                 <h5 class="modal-title" id="Label">Eliminar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <p>¿Esta seguro que desea eliminar el producto de esta categoria?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer estiloModalBody">
                 <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display:none">
-                    <input type="text" name="idProducto" id="idProducto" value="" >
+                    <input type="text" name="idProducto" id="idProducto" value="" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarCategoriaProducto"><i class="fas fa-trash-alt"></i> Eliminar</button>
                 </form>

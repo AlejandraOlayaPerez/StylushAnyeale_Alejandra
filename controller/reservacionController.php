@@ -161,18 +161,22 @@ class reservacionController
 
         if ($oReservacion->fechaReservacion < $fechaActual) {
             // echo "no fecha anterior";
-            header("location: ../view/nuevareservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
+            $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+            $_GET['mensaje'] = "No se permiten reservaciones con fechas menores a hoy: $fechaActual";
+            // header("location: ../view/nuevareservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
         } else {
             require_once '../model/servicio.php';
-            $oServicio=new servicio();
+            $oServicio = new servicio();
             $oServicio->consultarCosto($oReservacion->idServicio);
             $result = $oReservacion->nuevaReservacion($horaFinal->format("H:i:s"), $oServicio->costo);
             if ($result) {
                 // echo "registro reservacion";
-                header("location: ../view/listareservacion.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+reservacion+ha+sido+registrada+de+manera+correcta");
+                $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
+                $_GET['mensaje'] = "Se ha creado correctamente el registro de la reservacion";
             } else {
                 // echo "error";
-                header("location: ../view/nuevaeservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                $_GET['tipoMensaje'] = $oMensaje->tipoError;
+                $_GET['mensaje'] = "Se ha producido un error";
             }
         }
     }
@@ -231,7 +235,7 @@ class reservacionController
             header("location: ../view/crearreservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
         } else {
             require_once '../model/servicio.php';
-            $oServicio=new servicio();
+            $oServicio = new servicio();
             $oServicio->consultarCosto($oReservacion->idServicio);
             $result = $oReservacion->nuevaReservacion($horaFinal->format("H:i:s"), $oServicio->costo);
             if ($result) {
@@ -284,15 +288,18 @@ class reservacionController
 
         if ($oReservacion->fechaReservacion < $fechaActual) {
             // echo "no fecha anterior";
-            header("location: ../view/formularioeditarreservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
+            $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
+            $_GET['mensaje'] = "No se permiten reservaciones con fechas menores a hoy: $fechaActual";
         } else {
             $result = $oReservacion->actualizarReservacion($horaFinal->format("H:i:s"));
             if ($result) {
                 // echo "registro reservacion";
-                header("location: ../view/listarreservacion.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+reservacion+ha+sido+actualizada+de+manera+correcta");
+                $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
+                $_GET['mensaje'] = "Se ha actualizado correctamente el registro de la reservacion";
             } else {
                 // echo "error";
-                header("location: ../view/formularioeditarreservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                $_GET['tipoMensaje'] = $oMensaje->tipoError;
+                $_GET['mensaje'] = "Se ha producido un error";
             }
         }
     }
@@ -355,7 +362,7 @@ class reservacionController
         require_once '../model/reservaciones.php';
 
         $oReservacion = new reservacion();
-        $result = $oReservacion->consultarReservacionId($_GET['idCliente']);
+        $result = $oReservacion->consultarReservacionId($_GET['idCliente'], $fechaActual);
         echo json_encode($result);
     }
 
@@ -404,7 +411,7 @@ class reservacionController
         require_once '../model/reservaciones.php';
 
         $oReservacion = new reservacion();
-        $result = $oReservacion->mostrarReservacion($_GET['fecha'], $_GET['domicilio'], $_GET['validar'], $_GET['cancelado']);
+        $result = $oReservacion->mostrarReservacion($_GET['fecha'], $_GET['fechafinal'], $_GET['domicilio']);
         echo json_encode($result);
     }
 }

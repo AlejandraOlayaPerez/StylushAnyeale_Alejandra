@@ -10,7 +10,7 @@ $oCategoria = $oProductoServicioController->consultarCategoria($_GET['idCategori
 <body>
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header cardHeader">
+        <div class="card-header cardHeaderFondo">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Editar Categoria</label>
             </div>
             <form action="../controller/productoserviciocontroller.php" method="GET" id="formUsuario">
@@ -19,13 +19,13 @@ $oCategoria = $oProductoServicioController->consultarCategoria($_GET['idCategori
                     <input type="text" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display: none;">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="">Categoria</label>
+                            <label for="" style="-webkit-text-fill-color: black;">Categoria</label>
                             <input type="text" class="form-control" id="categoria" name="nombreCategoria" placeholder="Categoria" value="<?php echo $oCategoria->nombreCategoria; ?>" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="categoriaSpan"></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer cardFooter">
+                <div class="card-footer cardBody">
                     <a href="categoria.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i> Actualizar Categoria</button>
                 </div>

@@ -57,8 +57,10 @@ $idCargo = $_GET['idCargo'];
 
 </html>
 
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarUsuario.min.js"></script>
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">

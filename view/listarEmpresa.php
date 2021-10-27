@@ -54,7 +54,7 @@ $oEmpresa = new empresa();
 </html>
 
 <?php require_once 'footer.php'; ?>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/empresa.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/empresa.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 

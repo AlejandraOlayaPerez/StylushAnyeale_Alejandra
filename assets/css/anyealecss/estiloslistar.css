@@ -135,8 +135,7 @@ input {
 
 label {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 25px;
-    font-weight: 100;
+    font-size: 15px;
 }
 
 .labelText{
@@ -148,4 +147,40 @@ label {
     font-family: 'Times New Roman', Times, serif !important;
     font-size: 20px !important;  
     font-weight: 400 !important;
+}
+
+.perfilFoto{
+    background-color: #90aacb83 !important;
+    border-radius: 100px solid #90aacb83 !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    -webkit-text-fill-color: black !important;
+}
+
+.perfilReserva{
+    background-color: #90aacb5b !important;
+    border-radius: 100px solid #90aacb5b !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    -webkit-text-fill-color: black !important;
+}
+
+.perfil{
+    background-color: #ffb0854b !important;
+    border-radius: 400px solid #ffb0854b !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    -webkit-text-fill-color: black !important;
+}
+
+.letraPequena{
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
+    font-size: 10px;
+}
+
+.totalEstilo{
+    background-color: #FEF1E6;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: right;
+
 }

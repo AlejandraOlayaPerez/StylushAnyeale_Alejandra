@@ -1,5 +1,4 @@
     <?php
-    require_once 'permisoscliente.php';
     require_once 'headreservacion.php';
     require_once '../controller/reservacioncontroller.php';
     if (isset($_POST['documentoIdentidad']) != "") {
@@ -194,7 +193,10 @@
       </div>
     </div>
 
-    <?php require_once 'linkjs.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioEstilista.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/reservacion.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/direccion.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
     <?php require_once 'linkFooter.php'; ?>
     </div>
     </body>

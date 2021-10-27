@@ -11,3 +11,5 @@
 <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/seguimiento.min.css" type="text/css">
 <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/servicios.min.css" type="text/css">
 <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/vistaheader.min.css" type="text/css">
+<link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/rol.min.css" type="text/css">
+<link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/pedidocliente.min.css" type="text/css">

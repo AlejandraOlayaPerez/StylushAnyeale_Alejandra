@@ -25,6 +25,36 @@ class rol
         return $result;
     }
 
+    function listarRol()
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM rol WHERE eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    function mostrarServicio()
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql="SELECT c.idCargo, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.IdServicio) as rol FROM cargo c WHERE c.eliminado=false";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     function paginacionDetalleRol($idRol, $pagina)
     {
         //Instancia clase conectar
@@ -127,7 +157,6 @@ class rol
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 

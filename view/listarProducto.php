@@ -51,7 +51,7 @@ $oProducto = new producto();
         </div>
 
         <div class="card">
-        <div class="card-body table-responsive p-0" style="height:550px;">
+            <div class="card-body table-responsive p-0" style="height:550px;">
                 <table class="table colorestabla">
                     <thead>
                         <tr class="estiloTr">
@@ -73,20 +73,22 @@ $oProducto = new producto();
 
 </html>
 
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarProducto.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <?php require_once 'footer.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header estiloModalHeader">
                 <h5 class="modal-title" id="Label">Eliminar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body estiloModalBody">
                 <p>¿Esta seguro que desea eliminar el producto?</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer estiloModalBody">
                 <form action="../controller/productoServicioController.php" method="GET">
                     <input type="text" name="IdProducto" id="eliminarProducto" style="display:none">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">

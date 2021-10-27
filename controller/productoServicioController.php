@@ -45,6 +45,15 @@ switch ($funcion) {
     case "actualizarCategoriaProducto":
         $oProductoServicioController->actualizarCategoriaProducto();
         break;
+    case "anadirAlCarrito":
+        $oProductoServicioController->anadirAlCarrito();
+        break;
+    case "actualizarCantidadDetalle":
+        $oProductoServicioController->actualizarCantidadDetalle();
+        break;
+    case "eliminarProductoCarrito":
+        $oProductoServicioController->eliminarProductoCarrito();
+        break;
 
     case "buscarServicio":
         $oProductoServicioController->buscarServicio();
@@ -223,7 +232,8 @@ class productoServicioController
         $oProducto->nombreProducto = $_GET['nombreProducto'];
         $oProducto->descripcionProducto = $_GET['descripcionProducto'];
         $oProducto->caracteristicas = $_GET['caracteristicas'];
-        $oProducto->valorUnitario = $_GET['valorUnitario'];
+        $oProducto->valorUnitario = str_replace(".", "", $_GET['valorUnitario']);
+        $oProducto->costoProducto = str_replace(".", "", $_GET['costoProducto']);
         $result = $oProducto->actualizarProducto();
 
         require_once 'mensajecontroller.php';
@@ -258,7 +268,7 @@ class productoServicioController
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
             // echo "elimino";
         } else {
             header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
@@ -754,7 +764,7 @@ class productoServicioController
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+el+servicio");
             // echo "elimino";
         } else {
             header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
@@ -910,6 +920,127 @@ class productoServicioController
         }
     }
 
+    public function mostrarCategoria()
+    {
+    }
+
+    public function anadirAlCarrito()
+    {
+        //instanciamos el session start
+        session_start();
+        //Importamos el moelo de factura
+        require_once '../model/factura.php';
+        //Recibimos idProducto
+        $idProducto = $_GET['idProducto'];
+        //Instaciamos factura
+        $oFactura = new factura();
+
+        //Este isset me permite saber si el cliente a iniciado sesion, si no lo ha hecho se dirige a LoginCliente y redirijira al detalleProducto
+        if (!isset($_SESSION['idCliente'])) {
+            header("location: ../view/logincliente.php?url=detalleproducto.php%3FidProducto%3D$idProducto");
+            // echo "inicie session";
+            // echo $_SESSION['idCliente'];
+        } else {
+            //Consultaremos el estado de factura
+            $oFactura->estadoActivaFactura($_SESSION['idCliente']);
+            //Se verifica si el usuarios tiene una factura activa
+            if ($oFactura->idFactura == 0) {
+                //importamos configController
+                require_once 'configcrontroller.php';
+                //instanciamos cofig
+                $Oconfig = new Config;
+                do {
+                    //hacemos la creacion de idFactura y consultamos si ya existe
+                    $oFactura->idFactura = $Oconfig->generarCodigoFactura();
+                    $existeCodigo = $oFactura->consultarExisteFactura($oFactura->idFactura);
+                    $fechaCreacion = Date("Y-m-d");
+                    $horaCreacion = Date("H:i:s");
+                    //Mientras no exista el codigo creado, saldra del ciclo
+                } while (count($existeCodigo) > 0);
+                //creara una factura en caso de que no exista una factura
+                $result = $oFactura->crearFacturaProducto($oFactura->idFactura, $_SESSION['idCliente'], $fechaCreacion, $horaCreacion);
+            }
+            //consultamos producto
+            require_once '../model/producto.php';
+            $oProducto = new producto();
+            $oProducto->consultarProducto($idProducto);
+            $oProducto->nombreProducto;
+            $oProducto->codigoProducto;
+            $oProducto->valorUnitario;
+
+            //importamos modelo detalle
+            require_once '../model/detalle.php';
+            //instanciamos detalle
+            $oDetalle = new detalle();
+            //consultamos si existe el producto
+            $productoExiste = $oDetalle->existeProductoFactura($idProducto, $oFactura->idFactura);
+            if (count($productoExiste) == 0) {
+                //si no existe productos con  idFactura creara un registro
+                $oFactura->productoFactura($idProducto, $oFactura->idFactura, $oProducto->codigoProducto, $oProducto->nombreProducto, $_GET['cantidad'], $oProducto->valorUnitario);
+            } else {
+                // echo $oProducto->valorUnitario;
+                // echo $_GET['cantidad'];
+                //si si existe, simplemente actualizara los datos de cantidad y precio
+                $precio = $oProducto->valorUnitario * $_GET['cantidad'];
+                $oDetalle->actualizarCantidadPrecio($idProducto, $oFactura->idFactura, $_GET['cantidad'], $precio);
+            }
+            header("location: ../view/detalleproducto.php?idProducto=$idProducto&modal=true");
+        }
+    }
+
+    public function productosCarroCompras($idCliente)
+    {
+        require_once '../model/factura.php';
+        $oFactura = new factura();
+        $oFactura->consultarIdFactura($idCliente);
+        $oFactura->idFactura;
+
+        require_once '../model/detalle.php';
+        $oDetalle = new detalle();
+        $result = $oDetalle->fotoProducto($oFactura->idFactura);
+        return $result;
+    }
+
+    public function actualizarCantidadDetalle()
+    {
+        require_once '../model/detalle.php';
+        $oDetalle = new detalle();
+
+        $precio = $_POST['precio'] * $_POST['cantidad'];
+        echo $precio;
+        $result = $oDetalle->actualizarCantidadDetalle($_POST['idProducto'], $_POST['idFactura'], $_POST['cantidad'], $precio);
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/pedidocliente.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+cantidad");
+            // echo "actualizado";
+        } else {
+            header("location: ../view/pedidocliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error"; 
+        }
+    }
+
+    public function eliminarProductoCarrito(){
+        require_once '../model/detalle.php';
+        $oDetalle = new detalle();
+
+        $oDetalle->idProducto=$_GET['idProducto'];
+        $oDetalle->idFactura=$_GET['idFactura'];
+        $result = $oDetalle ->eliminarProductoCarrito();
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/pedidocliente.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+el+producto");
+            // echo "actualizado";
+        } else {
+            header("location: ../view/pedidocliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error"; 
+        }
+    }
 
     //tags
 
@@ -939,7 +1070,7 @@ class productoServicioController
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+eliminado+correctamente+la+tags");
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+la+tags");
             // echo "elimino";
         } else {
             header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");

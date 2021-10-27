@@ -65,9 +65,9 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
-                                <a class="nav-item nav-link titulo " href="pedidosclientes.php"><i class="fas fa-shopping-bag"></i> Mis Pedidos</a>
+                                <a class="nav-item nav-link titulo " href="pedidocliente.php"><i class="fas fa-shopping-bag"></i> Mis Pedidos</a>
                                 <a class="nav-item nav-link titulo " href="comprascliente.php"><i class="fas fa-shopping-basket"></i> Compras recientes</a>
-                                <a class="nav-item nav-link titulo " href="comentariosproductoCliente.php"><i class="fas fa-comments"></i> Comentarios</a>
+                                <a class="nav-item nav-link titulo " href="comentarios.php"><i class="fas fa-comments"></i> Comentarios</a>
                             </div>
                         </div>
                     </nav>

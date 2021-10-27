@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-    </div>´
+    </div>
 
     <div class="card">
         <div class="card-body table-responsive p-0">
@@ -66,5 +66,6 @@
     </div>
 </div>
 
-<?php require_once 'linkjs.php'; ?>
-<?php require_once 'footer.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/categoria.min.js"></script>

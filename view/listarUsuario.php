@@ -66,7 +66,7 @@
     </div>
 </body>
 
-<?php require_once 'linkjs.php'; ?>
+<?php require_once 'linkfooter.php'; ?>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarUsuario.min.js"></script>
@@ -84,8 +84,9 @@
             </div>
             <div class="modal-footer">
                 <form action="../controller/usuarioController.php" method="GET">
-                    <input type="text" name="idUser" id="eliminarUser">
+                    <input type="text" name="idUser" id="eliminarUser" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input type="text" name="habilitar" value="false" style="display: none;">
                     <button type="submit" name="funcion" value="habilitarDeshabilitarUsuario" class="btn btn-danger"><i class="fas fa-user-slash"></i> Deshabilitar</button>
                 </form>
             </div>

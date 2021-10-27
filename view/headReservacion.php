@@ -1,4 +1,5 @@
-<?php session_start(); //¡FUNDAMENTAL!
+<?php 
+session_start(); //¡FUNDAMENTAL!
 date_default_timezone_set('America/Bogota');
 $fechaActual = Date("Y-m-d");
 ?>

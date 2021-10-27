@@ -345,10 +345,10 @@ class gestionController
 
         if ($oPagina->eliminarPagina()) {
             header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+elimino+correctamente+la+pagina" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
-            echo "pagina eliminada";
+            // echo "pagina eliminada";
         } else {
             header("location: ../view/listarpagina.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&idModulo=" . $_GET['idModulo'] . "&ventana=pagina");
-            echo "error";
+            // echo "error";
         }
     }
 

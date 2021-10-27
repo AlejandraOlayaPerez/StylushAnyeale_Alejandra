@@ -31,8 +31,8 @@ class imagenController
                 $filename = $_FILES["archivos"]["name"]; //Obtenemos el nombre original del archivo
                 $source = $_FILES["archivos"]["tmp_name"]; //Obtenemos un nombre temporal del archivo
                 session_start();
-                $ubicacion = 'image/perfilUsuario/'.$_SESSION['idUser'];
-                $directorio = $_SERVER['DOCUMENT_ROOT'].'/Anyeale_proyecto/anyeale_proyecto/stylushanyeale_alejandra/'.$ubicacion; //Declaramos un  variable con la ruta donde guardaremos los archivos
+                $ubicacion = 'image/perfilusuario/'.$_SESSION['idUser'];
+                $directorio = $_SERVER['DOCUMENT_ROOT'].'/anyeale_proyecto/stylushanyeale_alejandra/'.$ubicacion; //Declaramos un  variable con la ruta donde guardaremos los archivos
                 // echo $directorio;
                 //Validamos si la ruta de destino existe, en caso de no existir la creamos
                 if(!file_exists($directorio)){
@@ -49,53 +49,35 @@ class imagenController
                 if(move_uploaded_file($source, $target_path)) {	
                     require_once '../model/imagen.php';
                     $oFoto=new foto();
-                    $oFoto->fotoPerfilUsuario=$ubicacion.'perfilUsuario.jpg';
+                    $oFoto->fotoPerfilUsuario=$ubicacion.'/perfilUsuario.jpg';
                     $result=$oFoto->actualizarFotoPerfil($_SESSION['idUser']);
                     require_once 'mensajecontroller.php';
                     $oMensaje = new mensajes();
                     if($result){
-                       echo "El archivo $filename se ha almacenado en forma exitosa.<br>";
-                    // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+imagen");
+                    //    echo "El archivo $filename se ha almacenado en forma exitosa.<br>";
+                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+imagen"."&ventana=foto");
                     }   
                 } 
                 else 
                 {	
-                    echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
-                    // header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                    // echo "Ha ocurrido un error, por favor inténtelo de nuevo.<br>";
+                    header("location: ../view/perfilEmpleado.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error"."&ventana=foto");
                 }
                 closedir($dir); //Cerramos el directorio de destino
             }
         // }
     }
 
-    public function listarImagenPerfilUsuario($idUser){
-        require_once '../model/imagen.php';
-        
-        $oFoto=new foto();
-        $result=$oFoto->mostrarFotoUsuario($idUser);
-
-        return $oFoto;
-    }
-
-    public function consultarImagenesId($idProducto){
-        require_once '../model/imagen.php';
-
-        $oFoto=new foto();
-        $oFoto->consultarImagenesIdProducto($idProducto);
-
-        return $oFoto;
-    }
-
     public function actualizarFotoCliente(){
         require_once 'mensajeController.php';
         $oMensaje = new mensajes();
          // Validamos que el archivo exista
-         if($_FILES["perfil"]["name"]) {
-            $filename = $_FILES["perfil"]["name"]; //Obtenemos el nombre original del archivo
-            $source = $_FILES["perfil"]["tmp_name"]; //Obtenemos un nombre temporal del archivo
+         if($_FILES["archivos"]["name"]) {
+            $filename = $_FILES["archivos"]["name"]; //Obtenemos el nombre original del archivo
+            $source = $_FILES["archivos"]["tmp_name"]; //Obtenemos un nombre temporal del archivo
             session_start();
-            $ubicacion = '/image/perfilCliente/'.$_SESSION['idCliente'];
-            $directorio = $_SERVER['DOCUMENT_ROOT'].'/Anyeale_proyecto/anyeale_proyecto/stylushanyeale_alejandra/'.$ubicacion; //Declaramos un  variable con la ruta donde guardaremos los archivos
+            $ubicacion = 'image/perfilcliente/'.$_SESSION['idCliente'];
+            $directorio = $_SERVER['DOCUMENT_ROOT'].'/anyeale_proyecto/stylushanyeale_alejandra/'.$ubicacion; //Declaramos un  variable con la ruta donde guardaremos los archivos
             // echo $directorio;
             //Validamos si la ruta de destino existe, en caso de no existir la creamos
             if(!file_exists($directorio)){
@@ -126,7 +108,24 @@ class imagenController
             }
             closedir($dir); //Cerramos el directorio de destino
         }
-    // }
-}
+     }
+
     
+    public function listarImagenPerfilUsuario($idUser){
+        require_once '../model/imagen.php';
+        
+        $oFoto=new foto();
+        $result=$oFoto->mostrarFotoUsuario($idUser);
+
+        return $oFoto;
+    }
+
+    public function consultarImagenesId($idProducto){
+        require_once '../model/imagen.php';
+
+        $oFoto=new foto();
+        $oFoto->consultarImagenesIdProducto($idProducto);
+
+        return $oFoto;
+    }
 }

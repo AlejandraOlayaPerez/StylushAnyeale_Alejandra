@@ -1,7 +1,7 @@
 <?php
 require_once '../model/cliente.php';
 require_once '../controller/clienteController.php';
-require_once 'linkhead.php'; 
+require_once 'linkhead.php';
 
 $oCliente = new cliente();
 
@@ -27,13 +27,12 @@ if (isset($_POST['documentoIdentidad']) != "") {
     <div class="card" style="background-color: rgb(119, 167, 191); border: rgb(249, 201, 242) 5px dashed;">
       <div class="card-body register-card-body" style="background-color: rgb(119, 167, 191);">
         <div class="col text-center">
-          <img style="border-radius: 8px;" src="../image/PNG_LOGO.png" width="15%">
+          <img style="border-radius: 8px;" src="../image/logo.png" width="15%">
         </div>
         <br>
         <p class="login-box-msg" style="color:black">Registrese para continuar</p>
 
         <form id="formulario" action="" method="POST">
-          <input type="text" name="fotoPerfil" value="/anyeale_proyecto/stylushAnyeale_alejandra/image/perfilpreterminado.png" style="display: none;">
           <div class="row">
             <div class="col col-md-6">
               <label for="" class="form-label" style="color: black;">Tipo de Documento</label>
@@ -53,19 +52,19 @@ if (isset($_POST['documentoIdentidad']) != "") {
             </div>
             <div class="col col-md-6">
               <label for="" class="form-label" style="color: black;">Documento Identidad</label>
-              <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oCliente->documentoIdentidad; ?>" onchange="validarCampo(this);" min="5" max="13" required>
+              <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento de identidad" required value="<?php echo $oCliente->documentoIdentidad; ?>" onchange="validarCampo(this);" min="10000" max="99999999999" required>
               <span id="documentoIdentidadSpan"></span>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6">
               <label for="" class="form-label" style="color: black;">Nombre</label>
-              <input type="text" class="form-control" id="Nombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oCliente->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
+              <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" value="<?php echo $oCliente->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
               <span id="primerNombreSpan"></span>
             </div>
             <div class="col-md-6">
               <label for="" class="form-label" style="color: black;">Apellido</label>
-              <input type="text" class="form-control" id="Apellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oCliente->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
+              <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" value="<?php echo $oCliente->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
               <span id="primerApellidoSpan"></span>
             </div>
           </div>
@@ -87,6 +86,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
             </div>
           </div>
           <br>
+          <a type="button" href="paginaprincipalcliente.php" class="btn btn-dark float-left"><i class="fas fa-home"></i> Volver al inicio</a>
           <button type="button" class="btn btn-success float-right" onclick="validarPaginaFinal();"><i class="fas fa-save"></i> Registrar</button>
         </form>
 
@@ -96,7 +96,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
     </div>
 
     <?php require_once 'linkfooter.php'; ?>
-    <?php require_once 'linkjs.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 </body>
 
 </html>
@@ -107,7 +107,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
     var valido = true;
     // agregar el id de cada campo de la página para poder validar
     var campos = ["tipoDocumento", "documentoIdentidad", "primerNombre", "primerApellido",
-      "direccion", "telefono", "correoElectronico", "contrasena", "confirmarContrasena"
+      "correoElectronico", "contrasena", "confirmarContrasena"
     ];
     campos.forEach(element => {
       var campo = document.getElementById(element);

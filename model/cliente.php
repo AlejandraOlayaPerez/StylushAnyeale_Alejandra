@@ -52,17 +52,26 @@ class cliente
         $conexion = $oConexion->conexion();
 
         //sentencia para insertar un nuevo Cliente
-        $sql = "INSERT INTO cliente (Tipodocumento, Documentoidentidad, primerNombre, segundoNombre, 
-        primerApellido, segundoApellido, fechaNacimiento, genero, direccion, barrio, email, contrasena, telefono, eliminado) 
-        VALUES ('$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
-        '$this->segundoApellido', '$this->fechaNacimiento', '$this->genero', '$this->direccion', '$this->barrio', '$this->email', '$this->contrasena', $this->telefono, false)";
+        $sql = "INSERT INTO cliente (Tipodocumento, Documentoidentidad, primerNombre, 
+        primerApellido, email, contrasena, eliminado) 
+        VALUES ('$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->primerApellido', '$this->email', '$this->contrasena', false)";
 
-        //se ejecuta la consulta en la base de datos
+        //ejecuta secuencia, solo cuando es insert.
         $result = mysqli_query($conexion, $sql);
+
+        //funcion para retornar el ultimo id creado
+        $sql = "SELECT (LAST_INSERT_ID()) as idCliente FROM cliente";
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            $this->idCliente = $registro['idCliente'];
+        }
+        // echo $sql;
         return $result;
     }
 
-    public function consultarCorreoElectronicoExiste($email, $idCliente){
+    public function consultarCorreoElectronicoExiste($email, $idCliente)
+    {
         //instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
@@ -70,7 +79,7 @@ class cliente
 
         //sentencia que nos permite conocer la existencia de un correo electronico
         $sql = "SELECT * FROM cliente WHERE idCliente!=$idCliente AND  email='$email'";
-        
+
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -115,11 +124,9 @@ class cliente
             $this->direccion = $registro['direccion'];
             $this->barrio = $registro['barrio'];
             $this->telefono = $registro['telefono'];
-            $this->fotoPerfilCliente=$registro['fotoPerfilCliente'];
+            $this->fotoPerfil = $registro['fotoPerfil'];
         }
         return count($result);
-
-        
     }
 
     public function consultarCorreoElectronico($email)
@@ -151,14 +158,15 @@ class cliente
         return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
 
-    public function documentoIdUsuarioExiste($idCliente, $tipoDocumento, $documentoIdentidad){
+    public function documentoIdUsuarioExiste($idCliente, $tipoDocumento, $documentoIdentidad)
+    {
         $oConexion = new conectar();
         $conexion = $oConexion->conexion();
 
         $sql = "SELECT * FROM cliente WHERE idCliente!=$idCliente AND tipoDocumento='$tipoDocumento' AND documentoIdentidad=$documentoIdentidad";
 
         $result = mysqli_query($conexion, $sql);
-        return count(mysqli_fetch_all($result, MYSQLI_ASSOC)); 
+        return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
 
     public function registroUsuario($nombre, $email, $contrasena)
@@ -313,6 +321,54 @@ class cliente
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function paginacionCliente($tipoDocumento, $documentoIdentidad, $pagina)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        //Buscar numero de registro por filtros
+        $where = "1 ";
+        if ($tipoDocumento != "") {
+            $where .= " AND tipoDocumento=$tipoDocumento ";
+        }
+        if ($documentoIdentidad != "") {
+            $where .= "AND documentoIdentidad=$documentoIdentidad ";
+        }
+        $sql = "SELECT count(primerNombre) as numRegistro FROM cliente WHERE $where";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    function cliente($tipoDocumento, $documentoIdentidad, $pagina)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $where = "1 ";
+        if ($tipoDocumento != "") {
+            $where .= " AND tipoDocumento=$tipoDocumento ";
+        }
+        if ($documentoIdentidad != "") {
+            $where .= "AND documentoIdentidad=$documentoIdentidad ";
+        }
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT * FROM cliente WHERE $where ORDER BY primerNombre ASC LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
         return $result;
     }
 }

@@ -8,7 +8,7 @@ $oCategoria = new categoria();
 <body>
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header cardHeader">
+        <div class="card-header cardHeaderFondo">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Nueva Categoria</label>
             </div>
             <form action="../controller/productoserviciocontroller.php" method="GET" id="formUsuario">
@@ -16,14 +16,14 @@ $oCategoria = new categoria();
                 <div class="card-body cardBody">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label">Nueva categoria</label>
+                            <label for="" class="form-label" style="-webkit-text-fill-color: black;">Nueva categoria</label>
                             <input class="form-control" type="text" id="categoria" name="nombreCategoria" placeholder="Categoria" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="categoriaSpan"></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer cardFooter">
-                    <a href="tags.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                <div class="card-footer cardBody">
+                    <a href="categoria.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Categoria</button>
                 </div>
             </form>
@@ -34,7 +34,7 @@ $oCategoria = new categoria();
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 
 <script>
     function validarPaginaFinal() {

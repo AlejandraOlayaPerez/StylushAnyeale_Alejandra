@@ -39,10 +39,11 @@ class categoria
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO categoria (idProducto, nombreCategoria, eliminado) 
-        VALUES (NULL, '$this->nombreCategoria', false)";
+        $sql = "INSERT INTO categoria (nombreCategoria, eliminado) 
+        VALUES ('$this->nombreCategoria', false)";
 
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 

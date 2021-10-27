@@ -74,8 +74,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="" class="form-label" style="-webkit-text-fill-color: black;">Actualizar Cantidad</label>
-                                <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad" onchange="validarCampo(this);" required min="1" max="">
-                                <span id="cantidadSpan"></span>
+                                <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad">
+                               
                             </div>
                             <div class="col-md-6">
                                 <label for="" class="form-label" style="-webkit-text-fill-color: black;">Justifica esta actualizacion</label>
@@ -100,7 +100,7 @@
         // evento.preventDefault();
         var valido = true;
         // agregar el id de cada campo de la página para poder validar
-        var campos = ["cantidad", "justificacion"];
+        var campos = ["justificacion"];
         campos.forEach(element => {
             var campo = document.getElementById(element);
             if (!validarCampo(campo))

@@ -120,5 +120,5 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
         </div>
         <a href="listarpedido.php" style="height: 50px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
-    <?php require_once 'linkjs.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detallePedido.min.js"></script>
 </body>

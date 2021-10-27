@@ -17,5 +17,8 @@ function enlaceRaiz(){
 function generarCodigoPedido(){
     return mt_rand(1,1000000000);
 }
+
+function generarCodigoFactura(){
+    return mt_rand(1,1000000000);
 }
-?>
+}

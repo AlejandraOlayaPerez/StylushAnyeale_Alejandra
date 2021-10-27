@@ -69,7 +69,7 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
             $oFoto = $oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
 
             ?>
-            <img src="../<?php echo $oFoto->fotoPerfilUsuario; ?>" class="img-circle elevation-2" alt="User Image">
+            <img src="../<?php echo $oFoto->fotoPerfil; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="perfilempleado.php" class="d-block"><?php echo $_SESSION['nombreUser']; ?></a>

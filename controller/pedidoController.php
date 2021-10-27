@@ -56,7 +56,7 @@ switch ($funcion) {
     case "buscarProducto":
         $oPedidoController->buscarProducto();
         break;
-    case "listarempresa":
+    case "listarEmpresa":
         $oPedidoController->listarempresa();
         break;
 }

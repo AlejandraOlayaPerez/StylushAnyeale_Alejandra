@@ -15,7 +15,7 @@ function productosPedido() {
             funcion: "traerProductos"
         }
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         var producto = JSON.parse(data);
         var contenedor = document.getElementById("listarProducto");
         contenedor.innerHTML = "";

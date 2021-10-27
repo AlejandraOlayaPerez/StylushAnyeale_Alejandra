@@ -49,12 +49,18 @@ class cargoController
 
         $oCargo = new cargo();
         $oCargo->idServicio = $_GET['idServicio'];
-        $result = $oCargo->nuevoCargo();
 
-        if ($result) {
-            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+cargo");
+        $servicio = $oCargo->consultarEXisteServicio($_GET['idServicio']);
+        if (count($servicio) > 0) {
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+registro+de+este+cargo");
         } else {
-            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            $result = $oCargo->nuevoCargo();
+
+            if ($result) {
+                header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+cargo");
+            } else {
+                header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            }
         }
     }
 

@@ -22,7 +22,7 @@ function consultarUsuario() {
             funcion: "buscarUsariosAjax"
         }
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         var datos = data.split("®");
         //paginacion
         var numRegistro = parseInt(datos[0]);
@@ -98,7 +98,7 @@ function usuario(user) {
     }
 
     var tdHabilitado = document.createElement("td");
-    if (user['eliminado'] == 1) {
+    if (user['habilitar'] == 1) {
         tdHabilitado.innerHTML = "SI"
     } else {
         tdHabilitado.innerHTML = "NO"
@@ -119,7 +119,7 @@ function usuario(user) {
     botonHabilitar.className = "btn btn-info";
     botonHabilitar.innerHTML = '<i class="far fa-user"></i> Habilitar';
 
-    if (user['eliminado'] == 0) {
+    if (user['habilitar'] == 0) {
         tdBoton.appendChild(botonHabilitar);
     } else {
         tdBoton.appendChild(botonDeshabilitar);

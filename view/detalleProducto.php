@@ -110,9 +110,36 @@ $oProductoServicioController = new productoServicioController();
                         <div>
                             <h1 class="tituloh"> Opciones del producto</h1>
                             <ul>
-                                <li class="textp"><button type="button" class="btn"><i class="fas fa-cart-plus fa-lg mr-2"></i> Añidir al carrito</li></button>
-                                <li class="textp"><button type="button" class="btn" data-toggle="modal" data-target="#domicilio-sm"><i class="fas fa-map-marked-alt"></i> Domicilio</li></button>
-                                <li class="textp"><button type="button" class="btn" data-toggle="modal" data-target="#pago-sm"><i class="fab fa-cc-visa"></i> Opciones pago</li></button>
+                                <form action="../controller/productoserviciocontroller.php" method="GET">
+                                    <input type="text" name="idProducto" value="<?php echo $_GET['idProducto']; ?>" style="display: none;">
+                                    <li class="textp">
+                                        <div class="row">
+                                            <div class="col col-md-2">
+                                                <h9>Cantidad: </h9>
+                                            </div>
+                                            <div class="col col-md-1">
+                                                <select class="form-control" id="cantidad" name="cantidad" style="width: 50px; margin-bottom: 8px;">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
+                                                </select>
+                                            </div>
+                                            <div class="col col-md-3">
+                                                <span>(Disponibles)</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="textp"><button type="submit" class="btn btn-outline-success" style="margin-bottom: 8px" name="funcion" value="anadirAlCarrito"><i class="fas fa-cart-plus fa-lg mr-2"></i> Añadir al carrito</li></button>
+                                </form>
+                                <li class="textp"><button type="button" class="btn btn-outline-info" style="margin-bottom: 8px" data-toggle="modal" data-target="#domicilio-sm"><i class="fas fa-map-marked-alt"></i> Domicilio</li></button>
+                                <li class="textp"><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#pago-sm"><i class="fab fa-cc-visa"></i> Opciones pago</li></button>
                             </ul>
                         </div>
                     </div>
@@ -207,12 +234,16 @@ $oProductoServicioController = new productoServicioController();
     var campo = document.getElementById("precio");
     separadorMilesPrecio(campo, "<?php echo $oProducto->valorUnitario; ?>");
 </script>
-<?php require_once 'linkjs.php'; ?>
+
 
 
 </body>
 
 </html>
+
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleProducto.min.js"></script>
+
 
 <div class="modal fade" id="domicilio-sm">
     <div class="modal-dialog modal-sm">
@@ -233,6 +264,40 @@ $oProductoServicioController = new productoServicioController();
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="true-md">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">¡Productos agregados al carrito!</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Desea conocer los productos en el carrito?
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-angle-double-left"></i> No, deseo seguir comprando</button>
+                <a href="pedidocliente.php" class="btn btn-success"><i class="fas fa-cart-arrow-down"></i> Ver carrito de compras</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+if (isset($_GET['modal'])) {
+    $modal = $_GET['modal'];
+?>
+    <script>
+        var myModal = new bootstrap.Modal(document.getElementById('true-md'), {
+            keyboard: false
+        }); 
+        myModal.show();
+    </script>
+<?php
+}
+?>
 
 <div class="modal fade" id="pago-sm">
     <div class="modal-dialog modal-sm">

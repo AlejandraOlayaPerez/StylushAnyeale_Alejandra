@@ -19,7 +19,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
 <body>
     <div class="container-fluid">
 
-        <div class="card cardHeader">
+        <div class="card tabsHeader">
             <div class="card-header">
                 <h2>Actualizar Pedido</h2>
             </div>
@@ -110,7 +110,11 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
 </body>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarempresa.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarpedido.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 
 <!--Modal empresa-->
 <div class="modal fade" id="modal-empresa">

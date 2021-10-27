@@ -51,7 +51,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
     <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-            <div class="modal-header estiloModalHeader">
+                <div class="modal-header estiloModalHeader">
                     <h5 class="modal-title" id="Label">Eliminar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

@@ -45,6 +45,11 @@ function eliminarReservacion(idReservacion){
     document.getElementById("eliminarReservacion").value=idReservacion;
 }
 
+function eliminarProductoCarrito(idProducto, idFactura){
+    document.getElementById("idProducto").value=idProducto;
+    document.getElementById("idFactura").value=idFactura;
+}
+
 function comprobarPedido(campo){
     document.getElementById("validarPedido").value=campo.value;
 }

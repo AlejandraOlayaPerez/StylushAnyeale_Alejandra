@@ -11,7 +11,7 @@ function cargarJS() {
 
 function fechaActual() {
     const fecha = new Date();
-    date = fecha.getFullYear() + "-" + 0 + (fecha.getMonth() + 1) + "-" + fecha.getDate();
+    date = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate();
     document.getElementById("fechaPedido").value = date;
 }
 

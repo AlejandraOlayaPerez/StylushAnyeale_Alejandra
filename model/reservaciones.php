@@ -50,7 +50,6 @@ class reservacion
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -65,7 +64,6 @@ class reservacion
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         //organiza resultado de la consulta y lo retorna
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
@@ -91,7 +89,7 @@ class reservacion
     }
 
     //esta funcion me trae las reservaciones que existen con el nombre del cliente
-    function mostrarReservacion($fecha, $domicilio, $validar, $cancelar)
+    function mostrarReservacion($fecha, $fechaFinal, $domicilio)
     {
         //instancia la clase conectar
         $oConexion = new conectar();
@@ -104,16 +102,10 @@ class reservacion
 
         //concatenamos a la consulta.
         if ($fecha != "") {
-            $sql .= "WHERE r.fechaReservacion='$fecha' ";
+            $sql .="AND r.fechaReservacion BETWEEN '$fecha' AND '$fechaFinal'";
         }
         if ($domicilio != "") {
             $sql .= "WHERE r.domicilio=$domicilio ";
-        }
-        if ($validar != "") {
-            $sql .= "WHERE r.validar=$validar";
-        }
-        if ($cancelar != "") {
-            $sql .= "WHERE r.eliminado=$cancelar";
         }
 
         //se ejecuta la consulta en la base de datos
@@ -144,7 +136,7 @@ class reservacion
         return $result;
     }
 
-    public function consultarReservacionId($idCliente)
+    public function consultarReservacionId($idCliente, $fechaActual)
     {
         // instancia la clase conectar
         $oConexion = new conectar();
@@ -153,7 +145,7 @@ class reservacion
 
         $sql = "SELECT r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.direccion, r.precio, 
         (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio 
-        FROM reservacion r WHERE r.idCliente=$idCliente AND r.eliminado=false AND r.validar=false";
+        FROM reservacion r WHERE r.idCliente=$idCliente AND r.eliminado=false AND r.validar=false AND r.fechaReservacion=$fechaActual";
 
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -170,7 +162,6 @@ class reservacion
         $sql = "SELECT tiempoDuracion FROM servicios WHERE IdServicio=$idServicio";
 
         $result = mysqli_query($conexion, $sql);
-
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         foreach ($result as $registro) {

@@ -15,7 +15,4 @@ class mensajes{
             title: '".$mensaje."'
           })";
     }
-    
-
-    
 }

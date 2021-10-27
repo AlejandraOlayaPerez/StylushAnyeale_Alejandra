@@ -421,8 +421,11 @@ class producto
             $this->cantidad = $registro['cantidad'];
             $this->caracteristicas = $registro['caracteristicas'];
             $this->valorUnitario = $registro['valorUnitario'];
+            $this->costoProducto = $registro['costoProducto'];
         }
     }
+
+    
 
     function actualizarProducto()
     {
@@ -437,7 +440,8 @@ class producto
         nombreProducto='$this->nombreProducto',
         descripcionProducto='$this->descripcionProducto',
         caracteristicas='$this->caracteristicas',
-        valorUnitario=$this->valorUnitario
+        valorUnitario=$this->valorUnitario,
+        costoProducto=$this->costoProducto
         WHERE IdProducto=$this->IdProducto";
 
         //se ejecuta la consulta
@@ -510,7 +514,7 @@ class producto
         WHERE d.idPedido=$this->idPedido";
 
         $result = mysqli_query($conexion, $sql);
-        
+
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
     }
@@ -527,7 +531,7 @@ class producto
         WHERE d.idPedido=$this->idPedido";
 
         $result = mysqli_query($conexion, $sql);
-      
+
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
         foreach ($result as $registro) {

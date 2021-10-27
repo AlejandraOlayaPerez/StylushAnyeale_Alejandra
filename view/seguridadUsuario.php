@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 <label for="">Confirmar Contraseña</label>
-                <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena" autocomplete="false" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                 <span id="confirmarContrasenaSpan"></span>
             </div>
 

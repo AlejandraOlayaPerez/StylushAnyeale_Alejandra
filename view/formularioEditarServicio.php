@@ -17,8 +17,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
 
 <body>
     <div class="container-fluid">
-
-        <div class="card cardHeader">
+        <div class="card tabsHeader">
             <div class="card-header">
                 <h2>Actualizar Servicio</h2>
             </div>
@@ -36,20 +35,24 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                     <div class="col-7 col-sm-9">
                         <div class="tab-content" id="vert-tabs-tabContent">
                             <div class="tab-pane text-left fade show <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-                                <form action="../controller/productoServicioController.php" method="GET">
+                                <form action="../controller/productoServicioController.php" method="GET" id="formInformacion" novalidate>
+                                    <input type="text" name="funcion" value="actualizarInformacion" style="display: none;">
                                     <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
                                     <div class="row">
                                         <div class="col col-xl-4 col-md-6 col-12">
                                             <label>Codigo Servicio: </label>
-                                            <input class="form-control" type="text" name="codigoServicio" value="<?php echo $oServicio->codigoServicio; ?>">
+                                            <input class="form-control" type="text" id="codigoServicio" name="codigoServicio" value="<?php echo $oServicio->codigoServicio; ?>" onchange="validarCampo(this);" required maxlength="50" minlength="1">
+                                            <span id="codigoServicioSpan"></span>
                                         </div>
                                         <div class="col col-xl-4 col-md-6 col-12">
                                             <label>Servicio: </label>
-                                            <input class="form-control" type="text" name="nombreServicio" value="<?php echo $oServicio->nombreServicio; ?>">
+                                            <input class="form-control" type="text" id="nombreServicio" name="nombreServicio" value="<?php echo $oServicio->nombreServicio; ?>" onchange="validarCampo(this);" required maxlength="50" minlength="1">
+                                            <span id="nombreServicioSpan"></span>
                                         </div>
                                         <div class="col col-xl-4 col-md-6 col-12">
                                             <label>Detalle: </label>
-                                            <input class="form-control" type="text" name="detalleServicio" value="<?php echo $oServicio->detalleServicio; ?>">
+                                            <input class="form-control" type="text" id="detalleServicio" name="detalleServicio" value="<?php echo $oServicio->detalleServicio; ?>" onchange="validarCampo(this);" required maxlength="50" minlength="1">
+                                            <span id="detalleServicioSpan"></span>
                                         </div>
                                         <div class="col col-xl-4 col-md-6 col-12">
                                             <label for="" class="form-label">Duracion Servicio</label>
@@ -103,11 +106,12 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                         </div>
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarInformacion"><i class="fas fa-edit"></i> Actualizar Informacion</button>
+                                    <button type="button" class="btn btn-success float-right" onclick="validarPagina2();"><i class="fas fa-edit"></i> Actualizar Informacion</button>
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "tags") echo "active"; ?>" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
-                                <form action="../controller/productoServicioController.php" method="GET">
+                                <form action="../controller/productoServicioController.php" method="GET" id="formTags" novalidate>
+                                    <input type="text" name="funcion" value="actualizarTagsServicio" style="display: none;">
                                     <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
                                     <div class="form-group">
                                         <label for="" class="form-label">Etiquetas (Tags)</label>
@@ -126,11 +130,12 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                         <span id="tagsSpan"></span>
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarTagsServicio"><i class="fas fa-edit"></i> Actualizar Tags</button>
+                                    <button type="button" class="btn btn-success float-right" onclick="validarPagina3();"><i class="fas fa-edit"></i> Actualizar Tags</button>
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "categoria") echo "active"; ?>" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
-                                <form action="../controller/productoServicioController.php" method="GET">
+                                <form action="../controller/productoServicioController.php" method="GET" id="formCategoria" novalidate>
+                                    <input type="text" name="funcion" value="actualizarCategoriaServicio" style="display: none;">
                                     <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
                                     <?php
                                     require_once '../model/categoria.php';
@@ -151,10 +156,11 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                                                                                             } ?>> <?php echo $registro['nombreCategoria']; ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <span id="idCategoriaSpan"></span>
                                         </div>
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-success float-right" name="funcion" value="actualizarCategoriaServicio"><i class="fas fa-edit"></i> Actualizar Categoria</button>
+                                    <button type="button" class="btn btn-success float-right" onclick="validarPagina4();"><i class="fas fa-edit"></i> Actualizar Categoria</button>
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "foto") echo "active"; ?>" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
@@ -163,13 +169,14 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "producto") echo "active"; ?>" id="vert-tabs-producto" role="tabpanel" aria-labelledby="vert-tabs-producto-tab">
-                                <form action="../controller/productoServicioController.php" method="GET">
+                                <form action="../controller/productoServicioController.php" method="GET" id="formProducto" novalidate>
+                                    <input type="text" name="funcion" value="actualizarProductoServicio" style="display: none;">
                                     <input type="text" id="idServicio" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
                                     <div class="card-body table-responsive p-0" style="height: 300px;">
-                                        <div class="table">
-                                            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#pagoProducto" onclick="productoConsultar()"><i class="fas fa-plus-square"></i> Agregar Productos</button>
+                                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#pagoProducto" onclick="productoConsultar()"><i class="fas fa-plus-square"></i> Agregar Productos</button>
+                                        <table class="table table-striped table-valign-middle">
                                             <thead>
-                                                <tr class="estiloTr">
+                                                <tr>
                                                     <th>Codigo</th>
                                                     <th>Productos</th>
                                                     <th>cantidad</th>
@@ -179,11 +186,10 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                             <tbody id="listarProducto">
 
                                             </tbody>
-                                            </table>
-                                        </div>
-                                        <br>
-                                        <button type="submit" style="margin-bottom: 5px; margin-left: 5px;" class="btn btn-success" name="funcion" value="actualizarProductoServicio"><i class="fas fa-edit"></i> Actualizar Productos</button>
+                                        </table>
                                     </div>
+                                    <br>
+                                    <button type="button" style="margin-bottom: 5px; margin-left: 5px;" class="btn btn-success" onclick="validarPaginaFinal()"><i class="fas fa-edit"></i> Actualizar Productos</button>
                                 </form>
                             </div>
                         </div>
@@ -191,14 +197,18 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                 </div>
             </div>
         </div>
+        <a href="listarservicio.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
-    <a href="listarservicio.php" class="btn btn-dark float-left"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 </body>
 
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarServicio.min.js"></script>
+
 <script>
     $(function() {
         //Initialize Select2 Elements
@@ -267,3 +277,74 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
 
     </div>
 </div>
+
+
+<script>
+    function validarPagina2() {
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["codigoServicio", "nombreServicio", "detalleServicio", "tiempoDuracion", "costo"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido) {
+            document.getElementById('formInformacion').submit();
+        }
+    }
+
+    function validarPagina3() {
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["tags"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido) {
+            document.getElementById('formTags').submit();
+        }
+    }
+
+    function validarPagina4() {
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["idCategoria"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido) {
+            document.getElementById('formCategoria').submit();
+        }
+    }
+
+
+    function validarPaginaFinal() {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var contenedor = document.getElementById("listarProducto");
+        var tr = contenedor.querySelectorAll('tr');
+        var inputs = contenedor.querySelectorAll('input');
+        // console.log(tr);
+        if (inputs.length == 0) {
+            valido = false;
+            alert("Por favor, seleccione minimo un producto");
+        }
+
+        for (var i = 0; i < inputs.length; i++) {
+            valido = validarCampo(inputs[i]);
+            if (!valido) {
+                break;
+            }
+        }
+
+        if (valido) {
+            document.getElementById('formProducto').submit();
+        }
+    }
+</script>

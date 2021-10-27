@@ -7,6 +7,8 @@ if (isset($_SESSION['idCliente'])) {
     header("location: paginaprincipalcliente.php");
     die(); // es para recomendado cuando se hace una rederigir, destruir o cerrar la pagina actual.
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,9 +36,12 @@ if (isset($_SESSION['idCliente'])) {
                     <img style="border-radius: 8px;" src="../image/logo.png" width="50%">
                 </div>
                 <br>
-                <p class="login-box-msg">Inicia sesión para continuar</p>
+                <p class="login-box-msg">Inicia sesión en cliente</p>
 
                 <form action="../controller/clienteController.php" method="POST">
+                    <input type="text" name="url" value="<?php if (isset($_GET['url'])) {
+                                                                echo $_GET['url'];
+                                                            } ?>" style="display: none;">
                     <label for="">Correo electronico</label>
                     <input class="form-control" type="email" name="email">
                     <label for="">Contraseña</label>

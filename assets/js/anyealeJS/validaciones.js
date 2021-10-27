@@ -139,7 +139,7 @@ function validarEmail(campo, span) {
   return true;
 }
 
-function validarFile(campo, span){
+function validarFile(campo, span) {
   var file = campo.files;
   if (campo.required && file.length == 0) {
     $(campo).removeClass('is-valid');
@@ -200,8 +200,15 @@ function validarPassword(campo, span) {
     span.innerHTML = "Por favor, La contraseña no debe tener espacios";
     return false;
   }
+  var mediumRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  if (!mediumRegex.test(campo.value)) {
+    $(campo).removeClass('is-valid');
+    $(campo).addClass('is-invalid');
+    span.style = "color:red; font-size: 10pt";
+    span.innerHTML = "Debe tener 1 letra mayuscula, 1 letra minuscula, 1 numero y 1 caracter especial";
+    return false;
+  }
 
-  
 
   $(campo).removeClass('is-invalid');
   $(campo).addClass('is-valid');

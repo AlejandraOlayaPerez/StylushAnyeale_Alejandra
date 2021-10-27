@@ -19,8 +19,8 @@ require_once 'linkcss.php';
             $result = $oServicio->mostrarServicio();
             ?>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" style="-webkit-text-fill-color: black;">Servicio</label>
-              <select select class="form-select" id="idServicio" name="idServicio">
+              <label for="">Servicio</label>
+              <select select class="form-select" id="idServicio" name="idServicio" onchange="validarCampo(this);" required>
                 <option value="" disabled selected>Selecciones una opción</option>
                 <?php
                 foreach ($result as $registro) {

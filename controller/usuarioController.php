@@ -56,6 +56,8 @@ class usuarioController
     {
         require_once '../model/usuario.php';
         $oUsuario = new usuario();
+        $oUsuario->idRol = $_POST['idRol'];
+        $oUsuario->idCargo = $_POST['idCargo'];
         $oUsuario->tipoDocumento = $_POST['tipoDocumento'];
         $oUsuario->documentoIdentidad = $_POST['documentoIdentidad'];
         $oUsuario->primerNombre = $_POST['primerNombre'];
@@ -104,10 +106,15 @@ class usuarioController
                     } else {
                         $result = $oUsuario->nuevoUsuario();
                         if ($result) {
-                            // echo "registro";
-                            $oUsuario = new usuario(); //se reinicio la variable 
-                            $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
-                            $_GET['mensaje'] = "Se ha registrado el usuario";
+                            require_once '../model/imagen.php';
+                            $oFoto = new foto();
+                            $foto = $oFoto->insertarFotoPreterminada($oUsuario->getIdUser(), "image/perfilpreterminado.png");
+                            if ($foto) {
+                                // echo "registro";
+                                $oUsuario = new usuario(); //se reinicio la variable 
+                                $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
+                                $_GET['mensaje'] = "Se ha registrado el usuario";
+                            }
                         } else {
                             // echo "error registro";
                             $_GET['tipoMensaje'] = $oMensaje->tipoError;
@@ -123,7 +130,7 @@ class usuarioController
     public function habilitarDeshabilitarUsuario()
     {
         //define variables y se asigna el valor que tiene GET.
-       echo  $habilitar = $_GET['habilitar'];
+        echo  $habilitar = $_GET['habilitar'];
         $idUser = $_GET['idUser'];
 
         require_once '../model/usuario.php'; //esta importando el contenido del archivo para ser accesible las funciones y atributos.
@@ -159,7 +166,7 @@ class usuarioController
 
         $oUsuario = new usuario();
         $oUsuario->consultarUsuario($idUser);
-        
+
         return $oUsuario;
     }
 
@@ -276,9 +283,9 @@ class usuarioController
         $oSeguimiento->seguimientoCambioContrasena($fechaActual, $horaActual);
 
         $oUsuario = new usuario();
-       $contrasenaActual = $_POST['contrasenaActual'];
-       echo  $contrasena = $_POST['contrasenaNueva'];
-       echo  $confirmarContrasena = $_POST['confirmarContrasena'];
+        $contrasenaActual = $_POST['contrasenaActual'];
+        echo  $contrasena = $_POST['contrasenaNueva'];
+        echo  $confirmarContrasena = $_POST['confirmarContrasena'];
 
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
@@ -313,25 +320,26 @@ class usuarioController
         echo json_encode($result);
     }
 
-    public function registrarUsuarioCargo(){
+    public function registrarUsuarioCargo()
+    {
 
-        $idUser=$_GET['cargoUsuario']; 
-        $idCargo=$_GET['idCargo'];
+        $idUser = $_GET['cargoUsuario'];
+        $idCargo = $_GET['idCargo'];
 
         require_once '../model/usuario.php';
 
         require_once 'mensajecontroller.php';
-        $oMensaje=new mensajes();
+        $oMensaje = new mensajes();
 
-        $oUsuario=new usuario();
-        $result=$oUsuario->nuevoUsuarioRegistroMasivo($idUser, $idCargo);
+        $oUsuario = new usuario();
+        $result = $oUsuario->nuevoUsuarioRegistroMasivo($idUser, $idCargo);
 
-        if($result){
+        if ($result) {
             // echo "registro";
-            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+cargo");
-        }else{
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+cargo");
+        } else {
             // echo "error";
-            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/mostrarusuariocargo.php?idCargo=$idCargo" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
         }
     }
 
@@ -355,29 +363,31 @@ class usuarioController
         }
     }
 
-    public function registrarUsuarioRol(){
+    public function registrarUsuarioRol()
+    {
 
-        $idUser=$_GET['rolUsuario']; 
-        $idRol=$_GET['idRol'];
+        $idUser = $_GET['rolUsuario'];
+        $idRol = $_GET['idRol'];
 
         require_once '../model/usuario.php';
 
         require_once 'mensajecontroller.php';
-        $oMensaje=new mensajes();
+        $oMensaje = new mensajes();
 
-        $oUsuario=new usuario();
-        $result=$oUsuario->nuevoUsuarioRegistroMasivoRol($idUser, $idRol);
+        $oUsuario = new usuario();
+        $result = $oUsuario->nuevoUsuarioRegistroMasivoRol($idUser, $idRol);
 
-        if($result){
+        if ($result) {
             // echo "registro";
-            header("location: ../view/listardetallerol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoCorrecto."&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+rol");
-        }else{
+            header("location: ../view/listardetallerol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+registrado+un+nuevo+usuario+en+este+rol");
+        } else {
             // echo "error";
-            header("location: ../view/listardetallerol.php?idRol=$idRol"."&tipoMensaje=".$oMensaje->tipoError."&mensaje=Se+ha+producido+un+error");
-        }   
+            header("location: ../view/listardetallerol.php?idRol=$idRol" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+        }
     }
 
-    public function buscarUsariosAjax(){
+    public function buscarUsariosAjax()
+    {
         require_once '../model/usuario.php';
 
         $oUsuario = new usuario();

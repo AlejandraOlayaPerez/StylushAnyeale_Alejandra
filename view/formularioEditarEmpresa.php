@@ -9,33 +9,33 @@ $oEmpresa = $oPedidoController->consultarEmpresaId($idEmpresa);
 
 <body>
     <div class="container-fluid">
-        <div class="card cardHeader">
-            <div class="card-header">
+        <div class="card">
+            <div class="card-header cardHeaderFondo">
                 <label class="card-title" style="-webkit-text-fill-color: black;">Editar Empresa</label>
             </div>
-            <form action="../controller/pedidocontroller.php" method="GET" id="formUsuario">
+            <form action="../controller/pedidocontroller.php" method="GET" id="formUsuario" novalidate>
                 <input type="text" name="funcion" value="actualizarEmpresa" style="display: none;">
                 <input type="text" name="idEmpresa" value="<?php echo $_GET['idEmpresa']; ?>" style="display: none;">
-                <div class="card-body">
+                <div class="card-body cardBody">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="">Nit</label>
+                            <label for="" style="-webkit-text-fill-color: black;">Nit</label>
                             <input type="text" class="form-control" id="Nit" name="Nit" placeholder="NIT Empresa" value="<?php echo $oEmpresa->Nit; ?>" onchange="validarCampo(this);" required maxlength="10" minlength="2">
                             <span id="NitSpan"></span>
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="">Nombre Empresa</label>
+                            <label for="" style="-webkit-text-fill-color: black;">Nombre Empresa</label>
                             <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre Empresa" value="<?php echo $oEmpresa->nombreEmpresa; ?>" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="nombreEmpresaSpan"></span>
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="">Dirección</label>
+                            <label for="" style="-webkit-text-fill-color: black;">Dirección</label>
                             <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Escribe una direccion" value="<?php echo $oEmpresa->direccion; ?>" onchange="validarCampo(this);" required maxlength="100" minlength="2">
                             <span id="direccionSpan"></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer cardFooter">
+                <div class="card-footer cardBody">
                     <a href="listarEmpresa.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Empresa</button>
                 </div>
@@ -46,7 +46,7 @@ $oEmpresa = $oPedidoController->consultarEmpresaId($idEmpresa);
 
 </html>
 
-<?php require_once 'linkjs.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 
 <script>
     function validarPaginaFinal() {

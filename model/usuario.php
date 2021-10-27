@@ -77,6 +77,7 @@ class usuario
         return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
 
+  
     public function nuevoUsuario()
     {
         //funcion para encriptar la contraseña utilizando el metodo md5
@@ -89,12 +90,20 @@ class usuario
         //se crea la sentencia sql para registrar el usuario
         $sql = "INSERT INTO usuario (idRol, idCargo, tipoDocumento, documentoIdentidad, primerNombre, segundoNombre, primerApellido, segundoApellido,
         fechaNacimiento, correoElectronico, contrasena, telefono, genero, estadoCivil, direccion, barrio, eliminado) 
-        VALUES (NULL, NULL, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
+        VALUES ($this->idRol, $this->idCargo, '$this->tipoDocumento', $this->documentoIdentidad, '$this->primerNombre', '$this->segundoNombre', '$this->primerApellido', 
         '$this->segundoApellido', '$this->fechaNacimiento', '$this->correoElectronico', '$this->contrasena', $this->telefono, '$this->genero', 
         '$this->estadoCivil', '$this->direccion', '$this->barrio', false)";
 
         //ejecuta secuencia, solo cuando es insert.
         $result = mysqli_query($conexion, $sql);
+
+        //funcion para retornar el ultimo id creado
+        $sql="SELECT (LAST_INSERT_ID()) as idUser FROM usuario";
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro){
+            $this->idUser=$registro['idUser'];
+        }
         // echo $sql;
         return $result;
     }
@@ -176,14 +185,13 @@ class usuario
 
         if ($habilitar == true) {
             //esta condicion se ejecuta si habilitado es verdadero. 
-            $sql = "UPDATE usuario SET eliminado=0 WHERE idUser=$idUser";
+            $sql = "UPDATE usuario SET habilitar=0 WHERE idUser=$idUser";
         } else {
             //esta condicion se ejecuta si habilitado es falso.
-            $sql = "UPDATE usuario SET eliminado=1 WHERE idUser=$idUser";
+            $sql = "UPDATE usuario SET habilitar=1 WHERE idUser=$idUser";
         }
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         //retorna el resultado de la consulta.
         return $result;
     }
@@ -240,7 +248,7 @@ class usuario
         if ($documento != "") {
             $where .= "AND documentoIdentidad=$documento ";
         }
-        $sql = "SELECT count(idUser) as numRegistro, u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE $where";
+        $sql = "SELECT count(idUser) as numRegistro, u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.habilitar, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE $where";
         $result = mysqli_query($conexion, $sql);
         foreach ($result as $registro) {
             $this->numRegistro = $registro['numRegistro'];
@@ -264,7 +272,7 @@ class usuario
         }
 
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.eliminado, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE $where ORDER BY primerNombre ASC LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT u.idUser, u.tipoDocumento, u.documentoIdentidad, u.primerNombre, u.primerApellido, u.correoElectronico, u.telefono, u.habilitar, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS Rol FROM usuario u WHERE $where ORDER BY primerNombre ASC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -542,7 +550,7 @@ class usuario
         //establece conexion con la base de datos
         $conexion = $oConexion->conexion();
         //sentencia para verificar correo y contraseña de usuario
-        $sql = "SELECT * FROM usuario WHERE correoElectronico='$correoElectronico' AND contrasena='$contrasena'";
+        $sql = "SELECT * FROM usuario WHERE correoElectronico='$correoElectronico' AND contrasena='$contrasena' AND habilitar=true";
         //se ejecuta sentencia
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);

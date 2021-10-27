@@ -1,52 +1,25 @@
 <?php
+require_once 'headpagina.php';
 require_once '../controller/reservacioncontroller.php';
-require_once 'linkcss.php';
-require_once 'linkhead.php';
 $oReservacionController = new reservacionController();
 $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservacion']);
-
-// print_r($oReservacion);
 
 if (isset($_POST['documentoIdentidad']) != "") {
     $oReservacion = $oReservacionController->editarReservacion();
 }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylush Anyeale</title>
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
-</head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card card-default" style="background-color: #ddecf0;">
-                    <div class="card-header" style="background-color: rgb(119, 167, 191);">
-                        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px; font-weight: 600; -webkit-text-fill-color: black; ">¡MODIFICA TU RESERVACION!</h1>
+                <div class="card">
+                    <div class="card-header cardHeaderFondo">
+                        <label class="card-title">Editar Reservacion</label>
                     </div>
                     <form id="formulario" action="" method="POST">
                         <input type="text" name="idReservacion" value="<?php echo $_GET['idReservacion']; ?>" style="display: none;">
-                        <div class="card-body p-0">
+                        <div class="card-body cardBody">
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
                                     <div class="step" data-target="#logins-part">
@@ -107,12 +80,12 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Telefono</label>
-                                                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oCliente->telefono; ?>" onchange="validarCampo(this);" minlength="3000000000" maxlength="39999999999" required>
+                                                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oCliente->telefono; ?>" onchange="validarCampo(this);" min="3000000000" max="39999999999" required>
                                                 <span id="telefonoSpan"></span>
                                             </div>
                                         </div>
                                         <br>
-                                        <a type="button" href="mostrarReservacion.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                        <a type="button" href="mostrarreservacion.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
                                         <button class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                                     </div>
                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -196,8 +169,13 @@ if (isset($_POST['documentoIdentidad']) != "") {
             </div>
         </div>
 
-        <?php require_once 'linkfooter.php'; ?>
-        <?php require_once 'linkjs.php'; ?>
+        <?php require_once 'footer.php'; ?>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioEstilista.min.js"></script>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/reservacion.min.js"></script>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/direccion.min.js"></script>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 
     </div>
 </body>

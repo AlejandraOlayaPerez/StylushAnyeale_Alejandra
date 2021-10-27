@@ -29,8 +29,11 @@
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/summernote/summernote-bs4.min.js"></script>
+
+
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mensajeController.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mensajeController.min.js"></script>
 <script>
     <?php
     require_once '../controller/mensajeController.php';

@@ -1,7 +1,6 @@
 <?php
 require_once 'headpagina.php';
-require_once '../model/pedido.php';
-require_once '../model/producto.php';
+require_once 'linkcss.php';
 require_once '../controller/usuariocontroller.php';
 require_once '../controller/pedidocontroller.php';
 
@@ -18,14 +17,14 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card cardHeader">
-                    <div class="card-header">
+                <div class="card">
+                <div class="card-header cardHeaderFondo">
                         <label class="card-title">Nuevo Pedido</label>
                     </div>
 
                     <form action="../controller/pedidoController.php" method="GET" id="formulario">
                         <input type="text" name="funcion" value="nuevoPedido" style="display: none;">
-                        <div class="card-body p-0">
+                        <div class="card-body cardBody">
                             <div class="bs-stepper">
                                 <div class="bs-stepper-header" role="tablist">
                                     <div class="step" data-target="#logins-part">
@@ -47,19 +46,19 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                     <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label for="">Fecha Pedido</label>
+                                                <label for="" style="-webkit-text-fill-color: black;">Fecha Pedido</label>
                                                 <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
                                                 <input class="form-control" type="date" id="fechaPedido" name="fechaPedido" placeholder="Fecha Pedido" value="<?php echo $fechaActual; ?>" readonly onchange="validarCampo(this);" required>
                                                 <span id="fechaPedidoSpan"></span>
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="">Documento Identidad</label>
+                                                <label for="" style="-webkit-text-fill-color: black;">Documento Identidad</label>
                                                 <input class="form-control" type="text" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" readonly onchange="validarCampo(this);" required min="8" max="12">
                                                 <span id="documentoIdentidadSpan"></span>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="">Responsable del pedido</label>
+                                                <label for="" style="-webkit-text-fill-color: black;">Responsable del pedido</label>
                                                 <input class="form-control" type="text" id="responsablePedido" name="responsablePedido" placeholder="Responsable Pedido" value="<?php echo $oUsuario->primerNombre . " " . $oUsuario->primerApellido; ?>" readonly onchange="validarCampo(this);" required>
                                                 <span id="responsablePedidoSpan"></span>
                                             </div>
@@ -75,17 +74,17 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                                         <br>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label for="">Nit: </label>
+                                                <label for="" style="-webkit-text-fill-color: black;">Nit: </label>
                                                 <input class="form-control" type="text" name="Nit" id="Nit" readonly onchange="validarCampo(this);" required>
                                                 <span id="NitSpan"></span>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="">Empresa: </label>
+                                                <label for="" style="-webkit-text-fill-color: black;">Empresa: </label>
                                                 <input class="form-control" type="text" name="empresa" id="nombreEmpresa" readonly onchange="validarCampo(this);" required>
                                                 <span id="nombreEmpresaSpan"></span>
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="">Direccion: </label>
+                                                <label for="" style="-webkit-text-fill-color: black;">Direccion: </label>
                                                 <input class="form-control" type="text" name="direccion" id="direccion" readonly onchange="validarCampo(this);" required>
                                                 <span id="direccionSpan"></span>
                                             </div>
@@ -191,100 +190,106 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                 </button>
             </div>
             <div class="modal-body estiloModalBody">
-                <div class="row">
-                    <div class="col-md-12">
-                        <label for="" class="form-label">Buscar: </label>
-                        <div class="input-group m-b-0">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                <div class="card estiloModalBody">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="" class="form-label">Buscar: </label>
+                                <div class="input-group m-b-0">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por Codigo o Nombre" class="form-control" id="producto" name="producto" onkeyup="productoConsultar()">
+                                </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por Codigo o Nombre" class="form-control" id="producto" name="producto" onkeyup="productoConsultar()">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-tools">
+                                    <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card-tools">
-                            <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
 
-                            </ul>
-                        </div>
+                    <hr>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table colorestabla">
+                            <thead>
+                                <tr class="estiloTr">
+                                    <th></th>
+                                    <th>Codigo</th>
+                                    <th>Producto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productoResultado">
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <hr>
-
-                <table class="table colorestabla">
-                    <thead>
-                        <tr class="estiloTr">
-                            <th></th>
-                            <th>Codigo</th>
-                            <th>Producto</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productoResultado">
-
-                    </tbody>
-                </table>
             </div>
-            <div class="modal-footer estiloModalHeader">
-            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            <div class="modal-footer estiloModalBody">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+            </div>
         </div>
-        </div>
-       
     </div>
-</div>
 
 
-<?php require_once 'linkjs.php'; ?>
-<?php require_once 'footer.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarempresa.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+    <?php require_once 'footer.php'; ?>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+        })
+    </script>
 
-<script>
-    //crear una función con los campos de cada pagina
-    function validarPagina1() {
-        var valido = true;
-        // agregar el id de cada campo de la página para poder validar
-        var campos = ["fechaPedido", "documentoIdentidad", "responsablePedido", "Nit", "nombreEmpresa",
-            "direccion"
-        ];
-        campos.forEach(element => {
-            var campo = document.getElementById(element);
-            if (!validarCampo(campo))
-                valido = false;
-        });
-        if (valido)
-            stepper.next();
-    }
-
-    function validarPaginaFinal() {
-        // evento.preventDefault();
-        var valido = true;
-        // agregar el id de cada campo de la página para poder validar
-        var contenedor = document.getElementById("listarProducto");
-        var tr = contenedor.querySelectorAll('tr');
-        var inputs = contenedor.querySelectorAll('input');
-        // console.log(tr);
-        if (tr.length == 0) {
-            valido = false;
-            alert("Por favor, seleccione minimo un producto");
+    <script>
+        //crear una función con los campos de cada pagina
+        function validarPagina1() {
+            var valido = true;
+            // agregar el id de cada campo de la página para poder validar
+            var campos = ["fechaPedido", "documentoIdentidad", "responsablePedido", "Nit", "nombreEmpresa",
+                "direccion"
+            ];
+            campos.forEach(element => {
+                var campo = document.getElementById(element);
+                if (!validarCampo(campo))
+                    valido = false;
+            });
+            if (valido)
+                stepper.next();
         }
 
-        for (var i = 0; i < inputs.length; i++) {
-            valido = validarCampo(inputs[i]);
-            if (!valido) {
-                break;
+        function validarPaginaFinal() {
+            // evento.preventDefault();
+            var valido = true;
+            // agregar el id de cada campo de la página para poder validar
+            var contenedor = document.getElementById("listarProducto");
+            var tr = contenedor.querySelectorAll('tr');
+            var inputs = contenedor.querySelectorAll('input');
+            // console.log(tr);
+            if (tr.length == 0) {
+                valido = false;
+                alert("Por favor, seleccione minimo un producto");
+            }
+
+            for (var i = 0; i < inputs.length; i++) {
+                valido = validarCampo(inputs[i]);
+                if (!valido) {
+                    break;
+                }
+            }
+
+            if (valido) {
+                document.getElementById('formulario').submit();
             }
         }
-
-        if (valido) {
-            document.getElementById('formulario').submit();
-        }
-    }
-</script>
+    </script>

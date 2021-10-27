@@ -9,10 +9,9 @@ $idUser = $_SESSION['idUser'];
 if (isset($_GET['ventana'])) { //
     $ventana = $_GET['ventana'];
 } else {
-    $ventana = "calendario";
+    $ventana = "informacion";
 }
 ?>
-
 
 <body>
     <div class="container-fluid">
@@ -35,7 +34,7 @@ if (isset($_GET['ventana'])) { //
                             $oFoto = $oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
 
                             ?>
-                            <img class="img-circle elevation-2" src="../<?php echo $oFoto->fotoPerfilUsuario; ?>" alt="User Avatar">
+                            <img class="img-circle elevation-2" src="../<?php echo $oFoto->fotoPerfil; ?>" alt="User Avatar">
                         </div>
                         <div class="card-footer">
                             <div class="text-center">
@@ -52,7 +51,7 @@ if (isset($_GET['ventana'])) { //
                         <a class="nav-link <?php if ($ventana == "foto") echo "active"; ?>" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-images"></i> Actualizar Foto</a>
                         <a class="nav-link <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-edit"></i> Actualizar Informacion</a>
                         <a class="nav-link <?php if ($ventana == "seguridad") echo "active"; ?>" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-shield-alt"></i> Seguridad</a>
-                        <a class="nav-link <?php if ($ventana == "calendario") echo "active"; ?>" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-calendar"></i> Reservaciones</a>
+                        <a class="nav-link <?php if ($ventana == "roles") echo "active"; ?>" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false" style="font-family: 'Times New Roman', Times, serif; color:black;"><i class="fas fa-project-diagram"></i></i> Rol</a>
                     </div>
                 </div>
                 <div class="col-7 col-sm-9">
@@ -66,8 +65,8 @@ if (isset($_GET['ventana'])) { //
                         <div class="tab-pane fade <?php if ($ventana == "seguridad") echo "active show"; ?>" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
                             <?php require_once 'seguridadUsuario.php'; ?>
                         </div>
-                        <div class="tab-pane fade <?php if ($ventana == "calendario") echo "active show"; ?>" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
-                            <?php require_once 'calendarioUsuario.php'; ?>
+                        <div class="tab-pane fade <?php if ($ventana == "roles") echo "active show"; ?>" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
+                            <?php require_once 'rolusuario.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -79,4 +78,3 @@ if (isset($_GET['ventana'])) { //
 </html>
 
 <?php require_once 'footer.php'; ?>
-<?php require_once 'linkjs.php'; ?>

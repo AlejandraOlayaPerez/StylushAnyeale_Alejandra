@@ -13,7 +13,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
         <input type="text" name="idRol" value="<?php echo $oUsuario->idRol; ?>" style="display: none;">
         <div class="row">
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Tipo de Documento</label>
+                <label for="" class="form-label">Tipo de Documento <span class="text-danger">*</span></label>
                 <select class="form-select" id="tipoDocumento" name="tipoDocumento" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                     <option value="" disabled selected>Selecciones una opción</option>
                     <option value="TI" <?php if ($oUsuario->tipoDocumento == "TI") {
@@ -30,55 +30,55 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Documento identidad</label>
-                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="1000" max="19999999999" required>
+                <label for="" class="form-label">Documento identidad <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="documentoIdentidad" name="documentoIdentidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" onchange="validarCampo(this);" min="1000" max="99999999999" required>
                 <span id="documentoIdentidadSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Primer Nombre</label>
+                <label for="" class="form-label">Primer Nombre <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="primerNombre" name="primerNombre" value="<?php echo $oUsuario->primerNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                 <span id="primerNombreSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Segundo Nombre</label>
+                <label for="segundoNombre" class="form-label">Segundo Nombre</label> <small class="letraPequena">(Opcional)</small>
                 <input type="text" class="form-control" id="segundoNombre" name="segundoNombre" value="<?php echo $oUsuario->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50">
                 <span id="segundoNombreSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Primer Apellido</label>
+                <label for="" class="form-label">Primer Apellido <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="primerApellido" name="primerApellido" value="<?php echo $oUsuario->primerApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                 <span id="primerApellidoSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Segundo Apellido</label>
+                <label for="" class="form-label">Segundo Apellido <small class="letraPequeña">(Opcional)</small></label>
                 <input type="text" class="form-control" id="segundoApellido" name="segundoApellido" value="<?php echo $oUsuario->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50">
                 <span id="segundoApellidoSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Correo Electronico</label>
+                <label for="" class="form-label">Correo Electronico <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" id="correoElectronico" name="correoElectronico" value="<?php echo $oUsuario->correoElectronico; ?>" onchange="validarCampo(this);" minlength="1" required>
                 <span id="correoElectronicoSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Telefono</label>
+                <label for="" class="form-label">Telefono <span class="text-danger">*</span></label>
                 <input type="phone" class="form-control" id="telefono" name="telefono" value="<?php echo $oUsuario->telefono; ?>" onchange="validarCampo(this);" min="10" max="13" required>
                 <span id="telefonoSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Fecha de Nacimiento</label>
+                <label for="" class="form-label">Fecha de Nacimiento <span class="text-danger">*</span></label>
                 <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="<?php echo $oUsuario->fechaNacimiento; ?>" onchange="validarCampo(this);" required>
                 <span id="fechaNacimientoSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Genero</label>
+                <label for="" class="form-label">Genero <small class="letraPequeña">(Opcional)</small></label>
                 <select class="form-select" id="genero" name="genero" onchange="validarCampo(this);">
                     <option value="" selected>Selecciones una opción</option>
                     <option value="Femenino" <?php if ($oUsuario->genero == "Femenino") {
@@ -95,7 +95,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Estado Civil</label>
+                <label for="" class="form-label">Estado Civil <small class="letraPequeña">(Opcional)</small></label>
                 <select class="form-select" id="estadoCivil" name="estadoCivil" onchange="validarCampo(this);">
                     <option value="" selected>Selecciones una opción</option>
                     <option value="Soltero" <?php if ($oUsuario->estadoCivil == "Soltero") {
@@ -115,13 +115,13 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Direccion</label>
+                <label for="" class="form-label">Direccion <small class="letraPequeña">(Opcional)</small></label>
                 <input type="text" class="form-control" id="direccion" name="direccion" value="<?php echo $oUsuario->direccion; ?>" onchange="validarCampo(this);" minlength="2" maxlength="20">
                 <span id="direccionSpan"></span>
             </div>
 
             <div class="col col-xl-4 col-md-6 col-12">
-                <label for="" class="form-label">Barrio</label>
+                <label for="" class="form-label">Barrio <small class="letraPequeña">(Opcional)</small></label>
                 <input type="text" class="form-control" id="barrio" name="barrio" value="<?php echo $oUsuario->barrio; ?>" onchange="validarCampo(this);" minlength="2" maxlength="15">
                 <span id="barrioSpan"></span>
             </div>
