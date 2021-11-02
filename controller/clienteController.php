@@ -47,9 +47,6 @@ switch ($funcion) {
 class clienteController
 {
 
-    public $tipoMensaje = "";
-    public $mensaje = "";
-
     public function iniciarSesion()
     {
         require_once '../model/cliente.php';

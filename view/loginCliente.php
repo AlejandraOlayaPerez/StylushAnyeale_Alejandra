@@ -7,8 +7,6 @@ if (isset($_SESSION['idCliente'])) {
     header("location: paginaprincipalcliente.php");
     die(); // es para recomendado cuando se hace una rederigir, destruir o cerrar la pagina actual.
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -38,16 +36,27 @@ if (isset($_SESSION['idCliente'])) {
                 <br>
                 <p class="login-box-msg">Inicia sesión en cliente</p>
 
-                <form action="../controller/clienteController.php" method="POST">
+                <form action="../controller/clienteController.php" method="POST" id="formulario">
+                    <input type="text" name="funcion" value="iniciarSesion" style="display: none;">
                     <input type="text" name="url" value="<?php if (isset($_GET['url'])) {
                                                                 echo $_GET['url'];
                                                             } ?>" style="display: none;">
-                    <label for="">Correo electronico</label>
-                    <input class="form-control" type="email" name="email">
-                    <label for="">Contraseña</label>
-                    <input class="form-control" type="password" name="contrasena">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Correo electronico</label>
+                            <input class="form-control" type="email" id="correoElectronico" name="email" placeholder="example@gmail.com" value="" minlength="1" onchange="validarCampo(this);" required>
+                            <span id="correoElectronicoSpan"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="">Contraseña</label>
+                            <input class="form-control" type="password" autocomplete="FALSE" id="contrasena" name="contrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                            <span id="contrasenaSpan"></span>
+                        </div>
+                    </div>
                     <br>
-                    <button type="submit" class="btn btn-success" name="funcion" value="iniciarSesion">Iniciar Sesión</button>
+                    <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
                     <br><br>
                     <p class="mb-1"><a href="" class="text-center" style="-webkit-text-fill-color: black;">¿Olvidó su contraseña?</a></p>
                     <p class="mb-0"><a href="registrocliente.php" class="text-center" style="-webkit-text-fill-color: black;">¿No tiene usuario?</a></p>
@@ -62,3 +71,23 @@ if (isset($_SESSION['idCliente'])) {
 <?php require_once 'linkfooter.php'; ?>
 
 </html>
+
+
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
+
+
+<script>
+    function validarPaginaFinal() {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["correoElectronico", "contrasena"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido)
+            document.getElementById('formulario').submit();
+    }
+</script>

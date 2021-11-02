@@ -408,7 +408,7 @@ class productoServicioController
 
         $oProducto = new producto();
         $result = $oProducto->busquedaProducto($_GET['codigoProducto'], $_GET['nombreProducto'], $_GET['pagina']);
-        echo json_encode($result);
+        echo $result;
     }
 
     public function buscarProductosVista()

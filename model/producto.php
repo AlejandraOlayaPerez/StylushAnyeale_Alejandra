@@ -533,7 +533,7 @@ class producto
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '%$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
+        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
