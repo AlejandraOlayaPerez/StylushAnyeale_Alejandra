@@ -60,7 +60,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                 <div class="row">
                                     <input type="text" class="form-control" name="idCliente" value="<?php echo $_SESSION['idCliente']; ?>" style="display: none;">
                                     <div class="col col-xl-4 col-md-6 col-12">
-                                        <label for="" class="form-label" style="-webkit-text-fill-color: black;">Tipo de Documento</label>
+                                        <label for="" class="form-label">Tipo de Documento<span class="text-danger">*</span></label>
                                         <select class="form-control" id="tipoDocumento" name="tipoDocumento" onchange="validarCampo(this);" required readonly>
                                             <option value="" selected>Selecciones una opción</option>
                                             <option value="TI" <?php if ($oCliente->tipoDocumento == "TI") {
@@ -76,22 +76,22 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                         <span id="tipoDocumentoSpan"></span>
                                     </div>
                                     <div class="col col-xl-4 col-md-6 col-12">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Documento Identidad</label>
+                                        <label class="form-label">Documento Identidad<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="documentoIdentidad" name="documentoIdentidad" placeholder="Documento Identidad" value="<?php echo $oCliente->documentoIdentidad; ?>" onchange="validarCampo(this);" min="5" max="12" required readonly>
                                         <span id="documentoIdentidadSpan"></span>
                                     </div>
                                     <div class="col col-xl-4 col-md-6 col-12">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Nombre</label>
+                                        <label class="form-label">Nombre<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                         <span id="primerNombreSpan"></span>
                                     </div>
                                     <div class="col col-xl-4 col-md-6 col-12">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Apellido</label>
+                                        <label class="form-label">Apellido<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                         <span id="primerApellidoSpan"></span>
                                     </div>
                                     <div class="col col-xl-4 col-md-6 col-12">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Telefono</label>
+                                        <label class="form-label">Telefono<span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oCliente->telefono; ?>" onchange="validarCampo(this);" min="3000000000" max="3999999999" required>
                                         <span id="telefonoSpan"></span>
                                     </div>
@@ -108,7 +108,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                         $oServicio = new servicio();
                                         $result = $oServicio->mostrarServicio();
                                         ?>
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Servicio</label>
+                                        <label class="form-label">Servicio<span class="text-danger">*</span></label>
                                         <select select class="form-select" id="servicio" name="servicio" value="" onchange="traerEstilistas();" required>
                                             <option value="" disabled selected>Selecciones una opción</option>
                                             <?php foreach ($result as $registro) {
@@ -121,7 +121,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                         <span id="servicioSpan"></span>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Estilista</label>
+                                        <label class="form-label">Estilista<span class="text-danger">*</span></label>
                                         <input type="text" id="idUser" value="<?php echo $oReservacion->idUser; ?>" style="display: none;">
                                         <select select class="form-select" id="estilista" name="estilista" value="" onchange="horarioReservacion();" required disabled>
                                             <option value=" " disabled selected>Selecciones una opción</option>
@@ -135,7 +135,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Domicilio</label>
+                                        <label class="form-label">Domicilio<span class="text-danger">*</span></label>
                                         <select class="form-control" id="domicilio" name="domicilio" onchange="confirmarDireccion();" required>
                                             <option value="" selected>Selecciones una opción</option>
                                             <option value="1" <?php if ($oReservacion->domicilio == "1") {
@@ -148,20 +148,20 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                         <span id="domicilioSpan"></span>
                                     </div>
                                     <div class="col-md-6" id="direccion" <?php if ($oReservacion->domicilio == "0") echo "style='display: none;'"; ?>>
-                                        <label for="" class="form-label" style="-webkit-text-fill-color: black;">Dirección</label>
+                                        <label for="" class="form-label">Dirección<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="direccionCampo" name="direccion" value="<?php echo $oReservacion->direccion; ?>" onchange="validarCampo(this);" minlength="5" maxlength="200">
                                         <span id="direccionCampoSpan"></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label for="" class="form-label" style="-webkit-text-fill-color: black;">Fecha Reservacion</label>
+                                        <label for="" class="form-label">Fecha Reservacion<span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" id="fechaReservacion" name="fechaReservacion" value="<?php echo $oReservacion->fechaReservacion; ?>" onchange="horarioReservacion();" required>
                                         <span id="fechaReservacionSpan"></span>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" id="reservacioHora" value="<?php echo $oReservacion->horaReservacion; ?>" style="display: none;">
-                                        <label class="form-label" style="-webkit-text-fill-color: black;">Hora Reservacion</label>
+                                        <label class="form-label">Hora Reservacion<span class="text-danger">*</span></label>
                                         <select select class="form-select" id="horaReservacion" name="horaReservacion" value="" required disabled>
                                             <option value="" disabled selected>Selecciones una opción</option>
 
@@ -186,9 +186,7 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
 
 </div>
-</body>
-
-</html>
+<?php require_once 'footercliente.php'; ?>
 
 
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioEstilista.min.js"></script>

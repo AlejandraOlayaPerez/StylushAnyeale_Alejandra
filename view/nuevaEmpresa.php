@@ -12,17 +12,17 @@
                 <div class="card-body cardBody">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" style="-webkit-text-fill-color: black;">Nit</label>
+                            <label for="">Nit<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="Nit" name="Nit" placeholder="NIT" onchange="validarCampo(this);" required maxlength="10" minlength="2">
                             <span id="NitSpan"></span>
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" style="-webkit-text-fill-color: black;">Nombre Empresa</label>
+                            <label for="">Nombre Empresa<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" placeholder="Nombre Empresa" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="nombreEmpresaSpan"></span>
                         </div>
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" style="-webkit-text-fill-color: black;">dirección</label>
+                            <label for="">dirección<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion" onchange="validarCampo(this);" required maxlength="100" minlength="2">
                             <span id="direccionSpan"></span>
                         </div>

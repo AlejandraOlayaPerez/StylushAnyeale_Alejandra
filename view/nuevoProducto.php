@@ -4,11 +4,6 @@ require_once '../model/producto.php';
 $oProducto = new producto();
 ?>
 
-<head>
-  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/codemirror/theme/monokai.css">
-  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/codemirror/codemirror.css">
-</head>
-
 <body>
   <div class="container-fluid">
     <div class="row">
@@ -53,7 +48,7 @@ $oProducto = new producto();
                     <div class="row" style="margin: 5px;">
                       <div class="col col-md-12">
                         <div class="col col-md-6">
-                          <label for="" style="-webkit-text-fill-color: black;">Fotos</label>
+                          <label for="">Fotos<span class="text-danger">*</span></label>
                           <input name="fotos[]" id="fotos" type="file" class="form-control" multiple accept="image/*" onchange="validarCampo(this);" required>
                           <span id="fotosSpan"></span>
                         </div>
@@ -69,25 +64,25 @@ $oProducto = new producto();
                     <div class="card-body">
                       <div class="row">
                         <div class="col-md-6">
-                          <label for="" class="form-label" style="-webkit-text-fill-color: black;">Codigo Producto</label>
+                          <label for="" class="form-label">Codigo Producto<span class="text-danger">*</span></label>
                           <input class="form-control" type="text" id="codigoProducto" name="codigoProducto" placeholder="Codigo Producto" onchange="validarCampo(this);" required maxlength="20">
                           <span id="codigoProductoSpan"></span>
                         </div>
                         <div class="col-md-6">
-                          <label for="" class="form-label" style="-webkit-text-fill-color: black;">Producto</label>
+                          <label for="" class="form-label">Producto<span class="text-danger">*</span></label>
                           <input class="form-control" type="text" id="nombreProducto" name="nombreProducto" placeholder="Nombre Producto" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                           <span id="nombreProductoSpan"></span>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6">
-                          <label for="" class="form-label" style="-webkit-text-fill-color: black;">Descripcion Producto</label>
+                          <label for="" class="form-label">Descripcion Producto<span class="text-danger">*</span></label>
                           <textarea id="descripcion" class="form-control" rows="6" type="text" name="descripcionProducto" placeholder="Describe el producto" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
                           <span id="descripcionSpan"></span>
                         </div>
                         <div class="col-md-6">
-                          <label for="" class="form-label" style="-webkit-text-fill-color: black;">Caracteristicas</label>
-                          <textarea id="summernote" class="form-control" type="text" id="caracteristicas" name="caracteristicas" placeholder="Describe las caracteristicas del producto" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                          <label for="" class="form-label">Caracteristicas<span class="text-danger">*</span></label>
+                          <textarea id="summernote" class="form-control" row="6" type="text" id="caracteristicas" name="caracteristicas" placeholder="Describe las caracteristicas del producto" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
                           <span id="summernoteSpan"></span>
                         </div>
                       </div>
@@ -130,7 +125,7 @@ $oProducto = new producto();
                     ?>
                     <div class="col col-xl-4 col-md-6 col-12">
                       <div class="form-group">
-                        <label for="" class="form-label" style="-webkit-text-fill-color: black;">Etiquetas (Tags)</label>
+                        <label for="" class="form-label">Etiquetas (Tags)<span class="text-danger">*</span></label>
                         <select class="select2" multiple="multiple" data-placeholder="Seleccione las etiquetas" style="width: 100%; font-family: 'Times New Roman', Times, serif;" id="tags" name="tags[]" onchange="validarCampo(this);" required>
                           <option disabled>Seleccione las etiquetas</option>
                           <?php
@@ -150,7 +145,7 @@ $oProducto = new producto();
                       $oCategoria = new categoria();
                       $consulta = $oCategoria->categoria();
                       ?>
-                      <label for="" class="form-label" style="-webkit-text-fill-color: black;">Categoria</label>
+                      <label for="" class="form-label">Categoria<span class="text-danger">*</span></label>
                       <select class="form-control" id="idCategoria" name="idCategoria" onchange="validarCampo(this);" required>
                         <option value="" selected>Selecciones una opción</option>
                         <?php foreach ($consulta as $registro) {
@@ -181,22 +176,7 @@ $oProducto = new producto();
 
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/codemirror/codemirror.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/codemirror/mode/css/css.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/codemirror/mode/xml/xml.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script>
-  $(function() {
-    // Summernote
-    $('#summernote').summernote()
 
-    // CodeMirror
-    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-      mode: "htmlmixed",
-      theme: "monokai"
-    });
-  })
-</script>
 <?php require_once 'footer.php'; ?>
 
 <script>

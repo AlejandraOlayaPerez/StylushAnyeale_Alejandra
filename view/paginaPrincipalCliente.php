@@ -52,7 +52,7 @@ if (isset($_POST['correoElectronico']) != "") {
                                                 <li>
                                                     <hr class="dropdown-divider">
                                                 </li>
-                                                <li><a class="dropdown-item" href="../controller/clientecontroller.php?funcion=cerrarSesion">Cerrar Sesion</a></li>
+                                                <li><a class="dropdown-item" href="../controller/clientecontroller.php?funcion=cerrarSesion">Cerrar Sesión</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -62,7 +62,7 @@ if (isset($_POST['correoElectronico']) != "") {
                     <?php } else {
                     ?>
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="logincliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
+                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="logincliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></li>
                             <li class="nav-item"><a class="nav-link active" aria-current="page" href="registrocliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
                         </ul>
                     <?php } ?>
@@ -71,7 +71,7 @@ if (isset($_POST['correoElectronico']) != "") {
         </nav>
     </header>
 
-    <main>
+    <main style="background-color: FEF1E6;">
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -174,7 +174,7 @@ if (isset($_POST['correoElectronico']) != "") {
 
         <footer class="container">
             <form action="" method="POST">
-                <div class="card" style="background-color: rgba(255, 255, 204, 255);">
+                <div class="card" style="background-color: FEF1E6">
                     <div class="card-body row">
                         <div class="col-md-5 text-center d-flex align-items-center justify-content-center">
                             <div class="">

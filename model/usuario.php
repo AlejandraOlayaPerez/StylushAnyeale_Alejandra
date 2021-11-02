@@ -77,7 +77,7 @@ class usuario
         return count(mysqli_fetch_all($result, MYSQLI_ASSOC));
     }
 
-  
+
     public function nuevoUsuario()
     {
         //funcion para encriptar la contraseña utilizando el metodo md5
@@ -98,11 +98,11 @@ class usuario
         $result = mysqli_query($conexion, $sql);
 
         //funcion para retornar el ultimo id creado
-        $sql="SELECT (LAST_INSERT_ID()) as idUser FROM usuario";
+        $sql = "SELECT (LAST_INSERT_ID()) as idUser FROM usuario";
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        foreach ($result as $registro){
-            $this->idUser=$registro['idUser'];
+        foreach ($result as $registro) {
+            $this->idUser = $registro['idUser'];
         }
         // echo $sql;
         return $result;
@@ -558,6 +558,38 @@ class usuario
             $this->idUser = $registro['idUser'];
             $this->primerNombre = $registro['primerNombre'];
             $this->primerApellido = $registro['primerApellido'];
+        }
+        return count($result);
+    }
+
+    public function nombreRol($idUser)
+    {
+        $oConexion = new conectar();
+        //establece conexion con la base de datos
+        $conexion = $oConexion->conexion();
+        //sentencia para verificar correo y contraseña de usuario
+        $sql = "SELECT *, (SELECT r.nombreRol FROM rol r WHERE r.idRol=u.idRol) AS nombreRol FROM usuario u WHERE u.idUser=$idUser";
+        //se ejecuta sentencia
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            $this->nombreRol = $registro['nombreRol'];
+        }
+        return count($result);
+    }
+
+    public function nombreCargo($idUser)
+    {
+        $oConexion = new conectar();
+        //establece conexion con la base de datos
+        $conexion = $oConexion->conexion();
+        //sentencia para verificar correo y contraseña de usuario
+        $sql = "SELECT *, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.idServicio) AS nombreServicio FROM cargo c INNER JOIN usuario u ON c.idCargo=u.idCargo WHERE u.idUser=$idUser";
+        //se ejecuta sentencia
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            $this->nombreServicio = $registro['nombreServicio'];
         }
         return count($result);
     }

@@ -1,4 +1,4 @@
-<?php require_once 'headPagina.php'; ?>
+<?php require_once 'headpagina.php'; ?>
 
 <body>
     <div class="container-fluid">

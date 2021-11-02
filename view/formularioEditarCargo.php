@@ -24,7 +24,7 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
             $result = $oServicio->mostrarServicio();
             ?>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="">Servicio</label>
+              <label for="">Servicio<span class="text-danger">*</span></label>
               <select select class="form-select" id="idServicio" name="idServicio" onchange="validarCampo(this);" required>
                 <option value="" disabled selected>Selecciones una opción</option>
                 <?php

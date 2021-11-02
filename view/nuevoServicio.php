@@ -54,7 +54,7 @@ $oServicio = new servicio();
                                         <div class="row" style="margin: 5px;">
                                             <div class="col col-md-12">
                                                 <div class="col col-md-6">
-                                                    <label for="" style="-webkit-text-fill-color: black;">Fotos</label>
+                                                    <label for="">Fotos<span class="text-danger">*</span></label>
                                                     <input name="fotos[]" id="fotos" type="file" class="form-control" multiple accept="image/*" onchange="validarCampo(this);" required>
                                                     <span id="fotosSpan"></span>
                                                 </div>
@@ -68,23 +68,23 @@ $oServicio = new servicio();
                                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                                         <div class="row">
                                             <div class="col col-xl-4 col-md-6 col-12">
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Codigo Servicio</label>
+                                                <label for="" class="form-label">Codigo Servicio<span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" id="codigoServicio" name="codigoServicio" placeholder="Codigo Servicio" onchange="validarCampo(this);" required minlength="2" maxlength="30">
                                                 <span id="codigoServicioSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Servicio</label>
+                                                <label for="" class="form-label">Servicio<span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" id="nombreServicio" name="nombreServicio" placeholder="Nombre Servicio" onchange="validarCampo(this);" required minlength="5" maxlength="30">
                                                 <span id="nombreServicioSpan"></span>
                                             </div>
 
                                             <div class="col col-xl-4 col-md-6 col-12">
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Detalle Servicio</label>
+                                                <label for="" class="form-label">Detalle Servicio<span class="text-danger">*</span></label>
                                                 <textarea class="form-control" rows="3" type="text" id="detalleServicio" name="detalleServicio" placeholder="Describe el servicio" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
                                                 <span id="detalleServicioSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Duracion Servicio</label>
+                                                <label for="" class="form-label">Duracion Servicio<span class="text-danger">*</span></label>
                                                 <select class="form-control" id="tiempoDuracion" name="tiempoDuracion" onchange="validarCampo(this);" required>
                                                     <option value="" selected>Selecciones una opción</option>
                                                     <option value="10" <?php if ($oServicio->tiempoDuracion == "10") {
@@ -124,7 +124,7 @@ $oServicio = new servicio();
                                                 <span id="tiempoDuracionSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Costo</label>
+                                                <label for="" class="form-label">Costo<span class="text-danger">*</span></label>
                                                 <div class="input-group m-b-0">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
@@ -175,7 +175,7 @@ $oServicio = new servicio();
                                             ?>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Etiquetas (Tags)</label>
+                                                    <label for="" class="form-label">Etiquetas (Tags)<span class="text-danger">*</span></label>
                                                     <select class="select2" multiple="multiple" data-placeholder="Seleccione las etiquetas" style="width: 100%; font-family: 'Times New Roman', Times, serif;" id="tags" name="tags[]" onchange="validarCampo(this);" required>
                                                         <option disabled>Seleccione las etiquetas</option>
                                                         <?php
@@ -195,7 +195,7 @@ $oServicio = new servicio();
                                                 $oCategoria = new categoria();
                                                 $consulta = $oCategoria->categoria();
                                                 ?>
-                                                <label for="" class="form-label" style="-webkit-text-fill-color: black;">Categoria</label>
+                                                <label for="" class="form-label">Categoria<span class="text-danger">*</span></label>
                                                 <select class="form-control" id="idCategoria" name="idCategoria" onchange="validarCampo(this);" required>
                                                     <option value="" selected>Selecciones una opción</option>
                                                     <?php foreach ($consulta as $registro) {

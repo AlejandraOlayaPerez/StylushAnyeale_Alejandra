@@ -53,14 +53,12 @@
     background-color: #69696905 !important;
     font-family: 'Times New Roman', Times, serif !important;
     font-weight: 300 !important;
-    -webkit-text-fill-color: black !important;
 }
 
 .tabsHead{
     background-color: #6969693b !important;
     font-family: 'Times New Roman', Times, serif !important;
     font-weight: 300 !important;
-    -webkit-text-fill-color: black !important;
     margin: solid #fef1e6c9 1px !important;
 }
 
@@ -182,5 +180,4 @@ label {
     font-size: 25px;
     font-weight: 600;
     text-align: right;
-
 }

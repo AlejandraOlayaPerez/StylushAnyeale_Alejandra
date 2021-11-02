@@ -1,5 +1,4 @@
 <?php
-
 date_default_timezone_set('America/Bogota');
 
 $funcion = "";
@@ -28,13 +27,29 @@ switch ($funcion) {
     case "buscarProductoAjax":
         $oClienteController->buscarProductoAjax();
         break;
-    case "buscarClienteAdmin": 
+    case "buscarClienteAdmin":
         $oClienteController->buscarClienteAdmin();
+        break;
+    case "comentariosProducto":
+        $oClienteController->comentariosProducto();
+        break;
+    case "ajaxComentario":
+        $oClienteController->ajaxComentario();
+        break;
+    case "respuestaPregunta":
+        $oClienteController->respuestaPregunta();
+        break;
+    case "actualizarClienteInformacion":
+        $oClienteController->actualizarCliente();
         break;
 }
 
 class clienteController
 {
+
+    public $tipoMensaje = "";
+    public $mensaje = "";
+
     public function iniciarSesion()
     {
         require_once '../model/cliente.php';
@@ -54,8 +69,8 @@ class clienteController
             //estas variables vamos a aceder en cualquier momento del proyecto
             $_SESSION['idCliente'] = $oCliente->getIdCliente();
             $_SESSION['nombreUser'] = $oCliente->getNombreUser();
-            if ($_POST['url']!=""){
-                header("location: /anyeale_proyecto/stylushanyeale_alejandra/view/".$_POST['url']);
+            if ($_POST['url'] != "") {
+                header("location: /anyeale_proyecto/stylushanyeale_alejandra/view/" . $_POST['url']);
             } else {
                 // echo "Inicio sesion correctamente";
                 header("location: /anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalcliente.php");
@@ -155,33 +170,37 @@ class clienteController
         $yearNacimiento = explode("-", $oCliente->fechaNacimiento);
         $yearNacimiento = $yearNacimiento[0]; //arreglo 1
         $edadUsuario = $yearActual - $yearNacimiento; //Operacion para saber edad.
+        $edadUsuario;
 
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($oCliente->consultarCorreoElectronicoExiste($oCliente->email, $idCliente) != 0) {
             // echo "error correo";
-            $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-            $_GET['mensaje'] = "Ya existe un registro con este correo electronico";
+            $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+            $this->mensaje = "Este correo electrónico ya esta registrado";
         } else {
             if ($oCliente->documentoIdUsuarioExiste($idCliente, $oCliente->tipoDocumento, $oCliente->documentoIdentidad) != 0) {
                 // echo "error documento";
-                $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-                $_GET['mensaje'] = "Ya existe un registro con este documento de identidad";
+                $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+                $this->mensaje = "Este documento ya esta registrado";
+            } else {
                 if ($edadUsuario < 15) {
                     // echo "error fecha";
-                    $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-                    $_GET['mensaje'] = "La edad del usuario debe ser minimo de 15 años";
+                    $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+                    $this->mensaje = "Fecha incorrecta, El usuario debe mínimo 15 años";
                 } else {
                     $result = $oCliente->actualizarCliente($idCliente);
                     if ($result) {
                         // echo "actualizo";
-                        $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
-                        $_GET['mensaje'] = "Se ha actualizao correctamente la informacion";
+                        $oCliente = new cliente(); //se reinicio la variable 
+                        header("locatio: ../view/perfilcliente.php");
+                        // $this->tipoMensaje = $oMensaje->tipoCorrecto;
+                        // $this->mensaje = "Se ha generado correctamente el registro del usuario";
                     } else {
                         // echo "error actualizar";
-                        $_GET['tipoMensaje'] = $oMensaje->tipoError;
-                        $_GET['mensaje'] = "Se ha producido un error";
+                        $this->tipoMensaje = $oMensaje->tipoError;
+                        $this->mensaje = "Se ha producido un error";
                     }
                 }
             }
@@ -272,5 +291,67 @@ class clienteController
         echo $delimitador;
         $datos = $oCliente->cliente($_GET['tipoDocumento'], $_GET['documentoIdentidad'], $_GET['pagina']);
         echo json_encode($datos);
+    }
+
+    public function comentariosProducto()
+    {
+        require_once '../model/comentarios.php';
+
+        $fechaComentario = Date("Y-m-d");
+        $horaComentario = Date("H:i:s");
+
+        $oComentario = new comentario();
+        $oComentario->idProducto = $_GET['idProducto'];
+        $oComentario->idCategoria = $_GET['idCategoria'];
+        $oComentario->idCliente = $_GET['idCliente'];
+        $oComentario->comentario = $_GET['comentario'];
+        $result = $oComentario->insertarComentarioProducto($fechaComentario, $horaComentario);
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/detalleproducto.php?idProducto=$oComentario->idProducto" . "&idCategoria=$oComentario->idCategoria" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+comentario" . "&ventana=comentario");
+            // echo "registro";
+        } else {
+            header("location: ../view/detalleproducto.php?idProducto=$oComentario->idProducto" . "&idCategoria=$oComentario->idCategoria" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=comentario");
+            // echo "error";
+        }
+    }
+
+    public function ajaxComentario()
+    {
+        require_once '../model/comentarios.php';
+
+        $oComentario = new comentario();
+        $result = $oComentario->listarComentario($_GET['idProducto'], $_GET['idCliente']);
+        echo json_encode($result);
+    }
+
+    public function respuestaPregunta()
+    {
+        require_once '../model/comentarios.php';
+
+        $fechaComentario = Date("Y-m-d");
+        $horaComentario = Date("H:i:s");
+
+        $oComentario = new comentario();
+        $oComentario->idProducto = $_GET['idProducto'];
+        $oComentario->idCategoria = $_GET['idCategoria'];
+        $oComentario->idCliente = $_GET['idCliente'];
+        $oComentario->idPregunta = $_GET['idPregunta'];
+        $oComentario->respuesta = $_GET['respuesta'];
+        $result = $oComentario->respuestaComentario($fechaComentario, $horaComentario);
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/detalleproducto.php?idProducto=$oComentario->idProducto" . "&idCategoria=$oComentario->idCategoria" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+contestado+al+mensaje" . "&ventana=comentario");
+            // echo "registro";
+        } else {
+            header("location: ../view/detalleproducto.php?idProducto=$oComentario->idProducto" . "&idCategoria=$oComentario->idCategoria" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=comentario");
+            // echo "error";
+        }
     }
 }

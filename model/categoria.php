@@ -7,13 +7,14 @@ class categoria
     public $idProducto = "";
     public $categoriaNombre = "";
 
-    function registroMasivoProducto($productoCategoria, $idCategoria){
+    function registroMasivoProducto($productoCategoria, $idCategoria)
+    {
         $result = "";
-        foreach($productoCategoria as $registro){
+        foreach ($productoCategoria as $registro) {
             $this->productoCategoria = $registro;
             $result = $this->nuevaCategoriaProducto($idCategoria);
-            if(!$result)
-            break;
+            if (!$result)
+                break;
         }
         return $result;
     }
@@ -162,6 +163,35 @@ class categoria
         // echo $sql;
         return $result;
     }
+
+    function tablaCategoria()
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM categoria WHERE eliminado=false";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+    function mostrarProductosPorCategoria($idProducto, $idCategoria)
+    {
+        //instancia la clase conectar
+        $oConexion = new conectar();
+        //se establece la conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.idProducto=p.IdProducto LIMIT 1) as fotoProducto FROM producto p WHERE p.IdProducto!=$idProducto AND p.eliminado=false AND p.idCategoria=$idCategoria";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
 
     function categoria()
     {

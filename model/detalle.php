@@ -21,7 +21,22 @@ class detalle
         $conexion = $oConexion->conexion();
 
         $sql = "INSERT INTO detalle (idProducto, idPedido, codigoProducto, producto, cantidad, precio) 
-    VALUES ($idProducto, $idPedido, '$codigoProducto', '$producto', $cantidad, $precio)";
+        VALUES ($idProducto, $idPedido, '$codigoProducto', '$producto', $cantidad, $precio)";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        return $result;
+    }
+
+    function productosFactura($idFactura, $idProducto,  $codigoProducto,  $producto, $cantidad, $precio)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "INSERT INTO detalle (idProducto, idFactura, codigoProducto, producto, cantidad, precio) 
+        VALUES ($idProducto, $idFactura, '$codigoProducto', '$producto', $cantidad, $precio)";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -85,7 +100,22 @@ class detalle
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
+        return $result;
+    }
+
+    function productosFacturasValidar($idFactura)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base de datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT d.idProducto, d.cantidad 
+        FROM detalle d INNER JOIN factura f 
+        ON d.idFactura=f.idFactura WHERE d.idFactura=$idFactura";
+
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
     }
 
@@ -174,20 +204,21 @@ class detalle
         return $result;
     }
 
-    function actualizarCantidadDetalle($idProducto, $idFactura, $cantidad, $precio)
+    function actualizarCantidadDetalle($idProducto, $idFactura, $cantidad)
     {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "UPDATE detalle SET cantidad=$cantidad, precio=precio+$precio WHERE idProducto=$idProducto AND idFactura=$idFactura";
+        $sql = "UPDATE detalle SET cantidad=$cantidad WHERE idProducto=$idProducto AND idFactura=$idFactura";
 
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
 
-    function eliminarProductoCarrito(){
+    function eliminarProductoCarrito()
+    {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
@@ -199,27 +230,6 @@ class detalle
         echo $sql;
         return $result;
     }
-
-    // function consultarProductosIdServicio($idServicio, $idProducto){
-    //     //Instancia clase conectar
-    //     $oConexion = new conectar();
-    //     //Establece conexion con la base de datos.
-    //     $conexion = $oConexion->conexion();
-
-    //     $sql = "SELECT * FROM detalle WHERE IdServicio=$idServicio AND idProducto=$idProducto";
-
-    //     //se ejecuta la consulta
-    //     $result = mysqli_query($conexion, $sql);
-    //     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    //     foreach ($result as $registro) {
-    //         //se registra la consulta en los parametros
-    //         $this->idProducto = $registro['idProducto'];
-    //         $this->codigoProducto = $registro['codigoProducto'];
-    //         $this->producto = $registro['producto'];
-    //         $this->cantidad = $registro['cantidad'];
-    //     }
-    // }
 
     function listarProductoPorPedido($idPedido)
     {
@@ -244,6 +254,21 @@ class detalle
         $conexion = $oConexion->conexion();
 
         $sql = "SELECT * FROM detalle WHERE idPedido=$idPedido AND eliminado=false";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+    function consultarProductosIdFactura($idFactura)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM detalle WHERE idFactura=$idFactura AND eliminado=false";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);

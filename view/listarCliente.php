@@ -10,18 +10,26 @@ $oCliente = new cliente();
         <div class="card">
             <div class="card-header cardHeader">
                 <div class="row">
-                    <div class="col-md-3">
-                    <label for="" class="form-label">Tipo de Documento: </label>
-                        <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="consultarCliente()">
-                            <option value="" selected>Selecciones una opción</option>
-                            <option value="TI">Tarjeta de Identidad</option>
-                            <option value="CC">Cedula Ciudadanía</option>
-                            <option value="CE">Cedula Extranjería</option>
-                        </select>
+                    <div class="col-md-6">
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="consultarCliente()">
+                                <option value="" selected>Selecciones una opción</option>
+                                <option value="TI">Tarjeta de Identidad</option>
+                                <option value="CC">Cedula Ciudadanía</option>
+                                <option value="CE">Cedula Extranjería</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label for="" class="form-label">Documento: </label>
-                        <input type="number" class="form-control" id="documentoIdentidad2" name="documentoIdentidad" placeholder="Documento Identidad" onchange="consultarCliente()">
+                    <div class="col-md-6">
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                            </div>
+                            <input type="number" class="form-control" placeholder="Buscar por documento identidad.." data-bs-toggle="tooltip" data-bs-placement="right" title="Busca el documento del cliente" id="documentoIdentidad2" name="documentoIdentidad" placeholder="Documento Identidad" onkeyup="consultarCliente()">
+                        </div>
                     </div>
                 </div>
                 <br>

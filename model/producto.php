@@ -25,6 +25,7 @@ class producto
         VALUES ($idProducto, $this->idCategoria, '$this->codigoProducto', '$this->nombreProducto', '$this->descripcionProducto', '$this->caracteristicas', $this->valorUnitario, $this->costoProducto, false)";
 
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 
@@ -113,7 +114,7 @@ class producto
             $where .= "AND  nombreProducto LIKE '%$nombreProducto%' ";
         }
 
-        $inicio = (($pagina - 1) * 5);
+        $inicio = (($pagina - 1) * 10);
         $sql = "SELECT * FROM producto WHERE $where LIMIT 5 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
@@ -138,7 +139,7 @@ class producto
         }
 
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT * FROM producto WHERE $where ORDER BY nombreProducto ASC LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT * FROM producto WHERE $where ORDER BY codigoProducto ASC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -178,38 +179,8 @@ class producto
         $conexion = $oConexion->conexion();
 
         $where = "WHERE eliminado=false ";
-        $organizar = " ";
-        if ($categoria !== "") {
-            $where .= " AND idCategoria=$categoria";
-        }
-        // if ($tags !==""){
-        //     $where .= " AND "
-        // }
-        if ($vista == "asc") {
-            $organizar = "ORDER BY nombreProducto ASC";
-        }
-        if ($vista == "des") {
-            $organizar = "ORDER BY nombreProducto DESC";
-        }
-        if ($vista == "menor") {
-            $organizar = "ORDER BY valorUnitario ASC";
-        }
-        if ($vista == "mayor") {
-            $organizar = "ORDER BY valorUnitario DESC";
-        }
-        if ($rangoMenor != "" && $rangoMayor == "") {
-            $where .= " AND valorUnitario >= $rangoMenor";
-        }
-        if ($rangoMenor == "" && $rangoMayor != "") {
-            $where .= " AND valorUnitario <= $rangoMayor";
-        }
-        if ($rangoMenor != "" && $rangoMayor != "") {
-            $where .= " AND valorUnitario BETWEEN $rangoMenor AND $rangoMayor";
-        }
-        if ($buscar != "") {
-            $where .= " AND nombreProducto LIKE '%$buscar%'";
-        }
-        $sql = "SELECT count(codigoProducto) as numRegistro FROM producto $where $organizar";
+
+        $sql = "SELECT count(codigoProducto) as numRegistro FROM producto $where";
         $result = mysqli_query($conexion, $sql);
         foreach ($result as $registro) {
             $this->numRegistro = $registro['numRegistro'];
@@ -224,41 +195,41 @@ class producto
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $where = "WHERE eliminado=false ";
+        $where = "WHERE p.eliminado=false ";
         $organizar = " ";
-        if ($categoria !== "") {
-            $where .= " AND idCategoria=$categoria";
+        if ($categoria != "") {
+            $where .= " AND p.idCategoria=$categoria";
         }
-        // if ($tags !==""){
-        //     $where .= " AND "
-        // }
+        if ($tags != "") {
+            $where .= " AND pc.idTags=$tags ";
+        }
         if ($vista == "asc") {
-            $organizar = "ORDER BY nombreProducto ASC";
+            $organizar = "ORDER BY p.nombreProducto ASC";
         }
         if ($vista == "des") {
-            $organizar = "ORDER BY nombreProducto DESC";
+            $organizar = "ORDER BY p.nombreProducto DESC";
         }
         if ($vista == "menor") {
-            $organizar = "ORDER BY valorUnitario ASC";
+            $organizar = "ORDER BY p.valorUnitario ASC";
         }
         if ($vista == "mayor") {
-            $organizar = "ORDER BY valorUnitario DESC";
+            $organizar = "ORDER BY p.valorUnitario DESC";
         }
         if ($rangoMenor != "" && $rangoMayor == "") {
-            $where .= " AND valorUnitario >= $rangoMenor";
+            $where .= " AND p.valorUnitario >= $rangoMenor";
         }
         if ($rangoMenor == "" && $rangoMayor != "") {
-            $where .= " AND valorUnitario <= $rangoMayor";
+            $where .= " AND p.valorUnitario <= $rangoMayor";
         }
         if ($rangoMenor != "" && $rangoMayor != "") {
-            $where .= " AND valorUnitario BETWEEN $rangoMenor AND $rangoMayor";
+            $where .= " AND p.valorUnitario BETWEEN $rangoMenor AND $rangoMayor";
         }
         if ($buscar != "") {
-            $where .= " AND nombreProducto LIKE '%$buscar%'";
+            $where .= " AND p.nombreProducto LIKE '%$buscar%'";
         }
 
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.idProducto=p.IdProducto LIMIT 1) as fotoProducto FROM producto p $where $organizar LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.idProducto=p.IdProducto LIMIT 1) as fotoProducto FROM producto p INNER JOIN palabrasclaves pc ON p.IdProducto=pc.idProducto $where $organizar LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -336,7 +307,7 @@ class producto
         }
 
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT * FROM producto WHERE $where ORDER BY nombreProducto ASC LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT * FROM producto WHERE $where ORDER BY codigoProducto ASC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
@@ -398,6 +369,22 @@ class producto
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function consultarCodigo($codigoProducto)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM producto WHERE codigoProducto='$codigoProducto'";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        echo $sql;
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
     function consultarProducto($IdProducto)
     {
         //se instancia el objeto conectar
@@ -425,8 +412,6 @@ class producto
         }
     }
 
-    
-
     function actualizarProducto()
     {
         //se instancia el objeto conectar
@@ -446,6 +431,7 @@ class producto
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
     }
 

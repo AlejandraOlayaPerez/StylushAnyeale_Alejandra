@@ -3,7 +3,6 @@ require_once 'headpagina.php';
 require_once '../controller/reservacioncontroller.php';
 $oReservacionController = new reservacionController();
 $oReservacion = $oReservacionController->consultarReservacion($_GET['idReservacion']);
-
 if (isset($_POST['documentoIdentidad']) != "") {
     $oReservacion = $oReservacionController->editarReservacion();
 }
@@ -70,12 +69,12 @@ if (isset($_POST['documentoIdentidad']) != "") {
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Nombre</label>
-                                                <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required>
+                                                <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Nombre" value="<?php echo $oCliente->primerNombre . " " . $oCliente->segundoNombre; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                                 <span id="primerNombreSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
                                                 <label class="form-label" style="-webkit-text-fill-color: black;">Apellido</label>
-                                                <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required>
+                                                <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Apellido" value="<?php echo $oCliente->primerApellido . " " . $oCliente->segundoApellido; ?>" onchange="validarCampo(this);" minlength="2" maxlength="100" required readonly>
                                                 <span id="primerApellidoSpan"></span>
                                             </div>
                                             <div class="col col-xl-4 col-md-6 col-12">
@@ -171,12 +170,22 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
         <?php require_once 'footer.php'; ?>
         <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioEstilista.min.js"></script>
-        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/reservacion.min.js"></script>
+        <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/reservacion.js"></script>
         <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/direccion.min.js"></script>
         <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
         <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
         <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+        <script>
+            <?php
+            require_once '../controller/mensajecontroller.php';
 
+
+            if ($oReservacionController->tipoMensaje != "") {
+                $oMensaje = new mensajes();
+                echo $oMensaje->mensaje($oReservacionController->tipoMensaje, $oReservacionController->mensaje);
+            }
+            ?>
+        </script>
     </div>
 </body>
 
@@ -186,6 +195,9 @@ if (isset($_POST['documentoIdentidad']) != "") {
     document.addEventListener('DOMContentLoaded', function() {
         window.stepper = new Stepper(document.querySelector('.bs-stepper'))
     });
+</script>
+<script>
+    Actualizar();
 </script>
 
 <script>

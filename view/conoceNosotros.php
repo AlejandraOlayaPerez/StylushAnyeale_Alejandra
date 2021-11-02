@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/nosotros.css" type="text/css">
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/nosotros.min.css" type="text/css">
     <link rel="shortcut icon" href="/anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" type="image/x-icon">
     <title>Stylush Anyeale</title>
 </head>
@@ -46,7 +46,7 @@
 
                             <p class="text-muted f-14 mb-0" style="font-family: 'Times New Roman', Times, serif;">Al crear nuevas estrategias permitirá un abarque de más personas que podrían estar interesadas, de igual manera solo se busca ayudar y general un mejor desempeño en las prestaciones de servicios, ofreciendo a los clientes más fácil acceso a los servicios o información correspondiente, a la igual manera también beneficia a los establecimientos, porque permitirá tener la información mas organizada y con mejor calidad, sin llegar a estar distorsionada.</p>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

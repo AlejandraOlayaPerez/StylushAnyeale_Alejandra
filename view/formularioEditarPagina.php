@@ -21,19 +21,19 @@ $oPagina = $oGestionController->consultarPaginaId($_GET['idPagina']);
         <div class="card-body cardBody">
           <div class="row">
             <div class="col col-xl-4 col-md-8 col-12">
-              <label for="" style="-webkit-text-fill-color: black;">Nombre Pagina</label>
+              <label for="">Nombre Pagina<span class="text-danger">*</span></label>
               <input type="text" name="idPagina" value="<?php echo $oPagina->idPagina; ?>" style="display:none;">
               <input type="text" name="idModulo" value="<?php echo $oPagina->idModulo; ?>" style="display:none;">
               <input class="form-control" type="text" id="nombrePagina" name="nombrePagina" value="<?php echo $oPagina->nombrePagina; ?>" required>
               <span id="nombrePaginaSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-8 col-12">
-              <label for="" style="-webkit-text-fill-color: black;">Enlace Pagina</label>
+              <label for="">Enlace Pagina<span class="text-danger">*</span></label>
               <input class="form-control" type="text" id="enlace" name="enlace" value="<?php echo $oPagina->enlace; ?>" required maxlength="50" minlength="2" onchange="validarCampo(this)">
               <span id="enlaceSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-8 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">¿Se requiere inicio de sesion?</label>
+              <label for="" class="form-label">¿Se requiere inicio de sesion?<span class="text-danger">*</span></label>
               <select class="form-select" id="requireSession" name="requireSession" required onchange="validarCampo(this)">
                 <option value="" disabled selected>Selecciones una opción</option>
                 <option value="true" <?php if ($oPagina->requireSession) {
@@ -46,7 +46,7 @@ $oPagina = $oGestionController->consultarPaginaId($_GET['idPagina']);
               <span id="requireSessionSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-8 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">¿Vista Menu?</label>
+              <label for="" class="form-label">¿Vista Menu?<span class="text-danger">*</span></label>
               <select class="form-select" id="menu" name="menu" required onchange="validarCampo(this)">
                 <option value="" disabled selected>Selecciones una opción</option>
                 <option value="true" <?php if ($oPagina->menu) {

@@ -20,14 +20,15 @@ class empresa
         //sentencia SQL para instertar estudiante
 
         $sql = "INSERT INTO empresa (nombreEmpresa, Nit, direccion, eliminado)
-    VALUES ('$this->nombreEmpresa', '$this->Nit', '$this->direccion', false)";
+        VALUES ('$this->nombreEmpresa', '$this->Nit', '$this->direccion', false)";
 
         //ejecuta la sentencia
         $result = mysqli_query($conexion, $sql);
         return $result;
     }
 
-    public function paginacionEmpresa($empresa, $pagina){
+    public function paginacionEmpresa($empresa, $pagina)
+    {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
@@ -47,25 +48,26 @@ class empresa
         return $this->numRegistro;
     }
 
-    public function empresa($empresa, $pagina){
-          //se instancia el objeto conectar
-          $oConexion = new conectar();
-          //se establece conexión con la base datos
-          $conexion = $oConexion->conexion();
-  
-          $where = "eliminado=false ";
+    public function empresa($empresa, $pagina)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $where = "eliminado=false ";
         if ($empresa != "") {
             $where .= "AND nombreEmpresa LIKE '%$empresa%' ";
         }
-  
-          $inicio = (($pagina - 1) * 10);
-          $sql = "SELECT * FROM empresa WHERE $where ORDER BY nombreEmpresa ASC LIMIT 10 OFFSET $inicio";
-  
-          //se ejecuta la consulta en la base de datos
-          $result = mysqli_query($conexion, $sql);
-          $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-          // echo $sql;
-          return $result;
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT * FROM empresa WHERE $where ORDER BY nombreEmpresa ASC LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // echo $sql;
+        return $result;
     }
 
     public function buscarEmpresa($empresa)

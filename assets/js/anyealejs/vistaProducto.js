@@ -9,14 +9,13 @@ function cargarJS() {
 }
 
 function vistaProducto() {
-    // var categoria = document.getElementById("categoria").value;
-    var categoria="";
-    var tags="";
-    // var tags = document.getElementById("tags").value;
+    var categoria = document.getElementById("idCategoria").value;
+    var tags = document.getElementById("idTags").value;
     var vista = document.getElementById("vista").value;
     var rangoMenor = document.getElementById("rangoMenor").value;
     var rangoMayor = document.getElementById("rangoMayor").value;
     var buscar = document.getElementById("buscar").value;
+
 
     $.ajax({
         url: '../controller/productoserviciocontroller.php',
@@ -95,36 +94,36 @@ function modificarPagina(campo) {
     vistaProducto();
 }
 
-function agregarVista(producto){
+function agregarVista(producto) {
     var divCol = document.createElement("div");
-    divCol.className="col-md-3";
+    divCol.className = "col-md-3";
     var divCar = document.createElement("div");
-    divCar.className="card"
+    divCar.className = "card"
 
     var img = document.createElement("img");
-    img.className="card-img-top imgCard";
-    img.src="../"+producto['fotoProducto'];
+    img.className = "card-img-top imgCard";
+    img.src = "../" + producto['fotoProducto'];
 
     var divCard = document.createElement("div");
-    divCard.className="card-body cardProducto";
+    divCard.className = "card-body cardProducto";
 
     var h5Titulo = document.createElement("h5");
-    h5Titulo.className="";
-    h5Titulo.innerHTML=producto['nombreProducto'];
+    h5Titulo.className = "";
+    h5Titulo.innerHTML = producto['nombreProducto'];
 
     var pPrecio = document.createElement("p");
-    pPrecio.className="card-title";
-    pPrecio.innerHTML="$"+separadorMiles(producto['valorUnitario']);
+    pPrecio.className = "card-title";
+    pPrecio.innerHTML = "$" + separadorMiles(producto['valorUnitario']);
 
     var divFooter = document.createElement("div");
-    divFooter.className="card-footer cardProducto";
+    divFooter.className = "card-footer cardProducto";
 
     var botonDetalle = document.createElement("a");
-    botonDetalle.href="detalleProducto.php?idProducto="+producto['IdProducto'];
-    botonDetalle.className="btn btn-info";
-    botonDetalle.innerHTML="<i class='fas fa-info-circle'></i> Detalle"
+    botonDetalle.href = "detalleProducto.php?idProducto=" + producto['IdProducto'] + "&idCategoria=" + producto['idCategoria'];
+    botonDetalle.className = "btn btn-info";
+    botonDetalle.innerHTML = "<i class='fas fa-info-circle'></i> Detalle"
 
-    
+
 
     divCard.appendChild(h5Titulo);
     divCard.appendChild(pPrecio);

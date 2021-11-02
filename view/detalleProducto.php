@@ -2,7 +2,18 @@
 
 require_once '../controller/productoserviciocontroller.php';
 $oProductoServicioController = new productoServicioController();
+
+if (isset($_GET['ventana'])) { //
+    $ventana = $_GET['ventana'];
+} else {
+    $ventana = "descripcion";
+}
 ?>
+
+<head>
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/detalleproducto.min.css" type="text/css">
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/chat.min.css" type="text/css">
+</head>
 
 <div class="row">
     <div class="col col-md-12">
@@ -17,45 +28,6 @@ $oProductoServicioController = new productoServicioController();
 </div>
 <br>
 <div class="row clearfix">
-    <div class="col-md-2">
-        <div class="card">
-            <div class="card-header cabeceraCard">
-                <h5><i class="fas fa-list-alt"></i> Categoria</h5>
-            </div>
-            <div class="card-body bodyCard">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr data-widget="expandable-table" aria-expanded="false">
-                            <td>
-                                <i class="fas fa-list-alt"></i> Categoria
-                            </td>
-                        </tr>
-
-                        <tr class="expandable-body">
-                            <td>
-                                <div class="p-0">
-                                    <table class="table table-hover">
-
-                                        <tbody>
-                                            <!-- <?php
-                                                    // require_once '../model/categoria.php';
-                                                    // $oCategoria=new categoria();
-                                                    // $consulta=$oCategoria->categoriaPorIdProducto();
-                                                    ?> -->
-                                            <tr>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
     <div class="col-md-8">
         <div class="card">
             <div class="card-header cabeceraCard">
@@ -111,6 +83,7 @@ $oProductoServicioController = new productoServicioController();
                             <h1 class="tituloh"> Opciones del producto</h1>
                             <ul>
                                 <form action="../controller/productoserviciocontroller.php" method="GET">
+                                    <input type="text" id="idCategoria" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display: none;">
                                     <input type="text" name="idProducto" value="<?php echo $_GET['idProducto']; ?>" style="display: none;">
                                     <li class="textp">
                                         <div class="row">
@@ -138,8 +111,16 @@ $oProductoServicioController = new productoServicioController();
                                     </li>
                                     <li class="textp"><button type="submit" class="btn btn-outline-success" style="margin-bottom: 8px" name="funcion" value="anadirAlCarrito"><i class="fas fa-cart-plus fa-lg mr-2"></i> Añadir al carrito</li></button>
                                 </form>
-                                <li class="textp"><button type="button" class="btn btn-outline-info" style="margin-bottom: 8px" data-toggle="modal" data-target="#domicilio-sm"><i class="fas fa-map-marked-alt"></i> Domicilio</li></button>
-                                <li class="textp"><button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#pago-sm"><i class="fab fa-cc-visa"></i> Opciones pago</li></button>
+                                <li class="textp">
+                                    <div class="accepted-cards">
+                                        <ul class="list-inline">
+                                            <li><img src="https://www.uxfordev.com/demo/1.0.6/assets/images/payment-icon-set/icons/visa-curved-32px.png"></li>
+                                            <li><img src="https://www.uxfordev.com/demo/1.0.6/assets/images/payment-icon-set/icons/mastercard-curved-32px.png"></li>
+                                            <li><img src="https://www.uxfordev.com/demo/1.0.6/assets/images/payment-icon-set/icons/maestro-curved-32px.png"></li>
+                                            <li><img src="https://www.uxfordev.com/demo/1.0.6/assets/images/payment-icon-set/icons/american-express-curved-32px.png"></li>
+                                        </ul>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -154,52 +135,53 @@ $oProductoServicioController = new productoServicioController();
             </div>
             <div class="card-body bodyCard">
                 <div class="row">
-                    <div class="col col-md-8">
+                    <div class="col col-md-12">
                         <nav class="w-100">
                             <div class="nav nav-tabs" id="product-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true"><i class="fas fa-align-justify"></i> Descripción</a>
-                                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><i class="fas fa-book-open"></i> Caracteristicas</a>
-                                <a class="nav-item nav-link" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false"><i class="fas fa-comment-dots"></i> Comentarios</a>
+                                <a class="nav-item nav-link <?php if ($ventana == "descripcion") echo "show active"; ?>" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true"><i class="fas fa-align-justify"></i> Descripción</a>
+                                <a class="nav-item nav-link <?php if ($ventana == "caracteristicas") echo "show active"; ?>" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><i class="fas fa-book-open"></i> Caracteristicas</a>
+                                <a class="nav-item nav-link <?php if ($ventana == "comentario") echo "show active"; ?>" id="product-rating-tab" data-toggle="tab" href="#product-rating" role="tab" aria-controls="product-rating" aria-selected="false"><i class="fas fa-comment-dots"></i> Comentarios</a>
                             </div>
 
                             <div class="tab-content p-3" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                                <div class="tab-pane fade <?php if ($ventana == "descripcion") echo "show active"; ?>" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                                     <div class="card">
                                         <div class="card-body bodyCard">
                                             <p><?php echo $oProducto->descripcionProducto; ?></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+                                <div class="tab-pane fade <?php if ($ventana == "caracteristicas") echo "show active"; ?>" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
                                     <div class="card">
                                         <div class="card-body bodyCard">
                                             <p><?php echo $oProducto->caracteristicas; ?></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="chat-discussion">
-                                                <div class="chat-message left">
-                                                    <img class="message-avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                                    <div class="message">
-                                                        <a class="message-author"> Michael Smith </a>
-                                                        <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span>
-                                                        <span class="message-content">
-                                                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                                                        </span>
-                                                    </div>
-                                                </div>
+                                <div class="tab-pane fade <?php if ($ventana == "comentario") echo "show active"; ?>" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form action="../controller/clientecontroller.php" method="GET" id="formulario">
+                                                    <input type="text" name="funcion" value="comentariosProducto" style="display: none;">
+                                                    <input type="text" id="idProducto" name="idProducto" value="<?php echo $_GET['idProducto']; ?>" style="display: none;">
+                                                    <input type="text" id="idCategoria" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display: none;">
+                                                    <input type="text" id="idCliente" name="idCliente" value="<?php echo $_SESSION['idCliente']; ?>" style="display: none;">
+
+                                                    <textarea id="summernote" class="form-control" type="text" name="comentario" onchange="validarCampo(this);" required minlength="10" maxlength="500"></textarea>
+                                                    <span id="summernoteSpan"></span>
+                                                    <br>
+                                                    <button type="button" class="btn btn-info float-right" onclick="validarPaginaFinal();">Enviar</button>
+                                                </form>
                                             </div>
                                         </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="chat-message-form">
-                                                <div class="form-group">
-                                                    <textarea class="form-control message-input" name="message" placeholder="Enter message text and press enter"></textarea>
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="chat-discussion" style="height: 800px;">
+                                                    <div class="chat-message left" id="comentario">
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -208,62 +190,51 @@ $oProductoServicioController = new productoServicioController();
                             </div>
                         </nav>
                     </div>
-                    <div class="col col-md-4">
-                        <div class="card">
-                            <div class="card-header cabeceraCard">
-                                <h5><i class="fas fa-tags"></i> Tags</h5>
-                            </div>
-                            <div class="card-body bodyCard">
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="row" id="mostrarProductos">
+
+        </div>
+    </div>
 </div>
 
-
-<div class="row">
-    <h1>footer</h1>
 </div>
+
+<?php require_once 'footercliente.php'; ?>
+
 
 <?php require_once 'linkfooter.php'; ?>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleProducto.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarProductos.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/comentario.js"></script>
+
 <script>
     var campo = document.getElementById("precio");
     separadorMilesPrecio(campo, "<?php echo $oProducto->valorUnitario; ?>");
 </script>
 
 
-
-</body>
-
-</html>
-
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleProducto.min.js"></script>
-
-
-<div class="modal fade" id="domicilio-sm">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Domicilio</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<script>
+    function validarPaginaFinal() {
+        // evento.preventDefault();
+        var valido = true;
+        // agregar el id de cada campo de la página para poder validar
+        var campos = ["summernote"];
+        campos.forEach(element => {
+            var campo = document.getElementById(element);
+            if (!validarCampo(campo))
+                valido = false;
+        });
+        if (valido) {
+            document.getElementById('formulario').submit();
+        }
+    }
+</script>
 
 <div class="modal fade" id="true-md">
     <div class="modal-dialog modal-md">
@@ -292,29 +263,9 @@ if (isset($_GET['modal'])) {
     <script>
         var myModal = new bootstrap.Modal(document.getElementById('true-md'), {
             keyboard: false
-        }); 
+        });
         myModal.show();
     </script>
 <?php
 }
 ?>
-
-<div class="modal fade" id="pago-sm">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Small Modal</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>One fine body&hellip;</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>

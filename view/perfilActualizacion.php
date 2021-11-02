@@ -7,6 +7,6 @@
             <input name="archivos" type="file" class="form-control" accept="image/*">
         </div>
     </div>
-
+<br>
     <button type="submit" class="btn btn-info" name="funcion" value="fotoPerfilUsuario">Actualizar Foto</botton>
 </form>

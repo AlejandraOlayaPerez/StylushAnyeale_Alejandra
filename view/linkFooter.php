@@ -33,10 +33,10 @@
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mensajeController.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mensajecontroller.min.js"></script>
 <script>
     <?php
-    require_once '../controller/mensajeController.php';
+    require_once '../controller/mensajecontroller.php';
 
     if (isset($_GET['mensaje'])) {
         $oMensaje = new mensajes();

@@ -111,10 +111,10 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
 
 <?php require_once 'footer.php'; ?>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarempresa.js"></script>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.js"></script>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarpedido.min.js"></script>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarpedido.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 
 <!--Modal empresa-->
 <div class="modal fade" id="modal-empresa">

@@ -71,6 +71,9 @@ function buscarCategoria() {
         for (i = 0; i < categoria.length; i++) {
             agregarCategoria(categoria[i]);
         }
+        if (categoria.length == 0) {
+            crearTr(2, "categoria");
+        }
     })
 }
 

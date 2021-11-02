@@ -1,4 +1,4 @@
-<?php session_start();
+<?php require_once 'permisoscliente.php';
 date_default_timezone_set('America/Bogota');
 $fechaActual = Date("Y-m-d"); ?>
 
@@ -7,10 +7,10 @@ $fechaActual = Date("Y-m-d"); ?>
 
 <head>
     <?php require_once 'linkhead.php'; ?>
-    <?php require_once 'linkcss.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/vistaheader.min.css" type="text/css">
     <title>Stylush Anyeale</title>
 </head>
 

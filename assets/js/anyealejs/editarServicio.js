@@ -12,7 +12,7 @@ function productoServicio(){
         type: 'POST',
         data: {idServicio:idServicio, funcion:"traerServicio"}
     }).done(function (data){
-        console.log(data);
+        // console.log(data);
         var servicio=JSON.parse(data);
         var contenedor=document.getElementById("listarProducto");
         contenedor.innerHTML="";

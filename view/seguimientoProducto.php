@@ -1,9 +1,12 @@
 <?php
 require_once 'headpagina.php';
-require_once 'linkcss.php';
 require_once '../model/seguimiento.php';
 $oSeguimiento = new seguimiento();
 ?>
+
+<head>
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/seguimiento.min.css" type="text/css">
+</head>
 
 <body>
     <div class="container">
@@ -31,7 +34,7 @@ $oSeguimiento = new seguimiento();
                                                 <div class="single-timeline-content d-flex wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                                                     <div class="timeline-icon"><i class="fas fa-bell" aria-hidden="true"></i></div>
                                                     <div class="timeline-text">
-                                                        <h6>El usuario <?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?> a trabajado en el pedido <?php echo $registro['IdPedido']; ?></h6>
+                                                        <h6>El usuario <?php echo $registro['primerNombre'] . " " . $registro['primerApellido']; ?> a modificado el producto <?php echo $registro['idProducto']; ?></h6>
                                                         <p><?php echo $registro['observacion']; ?></p>
                                                         <hr>
                                                         <small class="date"><i class="fas fa-calendar-alt"></i> <?php echo $registro['fechaSeguimiento']; ?></small>
@@ -59,6 +62,7 @@ $oSeguimiento = new seguimiento();
                 </div>
             </div>
         </section>
+        <a href="listarproducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
 </body>
 

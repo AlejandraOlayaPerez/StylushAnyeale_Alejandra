@@ -1,10 +1,13 @@
 <?php
 require_once 'headpagina.php';
-require_once 'linkcss.php';
 require_once '../controller/pedidocontroller.php';
 $oPedidoController = new pedidoController();
 $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
 ?>
+
+<head>
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/detallepedido.min.css" type="text/css">
+</head>
 
 <body>
     <div class="container-fluid">
@@ -18,7 +21,7 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
             </h1>
             <a class="btn btn-info" onclick="javascript:window.print()">
                 <i class="fas fa-print"></i>
-               Imprimir
+                Imprimir
             </a>
         </div>
 
@@ -87,6 +90,7 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
                             <tbody class="tablatbody">
                                 <?php
                                 $consulta = $oPedidoController->consultarPorPedidoProducto($_GET['idPedido']);
+                                $total = 0;
                                 foreach ($consulta as $registro) {
                                 ?>
                                     <tr>
@@ -94,6 +98,10 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
                                         <td><?php echo $registro['producto']; ?></td>
                                         <td><?php echo $registro['cantidad']; ?></td>
                                         <td><?php echo $registro['precio']; ?></td>
+                                        <?php
+                                        $sumaCantidad = $registro['cantidad'] + $registro['precio'];
+                                        $total += $sumaCantidad;
+                                        ?>
                                     </tr>
                                 <?php
                                 }
@@ -108,11 +116,7 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
                         <span class="text-md textPedido align-middle">Informacion de pago </span>
                         <div>
                             <span class="text-md textPedido align-middle">Total: </span>
-                            <span class="textPedido2 align-middle">$</span>
-                        </div>
-                        <div>
-                            <span class="text-md textPedido align-middle">SubTotal: </span>
-                            <span class="textPedido2 align-middle">$</span>
+                            <span class="textPedido2 align-middle">$<?php echo $total; ?></span>
                         </div>
                     </div>
                 </div>
@@ -120,5 +124,4 @@ $oPedido = $oPedidoController->consultarPedidoId($_GET['idPedido']);
         </div>
         <a href="listarpedido.php" style="height: 50px;" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
     </div>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detallePedido.min.js"></script>
 </body>

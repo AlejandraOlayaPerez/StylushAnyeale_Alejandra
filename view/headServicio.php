@@ -1,21 +1,17 @@
-<?php session_start(); //¡FUNDAMENTAL! 
+<?php require_once 'permisoscliente.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php require_once 'linkHead.php'; ?>
-    <?php require_once 'linkcss.php'; ?>
+    <?php require_once 'linkhead.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="/Anyeale_proyecto/stylushanyeale_alejandra/assets/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="/Anyeale_proyecto/stylushanyeale_alejandra/assets/css/servicios.min.css" type="text/css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/stylushanyeale_alejandra/assets/css/vistaHeader.min.css" type="text/css">
-
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/vistaheader.min.css" type="text/css">
     <title>Stylush Anyeale</title>
 </head>
+
 
 <body>
     <div class="container-fluid">
@@ -72,7 +68,6 @@
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                             <div class="navbar-nav">
                                 <a class="nav-item nav-link titulo " href="listarreservacion.php"><i class="fas fa-shopping-bag"></i> Mis reservaciones</a>
-                                <a class="nav-item nav-link titulo " href="comentariosservicios.php"><i class="fas fa-comments"></i> Comentarios</a>
                             </div>
                         </div>
                     </nav>

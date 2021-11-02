@@ -27,7 +27,24 @@ class servicio
         VALUES ($idServicio, $this->idCategoria, '$this->codigoServicio', '$this->nombreServicio', '$this->detalleServicio', $this->tiempoDuracion, $this->costo, false)";
 
         $result = mysqli_query($conexion, $sql);
+        echo $sql;
         return $result;
+    }
+
+    function consultarCodigo($codigoServicio)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $sql = "SELECT * FROM servicios WHERE codigoServicio='$codigoServicio'";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        echo $sql;
+        //organiza resultado de la consulta y lo retorna
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
     function consultarExisteServicio($idServicio)
@@ -90,6 +107,71 @@ class servicio
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    function paginacionVistaServicio($tags, $vista, $rangoMenor, $rangoMayor, $buscar)
+    {
+        //Instancia clase conectar
+        $oConexion = new conectar();
+        //Establece conexion con la base de datos.
+        $conexion = $oConexion->conexion();
+
+        $where = "WHERE eliminado=false ";
+
+        $sql = "SELECT count(codigoServicio) as numRegistro FROM servicios $where";
+        $result = mysqli_query($conexion, $sql);
+        foreach ($result as $registro) {
+            $this->numRegistro = $registro['numRegistro'];
+        }
+        return $this->numRegistro;
+    }
+
+    function vistaClienteServicios($tags, $vista, $rangoMenor, $rangoMayor, $buscar, $pagina)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base datos
+        $conexion = $oConexion->conexion();
+
+        $where = "WHERE s.eliminado=false ";
+        $organizar = " ";
+        if ($tags != "") {
+            $where .= " AND pc.idTags=$tags ";
+        }
+        if ($vista == "asc") {
+            $organizar = "ORDER BY s.nombreServicio ASC";
+        }
+        if ($vista == "des") {
+            $organizar = "ORDER BY s.nombreServicio DESC";
+        }
+        if ($vista == "menor") {
+            $organizar = "ORDER BY s.costo ASC";
+        }
+        if ($vista == "mayor") {
+            $organizar = "ORDER BY s.costo DESC";
+        }
+        if ($rangoMenor != "" && $rangoMayor == "") {
+            $where .= " AND s.costo >= $rangoMenor";
+        }
+        if ($rangoMenor == "" && $rangoMayor != "") {
+            $where .= " AND s.costo <= $rangoMayor";
+        }
+        if ($rangoMenor != "" && $rangoMayor != "") {
+            $where .= " AND s.costo BETWEEN $rangoMenor AND $rangoMayor";
+        }
+        if ($buscar != "") {
+            $where .= " AND s.nombreServicio LIKE '%$buscar%'";
+        }
+
+        $inicio = (($pagina - 1) * 10);
+        $sql = "SELECT *, (SELECT d.fotoProducto FROM detallefoto d WHERE d.IdServicios=s.IdServicio LIMIT 1) as fotoProducto FROM servicios s INNER JOIN palabrasclaves pc ON s.IdServicio=pc.IdServicios $where $organizar LIMIT 10 OFFSET $inicio";
+
+        //se ejecuta la consulta en la base de datos
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        return $result;
+    }
+
+
+
     function mostrarServicioId($idServicio)
     {
         //Instancia clase conectar
@@ -119,7 +201,8 @@ class servicio
         return $result;
     }
 
-    function consultarProductosIdServicio($idServicio, $idProducto){
+    function consultarProductosIdServicio($idServicio, $idProducto)
+    {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
@@ -297,7 +380,7 @@ class servicio
         }
 
         $inicio = (($pagina - 1) * 10);
-        $sql = "SELECT * FROM servicios WHERE $where ORDER BY nombreServicio ASC LIMIT 10 OFFSET $inicio";
+        $sql = "SELECT * FROM servicios WHERE $where ORDER BY codigoServicio ASC LIMIT 10 OFFSET $inicio";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);

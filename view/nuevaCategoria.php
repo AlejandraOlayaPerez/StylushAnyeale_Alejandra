@@ -16,7 +16,7 @@ $oCategoria = new categoria();
                 <div class="card-body cardBody">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" class="form-label" style="-webkit-text-fill-color: black;">Nueva categoria</label>
+                            <label for="" class="form-label">Nueva categoria<span class="text-danger">*</span></label>
                             <input class="form-control" type="text" id="categoria" name="nombreCategoria" placeholder="Categoria" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="categoriaSpan"></span>
                         </div>

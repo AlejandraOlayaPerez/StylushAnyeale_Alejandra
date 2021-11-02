@@ -1,5 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
-
 //si no esta definida o no tiene valor e redirige al login
 //en caso contrario no hace nada
 $url = str_replace("/anyeale_proyecto/stylushanyeale_alejandra/", "", $_SERVER['REQUEST_URI']);
@@ -11,7 +12,6 @@ $oPagina = $oGestionController->consultarPaginaPorUrl($url);
 session_start();
 require_once '../controller/configcrontroller.php';
 //Si la pagina requiere sesion y no inice sesion lo devuelve a loginç
-
 if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   // echo "<script>alert('no tiene permiso');</script>";
   header("location: ../view/loginusuario.php");
@@ -21,17 +21,36 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
   $oGestionController->verificarPermisoUrl($url);
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
-  <?php
-  require_once 'linkhead.php';
-  require_once 'linkcss.php';
-  ?>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bs-stepper/css/bs-stepper.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/sweetalert2/sweetalert2.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/fullcalendar/main.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/dropzone/min/dropzone.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/summernote/summernote-bs4.min.css">
+  <link href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/all.min.css" rel="stylesheet">
+  <link href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/carousel.css" rel="stylesheet">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/ionicons.min.css">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/css-font.css">
+
+  <link rel="shortcut icon" href="/anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/estiloslistar.min.css" type="text/css">
   <title>Stylush Anyeale</title>
 </head>
 

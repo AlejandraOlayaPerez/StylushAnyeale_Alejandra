@@ -15,6 +15,9 @@ if (isset($_POST['funcion'])) { //Si esta definifa y su valor es diferente a NUL
 
 $oProductoServicioController = new productoServicioController();
 switch ($funcion) {
+
+        //productos
+
     case "crearProducto":
         $oProductoServicioController->crearProducto();
         break;
@@ -39,21 +42,8 @@ switch ($funcion) {
     case "buscarProductosVista":
         $oProductoServicioController->buscarProductosVista();
         break;
-    case  "actualizarTagsProducto":
-        $oProductoServicioController->actualizarTagsProducto();
-        break;
-    case "actualizarCategoriaProducto":
-        $oProductoServicioController->actualizarCategoriaProducto();
-        break;
-    case "anadirAlCarrito":
-        $oProductoServicioController->anadirAlCarrito();
-        break;
-    case "actualizarCantidadDetalle":
-        $oProductoServicioController->actualizarCantidadDetalle();
-        break;
-    case "eliminarProductoCarrito":
-        $oProductoServicioController->eliminarProductoCarrito();
-        break;
+
+        //servicios
 
     case "buscarServicio":
         $oProductoServicioController->buscarServicio();
@@ -79,6 +69,11 @@ switch ($funcion) {
     case "traerServicio":
         $oProductoServicioController->traerServicio();
         break;
+    case "buscarServicioVista":
+        $oProductoServicioController->buscarServicioVista();
+        break;
+
+        //categoria
 
     case "buscarCategoria":
         $oProductoServicioController->buscarCategoria();
@@ -101,6 +96,14 @@ switch ($funcion) {
     case "eliminarCategoriaProducto":
         $oProductoServicioController->eliminarCategoriaProducto();
         break;
+    case "mostrarProductosPorCategoria":
+        $oProductoServicioController->mostrarProductosPorCategoria();
+        break;
+    case "actualizarCategoriaProducto":
+        $oProductoServicioController->actualizarCategoriaProducto();
+        break;
+
+        //tags
 
     case "buscarTags":
         $oProductoServicioController->buscarTags();
@@ -113,6 +116,36 @@ switch ($funcion) {
         break;
     case "nuevaTags":
         $oProductoServicioController->nuevaTags();
+        break;
+    case  "actualizarTagsProducto":
+        $oProductoServicioController->actualizarTagsProducto();
+        break;
+
+        //facturas
+
+    case "anadirAlCarrito":
+        $oProductoServicioController->anadirAlCarrito();
+        break;
+    case "actualizarCantidadDetalle":
+        $oProductoServicioController->actualizarCantidadDetalle();
+        break;
+    case "eliminarProductoCarrito":
+        $oProductoServicioController->eliminarProductoCarrito();
+        break;
+    case "validarReservacion":
+        $oProductoServicioController->validarReservacion();
+        break;
+    case "facturaProductoCajero":
+        $oProductoServicioController->facturaProductoCajero();
+        break;
+    case "buscarFactura":
+        $oProductoServicioController->buscarFactura();
+        break;
+    case "validarFactura":
+        $oProductoServicioController->validarFactura();
+        break;
+    case "cancelarFactura":
+        $oProductoServicioController->cancelarFactura();
         break;
 }
 
@@ -142,33 +175,42 @@ class productoServicioController
             $existeCodigo = $oProducto->consultarExisteProducto($idProducto);
         } while (count($existeCodigo) > 0);
 
-        require_once '../model/seguimiento.php';
-        $oSeguimiento = new seguimiento();
-        $oSeguimiento->idUser = $_POST['idUser'];
-        $oSeguimiento->idProducto = $idProducto;
-        $oSeguimiento->seguimientoNuevoProducto($fechaActual, $horaActual);
-
         $oProducto->idCategoria = $_POST['idCategoria'];
         $oProducto->codigoProducto = $_POST['codigoProducto'];
         $oProducto->nombreProducto = $_POST['nombreProducto'];
-        $oProducto->descripcionProducto = $_POST['descripcion'];
-        $oProducto->caracteristicas = $_POST['caracteristicas'];
+        $oProducto->descripcionProducto = str_replace("'", "", $_POST['descripcionProducto']);
+        $oProducto->caracteristicas  = str_replace("'", "", $_POST['caracteristicas']);
         $oProducto->valorUnitario = str_replace(".", "", $_POST['valorUnitario']);
         $oProducto->costoProducto = str_replace(".", "", $_POST['costo']);
-        $result = $oProducto->nuevoProducto($idProducto);
+        if ($oProducto->valorUnitario >= $oProducto->costoProducto) {
+            if (count($oProducto->consultarCodigo($_GET['codigoProducto'])) == 0) {
+                $result = $oProducto->nuevoProducto($idProducto);
 
-        if ($result) {
-            if ($this->imagenesProducto($idProducto)) {
-                $idTags = $_POST['tags'];
-                $registro = $oPalabraClave->actualizarTagsProducto($idProducto, $idTags);
-                if ($registro) {
-                    // echo "se registro correctamente";
-                    header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
+                if ($result) {
+                    if ($this->imagenesProducto($idProducto)) {
+                        require_once '../model/seguimiento.php';
+                        $oSeguimiento = new seguimiento();
+                        $oSeguimiento->idUser = $_POST['idUser'];
+                        $oSeguimiento->seguimientoNuevoProducto($idProducto, $fechaActual, $horaActual);
+
+                        $idTags = $_POST['tags'];
+                        $registro = $oPalabraClave->actualizarTagsProducto($idProducto, $idTags);
+                        if ($registro) {
+                            // echo "se registro correctamente";
+                            header("location: ../view/listarproducto.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+el+producto");
+                        }
+                    }
+                } else {
+                    // echo "error";
+                    header("location: ../view/nuevoproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
                 }
+            } else {
+                // echo "dupicao";
+                header("location: ../view/nuevoproducto.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+con+este+codigo");
             }
         } else {
-            // echo "error";
-            header("location: ../view/nuevoproducto.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "valor unitario mayor";
+            header("location: ../view/nuevoproducto.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=El+costo+del+producto+no+puede+ser+mayor+al+valor+unitario");
         }
     }
 
@@ -224,16 +266,27 @@ class productoServicioController
 
     public function actualizarProducto()
     {
-        require_once '../model/producto.php';
+        $sinPuntosValor = str_replace(".", "", $_GET['valorUnitario']);
+        $sinPuntosCosto = str_replace(".", "", $_GET['costoProducto']);
 
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idProducto = $_GET['idProducto'];
+        $oSeguimiento->seguimientoEditarInformacionProducto($fechaActual, $horaActual);
+
+        require_once '../model/producto.php';
         $oProducto = new producto();
         $oProducto->IdProducto = $_GET['idProducto'];
         $oProducto->codigoProducto = $_GET['codigoProducto'];
         $oProducto->nombreProducto = $_GET['nombreProducto'];
-        $oProducto->descripcionProducto = $_GET['descripcionProducto'];
-        $oProducto->caracteristicas = $_GET['caracteristicas'];
-        $oProducto->valorUnitario = str_replace(".", "", $_GET['valorUnitario']);
-        $oProducto->costoProducto = str_replace(".", "", $_GET['costoProducto']);
+        $oProducto->descripcionProducto = str_replace("'", "", $_GET['descripcionProducto']);
+        $oProducto->caracteristicas  = str_replace("'", "", $_GET['caracteristicas']);
+        $oProducto->valorUnitario = str_replace(",", ".", $sinPuntosValor);
+        $oProducto->costoProducto = str_replace(",", ".", $sinPuntosCosto);
         $result = $oProducto->actualizarProducto();
 
         require_once 'mensajecontroller.php';
@@ -371,11 +424,33 @@ class productoServicioController
         echo json_encode($producto);
     }
 
+    public function buscarServicioVista()
+    {
+        require_once '../model/servicio.php';
+
+        $oServicio = new servicio();
+        $paginacion = $oServicio->paginacionVistaServicio($_GET['tags'], $_GET['vista'], $_GET['rangoMenor'], $_GET['rangoMayor'], $_GET['buscar']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $producto = $oServicio->vistaClienteServicios($_GET['tags'], $_GET['vista'], $_GET['rangoMenor'], $_GET['rangoMayor'], $_GET['buscar'], $_GET['pagina']);
+        echo json_encode($producto);
+    }
+
     public function actualizarTagsProducto()
     {
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
         require_once '../model/palabrasclaves.php';
+
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idProducto = $_GET['idProducto'];
+        $oSeguimiento->seguimientoEditarTagsProducto($fechaActual, $horaActual);
 
         $oPalabraClave = new palabraClave();
         $oPalabraClave->idProducto = $_GET['idProducto'];
@@ -400,6 +475,15 @@ class productoServicioController
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
         require_once '../model/producto.php';
+
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idProducto = $_GET['idProducto'];
+        $oSeguimiento->seguimientoEditarCategoriaProducto($fechaActual, $horaActual);
 
         $oProducto = new producto();
         $oProducto->idProducto = $_GET['idProducto'];
@@ -439,47 +523,55 @@ class productoServicioController
             $existeCodigo = $oServicio->consultarExisteServicio($idServicio);
         } while (count($existeCodigo) > 0);
 
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
         $oServicio->idCategoria = $_POST['idCategoria'];
         $oServicio->codigoServicio = $_POST['codigoServicio'];
         $oServicio->nombreServicio = $_POST['nombreServicio'];
         $oServicio->detalleServicio = $_POST['detalleServicio'];
         $oServicio->tiempoDuracion = $_POST['tiempoDuracion'];
-        $oServicio->costo = $_POST['costo'];
-        $result = $oServicio->nuevoServicio($idServicio);
+        $oServicio->costo = str_replace(".", "", $_POST['costo']);
+        if (count($oServicio->consultarCodigo($_POST['codigoServicio'])) == 0) {
+            $result = $oServicio->nuevoServicio($idServicio);
 
-        require_once '../model/seguimiento.php';
-        $oSeguimiento = new seguimiento();
-        $oSeguimiento->idUser = $_POST['idUser'];
-        $oSeguimiento->idServicio = $idServicio;
-        $oSeguimiento->seguimientoNuevoServicio($fechaActual, $horaActual);
+            require_once '../model/seguimiento.php';
+            $oSeguimiento = new seguimiento();
+            $oSeguimiento->idUser = $_POST['idUser'];
+            $oSeguimiento->idServicio = $idServicio;
+            $oSeguimiento->seguimientoNuevoServicio($fechaActual, $horaActual);
 
-        if ($result) {
-            if ($this->imagenesServicio($idServicio)) {
-                $idTags = $_POST['tags'];
-                $registro = $oPalabraClave->actualizarTagsServicio($idServicio, $idTags);
-                if ($registro) {
-                    require_once '../model/detalle.php';
-                    $oDetalle = new detalle;
-                    $productoLista = $_POST['productos'];
-                    $cantidadProductoLista = $_POST['cantidadProducto'];
+            if ($result) {
+                if ($this->imagenesServicio($idServicio)) {
+                    $idTags = $_POST['tags'];
+                    $registro = $oPalabraClave->actualizarTagsServicio($idServicio, $idTags);
+                    if ($registro) {
+                        require_once '../model/detalle.php';
+                        $oDetalle = new detalle;
+                        $productoLista = $_POST['productos'];
+                        $cantidadProductoLista = $_POST['cantidadProducto'];
 
-                    for ($i = 0; $i < count($productoLista); $i++) {
-                        require_once '../model/producto.php';
-                        $oProducto = new producto();
-                        $oProducto->consultarProducto($productoLista[$i]);
-                        $oProducto->nombreProducto;
-                        $oProducto->codigoProducto;
-                        $oProducto->costoProducto;
-                        $oProducto->IdProducto;
-                        $oDetalle->guardarServicio($idServicio, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->valorUnitario);
+                        for ($i = 0; $i < count($productoLista); $i++) {
+                            require_once '../model/producto.php';
+                            $oProducto = new producto();
+                            $oProducto->consultarProducto($productoLista[$i]);
+                            $oProducto->nombreProducto;
+                            $oProducto->codigoProducto;
+                            $oProducto->costoProducto;
+                            $oProducto->IdProducto;
+                            $oDetalle->guardarServicio($idServicio, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->valorUnitario);
+                        }
+                        // echo "se registro correctamente";
+                        header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+un+servicio");
                     }
-                    // echo "se registro correctamente";
-                    header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+correctamente+un+servicio");
                 }
+            } else {
+                // echo "error";
+                header("location: ../view/nuevoservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             }
         } else {
-            // echo "error";
-            header("location: ../view/nuevoservicio.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "dupicao";
+            header("location: ../view/listarservicio.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+un+registro+con+este+codigo");
         }
     }
 
@@ -579,6 +671,15 @@ class productoServicioController
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idServicio = $_GET['idServicio'];
+        $oSeguimiento->seguimientoEditarInformacionServicio($fechaActual, $horaActual);
+
         require_once '../model/servicio.php';
 
         $oServicio = new servicio();
@@ -605,6 +706,15 @@ class productoServicioController
         $oMensaje = new mensajes();
         require_once '../model/palabrasclaves.php';
 
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idServicio = $_GET['idServicio'];
+        $oSeguimiento->seguimientoEditarTagsServicio($fechaActual, $horaActual);
+
         $oPalabraClave = new palabraClave();
         $oPalabraClave->idServicio = $_GET['idServicio'];
         $result = $oPalabraClave->eliminarTagsServicio();
@@ -629,6 +739,15 @@ class productoServicioController
         $oMensaje = new mensajes();
         require_once '../model/servicio.php';
 
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idServicio = $_GET['idServicio'];
+        $oSeguimiento->seguimientoEditarCategoriaServicio($fechaActual, $horaActual);
+
         $oServicio = new servicio();
         $oServicio->idServicio = $_GET['idServicio'];
         $oServicio->idCategoria = $_GET['idCategoria'];
@@ -636,10 +755,10 @@ class productoServicioController
 
         if ($result) {
             header("location: ../view/formularioeditarservicio.php?idServicio=$oServicio->idServicio" . "&tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+categoria+del+servicio" . "&ventana=categoria");
-            // echo "actualizo";
+            echo "actualizo";
         } else {
             header("location: ../view/formularioeditarservicio.php?idServicio=$oServicio->idServicio" . "&tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&ventana=categoria");
-            // echo "error";
+            echo "error";
         }
     }
 
@@ -648,6 +767,15 @@ class productoServicioController
         //instanciamos mensajeController.php
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
+
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        require_once '../model/seguimiento.php';
+        $oSeguimiento = new seguimiento();
+        $oSeguimiento->idUser = $_GET['idUser'];
+        $oSeguimiento->idServicio = $_GET['idServicio'];
+        $oSeguimiento->seguimientoEditarCategoriaServicio($fechaActual, $horaActual);
 
         //recibimos pedido
         $idServicio = $_GET['idServicio'];
@@ -742,7 +870,6 @@ class productoServicioController
             }
         }
     }
-
 
     public function eliminarServicio()
     {
@@ -920,9 +1047,117 @@ class productoServicioController
         }
     }
 
-    public function mostrarCategoria()
+    public function mostrarCategoriaProducto()
     {
+        require_once '../model/categoria.php';
+
+        $oCategoria = new categoria();
+        return $oCategoria->tablaCategoria();
     }
+
+    public function mostrarProductosPorCategoria()
+    {
+        require_once '../model/categoria.php';
+
+        $oCategoria = new categoria();
+        $result = $oCategoria->mostrarProductosPorCategoria($_GET['idProducto'], $_GET['idCategoria']);
+        echo json_encode($result);
+    }
+
+    //tags
+
+    public function buscarTags()
+    {
+        require_once '../model/tags.php';
+
+        $oTags = new tags();
+        $paginacion = $oTags->paginacionTags($_GET['tags']);
+        echo $paginacion;
+        $delimitador = "®";
+        echo $delimitador;
+        $tags = $oTags->mostrarTags($_GET['tags'], $_GET['pagina']);
+        echo json_encode($tags);
+    }
+
+    public function mostrarTagsProducto()
+    {
+        require_once '../model/tags.php';
+
+        $oTags = new tags();
+        return $oTags->tags();
+    }
+
+    public function eliminarTags()
+    {
+        require_once '../model/tags.php';
+
+        $oTags = new tags();
+        $oTags->idTags = $_GET['idpalabraclave'];
+        $result = $oTags->eliminarTags();
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+la+tags");
+            // echo "elimino";
+        } else {
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error";
+        }
+    }
+
+    public function consultarTags($idTags)
+    {
+        require_once '../model/tags.php';
+
+        $oTags = new tags();
+        $oTags->consultarTags($idTags);
+
+        return $oTags;
+    }
+
+    public function actualizarTags()
+    {
+        require_once '../model/tags.php';
+
+        $oTags = new tags();
+        $oTags->idTags = $_GET['idTags'];
+        $oTags->tags = $_GET['tags'];
+        $result = $oTags->actualizarTags();
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+tags");
+            // echo "registro";
+        } else {
+            // echo "error";
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+        }
+    }
+
+    public function nuevaTags()
+    {
+        require_once '../model/tags.php';
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        $oTags = new tags();
+        $oTags->tags = $_GET['palabraClave'];
+        $result = $oTags->nuevaTags();
+
+        if ($result) {
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+cargo");
+        } else {
+            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+        }
+    }
+
+    //factura
+
 
     public function anadirAlCarrito()
     {
@@ -932,12 +1167,13 @@ class productoServicioController
         require_once '../model/factura.php';
         //Recibimos idProducto
         $idProducto = $_GET['idProducto'];
+        $idCategoria = $_GET['idCategoria'];
         //Instaciamos factura
         $oFactura = new factura();
 
         //Este isset me permite saber si el cliente a iniciado sesion, si no lo ha hecho se dirige a LoginCliente y redirijira al detalleProducto
         if (!isset($_SESSION['idCliente'])) {
-            header("location: ../view/logincliente.php?url=detalleproducto.php%3FidProducto%3D$idProducto");
+            header("location: ../view/logincliente.php?url=detalleproducto.php%3FidProducto%3D$idProducto%26idCategoria%3D%24idCategoria");
             // echo "inicie session";
             // echo $_SESSION['idCliente'];
         } else {
@@ -1006,9 +1242,7 @@ class productoServicioController
         require_once '../model/detalle.php';
         $oDetalle = new detalle();
 
-        $precio = $_POST['precio'] * $_POST['cantidad'];
-        echo $precio;
-        $result = $oDetalle->actualizarCantidadDetalle($_POST['idProducto'], $_POST['idFactura'], $_POST['cantidad'], $precio);
+        $result = $oDetalle->actualizarCantidadDetalle($_POST['idProducto'], $_POST['idFactura'], $_POST['cantidad']);
 
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
@@ -1022,13 +1256,14 @@ class productoServicioController
         }
     }
 
-    public function eliminarProductoCarrito(){
+    public function eliminarProductoCarrito()
+    {
         require_once '../model/detalle.php';
         $oDetalle = new detalle();
 
-        $oDetalle->idProducto=$_GET['idProducto'];
-        $oDetalle->idFactura=$_GET['idFactura'];
-        $result = $oDetalle ->eliminarProductoCarrito();
+        $oDetalle->idProducto = $_GET['idProducto'];
+        $oDetalle->idFactura = $_GET['idFactura'];
+        $result = $oDetalle->eliminarProductoCarrito();
 
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
@@ -1042,88 +1277,231 @@ class productoServicioController
         }
     }
 
-    //tags
 
-    public function buscarTags()
+    public function validarReservacion()
     {
-        require_once '../model/tags.php';
+        require_once '../model/reservaciones.php';
+        $oReservacion = new reservacion();
+        $oReservacion->idReservacion = $_GET['idReservacion'];
+        $reservacion = $oReservacion->validarReservacion();
 
-        $oTags = new tags();
-        $paginacion = $oTags->paginacionTags($_GET['tags']);
+        if ($reservacion) {
+            require_once '../model/factura.php';
+            $oFactura = new factura();
+
+            require_once 'configcrontroller.php';
+            $Oconfig = new Config;
+
+            $fechaActual = Date("Y-m-d");
+            $horaActual = Date("H:i:s");
+
+            do {
+                $idFactura = $Oconfig->generarCodigoFactura();
+                $existeCodigo = $oFactura->consultarExisteFactura($idFactura);
+            } while (count($existeCodigo) > 0);
+
+            $oFactura->idReservacion = $_GET['idReservacion'];
+            $oFactura->idUser = $_GET['idUser'];
+            $oFactura->idCliente = $_GET['idCliente'];
+            $oFactura->valorTotal = $_GET['totalPago'];
+            $result = $oFactura->insertarFacturaReservacion($idFactura, $fechaActual, $horaActual);
+
+            require_once 'mensajecontroller.php';
+            $oMensaje = new mensajes();
+
+            if ($result) {
+                header("location: ../view/cajero.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+añadido+el+pago+de+la+factura" . "&vista=cliente");
+                // echo "actualizado";
+            } else {
+                header("location: ../view/cajero.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&vista=cliente");
+                // echo "error"; 
+            }
+        }
+    }
+
+    public function facturaProductoCajero()
+    {
+        require_once '../model/factura.php';
+        $oFactura = new factura();
+
+        require_once 'configcrontroller.php';
+        $Oconfig = new Config;
+
+        $fechaActual = Date("Y-m-d");
+        $horaActual = Date("H:i:s");
+
+        do {
+            $idFactura = $Oconfig->generarCodigoFactura();
+            $existeCodigo = $oFactura->consultarExisteFactura($idFactura);
+        } while (count($existeCodigo) > 0);
+
+
+        $oFactura->idUser = $_GET['idUser'];
+        $oFactura->valorTotal = $_GET['totalPagar'];
+        $result = $oFactura->insertarFacturaProducto($idFactura, $fechaActual, $horaActual);
+
+        if ($result) {
+            require_once '../model/detalle.php';
+            $oDetalle = new detalle;
+            $productoLista = $_GET['productos'];
+            $cantidadProductoLista = $_GET['cantidadProducto'];
+
+            for ($i = 0; $i < count($productoLista); $i++) {
+                require_once '../model/producto.php';
+                $oProducto = new producto();
+                $oProducto->consultarProducto($productoLista[$i]);
+                $oProducto->nombreProducto;
+                $oProducto->codigoProducto;
+                $oProducto->costoProducto;
+                $oProducto->IdProducto;
+                $oDetalle->productosFactura($idFactura, $productoLista[$i], $oProducto->codigoProducto, $oProducto->nombreProducto, $cantidadProductoLista[$i], $oProducto->valorUnitario);
+            }
+            header("location: ../view/cajero.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+añadido+el+pago+de+la+factura" . "&vista=productos");
+            // echo "registro";
+        } else {
+            header("location: ../view/cajero.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error" . "&vista=productos");
+            // echo "error";
+        }
+    }
+
+    public function buscarFactura()
+    {
+        require_once '../model/factura.php';
+
+        $oFactura = new factura();
+        $paginacion = $oFactura->paginacionFactura($_GET['factura']);
         echo $paginacion;
         $delimitador = "®";
         echo $delimitador;
-        $tags = $oTags->mostrarTags($_GET['tags'], $_GET['pagina']);
-        echo json_encode($tags);
+        $datos = $oFactura->factura($_GET['factura'], $_GET['pagina']);
+        echo json_encode($datos);
     }
 
-    public function eliminarTags()
+    public function validarFactura()
     {
-        require_once '../model/tags.php';
+        $fechaModificar = Date("Y-m-d");
+        $horaModificar = Date("H:i:s");
 
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
 
-        $oTags = new tags();
-        $oTags->idTags = $_GET['idpalabraclave'];
-        $result = $oTags->eliminarTags();
+        require_once '../model/factura.php';
+        $oFactura = new factura();
+
+        require_once '../model/detalle.php';
+        $oDetalle = new detalle();
+        $cantidad = $oDetalle->productosFacturasValidar($_GET['idFactura']);
+
+        foreach ($cantidad as $registro) {
+            $resta = $oFactura->restarProducto($registro['cantidad'], $registro['idProducto']);
+        }
+
+        if ($resta) {
+            $oFactura->idFactura = $_GET['idFactura'];
+            $result = $oFactura->validarFactura($fechaModificar, $horaModificar);
+
+            if ($result) {
+                header("location: ../view/listarfacturas.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+validado+correctamente+la+factura");
+                // echo "elimino";
+            } else {
+                header("location: ../view/listarFacturas.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                // echo "error";
+            }
+        } else {
+            header("location: ../view/listarFacturas.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error suma";
+        }
+    }
+
+    public function cancelarFactura()
+    {
+        require_once '../model/factura.php';
+
+        $fechaModificar = Date("Y-m-d");
+        $horaModificar = Date("H:i:s");
+
+        $oFactura = new factura();
+        $oFactura->idFactura = $_GET['idFactura'];
+        $result = $oFactura->cancelarFactura($fechaModificar, $horaModificar);
 
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
         if ($result) {
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+eliminado+correctamente+la+tags");
+            header("location: ../view/listarfacturas.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+cancelado+correctamente+la+factura");
             // echo "elimino";
         } else {
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            header("location: ../view/listarFacturas.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
             // echo "error";
         }
     }
 
-    public function consultarTags($idTags)
+    public function facturaActivas()
     {
-        require_once '../model/tags.php';
+        require_once '../model/factura.php';
 
-        $oTags = new tags();
-        $oTags->consultarTags($idTags);
+        $oFactura = new factura();
+        $activas = $oFactura->facturaActivas();
 
-        return $oTags;
+        return $activas;
     }
 
-    public function actualizarTags()
+    public function facturasPendiente()
     {
-        require_once '../model/tags.php';
+        require_once '../model/factura.php';
 
-        $oTags = new tags();
-        $oTags->idTags = $_GET['idTags'];
-        $oTags->tags = $_GET['tags'];
-        $result = $oTags->actualizarTags();
+        $oFactura = new factura();
+        $activas = $oFactura->facturaPendiente();
 
-        require_once 'mensajecontroller.php';
-        $oMensaje = new mensajes();
-
-        if ($result) {
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+correctamente+la+tags");
-            // echo "registro";
-        } else {
-            // echo "error";
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-        }
+        return $activas;
     }
 
-    public function nuevaTags()
+    public function facturaIdCliente($idCliente)
     {
-        require_once '../model/tags.php';
+        require_once '../model/factura.php';
 
-        require_once 'mensajecontroller.php';
-        $oMensaje = new mensajes();
+        $oFactura = new factura();
+        $activas = $oFactura->facturaIdCliente($idCliente);
 
-        $oTags = new tags();
-        $oTags->tags = $_GET['palabraClave'];
-        $result = $oTags->nuevaTags();
+        return $activas;
+    }
 
-        if ($result) {
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+creado+un+nuevo+cargo");
-        } else {
-            header("location: ../view/tags.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
-        }
+    public function facturasPagas()
+    {
+        require_once '../model/factura.php';
+
+        $oFactura = new factura();
+        $activas = $oFactura->facturaPaga();
+
+        return $activas;
+    }
+
+    public function facturasCanceladas()
+    {
+        require_once '../model/factura.php';
+
+        $oFactura = new factura();
+        $activas = $oFactura->facturaCancelada();
+
+        return $activas;
+    }
+
+    public function consultarFactura($idFactura)
+    {
+        require_once '../model/factura.php';
+
+        $oFactura = new factura();
+        $oFactura->consultarFactura($idFactura);
+
+        return $oFactura;
+    }
+
+    public function consultarProductosFactura($idFactura)
+    {
+        require_once '../model/detalle.php';
+
+        $oDetalle = new detalle();
+        $result = $oDetalle->consultarProductosIdFactura($idFactura);
+        return $result;
     }
 }

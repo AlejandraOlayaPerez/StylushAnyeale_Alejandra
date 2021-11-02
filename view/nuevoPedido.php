@@ -1,6 +1,5 @@
 <?php
 require_once 'headpagina.php';
-require_once 'linkcss.php';
 require_once '../controller/usuariocontroller.php';
 require_once '../controller/pedidocontroller.php';
 
@@ -18,7 +17,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                <div class="card-header cardHeaderFondo">
+                    <div class="card-header cardHeaderFondo">
                         <label class="card-title">Nuevo Pedido</label>
                     </div>
 
@@ -180,7 +179,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 
 <!--Modal de productos-->
 
-<div class="modal fade estiloModalBody" id="pagoProducto">
+<div class="modal fade" id="pagoProducto">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header estiloModalHeader">
@@ -190,46 +189,41 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                 </button>
             </div>
             <div class="modal-body estiloModalBody">
-                <div class="card estiloModalBody">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label for="" class="form-label">Buscar: </label>
-                                <div class="input-group m-b-0">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por Codigo o Nombre" class="form-control" id="producto" name="producto" onkeyup="productoConsultar()">
-                                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="" class="form-label">Buscar: </label>
+                        <div class="input-group m-b-0">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card-tools">
-                                    <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
-
-                                    </ul>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" placeholder="Buscar producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por Codigo o Nombre" class="form-control" id="producto" name="producto" onkeyup="productoConsultar()">
                         </div>
                     </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-tools">
+                            <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
 
-                    <hr>
-                    <div class="card-body table-responsive p-0">
-                        <table class="table colorestabla">
-                            <thead>
-                                <tr class="estiloTr">
-                                    <th></th>
-                                    <th>Codigo</th>
-                                    <th>Producto</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productoResultado">
-
-                            </tbody>
-                        </table>
+                            </ul>
+                        </div>
                     </div>
+                </div>
+                <hr>
+                <div class="card-body table-responsive p-0">
+                    <table class="table colorestabla">
+                        <thead>
+                            <tr class="estiloTr">
+                                <th></th>
+                                <th>Codigo</th>
+                                <th>Producto</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productoResultado">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer estiloModalBody">
@@ -240,7 +234,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
 
 
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarempresa.min.js"></script>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
     <?php require_once 'footer.php'; ?>

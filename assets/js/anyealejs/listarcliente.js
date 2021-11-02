@@ -87,7 +87,7 @@ function cliente(user) {
     var td3 = document.createElement("td");
     td3.innerHTML = user['primerNombre'] + user['primerApellido'];
     var td4 = document.createElement("td");
-    td4.innerHTML = user['correoElectronico'];
+    td4.innerHTML = user['email'];
     var td5 = document.createElement("td");
     td5.innerHTML = user['telefono'];
 

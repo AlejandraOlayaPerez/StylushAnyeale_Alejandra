@@ -98,14 +98,14 @@ class reservacion
 
         $sql = "SELECT *, 
         (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio 
-        FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente ";
+        FROM cliente c INNER JOIN reservacion r ON c.idCliente=r.idCliente WHERE 1  ";
 
         //concatenamos a la consulta.
-        if ($fecha != "") {
-            $sql .="AND r.fechaReservacion BETWEEN '$fecha' AND '$fechaFinal'";
+        if ($fechaFinal != "") {
+            $sql .= "AND r.fechaReservacion BETWEEN '$fecha' AND '$fechaFinal'";
         }
         if ($domicilio != "") {
-            $sql .= "WHERE r.domicilio=$domicilio ";
+            $sql .= "AND r.domicilio=$domicilio ";
         }
 
         //se ejecuta la consulta en la base de datos
@@ -128,7 +128,7 @@ class reservacion
             $sql .= " AND tipoDocumento='$tipoDocumento' ";
         }
         if ($documentoIdentidad != "") {
-            $sql .= " AND documentoIdentidad=$documentoIdentidad ";
+            $sql .= "AND documentoIdentidad LIKE '%$documentoIdentidad%' ";
         }
 
         $result = mysqli_query($conexion, $sql);
@@ -136,16 +136,16 @@ class reservacion
         return $result;
     }
 
-    public function consultarReservacionId($idCliente, $fechaActual)
+    public function consultarReservacionId($idCliente)
     {
         // instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT r.idReservacion, r.fechaReservacion, r.horaReservacion, r.domicilio, r.direccion, r.precio, 
+        $sql = "SELECT r.idReservacion, r.idCliente, r.fechaReservacion, r.horaReservacion, r.domicilio, r.direccion, r.precio, 
         (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=r.idServicio) AS nombreServicio 
-        FROM reservacion r WHERE r.idCliente=$idCliente AND r.eliminado=false AND r.validar=false AND r.fechaReservacion=$fechaActual";
+        FROM reservacion r WHERE r.idCliente=$idCliente AND r.eliminado=false AND r.validar=false";
 
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -202,6 +202,26 @@ class reservacion
         }
     }
 
+    function consultarPrecioServicio($idServicio)
+    {
+        //se instancia el objeto conectar
+        $oConexion = new conectar();
+        //se establece conexión con la base de datos
+        $conexion = $oConexion->conexion();
+        //consulta para retornar un solo registro
+
+        $sql = "SELECT * FROM servicios WHERE IdServicio=$idServicio";
+
+        //se ejecuta la consulta
+        $result = mysqli_query($conexion, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        foreach ($result as $registro) {
+            //se registra la consulta en los parametros
+            $this->costo = $registro['costo'];
+        }
+        return $this->costo;
+    }
+
     function consultarReservacionParaHorario($idUser, $fechaReservacion, $horarioReservacion)
     {
         //se instancia el objeto conectar
@@ -218,7 +238,7 @@ class reservacion
     }
 
     //esta funcion me permite actualizar la informacion del empleado
-    function actualizarReservacion($horaFinal)
+    function actualizarReservacion($horaFinal, $precio)
     {
         //se instancia el objeto conectar
         $oConexion = new conectar();
@@ -227,7 +247,7 @@ class reservacion
 
         //sentencia que permite actualizar un  empleado
         $sql = "UPDATE reservacion SET idCliente=$this->idCliente, 
-        idServicio=$this->idUser, 
+        idServicio=$this->idServicio, 
         idUser=$this->idUser, 
         nombres='$this->nombres', 
         apellidos='$this->apellidos', 
@@ -237,7 +257,7 @@ class reservacion
         horaFinal='$horaFinal', 
         domicilio=$this->domicilio, 
         direccion='$this->direccion', 
-        precio=0.00,
+        precio=$precio,
         validar=0 
         WHERE idReservacion=$this->idReservacion;";
 

@@ -71,6 +71,9 @@ function buscarTags() {
         for (i = 0; i < tags.length; i++) {
             agregarTags(tags[i]);
         }
+        if (tags.length == 0) {
+            crearTr(2, "tags");
+        }
     })
 }
 

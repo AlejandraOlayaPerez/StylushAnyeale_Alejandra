@@ -120,6 +120,7 @@ function agregarPedido(pedido) {
         tdCancelado.innerHTML = "NO"
     };
 
+    
     var tdBotones = document.createElement("td");
     var div1 = document.createElement("div");
     div1.className = "btn-group";
@@ -178,18 +179,11 @@ function agregarPedido(pedido) {
     botonPDF.href = "detallePedido.php?idPedido=" + pedido['idPedido'];
     botonPDF.innerHTML = '<i class="fas fa-eye"></i> Vista Pedido';
 
-    var fecha = new Date();
-    if (fecha.getMonth()+1 < 10) {
-        fechaActual = fecha.getFullYear() + "-0" + (fecha.getMonth()+1) + "-" + fecha.getDate();
-    } else {
-        fechaActual = fecha.getFullYear() + "-" + (fecha.getMonth()+1) + "-" + fecha.getDate();
-    }
 
     div1.appendChild(div2);
-    if (pedido['fechaPedido'] == fechaActual && pedido['entregaPedido'] == 0 && pedido['eliminado'] == 0) {
-        div2.appendChild(botonEditar);
-    }
+
     if (pedido['entregaPedido'] == 0 && pedido['eliminado'] == 0) {
+        div2.appendChild(botonEditar);
         div2.appendChild(botonValidar);
         div2.appendChild(botonEliminar);
     }

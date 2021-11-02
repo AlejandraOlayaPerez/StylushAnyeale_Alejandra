@@ -1,10 +1,11 @@
 <?php
 require_once 'headpagina.php';
 require_once '../controller/reservacioncontroller.php';
+$oReservacionController = new reservacionController();
 if (isset($_POST['documentoIdentidad']) != "") {
-  $oReservacionController = new reservacionController();
   $oReservacion = $oReservacionController->nuevaReservacion();
 }
+
 $idCliente = $_GET['idCliente'];
 require_once '../model/reservaciones.php';
 $oReservacion = new reservacion();
@@ -86,7 +87,15 @@ $oReservacion = new reservacion();
                       </div>
                     </div>
                     <br>
-                    <a type="button" href="mostrarreservacion.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+                    <?php
+                    if (isset($_GET['cajero'])) {
+                    ?>
+                      <a type="button" href="cajero.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+                    <?php } else {
+                    ?>
+                      <a type="button" href="mostrarreservacion.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Volver</a>
+                    <?php } ?>
+
                     <button class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
                   </div>
                   <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -175,7 +184,17 @@ $oReservacion = new reservacion();
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+    <script>
+      <?php
+      require_once '../controller/mensajecontroller.php';
 
+
+      if ($oReservacionController->tipoMensaje != "") {
+        $oMensaje = new mensajes();
+        echo $oMensaje->mensaje($oReservacionController->tipoMensaje, $oReservacionController->mensaje);
+      }
+      ?>
+    </script>
   </div>
 </body>
 

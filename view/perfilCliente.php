@@ -11,6 +11,10 @@ if (isset($_GET['ventana'])) { //
 }
 ?>
 
+<head>
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/perfilcliente.min.css" type="text/css">
+</head>
+
 <div class="row">
     <div class="col col-md-12">
         <nav aria-label="breadcrumb">
@@ -33,7 +37,7 @@ $oInformacion = $oClienteController->perfilCliente($_SESSION['idCliente']);
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center text-center">
                     <img class="img-circle elevation-2" src="../<?php echo $oInformacion->fotoPerfil; ?>" width="150">
-                    
+
                     <div class="mt-3">
                         <h4><?php echo $oInformacion->primerNombre . " " . $oInformacion->primerApellido; ?></h4>
                         <p class="text-secondary mb-1"><?php echo $oInformacion->email; ?></p>
@@ -109,8 +113,8 @@ $oInformacion = $oClienteController->perfilCliente($_SESSION['idCliente']);
     <div class="col-md-8">
         <div class="card mb-3">
             <div class="card-body perfil">
-                <form id="formulario" action="" method="POST" novalidate>
-                    <input type="text" name="funcion" value="actualizarCliente" style="display: none;">
+                <form id="formulario" action="../controller/clientecontroller.php" method="POST" novalidate>
+                    <input type="text" name="funcion" value="actualizarClienteInformacion" style="display: none;">
                     <input type="text" name="idCliente" value="<?php echo $_SESSION['idCliente']; ?>" style="display: none;">
                     <div class="row">
                         <div class="col-md-6">
@@ -231,12 +235,21 @@ $oInformacion = $oClienteController->perfilCliente($_SESSION['idCliente']);
     </div>
 
 </div>
-</body>
-
-</html>
+<?php require_once 'footercliente.php'; ?>
 
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
 <?php require_once 'linkfooter.php'; ?>
+<script>
+    <?php
+    require_once '../controller/mensajecontroller.php';
+
+
+    if ($oCliente->tipoMensaje != "") {
+        $oMensaje = new mensajes();
+        echo $oMensaje->mensaje($oCliente->tipoMensaje, $oCliente->mensaje);
+    }
+    ?>
+</script>
 
 <script>
     function validarPaginaFinal() {

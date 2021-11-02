@@ -29,7 +29,7 @@ function agregarBusqueda(datos) {
     botonSeleccionar.className = "btn btn-info";
     botonSeleccionar.innerHTML = "Seleccionar";
     botonSeleccionar.type = "button";
-    botonSeleccionar.href = "crearReservacion.php?idCliente=" + datos['idCliente'];
+    botonSeleccionar.href = "crearreservacion.php?idCliente=" + datos['idCliente'];
     var TD1 = document.createElement("td");
     TD1.innerHTML = datos['tipoDocumento'];
     var TD2 = document.createElement("td");

@@ -20,7 +20,7 @@ $oTags = $oProductoServicioController->consultarTags($_GET['idTags']);
 
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" style="-webkit-text-fill-color: black;">Tags</label>
+                            <label for="" >Tags<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags" value="<?php echo $oTags->tags; ?>" onchange="validarCampo(this);" minlength="2" maxlength="50" required>
                             <span id="tagsSpan"></span>
                         </div>

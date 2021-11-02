@@ -334,10 +334,10 @@ class cliente
         //Buscar numero de registro por filtros
         $where = "1 ";
         if ($tipoDocumento != "") {
-            $where .= " AND tipoDocumento=$tipoDocumento ";
+            $where .= " AND tipoDocumento='$tipoDocumento' ";
         }
         if ($documentoIdentidad != "") {
-            $where .= "AND documentoIdentidad=$documentoIdentidad ";
+            $where .= "AND documentoIdentidad LIKE '%$documentoIdentidad%' ";
         }
         $sql = "SELECT count(primerNombre) as numRegistro FROM cliente WHERE $where";
         $result = mysqli_query($conexion, $sql);
@@ -356,10 +356,10 @@ class cliente
 
         $where = "1 ";
         if ($tipoDocumento != "") {
-            $where .= " AND tipoDocumento=$tipoDocumento ";
+            $where .= " AND tipoDocumento='$tipoDocumento' ";
         }
         if ($documentoIdentidad != "") {
-            $where .= "AND documentoIdentidad=$documentoIdentidad ";
+            $where .= "AND documentoIdentidad LIKE'%$documentoIdentidad%' ";
         }
 
         $inicio = (($pagina - 1) * 10);

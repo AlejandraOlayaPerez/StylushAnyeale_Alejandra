@@ -1,4 +1,23 @@
-<?php require_once 'headproducto.php'; ?>
+<?php
+require_once 'headproducto.php';
+
+if (isset($_GET['idCategoria'])) {
+  $idCategoria = $_GET['idCategoria'];
+} else {
+  $idCategoria = "";
+}
+
+if (isset($_GET['idTags'])) {
+  $idTags = $_GET['idTags'];
+} else {
+  $idTags = "";
+}
+?>
+
+<head>
+  <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/productos.min.css" type="text/css">
+</head>
+
 
 <div class="row">
   <div class="col col-md-12">
@@ -41,28 +60,46 @@
       <div class="card-body bodyCard">
         <table class="table table-hover">
           <tbody>
-            <tr data-widget="expandable-table" aria-expanded="false">
+            <tr data-widget="expandable-table" aria-expanded="true">
               <td>
                 <i class="fas fa-list-alt"></i> Categoria
               </td>
             </tr>
+
+            <input type="text" id="idCategoria" value="<?php echo $idCategoria; ?>" style="display: none;">
+            <input type="text" id="idTags" value="<?php echo $idTags; ?>" style="display: none;">
 
             <tr class="expandable-body">
               <td>
                 <div class="p-0">
                   <table class="table table-hover">
                     <tbody>
-                      <?php 
-                      require_once '../controller/productoserviciocontroller.php'; 
-                      $oProductoServicioController= new productoServicioController();
-                      $consulta = $oProductoServicioController->mostrarCategoria();
-                      foreach ($onsulta as $registro){
-                        ?>
-                        <tr>
-                          <td><?php echo $registro['nombreCategoria']; ?></td>
-                        </tr>
-                      <?php }
+                      <?php require_once '../controller/productoserviciocontroller.php';
+                      $oProductoServicioController = new productoServicioController();
+                      $consulta = $oProductoServicioController->mostrarCategoriaProducto();
+                      foreach ($consulta as $registro) {
                       ?>
+                        <tr>
+                          <td>
+                            <a href="vistaproducto.php?idCategoria=<?php echo $registro['idCategoria']; ?>">
+                              <div style="width: 100%; text-decoration: none; color:black;"><?php echo $registro['nombreCategoria']; ?>
+
+                              </div>
+                            </a>
+                          </td>
+                        </tr>
+                      <?php
+                      }
+                      ?>
+                      <tr>
+                        <td>
+                          <a href="vistaproducto.php">
+                            <div style="width: 100%; text-decoration: none; color:black;">Ver todos los productos.
+
+                            </div>
+                          </a>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -96,7 +133,7 @@
         </table>
         <table class="table table-hover">
           <tbody>
-            <tr data-widget="expandable-table" aria-expanded="false">
+            <tr data-widget="expandable-table" aria-expanded="true">
               <td><i class="fas fa-tags"></i> Tags</td>
             </tr>
 
@@ -105,9 +142,15 @@
                 <div class="p-0">
                   <table class="table table-hover">
                     <tbody>
-                      <tr>
-                        <td></td>
-                      </tr>
+                      <?php require_once '../controller/productoserviciocontroller.php';
+                      $oProductoServicioController = new productoServicioController();
+                      $tags = $oProductoServicioController->mostrarTagsProducto();
+                      foreach ($tags as $registro) {
+                      ?>
+                        <a href="vistaproducto.php?idTags=<?php echo $registro['idTags']; ?>" type="button" style="margin: 5px" class="btn btn-outline-info"><?php echo $registro['tags']; ?></a>
+                      <?php
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -155,13 +198,14 @@
       </div>
     </div>
   </div>
+
 </div>
 
 </div>
-</body>
+
 <?php require_once 'linkfooter.php'; ?>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/vistaProducto.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery/jquery.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/vistaproducto.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listacategoria.min.js"></script>
 
-</html>
+<?php require_once 'footercliente.php'; ?>

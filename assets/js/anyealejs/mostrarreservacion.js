@@ -1,14 +1,7 @@
 cargarJS()
 
 function cargarJS() {
-    fechaActual();
     mostrarReservacion();
-}
-
-function fechaActual() {
-    const fecha = new Date();
-    date = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate();
-    document.getElementById("fecha").value = date;
 }
 
 function mostrarReservacion() {
@@ -27,7 +20,7 @@ function mostrarReservacion() {
             funcion: "buscarTodasReservacion"
         }
     }).done(function (data) {
-        console.log(data);
+        // console.log(data);
         var reservacion = JSON.parse(data);
         var contenedor = document.getElementById("listarReservacion");
         contenedor.innerHTML = "";

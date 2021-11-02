@@ -14,7 +14,7 @@ $.ajax({
     optionEstilista.innerHTML="Seleecione una opción";
     estilista.appendChild(optionEstilista);
         //Ejecuta funcion
-        console.log(data);
+        // console.log(data);
         
         var datos=JSON.parse(data)
         for(i=0; i<datos.length; i++){

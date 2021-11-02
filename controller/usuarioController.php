@@ -51,6 +51,8 @@ switch ($funcion) {
 
 class usuarioController
 {
+    public $tipoMensaje = "";
+    public $mensaje = "";
     //funcion para registrar el usuario
     public function registrarUsuario()
     {
@@ -86,23 +88,23 @@ class usuarioController
 
         if ($oUsuario->contrasena != $confirmarContrasena) {
             // echo "error contraseña";
-            $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-            $_GET['mensaje'] = "Contraseña y confirmar contraseña son diferentes";
+            $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+            $this->mensaje = "Contraseña y confirmar contraseña son diferentes";
         } else {
             if ($oUsuario->consultarCorreoElectronico($oUsuario->correoElectronico) != 0) {
                 // echo "error correo";
-                $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-                $_GET['mensaje'] = "Este correo electrónico ya esta registrado";
+                $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+                $this->mensaje = "Este correo electrónico ya esta registrado";
             } else {
                 if ($oUsuario->documentoIdUsuario($oUsuario->tipoDocumento, $oUsuario->documentoIdentidad) != 0) {
                     // echo "error documento";
-                    $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-                    $_GET['mensaje'] = "Este documento ya esta registrado";
+                    $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+                    $this->mensaje = "Este documento ya esta registrado";
                 } else {
                     if ($edadUsuario < 15) {
                         // echo "error fecha nacimiento";
-                        $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
-                        $_GET['mensaje'] = "Fecha incorrecta, El usuario debe mínimo 15 años";
+                        $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+                        $this->mensaje = "Fecha incorrecta, El usuario debe mínimo 15 años";
                     } else {
                         $result = $oUsuario->nuevoUsuario();
                         if ($result) {
@@ -112,13 +114,13 @@ class usuarioController
                             if ($foto) {
                                 // echo "registro";
                                 $oUsuario = new usuario(); //se reinicio la variable 
-                                $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
-                                $_GET['mensaje'] = "Se ha registrado el usuario";
+                                $this->tipoMensaje = $oMensaje->tipoCorrecto;
+                                $this->mensaje = "Se ha generado correctamente el registro del usuario";
                             }
                         } else {
                             // echo "error registro";
-                            $_GET['tipoMensaje'] = $oMensaje->tipoError;
-                            $_GET['mensaje'] = "Se ha producido un error";
+                            $this->tipoMensaje = $oMensaje->tipoError;
+                            $this->mensaje = "Se ha producido un error";
                         }
                     }
                 }
@@ -397,5 +399,23 @@ class usuarioController
         echo $delimitador;
         $datos = $oUsuario->usuarios($_GET['busquedaUsuario'], $_GET['documento'], $_GET['pagina']);
         echo json_encode($datos);
+    }
+
+    public function nombreRol($idUser)
+    {
+        require_once '../model/usuario.php';
+        $oUsuario = new usuario();
+        $result = $oUsuario->nombreRol($idUser);
+
+        return $oUsuario;
+    }
+
+    public function nombreCargo($idUser)
+    {
+        require_once '../model/usuario.php';
+        $oUser = new usuario();
+        $result = $oUser->nombreCargo($idUser);
+
+        return $oUser;
     }
 }

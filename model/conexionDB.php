@@ -10,10 +10,10 @@ class conectar{
     // private $baseDatos="u587320923_anyeale";
     //variable $usuario almacena el usuario que tiene acceso a la base datos
     private $usuario="root";
-    // private $usuario="u587320923_alejandra";
+    // private $usuario="u587320923_ayeale";
     // variable $contrasena almacena la contraseña del usuario
     private $contrasena="";
-    // private $contrasena="Alejandra123";
+    // private $contrasena="Anyeale5555";
 
 
     //esta función establece conexión con la base de datos
@@ -29,4 +29,3 @@ class conectar{
         return $conexion;
     }
 }
-?>

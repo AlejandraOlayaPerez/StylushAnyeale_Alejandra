@@ -15,18 +15,18 @@ require_once 'headpagina.php';
         <div class="card-body cardBody">
           <div class="row" style="margin: 5px;">
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">Nombre Pagina</label>
+              <label for="" class="form-label">Nombre Pagina<span class="text-danger">*</span></label>
               <input type="text" name="idModulo" value="<?php echo $_GET['idModulo']; ?>" style="display:none;">
               <input type="text" class="form-control" id="nombrePagina" name="nombrePagina" placeholder="Nombre de la pagina" onchange="validarCampo(this);" minlength="5" maxlength="50" required>
               <span id="nombrePaginaSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">Enlace Pagina</label>
+              <label for="" class="form-label">Enlace Pagina<span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="enlace" name="enlace" placeholder="enlace de la pagina" onchange="validarCampo(this);" minlength="5" maxlength="100" required>
               <span id="enlaceSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">¿Se requiere inicio de sesion?</label>
+              <label for="" class="form-label">¿Se requiere inicio de sesion?<span class="text-danger">*</span></label>
               <select class="form-select" id="requireSession" name="requireSession" onchange="validarCampo(this);" required>
                 <option value="" disabled selected>Selecciones una opción</option>
                 <option value="true">SI</option>
@@ -35,7 +35,7 @@ require_once 'headpagina.php';
               <span id="requireSessionSpan"></span>
             </div>
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">¿Requiere vista menu?</label>
+              <label for="" class="form-label">¿Requiere vista menu?<span class="text-danger">*</span></label>
               <select class="form-select" id="menu" name="menu" onchange="validarCampo(this);" required>
                 <option value="" disabled selected>Selecciones una opción</option>
                 <option value="true">SI</option>
@@ -46,7 +46,7 @@ require_once 'headpagina.php';
           </div>
         </div>
         <div class="card-footer cardBody">
-          <a href="listarpagina.php?idModulo=<?php echo $idModulo; ?>" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+          <a href="listarpagina.php?idModulo=<?php echo $_GET['idModulo']; ?>" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
           <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-save"></i> Registrar Pagina</button>
         </div>
       </form>

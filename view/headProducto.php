@@ -1,23 +1,25 @@
-<?php session_start(); //¡FUNDAMENTAL! ?>
+<?php require_once 'permisoscliente.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php require_once 'linkhead.php'; ?>
-    <?php require_once 'linkcss.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/vistaheader.min.css" type="text/css">
     <title>Stylush Anyeale</title>
 </head>
+
 
 <body>
     <div class="container-fluid">
         <div class="event-schedule-area-two cabecera">
             <div class="row">
                 <div class="col-md-8">
-                    <a href="/anyeale_proyecto/stylushAnyeale_alejandra/view/paginaprincipalcliente.php" class="brand-link">
-                        <img src="/anyeale_proyecto/stylushAnyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
+                    <a href="/Anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalcliente.php" class="brand-link">
+                        <img src="/Anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
                         <h1 class="titulo">Stylush Anyeale<h1>
                     </a>
                 </div>
@@ -48,8 +50,8 @@
                         <?php } else {
                         ?>
                             <ul class="navbar-nav">
-                                <li class=" nav-item"><a class="estiloLi" aria-current="page" href="logincliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
-                                <li class="estiloLi nav-item"><a class="estiloLi" aria-current="page" href="registrocliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                                <li class=" nav-item"><a class="estiloLi" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
+                                <li class="estiloLi nav-item"><a class="estiloLi" aria-current="page" href="registroCliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
                             </ul>
                         <?php } ?>
                     </nav>
@@ -67,7 +69,6 @@
                             <div class="navbar-nav">
                                 <a class="nav-item nav-link titulo " href="pedidocliente.php"><i class="fas fa-shopping-bag"></i> Mis Pedidos</a>
                                 <a class="nav-item nav-link titulo " href="comprascliente.php"><i class="fas fa-shopping-basket"></i> Compras recientes</a>
-                                <a class="nav-item nav-link titulo " href="comentarios.php"><i class="fas fa-comments"></i> Comentarios</a>
                             </div>
                         </div>
                     </nav>

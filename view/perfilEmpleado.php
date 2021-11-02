@@ -13,6 +13,10 @@ if (isset($_GET['ventana'])) { //
 }
 ?>
 
+<head>
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/rol.min.css" type="text/css">
+</head>
+
 <body>
     <div class="container-fluid">
 

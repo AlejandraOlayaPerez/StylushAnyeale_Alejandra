@@ -1,6 +1,5 @@
 <?php
 require_once 'headpagina.php';
-require_once 'linkcss.php';
 ?>
 <div class="container-fluid">
   <div class="card">
@@ -13,12 +12,12 @@ require_once 'linkcss.php';
       <div class="card-body cardBody">
         <div class="row">
           <div class="col col-xl-4 col-md-6 col-12">
-            <label for="" style="-webkit-text-fill-color: black;" class="form-label">Nombre Modulo</label>
+            <label for="" class="form-label">Nombre Modulo<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="nombreModulo" name="nombreModulo" placeholder="Nombre Modulo" onchange="validarCampo(this);" minlength="5" maxlength="50" required>
             <span id="nombreModuloSpan"></span>
           </div>
           <div class="col col-xl-4 col-md-6 col-12">
-            <label for="" style="-webkit-text-fill-color: black;" class="form-label">Seleccione un icono</label>
+            <label for="" class="form-label">Seleccione un icono<span class="text-danger">*</span></label>
             <select class="form-control fa" id="icono" name="icono" required onchange="validarCampo(this)">
               <option value="" selected>Selecciones una opción</option>
               <?php

@@ -37,6 +37,8 @@ switch ($funcion) {
 
 class reservacionController
 {
+    public $tipoMensaje = "";
+    public $mensaje = "";
 
     public function validarReservacion()
     {
@@ -232,7 +234,8 @@ class reservacionController
 
         if ($oReservacion->fechaReservacion < $fechaActual) {
             // echo "no fecha anterior";
-            header("location: ../view/crearreservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
+            $this->tipoMensaje = $oMensaje->tipoAdvertencia;
+            $this->mensaje = "No se permiten reservaciones con dias anteriores";
         } else {
             require_once '../model/servicio.php';
             $oServicio = new servicio();
@@ -240,10 +243,12 @@ class reservacionController
             $result = $oReservacion->nuevaReservacion($horaFinal->format("H:i:s"), $oServicio->costo);
             if ($result) {
                 // echo "registro reservacion";
-                header("location: ../view/mostrarreservacion.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+reservacion+ha+sido+registrada+de+manera+correcta");
+                $this->tipoMensaje = $oMensaje->tipoCorrecto;
+                $this->mensaje = "Se registro la reservacion";
             } else {
                 // echo "error";
-                header("location: ../view/crearreservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                $this->tipoMensaje = $oMensaje->tipoError;
+                $this->mensaje = "Se ha producido un error";
             }
         }
     }
@@ -265,12 +270,14 @@ class reservacionController
         $oReservacion->nombres = $_POST['primerNombre'];
         $oReservacion->apellidos = $_POST['primerApellido'];
         $oReservacion->telefono = $_POST['telefono'];
-        $oReservacion->idServicio = $_POST['servicio'];
+        echo $oReservacion->idServicio = $_POST['servicio'];
         $oReservacion->idUser = $_POST['estilista'];
         $oReservacion->fechaReservacion = $_POST['fechaReservacion'];
         $oReservacion->horaReservacion = $_POST['horaReservacion'];
         $oReservacion->horaFinal = $tiempoDuracion;
         $oReservacion->domicilio = $_POST['domicilio'];
+
+        $precio = $oReservacion->consultarPrecioServicio($_POST['servicio']);
 
 
         $horaFinal = new DateTime();
@@ -291,7 +298,7 @@ class reservacionController
             $_GET['tipoMensaje'] = $oMensaje->tipoAdvertencia;
             $_GET['mensaje'] = "No se permiten reservaciones con fechas menores a hoy: $fechaActual";
         } else {
-            $result = $oReservacion->actualizarReservacion($horaFinal->format("H:i:s"));
+            $result = $oReservacion->actualizarReservacion($horaFinal->format("H:i:s"), $precio);
             if ($result) {
                 // echo "registro reservacion";
                 $_GET['tipoMensaje'] = $oMensaje->tipoCorrecto;
@@ -328,6 +335,8 @@ class reservacionController
         $oReservacion->horaFinal = $tiempoDuracion;
         $oReservacion->domicilio = $_POST['domicilio'];
 
+        $precio = $oReservacion->consultarPrecioServicio($_POST['servicio']);
+
 
         $horaFinal = new DateTime();
         $hora = explode(":", $oReservacion->horaReservacion);
@@ -344,17 +353,21 @@ class reservacionController
 
         if ($oReservacion->fechaReservacion < $fechaActual) {
             // echo "no fecha anterior";
-            header("location: ../view/editarreservacion.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=No+se+permiten+reservaciones+con+fechas+menores+a+hoy: $fechaActual");
+            $this->tipoMensaje = $oMensaje->tipoError;
+            $this->mensaje = "No se permiten fechas anteriores";
         } else {
-            $result = $oReservacion->actualizarReservacion($horaFinal->format("H:i:s"));
+            $result = $oReservacion->actualizarReservacion($horaFinal->format("H:i:s"), $precio);
             if ($result) {
                 // echo "registro reservacion";
-                header("location: ../view/mostrarreservacion.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Su+reservacion+ha+sido+actualizada+de+manera+correcta");
+                $this->tipoMensaje = $oMensaje->tipoCorrecto;
+                $this->mensaje = "Se ha actualizado la reservacion";
             } else {
                 // echo "error";
-                header("location: ../view/editarreservacion.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+                $this->tipoMensaje = $oMensaje->tipoError;
+                $this->mensaje = "Se ha producido un error";
             }
         }
+        return $oReservacion;
     }
 
     public function buscarReservacionIdAjax()
@@ -362,7 +375,7 @@ class reservacionController
         require_once '../model/reservaciones.php';
 
         $oReservacion = new reservacion();
-        $result = $oReservacion->consultarReservacionId($_GET['idCliente'], $fechaActual);
+        $result = $oReservacion->consultarReservacionId($_GET['idCliente']);
         echo json_encode($result);
     }
 

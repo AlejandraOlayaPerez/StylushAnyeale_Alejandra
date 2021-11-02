@@ -1,10 +1,12 @@
 <?php
 require_once 'headpagina.php';
-require_once 'linkcss.php';
 require_once '../model/seguimiento.php';
 $oSeguimiento = new seguimiento();
 ?>
 
+<head>
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/seguimiento.min.css" type="text/css">
+</head>
 
 <body>
     <div class="container">

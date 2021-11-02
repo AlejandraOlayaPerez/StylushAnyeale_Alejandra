@@ -19,7 +19,7 @@ $oCategoria = $oProductoServicioController->consultarCategoria($_GET['idCategori
                     <input type="text" name="idCategoria" value="<?php echo $_GET['idCategoria']; ?>" style="display: none;">
                     <div class="row">
                         <div class="col col-xl-4 col-md-6 col-12">
-                            <label for="" style="-webkit-text-fill-color: black;">Categoria</label>
+                            <label for="">Categoria<span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="categoria" name="nombreCategoria" placeholder="Categoria" value="<?php echo $oCategoria->nombreCategoria; ?>" onchange="validarCampo(this);" required maxlength="50" minlength="2">
                             <span id="categoriaSpan"></span>
                         </div>

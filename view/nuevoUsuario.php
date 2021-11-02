@@ -3,20 +3,17 @@ require_once 'headpagina.php';
 require_once '../model/usuario.php';
 require_once '../controller/usuarioController.php';
 $oUsuario = new usuario();
-
+$oUsuarioController = new usuarioController();
 if (isset($_POST['documentoIdentidad']) != "") {
-  $oUsuarioController = new usuarioController();
   $oUsuario = $oUsuarioController->registrarUsuario();
 }
 ?>
-
 <body>
   <div class="container-fluid">
     <div class="card">
       <div class="card-header cardHeaderFondo">
         <label class="card-title">Nuevo Usuario</label>
       </div>
-
       <form id="formulario" action="" method="POST" novalidate>
         <div class="card-body cardBody">
           <div class="bs-stepper">
@@ -177,13 +174,15 @@ if (isset($_POST['documentoIdentidad']) != "") {
                     $oRol = new rol();
                     $result = $oRol->listarRol();
                     ?>
-                    <label for="" style="-webkit-text-fill-color: black;">Rol <span class="text-danger">*</span></label>
+                    <label for="">Rol <span class="text-danger">*</span></label>
                     <select select class="form-select" id="idRol" name="idRol" onchange="validarCampo(this);" required>
                       <option value="" disabled selected>Selecciones una opción</option>
                       <?php
                       foreach ($result as $registro) {
                       ?>
-                        <option value="<?php echo $registro['idRol']; ?>"><?php echo $registro['nombreRol']; ?></option>
+                        <option value="<?php echo $registro['idRol']; ?>" <?php if ($oUsuario->idRol == $registro['idRol']) {
+                                                                            echo "selected";
+                                                                          } ?>><?php echo $registro['nombreRol']; ?></option>
                       <?php
                       }
                       ?>
@@ -197,13 +196,15 @@ if (isset($_POST['documentoIdentidad']) != "") {
                     $result = $oRol->mostrarServicio();
                     ?>
 
-                    <label for="" style="-webkit-text-fill-color: black;">Servicio <span class="text-danger">*</span></label>
+                    <label for="">Servicio <span class="text-danger">*</span></label>
                     <select select class="form-select" id="idCargo" name="idCargo" onchange="validarCampo(this);" required>
                       <option value="" disabled selected>Selecciones una opción</option>
                       <?php
                       foreach ($result as $registro) {
                       ?>
-                        <option value="<?php echo $registro['idCargo']; ?>"><?php echo $registro['rol']; ?></option>
+                        <option value="<?php echo $registro['idCargo']; ?>" <?php if ($oUsuario->idCargo == $registro['idCargo']) {
+                                                                              echo "selected";
+                                                                            } ?>><?php echo $registro['rol']; ?></option>
                       <?php
                       }
                       ?>
@@ -220,22 +221,22 @@ if (isset($_POST['documentoIdentidad']) != "") {
 
                 <div class="row">
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">telefono <span class="text-danger">*</span></label>
+                    <label for="" class="form-label">telefono <span class="text-danger">*</span></label>
                     <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Telefono" value="<?php echo $oUsuario->telefono; ?>" onchange="validarCampo(this);" min="3000000000" max="3999999999" required>
                     <span id="telefonoSpan"></span>
                   </div>
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Correo electronico <span class="text-danger">*</span></label>
+                    <label for="" class="form-label">Correo electronico <span class="text-danger">*</span></label>
                     <input class="form-control" type="email" id="correoElectronico" name="correoElectronico" placeholder="example@gmail.com" value="<?php echo $oUsuario->correoElectronico; ?>" minlength="1" onchange="validarCampo(this);" required>
                     <span id="correoElectronicoSpan"></span>
                   </div>
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Contraseña <span class="text-danger">*</span></label>
+                    <label for="" class="form-label">Contraseña <span class="text-danger">*</span></label>
                     <input class="form-control" type="password" id="contrasena" name="contrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                     <span id="contrasenaSpan"></span>
                   </div>
                   <div class="col col-xl-4 col-md-6 col-12">
-                    <label for="" class="form-label" style="-webkit-text-fill-color: black;">Confirmar contraseña <span class="text-danger">*</span></label>
+                    <label for="" class="form-label">Confirmar contraseña <span class="text-danger">*</span></label>
                     <input class="form-control" type="password" name="confirmarContrasena" id="confirmarContrasena" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                     <span id="confirmarContrasenaSpan"></span>
                   </div>
@@ -258,6 +259,17 @@ if (isset($_POST['documentoIdentidad']) != "") {
 </html>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 <?php require_once 'footer.php'; ?>
+<script>
+  <?php
+  require_once '../controller/mensajecontroller.php';
+
+
+  if ($oUsuarioController->tipoMensaje != "") {
+    $oMensaje = new mensajes();
+    echo $oMensaje->mensaje($oUsuarioController->tipoMensaje, $oUsuarioController->mensaje);
+  }
+  ?>
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

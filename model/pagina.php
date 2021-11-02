@@ -157,7 +157,7 @@ class pagina
         //consulta para retornar un solo registro
 
         $sql = "SELECT * FROM pagina p INNER JOIN permiso per ON p.idPagina=per.IdPagina WHERE 
-        p.idModulo=$idModulo AND p.menu=true AND per.idRol=$idRol";
+        p.idModulo=$idModulo AND p.menu=true AND per.idRol=$idRol AND P.eliminado=false";
 
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);

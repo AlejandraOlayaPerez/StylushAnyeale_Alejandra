@@ -12,7 +12,7 @@
           <input type="text" name="funcion" value="crearRol" style="display: none;">
           <div class="row">
             <div class="col col-xl-4 col-md-6 col-12">
-              <label for="" class="form-label" style="-webkit-text-fill-color: black;">Nombre Rol</label>
+              <label for="" class="form-label">Nombre Rol<span class="text-danger">*</span></label>
               <input class="form-control" type="text" id="nombreRol" name="nombreRol" placeholder="Nombre del Rol" required maxlength="50" minlength="2" onchange="validarCampo(this)">
               <span id="nombreRolSpan"></span>
             </div>

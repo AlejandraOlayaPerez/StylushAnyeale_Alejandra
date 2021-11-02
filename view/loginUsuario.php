@@ -58,7 +58,7 @@ if (isset($_POST['correoElectronico']) != "") {
             <a href="../USUARIO/formularioRecuperar.php" style="-webkit-text-fill-color: black;">¿Olvidó su contraseña?</a>
           </p>
           <br>
-          <button type="submit" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+          <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
           <a type="button" href="paginaprincipalcliente.php" class="btn btn-dark float-right"><i class="fas fa-home"></i> Volver al inicio</a>
         </form>
 

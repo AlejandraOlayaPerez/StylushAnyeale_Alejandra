@@ -1,312 +1,358 @@
 <?php
-session_start();
-
+require_once 'headPagina.php';
 date_default_timezone_set('America/Bogota');
 $fechaActual = Date("Y-m-d");
-$horaActual = Date("H:i:s");
 
-require_once '../model/cliente.php';
-$oCliente = new cliente();
+if (isset($_GET['vista'])) { //
+    $vista = $_GET['vista'];
+} else {
+    $vista = "cliente";
+}
 ?>
-<!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cajero</title>
-
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/css-font.css">
-    <link rel="stylesheet" href="/anyeale_proyecto/StylushAnyeale_Alejandra/assets/css/estilosGerente.css" type="text/css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/assets/dist/css/adminlte.min.css">
-    <link rel="shortcut icon" href="/Anyeale_proyecto/StylushAnyeale_Alejandra/image/PNG_LOGO.png" type="image/x-icon">
-
-</head>
-
-<body class="hold-transition layout-top-nav">
-    <div class="container-md">
-        <div class="wrapper">
-
-            <nav class="main-header navbar navbar-expand-md navbar-dark navbar-black">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a href="paginaPrincipalGerente.php" class="navbar-brand">
-                            <img src="../image/PNG_LOGO.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                            <span class="brand-text font-weight-light">Stylush Anyeale</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:white;letter-spacing: 5px;text-align: center;"><strong>Fecha: </strong><?php echo $fechaActual; ?></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="relojnumerico" class="nav-link" onload="cargarReloj()" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:white;letter-spacing: 5px;text-align: center;"></a>
-                    </li>
-                </ul>
-            </nav>
-
-
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
             <?php
             require_once '../controller/usuariocontroller.php';
             $oUsuarioController = new usuarioController();
             $oUsuario = $oUsuarioController->consultarUsuarioId($_SESSION['idUser']);
             ?>
-
-            <br>
-            <form action="../controller/facturacontroller.php" method="GET" id="formFactura">
-                <input type="text" name="funcion" value="registroFactura" style="display: none;">
-                <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
-                <input type="text" name="fechaFactura" value="<?php echo $fechaActual; ?>" style="display: none;">
-                <input type="text" name="horaFactura" value="<?php echo $horaActual; ?>" style="display: none;">
-
-                <div class="card card-primary">
-                    <div class="card-header" style="background-color: rgba(255, 255, 204, 255);">
-                        <label class="card-title" style="-webkit-text-fill-color: black;">Informacion Cajero</label>
+            <div class="profile-card-4 z-depth-3">
+                <div class="card">
+                    <div class="card-body text-center rounded-top" style="background-color: #FEF1E6 !important;">
+                        <h5 class="mb-1 text-white" style="font-weight: 600; font-size: 20px; font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: black !important;">CAJERO</h5>
+                        <h6 class="text-light"> <a class="nav-link" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:black;letter-spacing: 5px;text-align: center;"><strong>Fecha: </strong><?php echo $fechaActual; ?></a></h6>
+                        <h6 class="text-light"> <a class="nav-link" id="relojnumerico" class="nav-link" onload="cargarReloj()" style="color: #0d1420;font-size: 20px;font-family: 'Times New Roman', Times, serif;color:black;letter-spacing: 5px;text-align: center;"></a></h6>
                     </div>
-                    <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
+                    <div class="card-body" style="background-color: #bec2c71f !important;">
                         <div class=row>
-                            <div class="col col-xl-4 col-md-6 col-12">
+                            <div class="col-md-6">
                                 <label for="" class="form-label">Tipo Documento</label>
                                 <input type="text" class="form-control" name="tipoDocumento" value="<?php echo $oUsuario->tipoDocumento; ?>" readonly>
                             </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
+                            <div class="col-md-6">
                                 <label for="" class="form-label">documento Identidad</label>
-                                <input type="text" class="form-control" name="documentoIdentidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" readonly>
+                                <input type="number" class="form-control" name="documentoIdentidad" value="<?php echo $oUsuario->documentoIdentidad; ?>" readonly>
                             </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
                                 <label for="" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" name="nombre" value="<?php echo $oUsuario->primerNombre . " " . $oUsuario->segundoNombre; ?>" readonly>
                             </div>
 
-                            <div class="col col-xl-4 col-md-6 col-12">
+                            <div class="col-md-6">
                                 <label for="" class="form-label">Apellido</label>
                                 <input type="text" class="form-control" name="apellido" value="<?php echo $oUsuario->primerApellido . " " . $oUsuario->segundoApellido; ?>" readonly>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                        <a href="paginaPrincipalGerente.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
-                    </div>
-                </div>
-
-                <hr class="featurette-divider">
-
-                <div class="card card-primary">
-                    <div class="card-header" style="background-color: rgba(255, 255, 204, 255);">
-                        <label class="card-title" style="-webkit-text-fill-color: black;">Informacion Cliente:</label>
-                    </div>
-                    <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
                         <div class=row>
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <input type="text" name="idCliente" id="idCliente" style="display: none;">
-                                <label for="" class="form-label">Tipo Documento</label>
-                                <input type="text" class="form-control" id="tipoDocumento" readonly>
+                            <div class="col-md-6">
+                                <label for="" class="form-label">Correo electronico</label>
+                                <input type="email" class="form-control" name="correoElectronico" value="<?php echo $oUsuario->correoElectronico;; ?>" readonly>
                             </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <label for="" class="form-label">documentoIdentidad</label>
-                                <input type="number" class="form-control" id="documentoIdentidad" readonly>
-                            </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <label for="" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="primerNombre" readonly>
-                            </div>
-
-                            <div class="col col-xl-4 col-md-6 col-12">
-                                <label for="" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="primerApellido" readonly>
-                            </div>
-                            <div class="col col-xl-4 col-md-6 col-12">
+                            <div class="col-md-6">
                                 <label for="" class="form-label">Telefono</label>
-                                <input type="text" class="form-control" id="telefono" readonly>
+                                <input type="number" class="form-control" name="telefono" value="<?php echo $oUsuario->telefono; ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="row text-center mt-4">
+                            <div class="col p-2">
+                                <a type="button" class="btn btn-info" href="listarfacturas.php"><i class="fas fa-file-invoice"></i> Facturas</a>
+                            </div>
+                            <div class="col p-2">
+                                <a type="button" class="btn btn-info" href="mostrarreservacion.php"><i class="fas fa-calendar-day"></i> Reservaciones</a>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer" style="background-color: rgba(255, 255, 204, 255);">
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-xl" onclick="buscarCliente();"><i class="fas fa-search"></i> Buscar Cliente</button>
-                        <button type="button" class="btn btn-info" id="nuevaReservacion" onclick="crearReservacion();" style="display: none;"><i class="fas fa-calendar-plus"></i> Crear Reservacion</button>
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pagoProducto" onclick="buscarProducto()"><i class="fas fa-search"></i> Buscar Producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card z-depth-3" style="background-color: #FEF1E6 !important;">
+                <div class="card-body">
+                    <ul class="nav nav-pills nav-pills-info nav-justified">
+                        <li class="nav-item">
+                            <a href="cajero.php?vista=cliente" data-target="#profile" data-toggle="pill" class="nav-link <?php if ($vista == "cliente") echo "active show"; ?>"><i class="icon-user"></i> <span class="hidden-xs"><i class="fas fa-user"></i> Clientes</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="cajero.php?vista=productos" data-target="#edit" data-toggle="pill" class="nav-link <?php if ($vista == "productos") echo "active show"; ?>"><i class="icon-note"></i> <span class="hidden-xs"><i class="fas fa-wine-bottle"></i> Productos</span></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3">
+                        <div class="tab-pane <?php if ($vista == "cliente") echo "active show"; ?>" id="profile">
+                            <div class="card" style="background-color: #bec2c71f !important;">
+                                <div class="card-header">
+                                    <label class="card-title" style="-webkit-text-fill-color: black;">Informacion Cliente:</label>
+                                </div>
+                                <div class="card-body">
+                                    <div class=row>
+                                        <div class="col-md-6">
+                                            <input type="text" name="idCliente" id="idCliente" style="display: none;">
+                                            <label for="" class="form-label">Tipo Documento</label>
+                                            <input type="text" class="form-control" id="tipoDocumento" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="" class="form-label">documentoIdentidad</label>
+                                            <input type="number" class="form-control" id="documentoIdentidad" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" id="primerNombre" readonly>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="" class="form-label">Apellido</label>
+                                            <input type="text" class="form-control" id="primerApellido" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="" class="form-label">Telefono</label>
+                                            <input type="text" class="form-control" id="telefono" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-xl" onclick="buscarCliente();"><i class="fas fa-search"></i> Buscar Cliente</button>
+                                    <button type="button" class="btn btn-info" id="nuevaReservacion" onclick="crearReservacion();" style="display: none;"><i class="fas fa-calendar-plus"></i> Crear Reservacion</button>
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="card" id="tablaReservacion" style="display: none;">
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table colorestabla">
+                                        <thead>
+                                            <tr class="estiloTr">
+                                                <th>Servicio</th>
+                                                <th>Fecha</th>
+                                                <th>Hora</th>
+                                                <th>Domicilio</th>
+                                                <th>Direccion</th>
+                                                <th>Precio</th>
+                                                <th>¿Validado?</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="informacionReservacion">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane <?php if ($vista == "productos") echo "active show"; ?>" id="edit">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#pagoProducto" onclick="buscarProducto()"><i class="fas fa-search"></i> Buscar Producto</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="../controller/productoserviciocontroller.php" method="GET">
+                                        <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
+                                        <input type="text" name="totalPagar" id="total" style="display: none;">
+                                        <div class="card">
+                                            <div class="card-body table-responsive p-0">
+                                                <table class="table colorestabla" style="padding: 15px; display:none" id="tablaProducto">
+                                                    <thead>
+                                                        <tr class="estiloTr">
+                                                            <th>Codigo</th>
+                                                            <th>Producto</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Precio</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tablaFacturaProducto">
+
+
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td colspan="3"></td>
+                                                            <td>Total:</td>
+                                                            <td name="total" id="totalProducto"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="4"></td>
+                                                            <td><button type="submit" name="funcion" value="facturaProductoCajero" class="btn btn-success"><i class="fas fa-money-check-alt"></i> Pagar</button></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
 
-                <hr class="featurette-divider">
-                <div class="card card-primary" id="tablaReservacion" style="display: none;">
-                    <div class="card-body" style="background-color: rgba(255, 255, 204, 255);">
-                        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 30px">Reservacion del cliente</h1>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-striped table-valign-middle" style="background-color: rgba(255, 255, 204, 255);">
+    <?php require_once 'footer.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/relogAutomatico.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/cajero.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
+
+    <!--Buscar Cliente-->
+    <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header estiloModalHeader">
+                    <h4 class="modal-title">Buscar Cliente: </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body estiloModalBody">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Tipo de Documento: </label>
+                            <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="buscarCliente()">
+                                <option value="" selected>Selecciones una opción</option>
+                                <option value="TI">Tarjeta de Identidad</option>
+                                <option value="CC">Cedula Ciudadanía</option>
+                                <option value="CE">Cedula Extranjería</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Documento: </label>
+                            <input type="number" class="form-control" id="documentoIdentidad2" name="documentoIdentidad" onchange="buscarCliente()">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="card">
+                        <div class="card-body table-responsive p-0" style="height: 500px;">
+                            <table class="table colorestabla">
                                 <thead>
-                                    <tr>
+                                    <tr class="estiloTr">
                                         <th></th>
-                                        <th>Servicio</th>
-                                        <th>Fecha</th>
-                                        <th>Hora</th>
-                                        <th>Domicilio</th>
-                                        <th>Direccion</th>
-                                        <th>Precio</th>
-                                        <th>¿Servicio realizado?</th>
+                                        <th>Tipo Documento</th>
+                                        <th>Documento</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Telefono</th>
                                     </tr>
                                 </thead>
-                                <tbody id="informacionReservacion">
+                                <tbody id="informacionCliente">
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle" id="tablaProducto" style="display: none;">
-                        <thead>
-                            <tr style="background-color: rgb(249, 201, 242);">
-                                <th>Codigo</th>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablaFacturaProducto">
-
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2"></td>
-                                <td>Total:</td>
-                                <td name="total" id="totalProducto"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3"></td>
-                                <td><button type="submit" class="btn btn-success">Generar Factura</button></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <div class="modal-footer estiloModalBody">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
                 </div>
-            </form>
-        </div>
-
-        <br>
-        <br>
-        <br>
-
-        <footer class="main-footer navbar-black navbar-dark">
-            <strong>
-                <h7 style="font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: rgb(249, 201, 242);">"Estilo y confianza te brinda Anyeale"</h7>
-            </strong>
-            <div class="float-right d-none d-sm-inline-block">
-                <b>
-                    <h7 style="font-family: 'Times New Roman', Times, serif; -webkit-text-fill-color: rgb(249, 201, 242);">Aleja(2021)
-                </b>
-            </div>
-        </footer>
-
-        <?php require_once 'linkfooter.php'; ?>
-        <?php require_once 'linkjs.php'; ?>
-    </div>
-</body>
-
-</html>
-
-
-<div class="modal fade" id="modal-xl">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Buscar Cliente: </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label for="" class="form-label">Tipo de Documento: </label>
-                        <select class="form-control" id="tipoDocumento2" name="tipoDocumento" onchange="buscarCliente()">
-                            <option value="" selected>Selecciones una opción</option>
-                            <option value="TI">Tarjeta de Identidad</option>
-                            <option value="CC">Cedula Ciudadanía</option>
-                            <option value="CE">Cedula Extranjería</option>
-                        </select>
-                    </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label for="" class="form-label">Documento: </label>
-                        <input type="number" class="form-control" id="documentoIdentidad2" n ame="documentoIdentidad" onchange="buscarCliente()">
-                    </div>
-                </div>
-
-                <hr>
-
-                <table class="table table-striped table-valign-middle">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Tipo Documento</th>
-                            <th>Documento</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Telefono</th>
-                        </tr>
-                    </thead>
-                    <tbody id="informacionCliente">
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
-</div>
 
+    <!--Busqueda Producto-->
 
-<div class="modal fade" id="pagoProducto">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Busqueda producto</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label for="" class="form-label">Codigo Producto </label>
-                        <input type="text" class="form-control" id="codigoProducto" name="codigoProducto" autocomplete="off" onkeyup="buscarProducto()">
+    <div class="modal fade" id="pagoProducto">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header estiloModalHeader">
+                    <h4 class="modal-title">Busqueda producto</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body estiloModalBody">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Buscar Por Codigo: </label>
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Buscar codigo producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por codigo" id="codigoProducto" name="codigoProducto" autocomplete="off" onkeyup="buscarProducto()">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="" class="form-label">Buscar Por Nombre: </label>
+                            <div class="input-group m-b-0">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Buscar nombre producto.." style="font-family:'Times New Roman', Times, serif; font-size: 20px;" data-bs-toggle="tooltip" data-bs-placement="right" title="Busca un producto por nombre" id="nombreProducto" name="nombreProducto" autocomplete="off" onkeyup="buscarProducto()">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col col-xl-4 col-md-6 col-12">
-                        <label for="" class="form-label">Nombre Producto: </label>
-                        <input type="text" class="form-control" id="nombreProducto" name="nombreProducto" autocomplete="off" onkeyup="buscarProducto()">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-tools">
+                                <ul class="pagination pagination-sm contenedorUL" id="contenedorUL">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-striped table-valign-middle">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Codigo Producto</th>
+                                    <th>Producto</th>
+                                    <th>Valor Unitario</th>
+                                </tr>
+                            </thead>
+                            <tbody id="informacionProducto">
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <div class="card-body table-responsive p-0">
-                    <div class="card-tools">
-                        <ul class="pagination pagination-sm float-right border border-dark" id="contenedorUL">
-
-                        </ul>
-                    </div>
-                    <table class="table table-striped table-valign-middle">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Codigo Producto</th>
-                                <th>Producto</th>
-                                <th>Valor Unitario</th>
-                            </tr>
-                        </thead>
-                        <tbody id="informacionProducto">
-
-                        </tbody>
-                    </table>
+                <div class="modal-footer estiloModalBody">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
                 </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
-</div>
+
+    <!--Pagar reservacion-->
+
+    <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header estiloModalHeader">
+                    <h5 class="modal-title" id="Label">Pagar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body estiloModalBody">
+                    <p>¿Desea validar la reservacion?</p>
+                </div>
+                <div class="modal-footer estiloModalBody">
+                    <form action="../controller/productoserviciocontroller.php" method="GET">
+                        <input type="text" name="idReservacion" id="idReservacion" style="display: none;">
+                        <input type="text" name="totalPago" id="pago" style="display: none;">
+                        <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
+                        <input type="text" name="idCliente" id="cliente" style="display: none;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger" name="funcion" value="validarReservacion"><i class="fas fa-money-check-alt"></i> Pagar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
