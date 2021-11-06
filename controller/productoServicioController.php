@@ -666,6 +666,7 @@ class productoServicioController
 
     public function actualizarInformacion()
     {
+        $sinPuntosValor = str_replace(".", "", $_GET['costo']);
         $idServicio = $_GET['idServicio'];
 
         require_once 'mensajecontroller.php';
@@ -688,7 +689,7 @@ class productoServicioController
         $oServicio->nombreServicio = $_GET['nombreServicio'];
         $oServicio->detalleServicio = $_GET['detalleServicio'];
         $oServicio->tiempoDuracion = $_GET['tiempoDuracion'];
-        $oServicio->costo = str_replace(".", "", $_GET['costo']);
+        $oServicio->costo = str_replace(",", "", $sinPuntosValor);
         $result = $oServicio->actualizarServicio();
 
         if ($result) {

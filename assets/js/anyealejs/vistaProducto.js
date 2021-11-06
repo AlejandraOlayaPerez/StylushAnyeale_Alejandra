@@ -31,7 +31,7 @@ function vistaProducto() {
             funcion: "buscarProductosVista"
         }
     }).done(function (data) {
-        // console.log(data);
+        console.log(data);
         var datos = data.split("®");
         //paginacion
         var numRegistro = parseInt(datos[0]);

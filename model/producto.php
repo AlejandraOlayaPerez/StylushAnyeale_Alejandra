@@ -178,9 +178,9 @@ class producto
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $where = "WHERE eliminado=false ";
+        $where = " eliminado=false ";
 
-        $sql = "SELECT count(codigoProducto) as numRegistro FROM producto $where";
+        $sql = "SELECT count(codigoProducto) as numRegistro FROM producto WHERE $where";
         $result = mysqli_query($conexion, $sql);
         foreach ($result as $registro) {
             $this->numRegistro = $registro['numRegistro'];
@@ -234,7 +234,6 @@ class producto
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        // echo $sql;
         return $result;
     }
 
@@ -533,11 +532,11 @@ class producto
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM producto WHERE eliminado=false AND (codigoProducto LIKE '$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
+        $sql = "SELECT * FROM producto WHERE eliminado=true AND (codigoProducto LIKE '$codigoProducto%' OR nombreProducto LIKE '%$nombreProducto%')";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        // $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
         return $result;
     }
 }

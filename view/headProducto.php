@@ -1,5 +1,4 @@
-<?php require_once 'permisoscliente.php';
-?>
+<?php require_once 'permisoscliente.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

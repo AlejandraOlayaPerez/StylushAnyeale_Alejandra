@@ -54,7 +54,7 @@ class servicio
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT * FROM servicios WHERE IdServicio=$idServicio";
+        $sql = "SELECT * FROM servicios WHERE IdServicio=$idServicio AND eliminado=false";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);

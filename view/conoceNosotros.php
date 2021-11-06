@@ -18,7 +18,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="candidates-profile-details text-center">
-                        <img src="../image/PNG_LOGO.png" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
+                        <img src="../image/logo.png" class="img-fluid d-block mx-auto rounded-circle img-thumbnail mb-4">
                         <h4 class="text-white candidates-profile-name mb-2">Stylush Anyeale</h4>
                         <ul class="candidates-profile-social-icons list-inline mb-0">
                             <li class="list-inline-item"><a href="https://www.facebook.com/Stylush-Anyeale-219067613464253/" class=""><i class="mdi mdi-facebook"></i></a></li>

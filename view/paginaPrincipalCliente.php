@@ -1,18 +1,6 @@
-<?php
-session_start(); //¡FUNDAMENTAL!
-require_once '../controller/correoController.php';
-require_once 'linkhead.php';
-if (isset($_POST['correoElectronico']) != "") {
-    $_POST['correoElectronico'];
-    $oCorreo = new correo();
-    $correoDestino = "stylushAnyeale@gmail.com";
-    $nombre = $_POST['nombre'];
-    $correoElectronico = $_POST['correoElectronico'];
-    $asunto = $_POST['asunto'];
-    $mensaje = $_POST['mensaje'];
-    $oCorreo = $oCorreo->enviarCorreoCliente($correoDestino, $nombre, $correoElectronico, $asunto, $mensaje);
-}
-?>
+<?php session_start();
+require_once 'linkhead.php'; //¡FUNDAMENTAL! ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -180,6 +168,7 @@ if (isset($_POST['correoElectronico']) != "") {
                             <div class="">
                                 <h1><strong>¡CONTACTANOS!</strong></h1>
                                 <p class="lead mb-1"><strong>Direccion: </strong> Carr 18 N 24 A 34</p>
+                                <p class="lead mb-1"><strong>Horarios: </strong>Lunes a viernes (8AM-8PM)</p>
                                 <p class="lead mb-1"><strong>Telefono: </strong> 3204995486</p>
                                 <p class="lead mb-1"><strong>Correo Electronico: </strong> StylushAnyeale@gmail.com </p>
                                 <p class="lead mb-2"><a href="https://www.instagram.com/__anyeale/?hl=es"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/channel/UCAIAHNzp71toK21oTYZtN1Q"><i class="fab fa-youtube"></i></a> <a href="https://wa.link/nc743x"><i class="fab fa-whatsapp"></i></a></p>

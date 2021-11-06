@@ -99,7 +99,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                                                 </div>
-                                                <input class="form-control" type="text" id="costo" value="<?php echo $oServicio->costo; ?>" name="costo" placeholder="Costo" required minlength="1" maxlength="30" onkeyup="separadorMilesCuadroTexto(this);">
+                                                <input class="form-control" type="text" id="costo" value="" name="costo" placeholder="Costo" required minlength="1" maxlength="30" onkeyup="separadorMilesCuadroTexto(this);">
                                             </div>
                                             <span id="costoSpan"></span>
                                         </div>
@@ -205,6 +205,11 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarServicio.min.js"></script>
+
+<script>
+    var campo = document.getElementById("costo");
+    separadorMilesValor(campo, "<?php echo $oServicio->costo; ?>");
+</script>
 
 <script>
     $(function() {

@@ -63,8 +63,8 @@ if (isset($_GET['idTags'])) {
                                     <table class="table table-hover">
                                         <tbody>
                                             <tr>
-                                                <td><input type="number" class="form-control input" name="rangoMenor" id="rangoMenor" placeholder="Valor Minimo" onkeyup="vistaProducto()"></td>
-                                                <td><input type="number" class="form-control input" name="rangoMenor" id="rangoMayor" placeholder="Valor Maximo" onkeyup="vistaProducto()"></td>
+                                                <td><input type="number" class="form-control input" name="rangoMenor" id="rangoMenor" placeholder="Valor Minimo" onkeyup="vistaServicio()"></td>
+                                                <td><input type="number" class="form-control input" name="rangoMenor" id="rangoMayor" placeholder="Valor Maximo" onkeyup="vistaServicio()"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -114,7 +114,7 @@ if (isset($_GET['idTags'])) {
                         <h5><i class="fas fa-boxes"></i> Lista de servicios:<h5>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select desingSelect" name="vista" id="vista" onchange="vistaProducto()">
+                        <select class="form-select desingSelect" name="vista" id="vista" onchange="vistaServicio()">
                             <option value="" disabled>Selecciones una opción</option> -->
                             <option value="preterminado" selected>Orden preterminado</option>
                             <option value="asc">Nombre A-Z</option>
