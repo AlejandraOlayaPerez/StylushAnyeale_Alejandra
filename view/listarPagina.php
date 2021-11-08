@@ -30,7 +30,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                             <th>Enlace</th>
                             <th>¿Se requiere inicio de sesion?</th>
                             <th>¿Vista Menu?</th>
-                            <th><a class="btn btn-info" href="nuevaPagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-plus-square"></i> Nuevo Pagina</a></th>
+                            <th><a class="btn btn-info" href="nuevapagina.php?idModulo=<?php echo $_GET['idModulo']; ?>"><i class="fas fa-plus-square"></i> Nuevo Pagina</a></th>
                         </tr>
                     </thead>
                     <tbody id="listarPagina">
@@ -44,7 +44,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
 
     <?php require_once 'footer.php'; ?>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarPagina.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarpagina.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 
 
@@ -59,7 +59,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
                     <p>¿Esta seguro que desea eliminar la pagina?</p>
                 </div>
                 <div class="modal-footer estiloModalBody">
-                    <form action="../controller/gestionController.php" method="GET">
+                    <form action="../controller/gestioncontroller.php" method="GET">
                         <input type="text" name="idPagina" id="eliminarPagina" style="display:none;">
                         <input type="text" name="idModulo" value="<?php echo $_GET['idModulo']; ?>" style="display:none;">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

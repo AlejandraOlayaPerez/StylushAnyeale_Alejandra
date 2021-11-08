@@ -34,7 +34,7 @@ $oTags = new tags();
                 <thead>
                     <tr class="estiloTr">
                         <th>Tags</th>
-                        <th><a class="btn btn-info" href="nuevaTags.php"><i class="fas fa-plus-square"></i> Crear Tags</a></th>
+                        <th><a class="btn btn-info" href="nuevatags.php"><i class="fas fa-plus-square"></i> Crear Tags</a></th>
                     </tr>
                 </thead>
                 <tbody id="tags">
@@ -61,7 +61,7 @@ $oTags = new tags();
                 <p>¿Esta seguro que desea eliminar la Tag?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/productoServicioController.php" method="GET">
+                <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="idpalabraclave" id="eliminarTags" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarTags"><i class="fas fa-trash-alt"></i> Eliminar</button>

@@ -4,6 +4,12 @@ require_once 'conexiondb.php';
 class pedido
 {
 
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     //atributos de la tabla pedido
     public $idPedido = 0;
     public $idProducto = "";
@@ -58,7 +64,7 @@ class pedido
         $oConexion = new conectar();
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
-       
+
         $where = "1 ";
         if ($fecha != "") {
             $where .= " AND fechaPedido='$fecha' ";
@@ -83,7 +89,8 @@ class pedido
         return $result;
     }
 
-    function paginacionPedido($fecha, $recibido, $cancelado, $codigo){
+    function paginacionPedido($fecha, $recibido, $cancelado, $codigo)
+    {
         //Instancia clase conectar
         $oConexion = new conectar();
         //Establece conexion con la base de datos.
@@ -112,7 +119,7 @@ class pedido
         return $this->numRegistro;
     }
 
-    
+
 
     //esta funcion me permite consultar un pedido
     function consultarPedido($idPedido)
@@ -158,7 +165,7 @@ class pedido
         echo $sql;
         return $result;
     }
-    
+
 
     function eliminarProductoPedido($idPedido)
     {

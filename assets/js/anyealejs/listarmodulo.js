@@ -101,7 +101,7 @@ function agregarModulo(modulo){
 
     var botonDetalle = document.createElement("a");
     botonDetalle.style.margin = "2px";
-    botonDetalle.href = "listarPagina.php?idModulo=" + modulo['idModulo'];
+    botonDetalle.href = "listarpagina.php?idModulo=" + modulo['idModulo'];
     botonDetalle.className = "btn btn-info";
     botonDetalle.innerHTML = '<i class="fas fa-file"></i> Ver. Pagina';
 

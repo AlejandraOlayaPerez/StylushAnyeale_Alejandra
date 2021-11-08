@@ -159,13 +159,13 @@ function listarFactura(factura) {
     botonCancelar.innerHTML = '<i class="fas fa-ban"></i> Cancelar';
 
     var botonSeguimiento = document.createElement("a");
-    botonSeguimiento.href = "seguimientoFactura.php?idFactura=" + factura['idFactura'];
+    botonSeguimiento.href = "seguimientofactura.php?idFactura=" + factura['idFactura'];
     botonSeguimiento.className = "dropdown-item";
     botonSeguimiento.innerHTML = '<i class="fas fa-info"></i> Seguimiento';
 
     var botonPDF = document.createElement("a");
     botonPDF.className = "dropdown-item";
-    botonPDF.href = "detalleFactura.php?idFactura=" + factura['idFactura'];
+    botonPDF.href = "detallefactura.php?idFactura=" + factura['idFactura'];
     botonPDF.innerHTML = '<i class="fas fa-eye"></i> Vista Factura';
 
     div1.appendChild(div2);

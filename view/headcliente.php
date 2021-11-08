@@ -1,6 +1,7 @@
-<?php require_once 'permisoscliente.php';
+<?php 
 date_default_timezone_set('America/Bogota');
-$fechaActual = Date("Y-m-d"); ?>
+$fechaActual = Date("Y-m-d"); 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@ $fechaActual = Date("Y-m-d"); ?>
             <div class="row">
                 <div class="col-md-8">
                     <a href="/anyeale_proyecto/stylushAnyeale_alejandra/view/paginaprincipalcliente.php" class="brand-link">
-                        <img src="/anyeale_proyecto/stylushAnyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
+                        <img src="/anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
                         <h1 class="titulo">Stylush Anyeale<h1>
                     </a>
                 </div>

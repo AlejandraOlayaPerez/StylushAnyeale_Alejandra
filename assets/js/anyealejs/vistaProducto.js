@@ -119,7 +119,7 @@ function agregarVista(producto) {
     divFooter.className = "card-footer cardProducto";
 
     var botonDetalle = document.createElement("a");
-    botonDetalle.href = "detalleProducto.php?idProducto=" + producto['IdProducto'] + "&idCategoria=" + producto['idCategoria'];
+    botonDetalle.href = "detalleproducto.php?idProducto=" + producto['IdProducto'] + "&idCategoria=" + producto['idCategoria'];
     botonDetalle.className = "btn btn-info";
     botonDetalle.innerHTML = "<i class='fas fa-info-circle'></i> Detalle"
 

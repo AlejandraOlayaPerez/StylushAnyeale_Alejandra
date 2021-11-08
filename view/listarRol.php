@@ -18,7 +18,7 @@
                 <thead>
                     <tr class="estiloTr">
                         <th>Nombre Rol</th>
-                        <th><a class="btn btn-info" href="nuevoRol.php"><i class="fas fa-plus-square"></i> Nuevo Rol</a></th>
+                        <th><a class="btn btn-info" href="nuevorol.php"><i class="fas fa-plus-square"></i> Nuevo Rol</a></th>
                     </tr>
                 </thead>
                 <tbody id="listarRol">
@@ -49,7 +49,7 @@
                 <p>¿Esta seguro que desea eliminar el rol?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/gestionController.php" method="GET">
+                <form action="../controller/gestioncontroller.php" method="GET">
                     <input type="text" name="idRol" id="eliminarRol" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarRol"><i class="fas fa-trash-alt"></i>Eliminar</button>

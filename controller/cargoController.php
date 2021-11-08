@@ -40,6 +40,12 @@ switch ($funcion) {
 
 class cargoController
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public function nuevoCargo()
     {
         require_once '../model/cargo.php';
@@ -78,19 +84,24 @@ class cargoController
     {
         require_once '../model/cargo.php';
 
-        $oCargo = new cargo();
-        $oCargo->idCargo = $_GET['idCargo'];
-        $oCargo->idServicio = $_GET['idServicio'];
-        $result = $oCargo->actualizarCargo();
-
         require_once 'mensajecontroller.php';
         $oMensaje = new mensajes();
 
-        if ($result) {
-            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+el+registro+del+cargo");
-            // echo "registro";
+        $oCargo = new cargo();
+        $oCargo->idCargo = $_GET['idCargo'];
+        $oCargo->idServicio = $_GET['idServicio'];
+        $servicio = $oCargo->consultarEXisteServicio($_GET['idServicio']);
+        if (count($servicio) > 0) {
+            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoAdvertencia . "&mensaje=Ya+existe+registro+de+este+cargo");
         } else {
-            header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            $result = $oCargo->actualizarCargo();
+
+            if ($result) {
+                header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+actualizado+el+registro+del+cargo");
+                // echo "registro";
+            } else {
+                header("location: ../view/listarcargo.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            }
         }
     }
 

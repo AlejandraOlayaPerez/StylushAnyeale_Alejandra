@@ -1,24 +1,8 @@
-<?php
-//si no esta definida o no tiene valor e redirige al login
-//en caso contrario no hace nada
-
-session_start();
-if (isset($_SESSION['idUser'])) {
-  header("location: paginaprincipalgerente.php");
-  die(); // es para recomendado cuando se hace una rederigir, destruir o cerrar la pagina actual.
-}
-
-if (isset($_POST['correoElectronico']) != "") {
-  require_once '../controller/usuariocontroller.php';
-  $oUsuarioController = new usuarioController();
-  $oUsuario = $oUsuarioController->iniciarSesion();
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <?php require_once 'linkHead.php'; ?>
+  <?php require_once 'linkhead.php'; ?>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +23,8 @@ if (isset($_POST['correoElectronico']) != "") {
         <br>
         <p class="login-box-msg">Inicia sesión en administrador</p>
 
-        <form action="" method="POST" id="formulario" novalidate>
+        <form action="../controller/usuariocontroller.php" method="POST" id="formulario" novalidate>
+        <input type="text" name="funcion" value="iniciarSesion" style="display: none;">
           <div class="row">
             <div class="col-md-12">
               <label for="">Correo electronico</label>
@@ -66,9 +51,8 @@ if (isset($_POST['correoElectronico']) != "") {
 
 </html>
 
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery/jquery.min.js"></script>
 <?php require_once 'linkfooter.php'; ?>
-
-
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 
 

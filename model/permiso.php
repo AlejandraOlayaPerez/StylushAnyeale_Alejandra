@@ -1,73 +1,85 @@
-<?php 
+<?php
 require_once 'conexiondb.php';
 
-class permiso{
-  public $idRol="";
-  public $idModulo="";
-  public $idPagina="";
-  public $idUser="";
+class permiso
+{
 
-    function consultarPermiso($idRol, $idPagina){
+  //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+  //Siempre usar :(
+  public function __construct()
+  {
+  }
+
+  public $idRol = "";
+  public $idModulo = "";
+  public $idPagina = "";
+  public $idUser = "";
+
+  function consultarPermiso($idRol, $idPagina)
+  {
     //Instancia clase conectar
-    $oConexion=new conectar();
+    $oConexion = new conectar();
     //Establece conexion con la base de datos.
-    $conexion=$oConexion->conexion();
-    
-    $sql="SELECT * FROM permiso per INNER JOIN pagina pag ON per.idPagina=pag.idPagina
+    $conexion = $oConexion->conexion();
+
+    $sql = "SELECT * FROM permiso per INNER JOIN pagina pag ON per.idPagina=pag.idPagina
     WHERE per.idRol=$idRol AND pag.idPagina=$idPagina";
-    
-    $result=mysqli_query($conexion,$sql);
+
+    $result = mysqli_query($conexion, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
     return $result;
-    }
+  }
 
-    //esta funcion nos permite consultar un permiso por medio de la URL
-    function consultarPermisoUrl($idRol, $idPagina){
+  //esta funcion nos permite consultar un permiso por medio de la URL
+  function consultarPermisoUrl($idRol, $idPagina)
+  {
     //Instancia clase conectar
-    $oConexion=new conectar();
+    $oConexion = new conectar();
     //Establece conexion con la base de datos.
-    $conexion=$oConexion->conexion();
+    $conexion = $oConexion->conexion();
 
-    $sql="SELECT * FROM permiso WHERE idRol=$idRol AND IdPagina=$idPagina";
+    $sql = "SELECT * FROM permiso WHERE idRol=$idRol AND IdPagina=$idPagina";
 
-    $result=mysqli_query($conexion,$sql);
+    $result = mysqli_query($conexion, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
+  }
 
-    function mostrarPermisos(){
+  function mostrarPermisos()
+  {
     //Instancia clase conectar
-    $oConexion=new conectar();
+    $oConexion = new conectar();
     //Establece conexion con la base de datos.
-    $conexion=$oConexion->conexion();
-    
-    $sql="SELECT nombre FROM pagina p INNER JOIN permiso per ON p.idPagina=per.idPagina WHERE idRol=$this->idRol";
+    $conexion = $oConexion->conexion();
 
-    $result=mysqli_query($conexion,$sql);
+    $sql = "SELECT nombre FROM pagina p INNER JOIN permiso per ON p.idPagina=per.idPagina WHERE idRol=$this->idRol";
+
+    $result = mysqli_query($conexion, $sql);
     return mysqli_fetch_all($result, MYSQLI_ASSOC);
     return $result;
-    }
+  }
 
-    function eliminarPermisoDeRol($idRol){
+  function eliminarPermisoDeRol($idRol)
+  {
     //Instancia clase conectar
-    $oConexion=new conectar();
+    $oConexion = new conectar();
     //Establece conexion con la base de datos.
-    $conexion=$oConexion->conexion();
+    $conexion = $oConexion->conexion();
 
-    $sql="DELETE FROM permiso WHERE idRol=$idRol";
-    $result=mysqli_query($conexion,$sql);
+    $sql = "DELETE FROM permiso WHERE idRol=$idRol";
+    $result = mysqli_query($conexion, $sql);
     return $result;
-    }
+  }
 
-    function insertarPermisoDeRol($idRol,$idModulo,$idPagina){
+  function insertarPermisoDeRol($idRol, $idModulo, $idPagina)
+  {
     //Instancia clase conectar
-    $oConexion=new conectar();
+    $oConexion = new conectar();
     //Establece conexion con la base de datos.
-    $conexion=$oConexion->conexion();
-    
-    $sql="INSERT INTO permiso (idRol,idModulo,idPagina) VALUES ($idRol, $idModulo, $idPagina)";
+    $conexion = $oConexion->conexion();
 
-    $result=mysqli_query($conexion,$sql);
+    $sql = "INSERT INTO permiso (idRol,idModulo,idPagina) VALUES ($idRol, $idModulo, $idPagina)";
+
+    $result = mysqli_query($conexion, $sql);
     return $result;
-    }
+  }
 }
-?>

@@ -46,7 +46,7 @@ $oModulo = $oGestionController->consultarModuloId($_GET['idModulo']);
         </div>
       </div>
       <div class="card-footer cardFooter">
-        <a href="listarModulo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+        <a href="listarmodulo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
         <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i> Actualizar Modulo</button>
       </div>
     </form>

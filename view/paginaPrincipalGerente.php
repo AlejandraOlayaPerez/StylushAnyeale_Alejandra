@@ -20,7 +20,7 @@
                     <div class="icon">
                         <i class="fas fa-wine-bottle"></i>
                     </div>
-                    <a href="listarProducto.php" class="small-box-footer">
+                    <a href="listarproducto.php" class="small-box-footer">
                         Ver Lista <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="icon">
                         <i class="fas fa-user-friends"></i>
                     </div>
-                    <a href="listarUsuario.php" class="small-box-footer">
+                    <a href="listarusuario.php" class="small-box-footer">
                         Personal de trabajo <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -58,7 +58,7 @@
                     <div class="icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <a href="listarClientes.phpp" class="small-box-footer">
+                    <a href="listarclientes.phpp" class="small-box-footer">
                         Registro Clientes <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>

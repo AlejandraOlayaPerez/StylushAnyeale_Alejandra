@@ -211,7 +211,7 @@ if (isset($_GET['ventana'])) { //
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleProducto.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarProductos.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/comentario.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/comentario.min.js"></script>
 
 <script>
     var campo = document.getElementById("precio");

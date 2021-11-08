@@ -33,8 +33,14 @@ switch ($funcion) {
     case "comentariosProducto":
         $oClienteController->comentariosProducto();
         break;
+    case "comentarioCliente":
+        $oClienteController->comentarioCliente();
+        break;
     case "ajaxComentario":
         $oClienteController->ajaxComentario();
+        break;
+    case "comentarioClienteAjax":
+        $oClienteController->comentarioClienteAjax();
         break;
     case "respuestaPregunta":
         $oClienteController->respuestaPregunta();
@@ -46,7 +52,11 @@ switch ($funcion) {
 
 class clienteController
 {
-
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
     public function iniciarSesion()
     {
         require_once '../model/cliente.php';
@@ -316,12 +326,45 @@ class clienteController
         }
     }
 
+    public function comentarioCliente()
+    {
+        require_once '../model/comentarios.php';
+
+        $fechaComentario = Date("Y-m-d");
+        $horaComentario = Date("H:i:s");
+
+        $oComentario = new comentario();
+        $oComentario->idCliente = $_GET['idCliente'];
+        $oComentario->comentario = $_GET['comentario'];
+        $result = $oComentario->insertarComentarioCliente($fechaComentario, $horaComentario);
+
+        require_once 'mensajecontroller.php';
+        $oMensaje = new mensajes();
+
+        if ($result) {
+            header("location: ../view/paginaprincipalcliente.php?tipoMensaje=" . $oMensaje->tipoCorrecto . "&mensaje=Se+ha+agregado+el+comentario");
+            // echo "registro";
+        } else {
+            header("location: ../view/paginaprincipalcliente.php?tipoMensaje=" . $oMensaje->tipoError . "&mensaje=Se+ha+producido+un+error");
+            // echo "error";
+        }
+    }
+
     public function ajaxComentario()
     {
         require_once '../model/comentarios.php';
 
         $oComentario = new comentario();
         $result = $oComentario->listarComentario($_GET['idProducto'], $_GET['idCliente']);
+        echo json_encode($result);
+    }
+
+    public function comentarioClienteAjax()
+    {
+        require_once '../model/comentarios.php';
+
+        $oComentario = new comentario();
+        $result = $oComentario->listarComentarioCliente();
         echo json_encode($result);
     }
 

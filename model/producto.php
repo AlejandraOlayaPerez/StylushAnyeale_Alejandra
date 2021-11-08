@@ -3,6 +3,13 @@ require_once 'conexiondb.php';
 
 class producto
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $IdProducto = 0;
     public $idCategoria = "";
     public $codigoProducto = "";

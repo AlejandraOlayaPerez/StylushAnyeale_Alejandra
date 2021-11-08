@@ -1,4 +1,3 @@
-<?php require_once 'permisoscliente.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +17,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <a href="/Anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalcliente.php" class="brand-link">
-                        <img src="/Anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
+                        <img src="/anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
                         <h1 class="titulo">Stylush Anyeale<h1>
                     </a>
                 </div>
@@ -49,8 +48,8 @@
                         <?php } else {
                         ?>
                             <ul class="navbar-nav">
-                                <li class=" nav-item"><a class="estiloLi" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
-                                <li class="estiloLi nav-item"><a class="estiloLi" aria-current="page" href="registroCliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                                <li class=" nav-item"><a class="estiloLi" aria-current="page" href="logincliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
+                                <li class="estiloLi nav-item"><a class="estiloLi" aria-current="page" href="registrocliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
                             </ul>
                         <?php } ?>
                     </nav>

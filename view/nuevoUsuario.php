@@ -1,7 +1,7 @@
 <?php
 require_once 'headpagina.php';
 require_once '../model/usuario.php';
-require_once '../controller/usuarioController.php';
+require_once '../controller/usuariocontroller.php';
 $oUsuario = new usuario();
 $oUsuarioController = new usuarioController();
 if (isset($_POST['documentoIdentidad']) != "") {

@@ -114,12 +114,12 @@ function productoBusqueda(producto) {
     div2.role = "menu";
 
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarProducto.php?idProducto=" + producto['IdProducto'];
+    botonEditar.href = "formularioeditarproducto.php?idProducto=" + producto['IdProducto'];
     botonEditar.className = "dropdown-item";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';
 
     var botonSeguimiento = document.createElement("a");
-    botonSeguimiento.href = "seguimientoProducto.php?idProducto=" + producto['IdProducto'];
+    botonSeguimiento.href = "seguimientoproducto.php?idProducto=" + producto['IdProducto'];
     botonSeguimiento.className = "dropdown-item";
     botonSeguimiento.innerHTML = '<i class="fas fa-info"></i> Seguimiento';
 

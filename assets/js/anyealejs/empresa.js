@@ -98,7 +98,7 @@ function agregarEmpresa(empresa) {
 
     var tdBotones = document.createElement("td");
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarEmpresa.php?idEmpresa=" + empresa['idEmpresa'];
+    botonEditar.href = "formularioeditarempresa.php?idEmpresa=" + empresa['idEmpresa'];
     botonEditar.className = "btn btn-warning";
     botonEditar.style = "margin: 4px";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';

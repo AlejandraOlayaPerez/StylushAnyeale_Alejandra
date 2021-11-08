@@ -87,5 +87,5 @@
             </div>
         </div>
     </div>
-    <a href="listarFacturas.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+    <a href="listarfacturas.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
 </div>

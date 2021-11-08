@@ -5,6 +5,13 @@ require_once 'conexiondb.php';
 
 class modulo
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     //atributos de la tabla modulo
     public $idModulo = 0;
     public $nombreModulo = "";

@@ -95,7 +95,7 @@ function agregarCategoria(categoria) {
 
     var tdBotones = document.createElement("td");
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarCategoria.php?idCategoria=" + categoria['idCategoria'];
+    botonEditar.href = "formularioeditarcategoria.php?idCategoria=" + categoria['idCategoria'];
     botonEditar.className = "btn btn-warning";
     botonEditar.style = "margin: 4px";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';
@@ -111,7 +111,7 @@ function agregarCategoria(categoria) {
     botonEliminar.innerHTML = '<i class="fas fa-trash-alt"></i> Eliminar';
 
     var botonDetalle = document.createElement("a");
-    botonDetalle.href = "detalleCategoria.php?idCategoria=" + categoria['idCategoria'];
+    botonDetalle.href = "detallecategoria.php?idCategoria=" + categoria['idCategoria'];
     botonDetalle.className = "btn btn-info";
     botonDetalle.style = "margin: 4px";
     botonDetalle.innerHTML = '<i class="far fa-eye"></i> Detalle';

@@ -1,24 +1,32 @@
 <?php
 
-class correo{
+class correo
+{
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
     //funcion que me permite enviar el correo electronico
-    public function enviarCorreoMensaje($asunto,$mensaje,$correoDestino, $correoElectronico){
-        $header='MIME-Version: 1.0' . "\r\n";
-        $header.='Content-type: text/html; charset=utf-8' . "\r\n";
-        $header.="From: $correoElectronico"."\r\n ";
-        $header.="Reply-To: $correoElectronico"."\r\n";
-        $header.="X-Mailer: PHP/".phpversion();
-        $cuerpoMensaje="<html>";
-        $cuerpoMensaje.="<body>$mensaje</body>";
-        $cuerpoMensaje.="</html>";
-        $mail=mail($correoDestino,$asunto,$cuerpoMensaje,$header);
-        if($mail) echo "Se envió correctamente";
+    public function enviarCorreoMensaje($asunto, $mensaje, $correoDestino, $correoElectronico)
+    {
+        $header = 'MIME-Version: 1.0' . "\r\n";
+        $header .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $header .= "From: $correoElectronico" . "\r\n ";
+        $header .= "Reply-To: $correoElectronico" . "\r\n";
+        $header .= "X-Mailer: PHP/" . phpversion();
+        $cuerpoMensaje = "<html>";
+        $cuerpoMensaje .= "<body>$mensaje</body>";
+        $cuerpoMensaje .= "</html>";
+        $mail = mail($correoDestino, $asunto, $cuerpoMensaje, $header);
+        if ($mail) echo "Se envió correctamente";
         else echo "error al enviar";
     }
 
-    public function enviarCorreoCliente($correoDestino, $nombre, $correoElectronico,$asunto,$mensaje){
-        $asunto="Comentarios de clientes.";
-        $mensaje="
+    public function enviarCorreoCliente($correoDestino, $nombre, $correoElectronico, $asunto, $mensaje)
+    {
+        $asunto = "Comentarios de clientes.";
+        $mensaje = "
         <!DOCTYPE html>
         <html lang='es'>
 
@@ -67,11 +75,9 @@ class correo{
 </body>
 </html>
     ";
-    $url=$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"];
-    // $mensaje.="<a href='".$url."'>Click acá para restablecer la contraseña</a>";
-    $this->enviarCorreoMensaje($asunto,$mensaje,$correoDestino, $correoElectronico);
-    // echo $mensaje;
+        $url = $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+        // $mensaje.="<a href='".$url."'>Click acá para restablecer la contraseña</a>";
+        $this->enviarCorreoMensaje($asunto, $mensaje, $correoDestino, $correoElectronico);
+        // echo $mensaje;
     }
 }
-
-?>

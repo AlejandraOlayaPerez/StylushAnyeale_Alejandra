@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 date_default_timezone_set('America/Bogota');
 $fechaActual = Date("Y-m-d");
 
@@ -204,7 +204,7 @@ if (isset($_GET['vista'])) { //
     </div>
 
     <?php require_once 'footer.php'; ?>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/relogAutomatico.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/relogautomatico.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/cajero.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>

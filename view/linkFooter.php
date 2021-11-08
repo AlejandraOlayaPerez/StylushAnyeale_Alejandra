@@ -1,4 +1,4 @@
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery/jquery.min.js"></script>
+
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/dist/js/adminlte.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>

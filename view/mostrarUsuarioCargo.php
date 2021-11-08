@@ -59,7 +59,7 @@ $idCargo = $_GET['idCargo'];
 
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarUsuario.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarusuario.min.js"></script>
 <?php require_once 'footer.php'; ?>
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
@@ -70,10 +70,10 @@ $idCargo = $_GET['idCargo'];
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Esta seguro que desea eliminar al empleado?</p>
+                <p>¿Esta seguro que desea eliminar el usuario del cargo?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/cargoController.php" method="GET">
+                <form action="../controller/cargocontroller.php" method="GET">
                     <input type="text" name="idUser" id="eliminarEmpleado" style="display: none;">
                     <input type="text" name="idCargo" id="eliminarCargo" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -90,7 +90,7 @@ $idCargo = $_GET['idCargo'];
 <div class="modal fade" id="modal-empresa">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="../controller/usuarioController.php" method="GET">
+            <form action="../controller/usuariocontroller.php" method="GET">
                 <input type="text" id="idCargo" name="idCargo" value="<?php echo $_GET['idCargo']; ?>" style="display: none;">
                 <div class="modal-header estiloModalBody">
                     <h4 class="modal-title">Seleccionar Usuarios</h4>

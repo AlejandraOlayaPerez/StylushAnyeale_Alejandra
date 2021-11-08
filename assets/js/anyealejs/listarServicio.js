@@ -121,12 +121,12 @@ function agregarServicio(servicio) {
     div2.role = "menu";
 
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarServicio.php?idServicio=" + servicio['IdServicio'];
+    botonEditar.href = "formularioeditarservicio.php?idServicio=" + servicio['IdServicio'];
     botonEditar.className = "dropdown-item";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';
 
     var botonSeguimiento = document.createElement("a");
-    botonSeguimiento.href = "seguimientoServicio.php?idServicio=" + servicio['IdServicio'];
+    botonSeguimiento.href = "seguimientoservicio.php?idServicio=" + servicio['IdServicio'];
     botonSeguimiento.className = "dropdown-item";
     botonSeguimiento.innerHTML = '<i class="fas fa-info"></i> Seguimiento';
 

@@ -69,7 +69,7 @@ $fechaActual = Date("Y-m-d");
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/mostrarreservacion.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/nuevareservacion.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarFormFiltros.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarformfiltros.min.js"></script>
 
 
 
@@ -84,7 +84,7 @@ $fechaActual = Date("Y-m-d");
                 <p>¿La reservacion ya fue realizada?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/reservacionController.php" method="GET">
+                <form action="../controller/reservacioncontroller.php" method="GET">
                     <input type="text" name="idReservacion" id="validarReservacion" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="funcion" value="validarReservacion"><i class="fas fa-check-circle"></i> Reservacion relizada</button>
@@ -105,7 +105,7 @@ $fechaActual = Date("Y-m-d");
                 <p>¿Desea cancelar la reservacion?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/reservacionController.php" method="GET">
+                <form action="../controller/reservacioncontroller.php" method="GET">
                     <input type="text" name="idReservacion" id="reservacion" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success" name="funcion" value="cancelarReservacion"><i class="fas fa-trash-alt"></i> Cancelar Reservacion</button>

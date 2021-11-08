@@ -61,6 +61,11 @@ switch ($funcion) {
 
 class gestionController
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
 
     public function nuevoRol()
     {
@@ -164,7 +169,8 @@ class gestionController
         }
     }
 
-    public function buscarRol(){
+    public function buscarRol()
+    {
         require_once '../model/rol.php';
 
         $oRol = new rol();
@@ -176,7 +182,8 @@ class gestionController
         echo json_encode($datos);
     }
 
-    public function buscarUsuarioRol(){
+    public function buscarUsuarioRol()
+    {
         require_once '../model/rol.php';
 
         $oRol = new rol();
@@ -184,7 +191,7 @@ class gestionController
         echo $paginacion;
         $delimitador = "®";
         echo $delimitador;
-        $datos = $oRol->detalleRol($_GET['idRol'],$_GET['pagina']);
+        $datos = $oRol->detalleRol($_GET['idRol'], $_GET['pagina']);
         echo json_encode($datos);
     }
 
@@ -419,7 +426,7 @@ class gestionController
     public function mostrarModulo($idUser)
     {
         require_once '../model/usuario.php';
-        $oUsuario=new usuario();
+        $oUsuario = new usuario();
         $oUsuario = new usuario();
         $oUsuario->consultarUsuario($idUser);
         $idRol = $oUsuario->idRol;

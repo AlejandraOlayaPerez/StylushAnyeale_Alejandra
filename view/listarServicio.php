@@ -47,7 +47,7 @@ $oServicio = new servicio();
                             <th>Nombre Servicio</th>
                             <th>Duracion Servicio</th>
                             <th>Costo servicio</th>
-                            <th><a class="btn btn-info" href="nuevoServicio.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
+                            <th><a class="btn btn-info" href="nuevoservicio.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
                         </tr>
                     </thead>
                     <tbody id="listarServicios">
@@ -61,8 +61,8 @@ $oServicio = new servicio();
 
 </html>
 
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarFormFiltros.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarServicio.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarformfiltros.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarservicio.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <?php require_once 'footer.php'; ?>
@@ -79,7 +79,7 @@ $oServicio = new servicio();
                 <p>¿Esta seguro que desea eliminar el servicio?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/productoServicioController.php" method="GET">
+                <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="IdServicio" id="eliminarServicio" style="display: none;">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

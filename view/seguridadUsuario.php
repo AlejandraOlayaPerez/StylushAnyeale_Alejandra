@@ -6,19 +6,19 @@
             <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
             <div class="form-group">
                 <label for="">Contraseña Actual</label>
-                <input type="password" class="form-control" id="contrasenaActual" name="contrasenaActual" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                <input type="password" class="form-control" autocomplete="off" id="contrasenaActual" name="contrasenaActual" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                 <span id="contrasenaActualSpan"></span>
             </div>
 
             <div class="form-group">
                 <label for="">Nueva Contraseña</label>
-                <input type="password" class="form-control" id="contrasenaNueva" name="contrasenaNueva" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                <input type="password" class="form-control" autocomplete="off" id="contrasenaNueva" name="contrasenaNueva" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                 <span id="contrasenaNuevaSpan"></span>
             </div>
 
             <div class="form-group">
                 <label for="">Confirmar Contraseña</label>
-                <input type="password" class="form-control" id="confirmarContrasena" name="confirmarContrasena" autocomplete="false" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
+                <input type="password" class="form-control" autocomplete="off" id="confirmarContrasena" name="confirmarContrasena" autocomplete="false" onchange="validarCampo(this);" minlength="5" maxlength="15" required>
                 <span id="confirmarContrasenaSpan"></span>
             </div>
 

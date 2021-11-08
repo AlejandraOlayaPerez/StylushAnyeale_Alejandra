@@ -4,6 +4,13 @@ require_once 'conexiondb.php';
 
 class rol
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $idRol = 0;
     public $nombreRol = "";
     public $nombre = "";
@@ -47,7 +54,7 @@ class rol
         //Establece conexion con la base de datos.
         $conexion = $oConexion->conexion();
 
-        $sql="SELECT c.idCargo, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.IdServicio) as rol FROM cargo c WHERE c.eliminado=false";
+        $sql = "SELECT c.idCargo, (SELECT s.nombreServicio FROM servicios s WHERE s.IdServicio=c.IdServicio) as rol FROM cargo c WHERE c.eliminado=false";
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);

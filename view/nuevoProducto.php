@@ -56,7 +56,7 @@ $oProducto = new producto();
                     </div>
                     <br>
                     <button style="margin: 5px;" class="btn btn-info float-right" type="button" onclick="validarPagina1();"><i class="fas fa-arrow-circle-right"></i> Siguiente</button>
-                    <a href="listarProducto.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
+                    <a href="listarproducto.php" class="btn btn-dark"><i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <br>
                   </div>
 

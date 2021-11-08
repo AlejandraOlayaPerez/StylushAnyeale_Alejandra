@@ -61,13 +61,13 @@ if (isset($_GET['ventana'])) { //
                 <div class="col-7 col-sm-9">
                     <div class="tab-content" id="vert-tabs-tabContent">
                         <div class="tab-pane fade <?php if ($ventana == "foto") echo "active show"; ?>" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-                            <?php require_once 'perfilActualizacion.php'; ?>
+                            <?php require_once 'perfilactualizacion.php'; ?>
                         </div>
                         <div class="tab-pane fade <?php if ($ventana == "informacion") echo "active show"; ?>" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
-                            <?php require_once 'informacionUsuario.php'; ?>
+                            <?php require_once 'informacionusuario.php'; ?>
                         </div>
                         <div class="tab-pane fade <?php if ($ventana == "seguridad") echo "active show"; ?>" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
-                            <?php require_once 'seguridadUsuario.php'; ?>
+                            <?php require_once 'seguridadusuario.php'; ?>
                         </div>
                         <div class="tab-pane fade <?php if ($ventana == "roles") echo "active show"; ?>" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
                             <?php require_once 'rolusuario.php'; ?>

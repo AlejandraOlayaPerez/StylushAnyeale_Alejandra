@@ -11,7 +11,7 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
   <div class="container-fluid">
     <div class="card">
       <div class="card-header cardHeaderFondo">
-        <label class="card-title">Nuevo Cargo</label>
+        <label class="card-title">Editar Cargo</label>
       </div>
       <form action="../controller/cargocontroller.php" method="GET" id="formUsuario">
         <div class="card-body cardBody">
@@ -43,7 +43,7 @@ $oCargo = $oCargoController->consultarCargoPorId($_GET['idCargo']);
           </div>
         </div>
         <div class="card-footer cardFooter">
-          <a href="listarCargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+          <a href="listarcargo.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
           <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i> Actualizar Cargo</button>
         </div>
       </form>

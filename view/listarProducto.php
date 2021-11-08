@@ -59,7 +59,7 @@ $oProducto = new producto();
                             <th>Producto</th>
                             <th>Cantidad</th>
                             <th>Precio</th>
-                            <th><a class="btn btn-info" href="nuevoProducto.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
+                            <th><a class="btn btn-info" href="nuevoproducto.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
                         </tr>
                     </thead>
                     <tbody id="productosBusqueda">
@@ -73,7 +73,7 @@ $oProducto = new producto();
 
 </html>
 
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarProducto.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarproducto.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <?php require_once 'footer.php'; ?>
@@ -89,7 +89,7 @@ $oProducto = new producto();
                 <p>¿Esta seguro que desea eliminar el producto?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/productoServicioController.php" method="GET">
+                <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="IdProducto" id="eliminarProducto" style="display:none">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>

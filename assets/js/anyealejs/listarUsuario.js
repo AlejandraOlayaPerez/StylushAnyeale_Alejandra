@@ -115,7 +115,7 @@ function usuario(user) {
     botonDeshabilitar.innerHTML = '<i class="fas fa-user-slash"></i> Deshabilitar';
 
     var botonHabilitar = document.createElement("a");
-    botonHabilitar.href = "../controller/usuarioController.php?funcion=habilitarDeshabilitarUsuario&habilitar=true&idUser=" + user['idUser'];
+    botonHabilitar.href = "../controller/usuariocontroller.php?funcion=habilitarDeshabilitarUsuario&habilitar=true&idUser=" + user['idUser'];
     botonHabilitar.className = "btn btn-info";
     botonHabilitar.innerHTML = '<i class="far fa-user"></i> Habilitar';
 

@@ -5,16 +5,12 @@ function cargarJS() {
 }
 
 function listarComentario() {
-    var idProducto = document.getElementById("idProducto").value;
-    var idCliente = document.getElementById("idCliente").value;
 
     $.ajax({
         url: '../controller/clientecontroller.php',
         type: 'GET',
         data: {
-            idProducto: idProducto,
-            idCliente: idCliente,
-            funcion: "ajaxComentario"
+            funcion: "comentarioClienteAjax"
         }
     }).done(function (data) {
         // console.log(data);
@@ -29,6 +25,7 @@ function listarComentario() {
         }
     })
 }
+
 
 function comentario(datos) {
 
@@ -50,7 +47,7 @@ function comentario(datos) {
 
     var nombre = document.createElement("a");
     nombre.className = "message-author";
-    nombre.innerHTML = datos['primerNombre'] + " "+ datos['primerApellido'];
+    nombre.innerHTML = datos['primerNombre'] +" " +datos['primerApellido'];
 
     var spanDate = document.createElement("span");
     spanDate.className = "message-date";
@@ -67,7 +64,6 @@ function comentario(datos) {
     spanResponder.addEventListener('click', function () {
         responderComentario(this);
     });
-    // spanResponder.href="";
 
     mensaje.appendChild(nombre);
     mensaje.appendChild(spanDate);

@@ -34,7 +34,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                     <div class="col-7 col-sm-9">
                         <div class="tab-content" id="vert-tabs-tabContent">
                             <div class="tab-pane text-left fade show <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-                                <form action="../controller/pedidoController.php" method="GET">
+                                <form action="../controller/pedidocontroller.php" method="GET">
                                     <input type="text" name="idPedido" value="<?php echo $idPedido; ?>" style="display: none;">
                                     <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">
                                     <input class="form-control" type="date" name="fechaPedido" value="<?php echo $oPedido->fechaPedido; ?>" style="display: none;">
@@ -71,7 +71,7 @@ $oPedido = $oPedidoController->consultarPedidoId($idPedido);
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "producto") echo "active"; ?>" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
-                                <form id="formulario" id="" action="../controller/pedidoController.php" method="GET" novalidate>
+                                <form id="formulario" id="" action="../controller/pedidocontroller.php" method="GET" novalidate>
                                     <input type="text" name="funcion" value="actualizarPedidoProducto" style="display: none;">
                                     <input type="text" name="idPedido" value="<?php echo $idPedido; ?>" style="display: none;">
                                     <input type="text" name="idUser" value="<?php echo $idUser; ?>" style="display: none;">

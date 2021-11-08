@@ -178,7 +178,7 @@ $oReservacion = new reservacion();
     </div>
 
     <?php require_once 'footer.php'; ?>
-    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioEstilista.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioestilista.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/reservacion.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/direccion.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>

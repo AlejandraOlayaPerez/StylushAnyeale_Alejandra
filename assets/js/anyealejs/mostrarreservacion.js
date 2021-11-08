@@ -90,7 +90,7 @@ function reservas(reservacion) {
     div2.role = "menu";
 
     var botonEditar = document.createElement("a");
-    botonEditar.href = "editarReservacion.php?idReservacion=" + reservacion['idReservacion'] + "&idCliente=" + reservacion['idCliente'];
+    botonEditar.href = "editarreservacion.php?idReservacion=" + reservacion['idReservacion'] + "&idCliente=" + reservacion['idCliente'];
     botonEditar.className = "dropdown-item";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';
 

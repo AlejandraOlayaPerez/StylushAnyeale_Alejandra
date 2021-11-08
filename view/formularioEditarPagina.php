@@ -61,7 +61,7 @@ $oPagina = $oGestionController->consultarPaginaId($_GET['idPagina']);
           </div>
         </div>
         <div class="card-footer cardFooter">
-          <a href="listarPagina.php?idModulo=<?php echo $oPagina->idModulo; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+          <a href="listarpagina.php?idModulo=<?php echo $oPagina->idModulo; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
           <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="fas fa-edit"></i> Actualizar Pagina</button>
         </div>
       </form>

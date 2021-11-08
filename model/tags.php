@@ -3,6 +3,12 @@ require_once 'conexiondb.php';
 
 class tags
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $idTags = 0;
     public $tags = "";
 
@@ -50,7 +56,8 @@ class tags
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
-    function tags(){
+    function tags()
+    {
         //instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos

@@ -36,7 +36,7 @@ $oEmpresa = $oPedidoController->consultarEmpresaId($idEmpresa);
                     </div>
                 </div>
                 <div class="card-footer cardBody">
-                    <a href="listarEmpresa.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                    <a href="listarempresa.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                     <button type="button" class="btn btn-success" onclick="validarPaginaFinal();"><i class="far fa-save"></i> Registrar Empresa</button>
                 </div>
             </form>

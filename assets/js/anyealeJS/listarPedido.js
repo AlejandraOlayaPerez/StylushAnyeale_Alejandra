@@ -145,12 +145,12 @@ function agregarPedido(pedido) {
     div2.role = "menu";
 
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarPedido.php?idPedido=" + pedido['idPedido'];
+    botonEditar.href = "formularioeditarpedido.php?idPedido=" + pedido['idPedido'];
     botonEditar.className = "dropdown-item";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';
 
     var botonSeguimiento = document.createElement("a");
-    botonSeguimiento.href = "seguimientoPedido.php?idPedido=" + pedido['idPedido'];
+    botonSeguimiento.href = "seguimientopedido.php?idPedido=" + pedido['idPedido'];
     botonSeguimiento.className = "dropdown-item";
     botonSeguimiento.innerHTML = '<i class="fas fa-info"></i> Seguimiento';
 
@@ -176,7 +176,7 @@ function agregarPedido(pedido) {
 
     var botonPDF = document.createElement("a");
     botonPDF.className = "dropdown-item";
-    botonPDF.href = "detallePedido.php?idPedido=" + pedido['idPedido'];
+    botonPDF.href = "detallepedido.php?idPedido=" + pedido['idPedido'];
     botonPDF.innerHTML = '<i class="fas fa-eye"></i> Vista Pedido';
 
 

@@ -38,7 +38,7 @@ $oEmpresa = new empresa();
                             <th>Nit</th>
                             <th>Empresa</th>
                             <th>Dirección</th>
-                            <th><a class="btn btn-info" href="nuevaEmpresa.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
+                            <th><a class="btn btn-info" href="nuevaempresa.php"><i class="fas fa-plus-square"></i> Nuevo</a></th>
                         </tr>
                     </thead>
                     <tbody id="listarEmpresa">
@@ -69,7 +69,7 @@ $oEmpresa = new empresa();
                 <p>¿Esta seguro que desea eliminar la empresa?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/pedidoController.php" method="GET">
+                <form action="../controller/pedidocontroller.php" method="GET">
                     <input type="text" name="idEmpresa" id="eliminarEmpresa" style="display:none">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarEmpresa"><i class="fas fa-trash-alt"></i> Eliminar</button>

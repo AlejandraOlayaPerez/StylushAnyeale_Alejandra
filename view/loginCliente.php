@@ -1,13 +1,3 @@
-<?php
-//si no esta definida o no tiene valor e redirige al login
-//en caso contrario no hace nada
-
-session_start();
-if (isset($_SESSION['idCliente'])) {
-    header("location: paginaprincipalcliente.php");
-    die(); // es para recomendado cuando se hace una rederigir, destruir o cerrar la pagina actual.
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -36,7 +26,7 @@ if (isset($_SESSION['idCliente'])) {
                 <br>
                 <p class="login-box-msg">Inicia sesión en cliente</p>
 
-                <form action="../controller/clienteController.php" method="POST" id="formulario">
+                <form action="../controller/clientecontroller.php" method="POST" id="formulario">
                     <input type="text" name="funcion" value="iniciarSesion" style="display: none;">
                     <input type="text" name="url" value="<?php if (isset($_GET['url'])) {
                                                                 echo $_GET['url'];
@@ -68,6 +58,7 @@ if (isset($_SESSION['idCliente'])) {
 
 </body>
 
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery/jquery.min.js"></script>
 <?php require_once 'linkfooter.php'; ?>
 
 </html>

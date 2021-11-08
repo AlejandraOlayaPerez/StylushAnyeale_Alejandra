@@ -68,7 +68,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="formUsuario" action="../controller/productoServicioController.php" method="GET" novalidate>
+                <form id="formUsuario" action="../controller/productoserviciocontroller.php" method="GET" novalidate>
                     <input type="text" name="funcion" value="actualizarCantidad" style="display: none;">
                     <div class="modal-body estiloModalBody">
                         <div class="row">

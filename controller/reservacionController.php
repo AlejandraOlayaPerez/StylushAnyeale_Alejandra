@@ -37,6 +37,12 @@ switch ($funcion) {
 
 class reservacionController
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $tipoMensaje = "";
     public $mensaje = "";
 

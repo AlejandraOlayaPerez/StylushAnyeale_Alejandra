@@ -3,6 +3,11 @@ require_once 'conexiondb.php';
 
 class cargo
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
 
     //atributos de la tabla de cargo
     public $idCargo = 0;

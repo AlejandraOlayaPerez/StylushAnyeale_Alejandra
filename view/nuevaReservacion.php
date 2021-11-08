@@ -193,11 +193,13 @@
       </div>
     </div>
 
+
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery/jquery.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/horarioEstilista.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/reservacion.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/direccion.min.js"></script>
     <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.min.js"></script>
-    <?php require_once 'linkFooter.php'; ?>
+    <?php require_once 'linkfooter.php'; ?>
     </div>
     <?php require_once 'footercliente.php'; ?>
 

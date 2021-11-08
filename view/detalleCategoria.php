@@ -49,7 +49,7 @@ $oCategoria = $oProductoServicioController->consultarCategoria($_GET['idCategori
 </body>
 
 </html>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleCategoria.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detallecategoria.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <?php require_once 'footer.php'; ?>

@@ -3,6 +3,12 @@ require_once 'conexiondb.php';
 
 class usuario
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+    
     //el modificador private no permite acceder a los atributos fuera de la clase
     //atributos del modelo usuario
     //$idUser almacenara el id del usuario en la base de datos

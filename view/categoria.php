@@ -30,7 +30,7 @@
                 <thead>
                     <tr class="estiloTr">
                         <th>Categoria</th>
-                        <th><a class="btn btn-info" href="nuevaCategoria.php"><i class="fas fa-plus-square"></i> Crear Categoria</a></th>
+                        <th><a class="btn btn-info" href="nuevacategoria.php"><i class="fas fa-plus-square"></i> Crear Categoria</a></th>
                     </tr>
                 </thead>
                 <tbody id="categoria">
@@ -39,7 +39,7 @@
             </table>
         </div>
     </div>
-    <a href="listarProducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+    <a href="listarproducto.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
 </div>
 </body>
 
@@ -56,7 +56,7 @@
                 <p>¿Esta seguro que desea eliminar la categoria?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/productoServicioController.php" method="GET">
+                <form action="../controller/productoserviciocontroller.php" method="GET">
                     <input type="text" name="idCategoria" id="eliminarCategoria" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarCategoria"><i class="fas fa-trash-alt"></i> Eliminar</button>

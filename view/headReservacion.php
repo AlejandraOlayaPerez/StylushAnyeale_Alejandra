@@ -1,5 +1,4 @@
 <?php 
-require_once 'permisoscliente.php';
 date_default_timezone_set('America/Bogota');
 $fechaActual = Date("Y-m-d");
 ?>
@@ -7,7 +6,7 @@ $fechaActual = Date("Y-m-d");
 <html lang="en">
 
 <head>
-    <?php require_once 'linkHead.php'; ?>
+    <?php require_once 'linkhead.php'; ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,7 +77,7 @@ $fechaActual = Date("Y-m-d");
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-expand-lg navbar-light cabecera">
-                        <a class="nav-item nav-link titulo" href="paginaPrincipalCliente.php"><i class="fas fa-home"></i> INICIO</a>
+                        <a class="nav-item nav-link titulo" href="paginaprincipalcliente.php"><i class="fas fa-home"></i> INICIO</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>

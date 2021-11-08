@@ -63,6 +63,13 @@ switch ($funcion) {
 
 class pedidoController
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public function validarPedido()
     {
         require_once '../model/pedido.php';

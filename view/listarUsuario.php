@@ -53,7 +53,7 @@
                             <th>CorreoElectronico</th>
                             <th>Rol</th>
                             <th>Habilitado</th>
-                            <th><a class="btn btn-info" href="nuevoUsuario.php"><i class="fas fa-user-plus"></i> Registrar Usuario</a></th>
+                            <th><a class="btn btn-info" href="nuevousuario.php"><i class="fas fa-user-plus"></i> Registrar Usuario</a></th>
                         </tr>
                     </thead>
                     <tbody id="usuario">
@@ -69,7 +69,8 @@
 <?php require_once 'linkfooter.php'; ?>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/eliminar.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarUsuario.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/limpiarformfiltros.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/listarusuario.min.js"></script>
 
 
 <div class="modal fade" id="eliminarFormulario" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
@@ -83,7 +84,7 @@
                 <p>¿Esta seguro que desea Deshabilitar el usuario?</p>
             </div>
             <div class="modal-footer">
-                <form action="../controller/usuarioController.php" method="GET">
+                <form action="../controller/usuariocontroller.php" method="GET">
                     <input type="text" name="idUser" id="eliminarUser" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <input type="text" name="habilitar" value="false" style="display: none;">

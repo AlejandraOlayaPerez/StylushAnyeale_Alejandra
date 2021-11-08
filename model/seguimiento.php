@@ -3,6 +3,13 @@ require_once 'conexiondb.php';
 
 class seguimiento
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $idSeguimiento = 0;
     public $idPedido = "";
     public $idProducto = "";
@@ -40,7 +47,6 @@ class seguimiento
 
         //se ejecuta la consulta en la base de datos
         $result = mysqli_query($conexion, $sql);
-        echo $sql;
         return $result;
     }
 
@@ -182,7 +188,8 @@ class seguimiento
         return $result;
     }
 
-    function seguimientoEliminarServicio($fechaSeguimiento, $horaSeguimiento){
+    function seguimientoEliminarServicio($fechaSeguimiento, $horaSeguimiento)
+    {
         //instancia la clase conectar
         $oConexion = new conectar();
         //se establece la conexión con la base datos

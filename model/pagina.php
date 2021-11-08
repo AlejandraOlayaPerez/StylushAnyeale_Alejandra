@@ -4,6 +4,13 @@ require_once 'conexiondb.php';
 
 class pagina
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     //atributos de la tabla pagina
     public $idPagina = 0;
     public $idModulo = "";
@@ -157,7 +164,7 @@ class pagina
         //consulta para retornar un solo registro
 
         $sql = "SELECT * FROM pagina p INNER JOIN permiso per ON p.idPagina=per.IdPagina WHERE 
-        p.idModulo=$idModulo AND p.menu=true AND per.idRol=$idRol AND P.eliminado=false";
+        p.idModulo=$idModulo AND p.menu=true AND per.idRol=$idRol AND p.eliminado=false";
 
         $result = mysqli_query($conexion, $sql);
         $result = mysqli_fetch_all($result, MYSQLI_ASSOC);

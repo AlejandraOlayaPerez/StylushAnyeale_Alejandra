@@ -1,5 +1,5 @@
 <?php
-require_once 'headPagina.php';
+require_once 'headpagina.php';
 require_once '../model/modulo.php';
 
 $oModulo = new modulo();
@@ -24,7 +24,7 @@ $oModulo = new modulo();
                     <thead>
                         <tr class="estiloTr">
                             <th>Nombre_Modulo</th>
-                            <th><a class="btn btn-info" href="nuevoModulo.php"><i class="fas fa-plus-square"></i> Nuevo Modulo</a></th>
+                            <th><a class="btn btn-info" href="nuevomodulo.php"><i class="fas fa-plus-square"></i> Nuevo Modulo</a></th>
                         </tr>
                     </thead>
                     <tbody id="listarModulo">
@@ -55,7 +55,7 @@ $oModulo = new modulo();
                 <p>¿Esta seguro que desea eliminar el modulo?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/gestionController.php" method="GET">
+                <form action="../controller/gestioncontroller.php" method="GET">
                     <input type="text" name="idModulo" id="eliminarModulo" style="display:none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger" name="funcion" value="eliminarModulo"><i class="fas fa-trash-alt"></i> Eliminar</button>

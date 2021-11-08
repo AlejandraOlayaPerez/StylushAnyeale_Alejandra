@@ -3,7 +3,7 @@ function cliente() {
     var documentoIdentidad = document.getElementById("documentoIdentidad2").value;
 
     $.ajax({
-        url: '../controller/clienteController.php',
+        url: '../controller/clientecontroller.php',
         type: 'GET',
         data: {
             tipoDocumento: tipoDocumento,

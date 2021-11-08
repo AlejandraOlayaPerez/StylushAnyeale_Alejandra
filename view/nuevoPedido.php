@@ -21,7 +21,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                         <label class="card-title">Nuevo Pedido</label>
                     </div>
 
-                    <form action="../controller/pedidoController.php" method="GET" id="formulario">
+                    <form action="../controller/pedidocontroller.php" method="GET" id="formulario">
                         <input type="text" name="funcion" value="nuevoPedido" style="display: none;">
                         <div class="card-body cardBody">
                             <div class="bs-stepper">
@@ -159,7 +159,7 @@ $oUsuario = $oUsuarioController->consultarUsuarioId($idUser);
                 <table class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
-                            <th><a class="btn btn-info" href="nuevaEmpresa.php?pedido=pedido"><i class="fas fa-plus-square"></i> Crear</a></th>
+                            <th><a class="btn btn-info" href="nuevaempresa.php?pedido=pedido"><i class="fas fa-plus-square"></i> Crear</a></th>
                             <th>Nit</th>
                             <th>Empresa</th>
                             <th>Direccion</th>

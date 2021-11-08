@@ -2,6 +2,12 @@
 <?php
 class icono
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+    
     public $home = "fas fa-home";
     public $desHome = "&#xf015;";
     public $cajero = "fas fa-dollar-sign";
@@ -56,8 +62,10 @@ class icono
 
     public function mostrarIcono()
     {
-        $iconos = ["icono" => $this->home, $this->cajero, $this->cargo, $this->cliente, $this->configuracion, $this->inventario,
-    $this->producto, $this->reservacion, $this->servicio];
+        $iconos = [
+            "icono" => $this->home, $this->cajero, $this->cargo, $this->cliente, $this->configuracion, $this->inventario,
+            $this->producto, $this->reservacion, $this->servicio
+        ];
 
         return $iconos;
     }

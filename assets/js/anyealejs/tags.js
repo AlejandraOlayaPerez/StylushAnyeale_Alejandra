@@ -95,7 +95,7 @@ function agregarTags(tags) {
 
     var tdBotones = document.createElement("td");
     var botonEditar = document.createElement("a");
-    botonEditar.href = "formularioEditarTags.php?idTags=" + tags['idTags'];
+    botonEditar.href = "formularioeditartags.php?idTags=" + tags['idTags'];
     botonEditar.className = "btn btn-warning";
     botonEditar.style = "margin: 4px";
     botonEditar.innerHTML = '<i class="fas fa-edit"></i> Editar';

@@ -53,7 +53,7 @@ function mostrarProducto(datos) {
     divFooter.className = "card-footer cardProducto";
 
     var botonDetalle = document.createElement("a");
-    botonDetalle.href = "detalleProducto.php?idProducto=" + datos['IdProducto'];
+    botonDetalle.href = "detalleproducto.php?idProducto=" + datos['IdProducto'];
     botonDetalle.className = "btn btn-info";
     botonDetalle.innerHTML = "<i class='fas fa-info-circle'></i> Detalle"
 

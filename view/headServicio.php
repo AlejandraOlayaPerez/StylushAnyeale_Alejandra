@@ -1,5 +1,3 @@
-<?php require_once 'permisoscliente.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +17,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <a href="/Anyeale_proyecto/stylushanyeale_alejandra/view/paginaprincipalcliente.php" class="brand-link">
-                        <img src="/Anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
+                        <img src="/anyeale_proyecto/stylushanyeale_alejandra/image/logo.png" id="img" class="brand-image img-circle elevation-3">
                         <h1 class="titulo">Stylush Anyeale<h1>
                     </a>
                 </div>
@@ -50,8 +48,8 @@
                         <?php } else {
                         ?>
                             <ul class="navbar-nav">
-                                <li class=" nav-item"><a class="estiloLi" aria-current="page" href="loginCliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
-                                <li class="estiloLi nav-item"><a class="estiloLi" aria-current="page" href="registroCliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
+                                <li class=" nav-item"><a class="estiloLi" aria-current="page" href="logincliente.php"><i class="fas fa-sign-in-alt"></i> Iniciar sesion</a></li>
+                                <li class="estiloLi nav-item"><a class="estiloLi" aria-current="page" href="registrocliente.php"><i class="fas fa-user-plus"></i> Registrarse</a></li>
                             </ul>
                         <?php } ?>
                     </nav>
@@ -61,7 +59,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <nav class="navbar navbar-expand-lg navbar-light cabecera">
-                        <a class="nav-item nav-link titulo" href="paginaPrincipalCliente.php"><i class="fas fa-home"></i> INICIO</a>
+                        <a class="nav-item nav-link titulo" href="paginaprincipalcliente.php"><i class="fas fa-home"></i> INICIO</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>

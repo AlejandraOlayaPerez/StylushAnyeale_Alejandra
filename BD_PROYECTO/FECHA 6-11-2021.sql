@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2021 a las 17:01:07
+-- Tiempo de generación: 06-11-2021 a las 20:35:16
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.10
 
@@ -41,7 +41,8 @@ INSERT INTO `cargo` (`idCargo`, `IdServicio`, `eliminado`) VALUES
 (1, 67898463, 0),
 (2, 253732436, 0),
 (3, 465617173, 0),
-(4, 776220398, 0);
+(4, 776220398, 0),
+(5, 514517558, 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,8 @@ INSERT INTO `categoria` (`idCategoria`, `nombreCategoria`, `eliminado`) VALUES
 (12, 'Tratamientos', 0),
 (13, 'Depilacion', 0),
 (14, 'maquillaje', 0),
-(15, 'pielBonita', 0);
+(15, 'pielBonita', 0),
+(16, 'locion', 1);
 
 -- --------------------------------------------------------
 
@@ -105,7 +107,9 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`idCliente`, `tipoDocumento`, `documentoIdentidad`, `primerNombre`, `segundoNombre`, `primerApellido`, `segundoApellido`, `fechaNacimiento`, `genero`, `direccion`, `barrio`, `email`, `contrasena`, `telefono`, `eliminado`) VALUES
-(1, 'CC', 1006700633, 'Jimena', 'Alejandra', 'Olaya', 'Perez', '2001-11-14', 'Femenino', 'Crr 18 n 24 a 34', 'Progreso', 'alejandra@gmail.com', 'cdf556a23ca4ec4a1bdaa15abd729dbd', '3204495486', 0);
+(1, 'CC', 1006700633, 'Jimena', 'Alejandra', 'Olaya', 'Perez', '1998-05-12', 'Masculino', 'Crr 18 n 24 a 34', 'Progreso', 'alejandra@gmail.com', 'cdf556a23ca4ec4a1bdaa15abd729dbd', '3204495486', 0),
+(2, 'CC', 41242518, 'Jimena', '', 'Perez', '', '0000-00-00', '', '', '', 'olgaperez@gmail.com', '5e8224b5768cec92368afd4ab46d32a3', '', 0),
+(3, 'CC', 1075270557, 'Carlos ', '', 'Cadena', '', '0000-00-00', '', '', '', 'cjsarasty@gmail.com', '29849a76df75a984b2940624c769329b', '', 0);
 
 -- --------------------------------------------------------
 
@@ -123,6 +127,14 @@ CREATE TABLE `comentario` (
   `fechaComentario` date NOT NULL,
   `horaComentario` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `comentario`
+--
+
+INSERT INTO `comentario` (`idPregunta`, `idProducto`, `idUser`, `idCliente`, `pregunta`, `idRespuesta`, `fechaComentario`, `horaComentario`) VALUES
+(1, 268916690, NULL, 1, 'Soy la primera en comentar :)', NULL, '2021-11-02', '14:49:31'),
+(2, 268916690, NULL, 1, ':)', 1, '2021-11-02', '14:49:46');
 
 -- --------------------------------------------------------
 
@@ -149,8 +161,8 @@ CREATE TABLE `detalle` (
 --
 
 INSERT INTO `detalle` (`idDetalleFactura`, `idProducto`, `idFactura`, `idPedido`, `IdServicio`, `idReservacion`, `codigoProducto`, `producto`, `cantidad`, `precio`, `eliminado`) VALUES
-(1, 764196012, NULL, NULL, 253732436, NULL, '000023', 'Kativa Alisado Brasileño Cabello Natural', 2, 61000.00, 0),
-(2, 15652646, NULL, NULL, 253732436, NULL, '000014', 'Youthair Crema Cabello Anti Canas Oscurece De Mane', 2, 34900.00, 0),
+(1, 764196012, NULL, NULL, 253732436, NULL, '000023', 'Kativa Alisado Brasileño Cabello Natural', 2, 61000.00, 1),
+(2, 15652646, NULL, NULL, 253732436, NULL, '000014', 'Youthair Crema Cabello Anti Canas Oscurece De Mane', 2, 34900.00, 1),
 (3, 112073075, NULL, NULL, 776220398, NULL, '000041', 'Crema Para Peinar Elvive Acido Hialuronic - mL a $', 2, 11200.00, 0),
 (4, 916795615, NULL, NULL, 961923468, NULL, '000043', 'Crema Para Peinar Elvive Reparación Tota - mL a $3', 2, 9000.00, 0),
 (5, 916795615, NULL, NULL, 956180931, NULL, '000043', 'Crema Para Peinar Elvive Reparación Tota - mL a $3', 2, 9000.00, 0),
@@ -166,7 +178,36 @@ INSERT INTO `detalle` (`idDetalleFactura`, `idProducto`, `idFactura`, `idPedido`
 (15, 480392225, NULL, 45001408, NULL, NULL, '000003', 'Base Forti Uñas', 1, 10000.00, 0),
 (16, 268916690, 528922499, NULL, NULL, NULL, '000001', 'Color Gel Semipermanente Uñas', 4, 99999.99, 1),
 (17, 16360263, 528922499, NULL, NULL, NULL, '000002', 'Base Y Top Coat Para Semipermanente', 2, 30000.00, 0),
-(18, 480392225, 528922499, NULL, NULL, NULL, '000003', 'Base Forti Uñas', 3, 10000.00, 0);
+(18, 480392225, 528922499, NULL, NULL, NULL, '000003', 'Base Forti Uñas', 3, 10000.00, 0),
+(19, 268916690, 256907318, NULL, NULL, NULL, '000001', 'Color Gel Semipermanente Uñas', 3, 20000.00, 0),
+(20, 480392225, 256907318, NULL, NULL, NULL, '000003', 'Base Forti Uñas', 5, 10000.00, 0),
+(21, 15069579, 609603326, NULL, NULL, NULL, '000028', 'Fibras Capilares Queratina 27.5gr. Toppik ', 2, 23000.00, 0),
+(22, 16360263, 609603326, NULL, NULL, NULL, '000002', 'Base Y Top Coat Para Semipermanente', 2, 30000.00, 0),
+(23, 24525899, 609603326, NULL, NULL, NULL, '000017', 'Loreal Tinte Majicontrast Rojo', 1, 19300.00, 0),
+(24, 480392225, NULL, 708377525, NULL, NULL, '000003', 'Base Forti Uñas', 2, 10000.00, 1),
+(25, 822314731, NULL, 708377525, NULL, NULL, '000004', 'Brillo Matificante Vogue Fantastic', 1, 3400.00, 1),
+(26, 759726823, NULL, 708377525, NULL, NULL, '000005', 'Matificante De Color Para Uñas Esmalte Uv Led', 1, 17000.00, 1),
+(27, 404242146, NULL, 708377525, NULL, NULL, '000006', 'Matificante De Color Para Uñas Esmalte Uv Led', 1, 99999.99, 1),
+(28, 19790671, NULL, 708377525, NULL, NULL, '000007', 'Esmaltes Checo', 1, 55000.00, 1),
+(29, 689669391, NULL, 708377525, NULL, NULL, '000031', 'Crema Facial Bb Cream Smart - g ', 1, 15000.00, 0),
+(30, 327905705, NULL, 708377525, NULL, NULL, '000042', 'Crema Termoprotectora Reparación Absolut 150ml', 5, 30000.00, 0),
+(31, 711652868, NULL, 708377525, NULL, NULL, '000044', 'Crema Para Peinar Termoprotect Liss Unl - mL a $58', 1, 88000.00, 0),
+(32, 629323921, NULL, 708377525, NULL, NULL, '000035', 'Combo Labiales Nailen Larga Duración ', 2, 26000.00, 0),
+(33, 480392225, 805891121, NULL, NULL, NULL, '000003', 'Base Forti Uñas', 5, 10000.00, 0),
+(34, 822314731, 805891121, NULL, NULL, NULL, '000004', 'Brillo Matificante Vogue Fantastic', 5, 3400.00, 0),
+(35, 15069579, 805891121, NULL, NULL, NULL, '000028', 'Fibras Capilares Queratina 27.5gr. Toppik ', 1, 23000.00, 0),
+(36, 480392225, NULL, NULL, 429544851, NULL, '000003', 'Base Forti Uñas', 6, 10000.00, 0),
+(37, 404242146, NULL, NULL, 429544851, NULL, '000006', 'Matificante De Color Para Uñas Esmalte Uv Led', 2, 15000.00, 0),
+(38, 19790671, NULL, NULL, 253732436, NULL, '000007', 'Esmaltes Checo', 6, 55000.00, 0),
+(39, 805973408, NULL, NULL, 253732436, NULL, '000008', 'Base Uñas Rodher Extracto Ajo', 1, 3400.00, 0),
+(40, 559768614, NULL, 340624864, NULL, NULL, '000001', 'Loreal Tinte Majicontrast Rojo', 6, 20000.00, 0),
+(41, 16360263, NULL, 340624864, NULL, NULL, '000002', 'Base Y Top Coat Para Semipermanente', 1, 30000.00, 0),
+(42, 480392225, NULL, 340624864, NULL, NULL, '000003', 'Base Forti Uñas', 1, 10000.00, 0),
+(43, 822314731, NULL, 340624864, NULL, NULL, '000004', 'Brillo Matificante Vogue Fantastic', 1, 3400.00, 0),
+(44, 759726823, NULL, 340624864, NULL, NULL, '000005', 'Matificante De Color Para Uñas Esmalte Uv Led', 1, 17000.00, 0),
+(45, 759726823, NULL, NULL, 332716092, NULL, '000005', 'Matificante De Color Para Uñas Esmalte Uv Led', 1, 17000.00, 0),
+(46, 19790671, NULL, NULL, 332716092, NULL, '000007', 'Esmaltes Checo', 1, 55000.00, 0),
+(47, 940295018, NULL, NULL, 332716092, NULL, '000011', 'Arobell Remobedor De Callos ', 1, 10900.00, 0);
 
 -- --------------------------------------------------------
 
@@ -499,7 +540,35 @@ INSERT INTO `detallefoto` (`idFoto`, `idProducto`, `IdServicios`, `idUser`, `idC
 (307, 575604567, NULL, NULL, NULL, 'image/575604567/3.jpg', '', '', ''),
 (308, 575604567, NULL, NULL, NULL, 'image/575604567/4.jpg', '', '', ''),
 (309, NULL, NULL, 4, NULL, '', '', 'image/perfilpreterminado.png', ''),
-(310, NULL, NULL, 5, NULL, '', '', 'image/perfilpreterminado.png', '');
+(310, NULL, NULL, 5, NULL, '', '', 'image/perfilpreterminado.png', ''),
+(311, NULL, NULL, NULL, 2, '', '', 'image/perfilpreterminado.png', ''),
+(312, 173620705, NULL, NULL, NULL, 'image/173620705/1.jpg', '', '', ''),
+(313, 173620705, NULL, NULL, NULL, 'image/173620705/2.jpg', '', '', ''),
+(314, 173620705, NULL, NULL, NULL, 'image/173620705/3.jpg', '', '', ''),
+(315, 173620705, NULL, NULL, NULL, 'image/173620705/4.jpg', '', '', ''),
+(316, 173620705, NULL, NULL, NULL, 'image/173620705/5.jpg', '', '', ''),
+(317, 559768614, NULL, NULL, NULL, 'image/559768614/1.jpg', '', '', ''),
+(318, 559768614, NULL, NULL, NULL, 'image/559768614/2.jpg', '', '', ''),
+(319, 559768614, NULL, NULL, NULL, 'image/559768614/3.jpg', '', '', ''),
+(320, 559768614, NULL, NULL, NULL, 'image/559768614/4.jpg', '', '', ''),
+(321, 559768614, NULL, NULL, NULL, 'image/559768614/5.jpg', '', '', ''),
+(322, NULL, NULL, 6, NULL, '', '', 'image/perfilpreterminado.png', ''),
+(323, NULL, NULL, 7, NULL, '', '', 'image/perfilpreterminado.png', ''),
+(324, NULL, NULL, NULL, 3, '', '', 'image/perfilpreterminado.png', ''),
+(325, 367429740, NULL, NULL, NULL, 'image/367429740/1.jpg', '', '', ''),
+(326, 367429740, NULL, NULL, NULL, 'image/367429740/2.jpg', '', '', ''),
+(327, 367429740, NULL, NULL, NULL, 'image/367429740/3.jpg', '', '', ''),
+(328, 367429740, NULL, NULL, NULL, 'image/367429740/4.jpg', '', '', ''),
+(329, 367429740, NULL, NULL, NULL, 'image/367429740/5.jpg', '', '', ''),
+(330, NULL, 429544851, NULL, NULL, 'image/429544851/1.jpg', '', '', ''),
+(331, NULL, 429544851, NULL, NULL, 'image/429544851/2.jpg', '', '', ''),
+(332, NULL, 429544851, NULL, NULL, 'image/429544851/3.jpg', '', '', ''),
+(333, NULL, 429544851, NULL, NULL, 'image/429544851/4.jpg', '', '', ''),
+(334, NULL, 429544851, NULL, NULL, 'image/429544851/5.jpg', '', '', ''),
+(335, NULL, 332716092, NULL, NULL, 'image/332716092/1.jpg', '', '', ''),
+(336, NULL, 332716092, NULL, NULL, 'image/332716092/2.jpg', '', '', ''),
+(337, NULL, 332716092, NULL, NULL, 'image/332716092/3.jpg', '', '', ''),
+(338, NULL, 332716092, NULL, NULL, 'image/332716092/4.jpg', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -520,7 +589,9 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`idEmpresa`, `nombreEmpresa`, `Nit`, `direccion`, `eliminado`) VALUES
-(1, 'Loreal', 'Loreal114', 'Paris', 0);
+(1, 'Loreal', 'Loreal114', 'Paris', 0),
+(2, 'Coca cola', '23443', 'Crr 18 n 24 a 34', 1),
+(3, 'Coca cola', 'y555', 'Crr 18 n 24 a 34', 0);
 
 -- --------------------------------------------------------
 
@@ -547,8 +618,12 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`idFactura`, `idReservacion`, `idUser`, `idCliente`, `fechaCreacion`, `fechaModificar`, `horaCreacion`, `horaModificar`, `valorTotal`, `eliminado`, `estado`) VALUES
-(379151525, 274801758, 2, 1, '2021-11-02', '2021-11-02', '00:32:09', '00:32:09', '5000.00', 0, 3),
-(528922499, NULL, NULL, 1, '2021-11-02', '2021-11-02', '02:52:40', '02:52:40', '0.00', 0, 1);
+(161586915, 358560380, 4, 1, '2021-11-02', '2021-11-02', '15:04:09', '16:21:54', '5000.00', 0, 4),
+(256907318, NULL, NULL, 1, '2021-11-02', '2021-11-02', '14:50:05', '16:20:43', '0.00', 0, 1),
+(379151525, 274801758, 2, 1, '2021-11-02', '2021-11-02', '00:32:09', '00:32:09', '5000.00', 0, 1),
+(528922499, NULL, NULL, 1, '2021-11-02', '2021-11-02', '02:52:40', '16:23:57', '0.00', 0, 4),
+(609603326, NULL, 4, NULL, '2021-11-02', '2021-11-02', '15:30:50', '16:24:13', '99999.99', 0, 3),
+(805891121, 41778875, 4, 1, '2021-11-02', '2021-11-02', '15:29:50', '15:29:50', '5000.00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -575,13 +650,15 @@ INSERT INTO `modulo` (`idModulo`, `nombreModulo`, `icono`, `eliminado`) VALUES
 (5, 'Cliente', 'fas fa-users', 0),
 (6, 'PRUEBA', '', 1),
 (7, 'Cargos', 'fas fa-id-card-alt', 0),
-(8, 'Servicios', 'fas fa-cut', 0),
+(8, 'Servicios', 'fas fa-cut', 1),
 (9, 'Reservaciones', 'fas fa-calendar-plus', 0),
 (14, 'prueba2', 'fas fa-clipboard-check', 1),
 (15, 'prueba1', 'fas fa-users-cog', 1),
 (16, 'prueba1', 'fas fa-users-cog', 1),
 (17, 'sssssdsfdsfsdf', 'fas fa-home', 1),
-(18, 'Ingreso', 'fas fa-home', 0);
+(18, 'Ingreso', 'fas fa-home', 0),
+(19, 'Prueba1', 'fas fa-home', 1),
+(20, 'Servicios', 'fas fa-cut', 0);
 
 -- --------------------------------------------------------
 
@@ -649,9 +726,9 @@ INSERT INTO `pagina` (`idPagina`, `idModulo`, `nombrePagina`, `enlace`, `require
 (43, 9, 'Mostrar Reservaciones', 'view/mostrarreservacion.php', 1, 1, 0),
 (44, 9, 'Crear Reservacion', 'view/crearreservacion.php', 1, 0, 0),
 (45, 9, 'Editar Reservacion', 'view/editarreservacion.php', 1, 0, 0),
-(46, 8, 'Servicios', 'view/listarservicio.php', 1, 1, 0),
-(47, 8, 'Nuevo Servicio', 'view/nuevoservicio.php', 1, 0, 0),
-(48, 8, 'Editar Servicio', 'view/formularioeditarservicio.php', 1, 0, 0),
+(46, 8, 'Servicios', 'view/listarservicio.php', 0, 1, 1),
+(47, 8, 'Nuevo Servicio', 'view/nuevoservicio.php', 1, 0, 1),
+(48, 8, 'Editar Servicio', 'view/formularioeditarservicio.php', 1, 0, 1),
 (49, 4, 'Etiquetas(Tags)', 'view/tags.php', 1, 0, 0),
 (50, 4, 'Nueva Tags', 'view/nuevatags.php', 1, 0, 0),
 (51, 4, 'Editar Tags', 'view/formularioeditartags.php', 1, 0, 0),
@@ -659,7 +736,11 @@ INSERT INTO `pagina` (`idPagina`, `idModulo`, `nombrePagina`, `enlace`, `require
 (53, 4, 'Editar Categoria', 'view/formularioeditarcategoria.php', 1, 0, 0),
 (54, 4, 'Nueva Categoria', 'view/nuevacategoria.php', 1, 0, 0),
 (55, 4, 'Detalle Categoria', 'view/detallecategoria.php', 1, 0, 0),
-(56, 18, 'Login Cliente', 'view/logincliente.php', 0, 0, 0);
+(56, 18, 'Login Cliente', 'view/logincliente.php', 0, 0, 0),
+(57, 19, 'Listar Servicio', 'view/listarservicio.php', 1, 1, 1),
+(58, 20, 'Servicios', '/view/listarservicio.php', 1, 1, 0),
+(59, 20, 'Nuevo Servicio', 'view/nuevoservicio.php', 1, 0, 0),
+(60, 20, 'Editar Servicio', 'view/formularioeditarservicio.php', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -753,7 +834,6 @@ INSERT INTO `palabrasclaves` (`idPalabraClave`, `idProducto`, `IdServicios`, `id
 (71, 764053446, NULL, 1, 0),
 (72, 232776728, NULL, 2, 0),
 (73, 267263324, NULL, 1, 0),
-(74, NULL, 253732436, 6, 0),
 (75, 112073075, NULL, 2, 0),
 (76, 248950189, NULL, 2, 0),
 (77, 327905705, NULL, 6, 0),
@@ -774,7 +854,19 @@ INSERT INTO `palabrasclaves` (`idPalabraClave`, `idProducto`, `IdServicios`, `id
 (92, 318919605, NULL, 2, 0),
 (93, 152994751, NULL, 2, 0),
 (94, 293304731, NULL, 3, 0),
-(95, 575604567, NULL, 3, 0);
+(95, 575604567, NULL, 3, 0),
+(96, 173620705, NULL, 4, 0),
+(97, 173620705, NULL, 11, 0),
+(105, 559768614, NULL, 7, 0),
+(106, 559768614, NULL, 9, 0),
+(107, 367429740, NULL, 4, 0),
+(108, NULL, 429544851, 3, 0),
+(109, NULL, 429544851, 6, 0),
+(110, NULL, 253732436, 12, 0),
+(111, NULL, 253732436, 14, 0),
+(112, NULL, 253732436, 15, 0),
+(113, NULL, 332716092, 9, 0),
+(114, NULL, 332716092, 12, 0);
 
 -- --------------------------------------------------------
 
@@ -800,7 +892,9 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`idPedido`, `idEmpresa`, `documentoIdentidad`, `responsablePedido`, `Nit`, `empresa`, `direccion`, `fechaPedido`, `entregaPedido`, `eliminado`) VALUES
-(45001408, 1, 1006700633, 'Jimena Olaya', 'Loreal114', 'Loreal', 'Paris', '2021-11-01', 0, 0);
+(45001408, 1, 1006700633, 'Jimena Olaya', 'Loreal114', 'Loreal', 'Paris', '2021-11-01', 0, 1),
+(340624864, 3, 1006700633, 'Jimena Olaya', 'y555', 'Coca cola', 'Crr 18 n 24 a 34', '2021-11-03', 0, 0),
+(708377525, 3, 1006700633, 'Jimena Olaya', 'y555', 'Coca cola', 'Crr 18 n 24 a 34', '2021-11-02', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -857,12 +951,15 @@ INSERT INTO `permiso` (`idRol`, `idModulo`, `IdPagina`) VALUES
 (1, 7, 5),
 (1, 7, 6),
 (1, 7, 7),
-(1, 8, 46),
-(1, 8, 47),
-(1, 8, 48),
 (1, 9, 43),
 (1, 9, 44),
-(1, 9, 45);
+(1, 9, 45),
+(1, 20, 58),
+(1, 20, 59),
+(1, 20, 60),
+(3, 3, 1),
+(3, 3, 2),
+(3, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -888,55 +985,58 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`IdProducto`, `idCategoria`, `codigoProducto`, `nombreProducto`, `descripcionProducto`, `cantidad`, `caracteristicas`, `valorUnitario`, `costoProducto`, `eliminado`) VALUES
-(15069579, 1, '000028', 'Fibras Capilares Queratina 27.5gr. Toppik ', 'Toppik es una forma segura, natural e indetectable para mejorar la apariencia de adelgazamiento del cabello sin drogas nocivas, productos químicos o cirugía. Toppik Hair Building Fibers están hechas d', 0, 'Efectos: FIBRAS CAPILARES\r\nFormato: FIBRAS CAPILARES\r\nPresentación: Pote\r\nCantidad: 28\r\nTipo de unidad: g', '23000.00', '26000.00', 0),
-(15652646, 9, '000014', 'Youthair Crema Cabello Anti Canas Oscurece De Mane', 'Crema Anticanas Youthair 473 ml\r\n\r\nCon el uso diario, Youthair devolverá gradualmente el cabello a su color natural juvenil, sin tintes. Su fórmula única proporciona resultados naturales de larga dura', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '34900.00', '38900.00', 0),
-(16360263, 8, '000002', 'Base Y Top Coat Para Semipermanente', 'La base, como su nombre lo indica se aplica antes de sobreponer cualquier color para que este se fije y sobre todo, para hidratar las uñas, mientras que el top se aplica posteriormente para darle dura', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '30000.00', '26000.00', 0),
-(19790671, 7, '000007', 'Esmaltes Checo', 'Esmaltes y brillos checo\r\n\r\n\r\ntonos disponibles en tornasol\r\n158, 153,159,301, 157, 156, 305, 124, 50D, 49P,......\r\n\r\nESMALTES\r\n6, 133, 5, 151, 150, 148, 1B, 163, 99, 35, 7,2, 3.......\r\n\r\n\r\nANTERIOR P', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '55000.00', '60000.00', 0),
-(24525899, 4, '000017', 'Loreal Tinte Majicontrast Rojo', 'LOREAL TINTE DE CABELLO MAJICONTRAST ROJO 50ml\r\n\r\n(ANTIGUA O NUEVA PRESENTACIÓN DEPENDIENDO DE DISPONIBILIDAD, MISMO PRODUCTO)\r\n\r\nCon Majicontrast puedes aplicarte mechas a medida para morenas en un s', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '19300.00', '22000.00', 0),
+(15069579, 14, '000028', 'Fibras Capilares Queratina 27.5gr. Toppik ', 'Toppik es una forma segura, natural e indetectable para mejorar la apariencia de adelgazamiento del cabello sin drogas nocivas, productos químicos o cirugía. Toppik Hair Building Fibers están hechas d', -2, 'Efectos: FIBRAS CAPILARES\r\nFormato: FIBRAS CAPILARES\r\nPresentación: Pote\r\nCantidad: 28\r\nTipo de unidad: g', '23000.00', '26000.00', 0),
+(15652646, 14, '000014', 'Youthair Crema Cabello Anti Canas Oscurece De Mane', 'Crema Anticanas Youthair 473 ml\r\n\r\nCon el uso diario, Youthair devolverá gradualmente el cabello a su color natural juvenil, sin tintes. Su fórmula única proporciona resultados naturales de larga dura', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '34900.00', '38900.00', 0),
+(16360263, 8, '000002', 'Base Y Top Coat Para Semipermanente', 'La base, como su nombre lo indica se aplica antes de sobreponer cualquier color para que este se fije y sobre todo, para hidratar las uñas, mientras que el top se aplica posteriormente para darle dura', -2, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '30000.00', '26000.00', 0),
+(19790671, 7, '000007', 'Esmaltes Checo', 'Esmaltes y brillos checo\r\n\r\n\r\ntonos disponibles en tornasol\r\n158, 153,159,301, 157, 156, 305, 124, 50D, 49P,......\r\n\r\nESMALTES\r\n6, 133, 5, 151, 150, 148, 1B, 163, 99, 35, 7,2, 3.......\r\n\r\n\r\nANTERIOR P', 1, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '55000.00', '60000.00', 0),
+(24525899, 4, '000017', 'Loreal Tinte Majicontrast Rojo', 'LOREAL TINTE DE CABELLO MAJICONTRAST ROJO 50ml\r\n\r\n(ANTIGUA O NUEVA PRESENTACIÓN DEPENDIENDO DE DISPONIBILIDAD, MISMO PRODUCTO)\r\n\r\nCon Majicontrast puedes aplicarte mechas a medida para morenas en un s', -1, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '19300.00', '22000.00', 0),
 (59932937, 12, '000021', 'Skala Mais Cachos', 'Tratamiento capilar para cabellos crespos, rico en nutrientes que hidratan y desenredan todo tipo de cabellos rizados, crespos y ondulados. Puede ser utilizado como acondicionador, mais cachos hidrata', 0, 'Efectos: Pelo crespo,pelo rizo\r\nFormato: Crema\r\nPresentación: Pote\r\nEs hipoalergénica: Sí\r\nEs libre de crueldad: Sí\r\nCon fragancia: Sí\r\nEs vegano: Sí\r\nCantidad: 1000\r\nTipo de unidad: g', '29000.00', '32000.00', 0),
 (85878949, 4, '000045', 'Crema Para Peinar Head & Shoulders Hidratación 300', 'Crema Para Peinar Head & Shoulders Hidratación, 7500435142588\r\n\r\n\"Potencia el poder de tu shampoo head&shoulders con su primera crema para peinar control caspa y anti-frizz.\r\n\r\nLa Crema para Peinar Hi', 0, 'Cantidad: 1\r\nTipo de unidad: mL', '18300.00', '22000.00', 0),
-(101364696, 14, '000038', '(recomendado) Lápiz Delineador Ojos Do - g a $1490', 'Somos Ventas Inteligentes Colombia.\r\n\r\nRevisa las calificaciones y comentarios de nuestros clientes y compra con tranquilidad. Nuestros clientes nos recomiendan.\r\n\r\nLápiz Delineador de Ojos Líquido Do', 3, 'Es de larga duración: Sí\r\nEs a prueba de agua: Sí\r\nCantidad: 1\r\nTipo de unidad: g', '14900.00', '20000.00', 0),
+(101364696, 14, '000038', 'Lápiz Delineador Ojos Do - g a $1490', 'Somos Ventas Inteligentes Colombia.\r\n\r\nRevisa las calificaciones y comentarios de nuestros clientes y compra con tranquilidad. Nuestros clientes nos recomiendan.\r\n\r\nLápiz Delineador de Ojos Líquido Do', 3, 'Es de larga duración: Sí\r\nEs a prueba de agua: Sí\r\nCantidad: 1\r\nTipo de unidad: g', '14900.00', '20000.00', 0),
 (112073075, 3, '000041', 'Crema Para Peinar Elvive Acido Hialuronic - mL a $', 'crema de cabello para risos', 0, 'Marca	Elvive\r\nFormato de venta	Elvive Hidra Hialuronico\r\nUnidades por envase	6\r\n\r\nCantidad: 300\r\nTipo de unidad: mL', '11200.00', '15000.00', 0),
 (152994751, 10, '000001', 'kkckkkdk', 'kdfjdfnjdfnjdjn', 0, 'kfkngfkgkkn', '20000.00', '22000.00', 1),
+(173620705, 7, 'Prueba12345', 'prueba', 'Es una prueba', 0, 'Es una prueba', '12000.00', '8000.00', 1),
 (188361335, 4, '000018', 'Tinte Keraton 7.62 R', 'Coloración capilar permanente en crema que proporciona una completa protección al cabello duran el proceso de coloración, gracias a su formulación con: ACEITE DE ARGAN rico en acido grasos como el ome', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '9900.00', '12000.00', 0),
 (232776728, 12, '000001', 'holaaaaaaaaaaaaa', 'hollllllllllllllllla', 0, 'holaaaaaaaaaaaaaaa', '10000.00', '22000.00', 1),
 (233977974, 8, '000009', 'Brillo Acrílico Slendy 25 Mililitros', '¡Secado extra rápido! Seca en segundos y da máxima duración al esmalte en tus uñas. Su exclusiva fórmula especialmente desarrollada para reducir al máximo el tiempo de secado después de maquillar las ', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '16000.00', '20000.00', 0),
 (248950189, 9, 'jjjjjjjjj', 'hhbouhjih', 'nhffvuhijolnl', 0, 'uvjbsijgpirdrkjx', '15000.00', '10000.00', 1),
 (267263324, 13, '000001', 'hplaplkd,okl', 'olszkjfhngvkzsjghbnij', 0, 'ijkdhnzfivkjdnb', '10000.00', '10000.00', 1),
-(268916690, 8, '000001', 'Color Gel Semipermanente Uñas', 'Excelentes esmaltes semipermanentes marca SHEENIA, disponibles en más de 25 hermosos colores.\r\nPresentación por 8 ml\r\nNecesita uso de lámpara UV / Led\r\nDuración de hasta 30 días.', 0, 'Tipo de esmalte: Color\r\nEs un producto hipoalergénico: Sí\r\nEs libre de crueldad: Sí\r\nEs fortalecedor: Sí\r\nEs secado rápido: Sí\r\nCantidad de packs: 20\r\nEs inflamable: Sí', '20000.00', '99999.99', 0),
+(268916690, 8, '000049', 'Color Gel Semipermanente Uñas', 'Excelentes esmaltes semipermanentes marca SHEENIA, disponibles en más de 25 hermosos colores.\r\nPresentación por 8 ml\r\nNecesita uso de lámpara UV / Led\r\nDuración de hasta 30 días.', -3, 'Tipo de esmalte: Color\r\nEs un producto hipoalergénico: Sí\r\nEs libre de crueldad: Sí\r\nEs fortalecedor: Sí\r\nEs secado rápido: Sí\r\nCantidad de packs: 20\r\nEs inflamable: Sí', '20000.00', '10000.00', 0),
 (272384215, 15, '000036', 'Kit Labial Líquido Nailen - g a $1304', 'Kit Labiales Liquidos Nailen x 3 Und Gratis Tula Nailen x 1 Und\r\n\r\nKit Labial Nailen Liquido Cacao Tubo 6 Gramos + Labial Nailen Liquido Doncella Tubo 6 Gramos + Labial Nailen Liquido Pastel Tubo 6 Gr', 0, 'Es de larga duración: Sí\r\nCantidad: 6\r\nTipo de unidad: g', '23900.00', '25000.00', 0),
 (290156737, 4, '000019', 'Tinte Keraton 7.62 R', 'Coloración capilar permanente en crema que proporciona una completa protección al cabello duran el proceso de coloración, gracias a su formulación con: ACEITE DE ARGAN rico en acido grasos como el ome', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '99999.99', '99999.99', 0),
 (292736654, 3, '000024', 'Shampo Sin Sal + Mascarilla French Gold 500ml Post', 'Kit De Mantenimiento Keratina Shampo y Mascarilla\r\n\r\nEl Kit Post Keratina Frenchs Gold, Contiene:\r\n\r\n1 Shampo Libre de Sal y Parabenos de 500ml\r\n1 Mascarilla Restauradora y Selladora de 500ml\r\n\r\n- Sha', 0, 'Efectos: Mantenimiento Keratina,Cuidado de Liso y Restauracion\r\nFormato: Crema\r\nPresentación: Pote\r\nEs hipoalergénica: Sí\r\nEs libre de crueldad: Sí\r\nCon fragancia: Sí\r\nEs vegano: Sí\r\nCantidad: 1000\r\nTipo de unidad: mL', '40000.00', '50000.00', 0),
 (293304731, 12, '000001', 'mjcjcjdjdkidjm', 'njfcjnsnjfnjfnjfjn', 0, 'njdvnjdknfknfkn', '35000.00', '30000.00', 1),
 (318919605, 11, '00001', 'Loreal Tinte Majicontrast Rojo', 'ofokgfoppfogkgfpklñ', 0, 'ldlldfmdkfdm', '10000.00', '40000.00', 1),
 (324890283, 15, '000048', 'Crema Para Peinar Elvive Oleo Extraordin - mL a $3', 'Crema para peinar que mejora tu cabello', 0, 'Cantidad: 300\r\nTipo de unidad: mL', '9000.00', '13000.00', 0),
-(327905705, 3, '000042', 'Crema Termoprotectora Reparación Absolut 150ml', 'FÓRMULA PROFESIONAL Con una infusión de QUÍNOA DORADA + PROTEÍNA. La crema protege el cabello del quiebre y la temperatura hasta 230 °C/450 °F*. Permite un secado más fácil incluso en cabellos muy dañ', 0, 'Marca	SERIE EXPERT\r\nUnidades por envase	1\r\n\r\nTipo de unidad: mL', '30000.00', '40000.00', 0),
+(327905705, 3, '000042', 'Crema Termoprotectora Reparación Absolut 150ml', 'FÓRMULA PROFESIONAL Con una infusión de QUÍNOA DORADA + PROTEÍNA. La crema protege el cabello del quiebre y la temperatura hasta 230 °C/450 °F*. Permite un secado más fácil incluso en cabellos muy dañ', 3, 'Marca	SERIE EXPERT\r\nUnidades por envase	1\r\n\r\nTipo de unidad: mL', '30000.00', '40000.00', 0),
 (336409946, 4, '000013', 'Tinte Keraton 9.998 Violeta Profundo', 'Coloración capilar permanente en crema que proporciona una completa protección al cabello duran el proceso de coloración, gracias a su formulación con: ACEITE DE ARGAN rico en acido grasos como el ome', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '9900.00', '15000.00', 0),
-(404242146, 8, '000006', 'Matificante De Color Para Uñas Esmalte Uv Led', 'Color: Transparente\r\nAdecuado para lámpara: UV/LED Lámpara\r\nVolumen: 10 ml/0,33 fl. oz\r\nArtículo incluido: 1 x 10 ml), parte superior coat mate\r\nrenders han sido mostrado, pls echar un vistazo a la iz', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '99999.99', '99999.99', 0),
+(367429740, 8, '000001', 'hfhfhfhfhfh', 'jfjfjfjhsuaoieryg9esiuoh', 0, 'jdbfbujkheuiroiueh', '23000.00', '10000.00', 1),
+(404242146, 8, '000006', 'Matificante De Color Para Uñas Esmalte Uv Led', 'Color: Transparente\r\nAdecuado para lámpara: UV/LED Lámpara\r\nVolumen: 10 ml/0,33 fl. oz\r\nArtículo incluido: 1 x 10 ml), parte superior coat mate\r\nrenders han sido mostrado, pls echar un vistazo a la iz', 1, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '15000.00', '12000.00', 0),
 (439363406, 4, '000016', 'Tinte Igora Vital 8-77 Cobrizo Claro', 'Descubre la exclusiva fórmula del NUEVO Igora Vital con máximo cuidado y máximo color que reúne todo lo que necesitas para conseguir un look único y natural. Gracias a la coloración permanente del NUE', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '10900.00', '15000.00', 0),
 (441210504, 1, '000027', 'Recarga 25gr Fibras Capilares Toppik - G A $ 1036', 'Fibras Capilares Recarga Queratina es una forma segura, natural e indetectable para mejorar la apariencia de adelgazamiento del cabello sin drogas nocivas, productos químicos o cirugía. Toppik sevich ', 0, 'Efectos: FIBRAS CAPILARES\r\nFormato: FIBRAS CAPILARES\r\nPresentación: Sachet\r\nCantidad: 25\r\nTipo de unidad: g', '15000.00', '20000.00', 0),
-(480392225, 7, '000003', 'Base Forti Uñas', 'Ideal para fortalecer y dar crecimiento.\r\nPara Uñas maltratadas que no crecen, se doblan,frágiles o quebradizas, enfermas y con rayas.\r\n\r\nModo de uso\r\nAplíquese todos los días, en especial las puntas ', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '10000.00', '15000.00', 0),
+(480392225, 7, '000003', 'Base Forti Uñas', 'Ideal para fortalecer y dar crecimiento.\r\nPara Uñas maltratadas que no crecen, se doblan,frágiles o quebradizas, enfermas y con rayas.\r\n\r\nModo de uso\r\nAplíquese todos los días, en especial las puntas ', -3, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '10000.00', '15000.00', 0),
 (487160427, 9, '000026', 'Tónico Para Barba X3 Unidades', 'Minoxidil Forte Mk Solución Tópica 5% Frasco x 60 ML\r\n\r\nTratamiento para prevenir y controlar la caída del cabello. Coadyuvante en el tratamiento de la alopecia androgénica.\r\n\r\nBeneficios:\r\n• Controla', 0, 'Efectos: No produce efectos secundarios y no tiene contra indicaciones medicas.\r\nFormato: BARBA\r\nPresentación: Dosificador\r\nEs hipoalergénica: No\r\nEs libre de crueldad: Sí\r\nCon fragancia: No\r\nEs vegano: No\r\nCantidad: 30\r\nTipo de unidad: mL', '60000.00', '70000.00', 0),
 (516771158, 3, '000030', 'Rizos Y Afro Termoprotector Lec', 'izos y Afro Termoprotector Leche Pal Pelo 250mL\r\n\r\n\r\n\r\n\r\n#QuedateEnCasa | Pagas por un solo envío y te despachamos hasta 20kgs de producto variado, Despacho inmediato desde Cali.\r\nSomos una tienda fís', 0, 'Efectos: Facilita el cepillado y moldeo Ayuda a disminuir el frizz Hidrata,suaviza,disminuye las puntas abiertas Protege de las altas temperatura No genera peso cosmético No requiere de enjuague Ideal para utilizar en la piscina y el mar De uso diario. Aplicar d\r\nFormato: Crema\r\nPresentación: Botella\r\nEs hipoalergénica: Sí\r\nCon fragancia: Sí\r\nCantidad: 250\r\nTipo de unidad: mL', '23500.00', '26000.00', 0),
 (519970258, 14, '000040', 'Jabon Fijador De Cejas Organico Con Cepillo Origin', 'Jabon Fijador Organico para Cejas kiss beauty Original.\r\n\r\n\r\nEL PRECIO ES POR 1 UNIDAD, INCLUYE EL CEPILLO PARA APLICAR EL PRODUCTO\r\n\r\nModo de uso:\r\nPonle de 1 a 2 gotas de fijador de maquillaje, agua', 0, 'Marca	Kiss Beauty\r\nLínea	Eyebrow\r\nModelo	Three Dimensional\r\nFormato del delineador	Gel', '10900.00', '25000.00', 0),
+(559768614, 8, '000001', 'Loreal Tinte Majicontrast Rojo', 'iiyiyiyiyiyiyi', 0, 'hfhfhfhyryryryryryryry', '20000.00', '12000.00', 0),
 (569787989, 4, '000017', 'Loreal Tinte Majicontrast Rojo', 'LOREAL TINTE DE CABELLO MAJICONTRAST ROJO 50ml (ANTIGUA O NUEVA PRESENTACIÓN DEPENDIENDO DE DISPONIBILIDAD, MISMO PRODUCTO) Con Majicontrast puedes aplicarte mechas a medida para morenas en un sólo pa', 0, 'Tipo de producto: Tintura permanente Marca:LOréal Paris\r\nVolumen neto: 50 mL\r\n', '19300.00', '22000.00', 1),
-(575604567, 12, 'KKKKKKKjjjsssw', 'hfhfhfhfhfh', 'hhfhfhfhfhhfh', 0, 'hdhdhhdhdhd', '12000.00', '12000.00', 0),
+(575604567, 12, 'KKKKKKKjjjsssw', 'hfhfhfhfhfh', 'hhfhfhfhfhhfh', 0, 'hdhdhhdhdhd', '12000.00', '12000.00', 1),
 (595948074, 14, '000033', 'Base De maquillaje Mayor Cubrimiento - mL a $316', 'Base De Maquillaje Mayor Cubrimiento x 25 Ml\r\n\r\nCon textura liviana para dejar una apariencia natural.\r\n\r\nTextura ligera y confortable Proporciona una cobertura media a construible: Su fórmula contien', 0, 'Consistencia: Cremoso\r\nAcabado: Mate\r\nCantidad: 25\r\nTipo de unidad: mL', '8000.00', '12000.00', 0),
 (603660015, 4, '000012', 'Tonico Capilar Flash Cubre Canas Y Shamp', 'Un (1) Tonico Capilar Flash Cubre Canas de la marca Herbacol es un Tinte natural especial para cubrir canas, libre de amoniaco y peróxido, cubre las canas permanentemente y recupera el cabello maltrat', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '38500.00', '41000.00', 0),
 (605416737, 14, '000032', 'Base Nailen Efecto Selfie # 3 - G A $33 - g a $396', 'Base Nailen Efecto Selfie x 30 Gr\r\n\r\nLa base líquida Efecto Selfie es un producto multi beneficios, posee una textura ligera que suaviza la piel, dejando un acabado mate natural. Su fórmula contiene p', 0, 'Consistencia: Cremoso\r\nAcabado: Mate Natural\r\nCantidad: 30\r\nTipo de unidad: g', '11000.00', '15000.00', 0),
-(629323921, 15, '000035', 'Combo Labiales Nailen Larga Duración ', 'Es de larga duración: Sí\r\nCantidad: 2\r\nTipo de unidad: g', 0, 'Combo Labiales Nailen Larga Duración x 4 Und Gratis Agenda Nailen x 1 Und\r\n\r\nCombo Labial Nailen Larga Duración Caramel Tubo 2 Gramos + Labial Nailen Larga Duración Frambuesa Tubo 2 Gramos + Labial Nailen Larga Duración Fresa Dulce Tubo 2 Gramos + Labial Nailen Larga Duración Frutos Rojos Tubo 2 Gramos\r\n\r\nLarga duración por más de 8 horas e hidratación con vitamina E y C. Perfectos para el día a día, se combinan con maquillajes naturales o de ojos bien marcados.\r\n\r\nSi observa alguna reacción des', '26000.00', '30000.00', 0),
+(629323921, 15, '000035', 'Combo Labiales Nailen Larga Duración ', 'Es de larga duración: Sí\r\nCantidad: 2\r\nTipo de unidad: g', 2, 'Combo Labiales Nailen Larga Duración x 4 Und Gratis Agenda Nailen x 1 Und\r\n\r\nCombo Labial Nailen Larga Duración Caramel Tubo 2 Gramos + Labial Nailen Larga Duración Frambuesa Tubo 2 Gramos + Labial Nailen Larga Duración Fresa Dulce Tubo 2 Gramos + Labial Nailen Larga Duración Frutos Rojos Tubo 2 Gramos\r\n\r\nLarga duración por más de 8 horas e hidratación con vitamina E y C. Perfectos para el día a día, se combinan con maquillajes naturales o de ojos bien marcados.\r\n\r\nSi observa alguna reacción des', '26000.00', '30000.00', 0),
 (649030980, 7, '000010', 'Masglo Gel Evolution Esmalte ', 'SECADO EXTRA RÁPIDO\r\n5 minutos al tacto (Puede variar de un cliente a otro)\r\nEFECTO GEL\r\nColor intenso y duradero, mayor brillo sobre las uñas sin necesidad de lámpara.\r\nDURACIÓN\r\nHasta 12 días.\r\nPORT', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '11900.00', '13000.00', 0),
-(689669391, 11, '000031', 'Crema Facial Bb Cream Smart - g ', 'Crema Facial BB Cream Smart x 30 Gr\r\n\r\nBB Cream es una crema con la que es posible obtener la apariencia de rostro perfecto y natural al instante. Es ideal para el día a día.\r\n\r\nAyuda a proteger la pi', 0, 'Formato: Crema\r\nEs un producto hipoalergénico: Sí\r\nCon protección solar: Sí\r\nEs libre de parabenos: Sí\r\nEs testeado dermatológicamente: Sí\r\nFunciones: Apariencia Perfecta & Natural,Protege De Los Rayos Del Sol,Con Ácido Hialurónico,Factor De Protección Solar 19,Con Vitamina E & Colageno\r\nCantidad: 30\r\nTipo de unidad: g', '15000.00', '20000.00', 0),
-(709687183, 14, '000037', 'Polvo Compacto Satinado - g a $519', 'Polvo Compacto Satinado Nailen x 14 Gr\r\n\r\nCon perlas micro pulverizadas que le dan un toque satinado a tu piel.\r\n\r\nUn polvo iluminador sedoso que se funde sin esfuerzo sobre la piel. Tiene perlas con ', 0, 'Marca: Nailen\r\nCantidad: 14\r\nTipo de unidad: g', '7000.00', '12000.00', 0),
-(711652868, 10, '000044', 'Crema Para Peinar Termoprotect Liss Unl - mL a $58', 'Crema para peinar ', 0, 'Cantidad: 150\r\nTipo de unidad: mL', '88000.00', '91000.00', 0),
+(689669391, 11, '000031', 'Crema Facial Bb Cream Smart - g ', 'Crema Facial BB Cream Smart x 30 Gr\r\n\r\nBB Cream es una crema con la que es posible obtener la apariencia de rostro perfecto y natural al instante. Es ideal para el día a día.\r\n\r\nAyuda a proteger la pi', 1, 'Formato: Crema\r\nEs un producto hipoalergénico: Sí\r\nCon protección solar: Sí\r\nEs libre de parabenos: Sí\r\nEs testeado dermatológicamente: Sí\r\nFunciones: Apariencia Perfecta & Natural,Protege De Los Rayos Del Sol,Con Ácido Hialurónico,Factor De Protección Solar 19,Con Vitamina E & Colageno\r\nCantidad: 30\r\nTipo de unidad: g', '15000.00', '20000.00', 0),
+(709687183, NULL, '000037', 'Polvo Compacto Satinado - g a $519', 'Polvo Compacto Satinado Nailen x 14 Gr\r\n\r\nCon perlas micro pulverizadas que le dan un toque satinado a tu piel.\r\n\r\nUn polvo iluminador sedoso que se funde sin esfuerzo sobre la piel. Tiene perlas con ', 0, 'Marca: Nailen\r\nCantidad: 14\r\nTipo de unidad: g', '7000.00', '12000.00', 0),
+(711652868, 10, '000044', 'Crema Para Peinar Termoprotect Liss Unl - mL a $58', 'Crema para peinar ', 1, 'Cantidad: 150\r\nTipo de unidad: mL', '88000.00', '91000.00', 0),
 (712381516, 3, '000029', 'Hair Protector Laviore By Pyt', 'TERMOPROTECTOR LAVIORE by PYT\r\n\r\n*Protege tu cabello de:\r\nEléctricos (Planchas, Rizadores o Secadores) - Luz artificial y natural – Polución - Radicales libres\r\n\r\n*Te aporta:\r\nBrillo al cabello - Faci', 0, 'Efectos: Genera un escudo para el cabello protegiéndolo del calor y radicales libres.\r\nPresentación: Spray\r\nEs libre de crueldad: Sí\r\nCon fragancia: Sí\r\nEs vegano: Sí\r\nCantidad: 120\r\nTipo de unidad: mL', '64000.00', '70000.00', 0),
-(759726823, 8, '000005', 'Matificante De Color Para Uñas Esmalte Uv Led', 'Color: Transparente\r\nAdecuado para lámpara: UV/LED Lámpara\r\nVolumen: 10 ml/0,33 fl. oz\r\nArtículo incluido: 1 x 10 ml), parte superior coat mate\r\nrenders han sido mostrado, pls echar un vistazo a la iz', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '17000.00', '22000.00', 0),
+(759726823, 8, '000005', 'Matificante De Color Para Uñas Esmalte Uv Led', 'Color: Transparente\r\nAdecuado para lámpara: UV/LED Lámpara\r\nVolumen: 10 ml/0,33 fl. oz\r\nArtículo incluido: 1 x 10 ml), parte superior coat mate\r\nrenders han sido mostrado, pls echar un vistazo a la iz', 1, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '17000.00', '22000.00', 0),
 (760262571, 4, '000020', 'Tinte Inoa Permanente - mL a', 'noa, de LOréal Professionnel, es el sistema revolucionario de coloración permanente a base de aceite y sin amoniaco\r\nLos tintes Inoa Loreal no contienen olor ni amoniaco. Aportan un confort óptimo al ', 0, 'Tipo de producto: Tinte permanente\r\nMarca: Loreal\r\nPresentación: Pomo\r\nIncluye activador: Sí\r\nVolumen neto: 60 mL\r\nPeso neto: 60 g\r\nUnidades por envase: 1\r\nCantidad: 60\r\nTipo de unidad: mL', '27900.00', '32000.00', 0),
 (764053446, 11, '000001', 'holaaaaaaaaaaaa', 'holaaaaaaaaaaaaaaaaaaaa', 0, 'holaaaaaaaaaaaaaaaaaaa', '1000.00', '1000.00', 1),
 (764196012, 3, '000023', 'Kativa Alisado Brasileño Cabello Natural', 'Kativa Alisado Brasileño Cabello Natural - Despacho Inmediato\r\n\r\nTratamiento de alisado, sin formol, con resultado profesional, que restaura y recupera la fortaleza del cabello, gracias a su fórmula m', 0, 'Otros\r\nEfectos: Alisante\r\nFormato: Multiple\r\nPresentación: Caja\r\nEs hipoalergénica: No\r\nEs libre de crueldad: Sí\r\nCon fragancia: Sí\r\nEs vegano: No', '61000.00', '70000.00', 0),
 (805973408, 7, '000008', 'Base Uñas Rodher Extracto Ajo', 'Base Esmalte Rodher Con Extracto De Ajo x 10 Ml\r\n\r\nBase de uñas con activos especializados que estimulan el crecimiento de tus uñas.\r\n\r\nModo De Uso: Agitar bien antes de usar. Deslice suavemente el pi', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '3400.00', '6000.00', 0),
 (808515809, 4, '000015', 'Igora Tinte Rojo Cobrizo', 'IGORA ROYAL cubre hasta un 100% de las canas y proporciona una retención del color y una intensidad máximas. IGORA ROYAL ecualiza el color de manera uniforme, incluso el poroso. Gracias a que sus tono', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '17900.00', '21000.00', 0),
-(822314731, 8, '000004', 'Brillo Matificante Vogue Fantastic', 'Brillo Matificante Vogue Fantastic x 10 Ml\r\n\r\nBrillo Fantastic que proporciona brillo mate a tus uñas, de rápido secado y con nuevo pincel plano.\r\n\r\nAgitar bien antes de usar. Deslice suavemente el pi', 0, '<ul class=\"ui-pdp-list__wrapper\" style=\"-webkit-font-smoothing: antialiased; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding: 0px; display: flex; color: rgba(0, 0, 0, 0.9); font-family: &quot;Proxima Nova&quot;, -apple-system, &quot;Helvetica Neue&quot;, Helvetica, Roboto, Arial, sans-serif;\"><li class=\"ui-pdp-list__item\" style=\"-webkit-font-smoothing: antialiased; list-style: none; font-size: 12px; padding-bottom: 12px; padding-left: 0px; padding-right: 24px; width: 334px;\"><p ', '3400.00', '6000.00', 0),
+(822314731, 8, '000004', 'Brillo Matificante Vogue Fantastic', 'Brillo Matificante Vogue Fantastic x 10 Ml\r\n\r\nBrillo Fantastic que proporciona brillo mate a tus uñas, de rápido secado y con nuevo pincel plano.\r\n\r\nAgitar bien antes de usar. Deslice suavemente el pi', 1, 'brillo y belleza a tus uñas', '3400.00', '6000.00', 0),
 (872574928, 3, '000046', 'Desodorante Anti Transpirante Roll-on Piel Sensibl', 'Desodorante de Vichy anti-transpirante Roll-on, pieles sensibles o depiladas. Para mujeres con piel sensible y depilada que busquen un anti-transpirante eficaz y ultra-tolerante. Una suave fórmula esp', 0, 'Otras características\r\nZona de aplicación: Axilas\r\nGénero: Mujer\r\nEs antitranspirante: Sí\r\nCon alcohol: Sí\r\nEs testeado dermatológicamente: Sí\r\nEs apto para piel sensible: Sí\r\nEs anti-manchas: No\r\nCantidad: 50\r\nTipo de unidad: mL', '56000.00', '60000.00', 0),
 (916795615, 12, '000043', 'Crema Para Peinar Elvive Reparación Tota - mL a $3', 'Cremas para peinar y dar vida a tu cabello', 0, 'Marca_300	Elvive\r\nUnidades por envase	1\r\n\r\nTipo de unidad: mL', '9000.00', '13000.00', 0),
 (929558207, 13, '000025', 'Cera Fría Capilar + Shampo De Litro', 'Cera Fría Capilar Para Cabellos Crespos y Rebeldes (Sirve Para Cabellos Ondulados Con Mucho Frizz) Totalmente Sellada y Garantizada de litro con su shampo antiresiduos\r\n\r\nAlisa las ebras hasta un 100%', 0, 'Efectos: Alisado\r\nFormato: Sérum\r\nPresentación: litro\r\nEs hipoalergénica: No\r\nEs libre de crueldad: Sí\r\nCon fragancia: Sí\r\nEs vegano: No\r\nTipo de unidad: mL', '51000.00', '51000.00', 0),
@@ -974,12 +1074,16 @@ CREATE TABLE `reservacion` (
 --
 
 INSERT INTO `reservacion` (`idReservacion`, `idCliente`, `idUser`, `idServicio`, `nombres`, `apellidos`, `telefono`, `fechaReservacion`, `horaReservacion`, `horaFinal`, `domicilio`, `validar`, `direccion`, `precio`, `eliminado`) VALUES
+(41778875, 1, 5, 67898463, 'Jimena Alejandra', 'Olaya Perez', 2147483647, '2021-11-03', '08:40:00', '09:19:00', 1, 1, 'Crr 18 n 24 a 34', 5000.00, 0),
 (274801758, 1, 3, 67898463, 'Alejandra ', 'Perez ', 2147483647, '2021-11-02', '09:20:00', '09:29:00', 0, 1, '', 5000.00, 0),
-(358560380, 1, 5, 67898463, 'Jimena Olaya', 'Perez ', 2147483647, '2021-11-03', '10:00:00', '10:39:00', 1, 0, 'Crr 18 n 24 a 34', 5000.00, 0),
-(473758741, 1, 3, 67898463, 'Alejandra ', 'Perez ', 2147483647, '2021-11-03', '10:20:00', '10:59:00', 1, 0, 'Crr 18 n 24 a 34', 5000.00, 0),
-(587858024, 1, 4, 253732436, 'Jimena Olaya', 'Perez ', 2147483647, '2021-11-03', '09:40:00', '09:49:00', 0, 0, '', 10000.00, 0),
-(737184602, 1, 3, 67898463, 'Alejandra ', 'Perez ', 2147483647, '2021-11-02', '10:40:00', '10:49:00', 0, 0, '', 5000.00, 0),
-(974815650, 1, 3, 67898463, 'Alejandra ', 'Perez ', 2147483647, '2021-11-03', '10:20:00', '10:59:00', 1, 0, 'Crr 18 n 24 a 34', 5000.00, 0);
+(276529161, 2, 5, 67898463, 'Jimena ', 'Perez ', 2147483647, '2021-11-03', '09:40:00', '09:49:00', 0, 0, '', 5000.00, 0),
+(358560380, 1, 5, 67898463, 'Jimena Olaya', 'Perez ', 2147483647, '2021-11-03', '10:00:00', '10:39:00', 1, 1, 'Crr 18 n 24 a 34', 5000.00, 0),
+(473758741, 1, 3, 67898463, 'Alejandra ', 'Perez ', 2147483647, '2021-11-03', '10:20:00', '10:59:00', 1, 0, 'Crr 18 n 24 a 34', 5000.00, 1),
+(587858024, 1, 2, 253732436, 'Jimena Alejandra', 'Olaya Perez', 2147483647, '2021-11-03', '10:00:00', '10:09:00', 0, 1, '', 10000.00, 0),
+(737184602, 1, 3, 67898463, 'Jimena Alejandra', 'Olaya Perez', 2147483647, '2021-11-03', '09:20:00', '09:29:00', 0, 0, '', 5000.00, 1),
+(910014607, 1, 5, 67898463, 'Jimena Alejandra', 'Olaya Perez', 2147483647, '2021-11-02', '18:00:00', '18:09:00', 0, 0, '', 5000.00, 0),
+(934051341, 2, 5, 67898463, 'Jimena ', 'Perez ', 2147483647, '2021-11-03', '09:50:00', '09:59:00', 0, 0, '', 5000.00, 0),
+(974815650, 1, 5, 67898463, 'Jimena Alejandra', 'Olaya Perez', 2147483647, '2021-11-03', '09:30:00', '10:09:00', 1, 0, 'Crr 18 n 24 a 34', 5000.00, 0);
 
 -- --------------------------------------------------------
 
@@ -1000,7 +1104,8 @@ CREATE TABLE `rol` (
 INSERT INTO `rol` (`idRol`, `nombreRol`, `eliminado`) VALUES
 (1, 'Gerente', 0),
 (2, 'Recepcionista', 0),
-(3, 'Cajero', 0);
+(3, 'Cajero', 0),
+(4, 'Cliente', 0);
 
 -- --------------------------------------------------------
 
@@ -1128,7 +1233,42 @@ INSERT INTO `seguimiento` (`idSeguimiento`, `IdPedido`, `idProducto`, `idServici
 (127, NULL, 575604567, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '08:15:54'),
 (128, NULL, 575604567, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '08:19:15'),
 (129, NULL, 575604567, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '08:21:41'),
-(130, NULL, 575604567, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '08:21:52');
+(130, NULL, 575604567, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '08:21:52'),
+(131, 708377525, NULL, NULL, NULL, 2, 'Ha creado un nuevo pedido', '2021-11-02', '15:45:36'),
+(132, 708377525, NULL, NULL, NULL, 2, 'Ha modificado un pedido', '2021-11-02', '15:46:47'),
+(133, 708377525, NULL, NULL, NULL, 2, 'Ha validado un pedido', '2021-11-02', '15:48:52'),
+(134, NULL, 327905705, NULL, NULL, 2, 'Los productos se vencieron', '2021-11-02', '15:49:42'),
+(135, 45001408, NULL, NULL, NULL, 2, 'Ha cancelado un pedido', '2021-11-02', '15:50:28'),
+(136, NULL, 173620705, NULL, NULL, 2, 'Ha creado un nuevo producto', '2021-11-02', '15:56:49'),
+(137, NULL, 559768614, NULL, NULL, 2, 'Ha creado un nuevo producto', '2021-11-02', '15:57:31'),
+(138, NULL, 559768614, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '15:59:13'),
+(139, NULL, 559768614, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-02', '15:59:21'),
+(140, NULL, 559768614, NULL, NULL, 2, 'Ha modificado las tags del producto', '2021-11-02', '15:59:47'),
+(141, NULL, 559768614, NULL, NULL, 2, 'Ha modificado las tags del producto', '2021-11-02', '15:59:53'),
+(142, NULL, 559768614, NULL, NULL, 2, 'Ha modificado la categoria del producto', '2021-11-02', '15:59:59'),
+(143, NULL, 559768614, NULL, NULL, 2, 'Ha modificado la categoria del producto', '2021-11-02', '16:00:04'),
+(144, NULL, 173620705, NULL, NULL, 2, 'Se ha eliminado el producto', '2021-11-02', '16:00:26'),
+(145, NULL, NULL, NULL, NULL, 2, 'Ha cambiado su contraseña', '2021-11-02', '16:12:23'),
+(146, NULL, NULL, 886990781, NULL, 2, 'Se ha eliminado el servicio', '2021-11-03', '13:24:06'),
+(147, NULL, NULL, 514517558, NULL, 2, 'Se ha eliminado el servicio', '2021-11-03', '13:24:11'),
+(148, NULL, 268916690, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-03', '13:24:44'),
+(149, NULL, 101364696, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-03', '13:25:19'),
+(150, NULL, 404242146, NULL, NULL, 2, 'Ha modificado la informacion del producto', '2021-11-03', '13:26:04'),
+(151, NULL, NULL, 253732436, NULL, 2, 'Ha modificado la informacion del servicio', '2021-11-03', '13:32:02'),
+(152, NULL, NULL, 253732436, NULL, 2, 'Ha modificado la informacion del servicio', '2021-11-03', '13:32:17'),
+(153, NULL, NULL, 253732436, NULL, 2, 'Ha modificado la informacion del servicio', '2021-11-03', '13:34:19'),
+(154, NULL, 367429740, NULL, NULL, 2, 'Ha creado un nuevo producto', '2021-11-03', '13:36:17'),
+(155, NULL, 367429740, NULL, NULL, 2, 'Se ha eliminado el producto', '2021-11-03', '13:36:35'),
+(156, NULL, NULL, 429544851, NULL, 2, 'Ha creado un nuevo servicio', '2021-11-03', '16:07:51'),
+(157, NULL, NULL, 253732436, NULL, 2, 'Ha modificado la informacion del servicio', '2021-11-03', '16:09:12'),
+(158, NULL, NULL, 253732436, NULL, 2, 'Ha modificado las tags del servicio', '2021-11-03', '16:09:37'),
+(159, NULL, NULL, 253732436, NULL, 2, 'Ha modificado la categoria del servicio', '2021-11-03', '16:09:44'),
+(160, NULL, NULL, 253732436, NULL, 2, 'Ha modificado la categoria del servicio', '2021-11-03', '16:10:04'),
+(161, NULL, NULL, 429544851, NULL, 2, 'Se ha eliminado el servicio', '2021-11-03', '16:10:23'),
+(162, 340624864, NULL, NULL, NULL, 2, 'Ha creado un nuevo pedido', '2021-11-03', '16:14:54'),
+(163, NULL, NULL, 332716092, NULL, 2, 'Ha creado un nuevo servicio', '2021-11-06', '14:17:22'),
+(164, NULL, NULL, 67898463, NULL, 2, 'Ha modificado la informacion del servicio', '2021-11-06', '14:24:21'),
+(165, NULL, NULL, 465617173, NULL, 2, 'Ha modificado la informacion del servicio', '2021-11-06', '14:24:42');
 
 -- --------------------------------------------------------
 
@@ -1152,16 +1292,18 @@ CREATE TABLE `servicios` (
 --
 
 INSERT INTO `servicios` (`IdServicio`, `idCategoria`, `codigoServicio`, `nombreServicio`, `detalleServicio`, `tiempoDuracion`, `costo`, `eliminado`) VALUES
-(67898463, 2, 'S0003', 'cortes ', 'Cortes segun la exigencia del cabellero', 10, '5000.00', 0),
+(67898463, 2, 'S0003', 'peinado', 'Cortes segun la exigencia del cabellero', 10, '99999.99', 0),
 (189709214, 2, 'S0003', 'corte en “v” o pico', 'Como la palabra indica consiste en cortar la forma', 10, '11.00', 1),
-(253732436, 2, 'S0001', 'Corte recto o cuadrado.', 'Se trata de un corte totalmente recto, es recomend', 10, '10000.00', 0),
+(253732436, 7, 'S0001', 'Corte recto o cuadrado.', 'Se trata de un corte totalmente recto, es recomend', 35, '10000.00', 0),
 (273466604, 7, 'S0004', 'kkfkfkfk``', 'kfjfkfikfkfkf', 10, '2000.00', 1),
+(332716092, 7, 'S0005', 'Manicure', 'Arreglo, diseño y cuidado de las uñas de tu manos.', 30, '10000.00', 0),
 (411304110, 2, 'S0003', 'corte en “v” o pico', 'Como la palabra indica consiste en cortar la forma', 10, '11.00', 1),
-(465617173, 2, 'S0004', 'corte en “v” o pico', 'Como la palabra indica consiste en cortar la forma', 10, '8000.00', 0),
-(514517558, 11, 'ffffffffffffffff', 'jjjfjfjfjfj', 'jfjfjfjfjfj', 15, '10000.00', 0),
+(429544851, 7, 'S0006', 'prueba123', 'hhhfhfhfhfhfhfh', 25, '23000.00', 1),
+(465617173, 2, 'S0004', 'Alisado', 'Como la palabra indica consiste en cortar la forma', 10, '99999.99', 0),
+(514517558, 11, 'ffffffffffffffff', 'jjjfjfjfjfj', 'jfjfjfjfjfj', 15, '10000.00', 1),
 (657083085, 2, 'S0003', 'corte en “v” o pico', 'Como la palabra indica consiste en cortar la forma', 10, '11.00', 1),
 (776220398, 2, 'S0002', 'Corte circular o redondeado.', 'La forma más clásica y más recomendad para los cab', 10, '10000.00', 0),
-(886990781, 11, 'hhhhhh', 'jjjfjfjfjfj', 'jfjfjfjfjfj', 15, '10000.00', 0),
+(886990781, 11, 'hhhhhh', 'jjjfjfjfjfj', 'jfjfjfjfjfj', 15, '10000.00', 1),
 (956180931, 2, 'S0003', 'corte en “v” o pico', 'Como la palabra indica consiste en cortar la forma', 10, '11.00', 1),
 (961923468, 2, 'S0003', 'corte en “v” o pico', 'Como la palabra indica consiste en cortar la forma', 10, '11.00', 1);
 
@@ -1209,7 +1351,8 @@ INSERT INTO `tags` (`idTags`, `tags`, `eliminado`) VALUES
 (12, 'uñasLargas', 0),
 (13, 'uñasBonitas', 0),
 (14, 'tintes', 0),
-(15, 'cabelloColorido', 0);
+(15, 'cabelloColorido', 0),
+(16, 'alisados', 1);
 
 -- --------------------------------------------------------
 
@@ -1244,10 +1387,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`idUser`, `idRol`, `idCargo`, `tipoDocumento`, `documentoIdentidad`, `primerNombre`, `segundoNombre`, `primerApellido`, `segundoApellido`, `fechaNacimiento`, `correoElectronico`, `contrasena`, `telefono`, `genero`, `estadoCivil`, `direccion`, `barrio`, `habilitar`, `eliminado`) VALUES
-(2, 1, NULL, 'CC', 1006700633, 'Jimena', 'Alejandra', 'Olaya', 'Perez', '2001-11-14', 'aleja@gmail.com', 'cdf556a23ca4ec4a1bdaa15abd729dbd', 2147483647, 'Femenino', '', 'CRR 18 N 24 A 34', 'Progreso', 1, 0),
-(3, 2, 1, 'CC', 41242518, 'Olga', 'Patricia', 'Perez', 'Montañez', '1989-12-30', 'Olgaperez@gmail.com', '5e8224b5768cec92368afd4ab46d32a3', 2147483647, 'Femenino', 'Casado', 'Crr 18 n 24 a 34', 'Progreso', 1, 0),
-(4, 2, 2, 'CC', 97612166, 'Miguel', '', 'Olaya', '', '1996-01-02', 'miguelolaya@gmail.com', 'f3b17a9dd0b6c707fd10c8a078d5df95', 2147483647, 'Masculino', 'Casado', 'Crr 18 n 24 a 34', 'Progreso', 1, 0),
-(5, 2, 1, 'CC', 1120563510, 'Miguel', '', 'Olaya', '', '2001-07-25', 'angelolaya@gmail.com', '32e5eb90c645fb62276a508017354181', 2147483647, 'Masculino', 'Soltero', 'Crr 18 n 24 a 34', 'Progreso', 1, 0);
+(2, 1, 2, 'CC', 1006700633, 'Jimena', '', 'Olaya', 'Perez', '2001-11-14', 'aleja@gmail.com', '33635a085e91e5ed22fe65397b105066', 2147483647, 'Femenino', '', 'CRR 18 N 24 A 34', 'Progreso', 1, 0),
+(3, 2, 2, 'CC', 41242518, 'Olga', 'Patricia', 'Perez', 'Montañez', '1989-12-30', 'Olgaperez@gmail.com', '5e8224b5768cec92368afd4ab46d32a3', 2147483647, 'Femenino', 'Casado', 'Crr 18 n 24 a 34', 'Progreso', 1, 0),
+(4, 3, NULL, 'CC', 97612166, 'Miguel', '', 'Olaya', '', '1996-01-02', 'miguelolaya@gmail.com', 'f3b17a9dd0b6c707fd10c8a078d5df95', 2147483647, 'Masculino', 'Casado', 'Crr 18 n 24 a 34', 'Progreso', 1, 0),
+(5, 2, 1, 'CC', 1120563510, 'Miguel', '', 'Olaya', '', '2001-07-25', 'angelolaya@gmail.com', '32e5eb90c645fb62276a508017354181', 2147483647, 'Masculino', 'Soltero', 'Crr 18 n 24 a 34', 'Progreso', 1, 0),
+(6, 3, 3, 'TI', 1120563510, 'Miguel', '', 'Olaya', '', '1996-06-06', 'perez@gmail.com', '12b4d44f8dcf8d214a56dfa3d096e068', 2147483647, 'Masculino', 'Casado', 'Crr 18 n 24 a 3', '', 1, 0),
+(7, 2, 2, 'TI', 41242518, 'jimena', '', 'Perez', '', '1995-06-15', 'ffff@gmail.com', 'f05d3e91f3082fee3076e785dc783a53', 2147483647, 'Masculino', 'Casado', '', '', 1, 0);
 
 --
 -- Índices para tablas volcadas
@@ -1422,73 +1567,73 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
-  MODIFY `idCargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idCargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPregunta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle`
 --
 ALTER TABLE `detalle`
-  MODIFY `idDetalleFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idDetalleFactura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de la tabla `detallefoto`
 --
 ALTER TABLE `detallefoto`
-  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=311;
+  MODIFY `idFoto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=339;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idEmpresa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `modulo`
 --
 ALTER TABLE `modulo`
-  MODIFY `idModulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idModulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `pagina`
 --
 ALTER TABLE `pagina`
-  MODIFY `idPagina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `idPagina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT de la tabla `palabrasclaves`
 --
 ALTER TABLE `palabrasclaves`
-  MODIFY `idPalabraClave` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `idPalabraClave` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `seguimiento`
 --
 ALTER TABLE `seguimiento`
-  MODIFY `idSeguimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `idSeguimiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitud`
@@ -1500,13 +1645,13 @@ ALTER TABLE `solicitud`
 -- AUTO_INCREMENT de la tabla `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `idTags` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idTags` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

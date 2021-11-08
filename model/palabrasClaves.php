@@ -3,6 +3,12 @@ require_once 'conexiondb.php';
 
 class palabraClave
 {
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $idPalabrasClaves = 0;
     public $idProducto = "";
     public $IdServicio = "";
@@ -39,7 +45,7 @@ class palabraClave
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO palabrasClaves (idProducto, IdServicios, idtags, eliminado) 
+        $sql = "INSERT INTO palabrasclaves (idProducto, IdServicios, idtags, eliminado) 
         VALUES ($idProducto, NULL, '$this->tags', false)";
 
         $result = mysqli_query($conexion, $sql);
@@ -53,7 +59,7 @@ class palabraClave
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO palabrasClaves (idProducto, IdServicios, idtags, eliminado) 
+        $sql = "INSERT INTO palabrasclaves (idProducto, IdServicios, idtags, eliminado) 
         VALUES (NULL, $idServicio, '$this->tags', false)";
 
         $result = mysqli_query($conexion, $sql);
@@ -70,7 +76,7 @@ class palabraClave
         $conexion = $oConexion->conexion();
 
         //sentencia que permite actualizar un  cargo
-        $sql = "UPDATE palabrasClaves SET idProducto=$idProducto
+        $sql = "UPDATE palabrasclaves SET idProducto=$idProducto
         WHERE idPalabraClave=$this->idPalabrasClaves";
 
         //se ejecuta la consulta
@@ -86,7 +92,7 @@ class palabraClave
         //se establece la conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO palabrasClaves (idProducto, IdServicios, palabraClave) 
+        $sql = "INSERT INTO palabrasclaves (idProducto, IdServicios, palabraClave) 
         VALUES (NULL, NULL, '$this->palabraClave')";
 
         $result = mysqli_query($conexion, $sql);
@@ -180,7 +186,7 @@ class palabraClave
         $conexion = $oConexion->conexion();
 
         //esta sentencia me permite consultar un cargo
-        $sql = "SELECT * FROM palabrasClaves WHERE idPalabraClave=$idTags";
+        $sql = "SELECT * FROM palabrasclaves WHERE idPalabraClave=$idTags";
 
         //se ejecuta la consulta
         $result = mysqli_query($conexion, $sql);
@@ -201,7 +207,7 @@ class palabraClave
         $conexion = $oConexion->conexion();
 
         //sentencia que permite actualizar un  cargo
-        $sql = "UPDATE palabrasClaves SET palabraClave='$this->palabraClave'
+        $sql = "UPDATE palabrasclaves SET palabraClave='$this->palabraClave'
         WHERE idPalabraClave=$this->idPalabraClave";
 
         //se ejecuta la consulta

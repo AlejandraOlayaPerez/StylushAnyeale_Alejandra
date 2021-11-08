@@ -36,7 +36,7 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']);
                                 <input type="text" id="idRol" value="<?php echo $_GET['idRol']; ?>" style="display: none;">
                                 <?php require_once 'usuarios.php'; ?>
 
-                                <a href="listarrol.php?idRol=<?php echo $idRol; ?>" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
+                                <a href="listarrol.php" class="btn btn-dark"> <i class="fas fa-arrow-circle-left"></i> Atras</a>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
@@ -60,7 +60,7 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']);
                     <p>¿Esta seguro que desea eliminar el usuario rol?</p>
                 </div>
                 <div class="modal-footer estiloModalBody">
-                    <form action="../controller/usuarioController.php" method="GET">
+                    <form action="../controller/usuariocontroller.php" method="GET">
                         <input type="text" name="idUser" id="eliminarUsuarioRol" style="display: none;">
                         <input type="text" name="idRol" value="<?php echo $idRol ?> " style="display:none;">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -74,7 +74,7 @@ $oRol = $oGestionController->consultarRolId($_GET['idRol']);
     <div class="modal fade" id="modal-empresa">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="/Anyeale_proyecto/StylushAnyeale_Alejandra/controller/usuarioController.php" method="GET">
+                <form action="../controller/usuariocontroller.php" method="GET">
                     <input type="text" name="idRol" value="<?php echo $_GET['idRol']; ?>" style="display: none;">
                     <div class="modal-header estiloModalBody">
                         <h4 class="modal-title">Seleccionar Usuarios</h4>

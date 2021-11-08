@@ -1,5 +1,6 @@
 <?php session_start();
-require_once 'linkhead.php'; //¡FUNDAMENTAL! ?>
+require_once 'linkhead.php'; //¡FUNDAMENTAL! 
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -8,6 +9,7 @@ require_once 'linkhead.php'; //¡FUNDAMENTAL! ?>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/chat.min.css" type="text/css">
     <title>Stylush Anyeale</title>
 </head>
 
@@ -25,6 +27,7 @@ require_once 'linkhead.php'; //¡FUNDAMENTAL! ?>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaproducto.php"><i class="fas fa-wine-bottle"></i> Producto</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="vistaservicio.php"><i class="fas fa-cut"></i> Servicios</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="listarreservacion.php"><i class="fas fa-clock"></i> Reserva</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="manualcliente.pdf"><i class="fas fa-question-circle"></i></a></li>
                     </ul>
                     <?php
                     if (isset($_SESSION['idCliente'])) {
@@ -161,49 +164,61 @@ require_once 'linkhead.php'; //¡FUNDAMENTAL! ?>
         </div>
 
         <footer class="container">
-            <form action="" method="POST">
-                <div class="card" style="background-color: FEF1E6">
-                    <div class="card-body row">
-                        <div class="col-md-5 text-center d-flex align-items-center justify-content-center">
-                            <div class="">
-                                <h1><strong>¡CONTACTANOS!</strong></h1>
-                                <p class="lead mb-1"><strong>Direccion: </strong> Carr 18 N 24 A 34</p>
-                                <p class="lead mb-1"><strong>Horarios: </strong>Lunes a viernes (8AM-8PM)</p>
-                                <p class="lead mb-1"><strong>Telefono: </strong> 3204995486</p>
-                                <p class="lead mb-1"><strong>Correo Electronico: </strong> StylushAnyeale@gmail.com </p>
-                                <p class="lead mb-2"><a href="https://www.instagram.com/__anyeale/?hl=es"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/channel/UCAIAHNzp71toK21oTYZtN1Q"><i class="fab fa-youtube"></i></a> <a href="https://wa.link/nc743x"><i class="fab fa-whatsapp"></i></a></p>
+            <div class="card" style="background-color: FEF1E6">
+                <div class="card-body row">
+                    <div class="col-md-5 text-center d-flex align-items-center justify-content-center">
+                        <div class="">
+                            <h1><strong>¡CONTACTANOS!</strong></h1>
+                            <p class="lead mb-1"><strong>Direccion: </strong> Carr 18 N 24 A 34</p>
+                            <p class="lead mb-1"><strong>Horarios: </strong>Lunes a viernes (8AM-8PM)</p>
+                            <p class="lead mb-1"><strong>Telefono: </strong> 3204995486</p>
+                            <p class="lead mb-1"><strong>Correo Electronico: </strong> StylushAnyeale@gmail.com </p>
+                            <p class="lead mb-2"><a href="https://www.instagram.com/__anyeale/?hl=es"><i class="fab fa-instagram"></i></a> <a href="https://www.youtube.com/channel/UCAIAHNzp71toK21oTYZtN1Q"><i class="fab fa-youtube"></i></a> <a href="https://wa.link/nc743x"><i class="fab fa-whatsapp"></i></a></p>
 
-                            </div>
                         </div>
+                    </div>
 
-
+                    <?php if (isset($_SESSION['idCliente'])) { ?>
+                        <div class="col-md-7">
+                            <form action="../controller/clientecontroller.php" method="GET">
+                                <input type="text" id="idCliente" name="idCliente" value="<?php echo $_SESSION['idCliente']; ?>" style="display: none;">
+                                <div class="form-group">
+                                    <label for="">Mensaje</label>
+                                    <textarea id="comentarioMensaje" name="comentario" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success" name="funcion" value="comentarioCliente">Comentar</button>
+                                </div>
+                            </form>
+                        </div>
+                    <?php  } else {
+                    ?>
                         <div class="col-md-7">
                             <div class="form-group">
-                                <label for="">Nombre</label>
-                                <input type="text" id="inputName" name="nombre" class="form-control" />
+                                <label class="text-center d-flex align-items-center justify-content-center" style="font-family:'Times New Roman', Times, serif; font-size:200%; position:absolute; top:40%; left:20%">Inicie session para poder comentar.</label>
                             </div>
-                            <div class="form-group">
-                                <label for="">Correo Electronico</label>
-                                <input type="email" id="inputEmail" name="correoElectronico" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="">Asunto</label>
-                                <input type="text" id="inputSubject" name="asunto" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="">Mensaje</label>
-                                <textarea id="inputMessage" name="mensaje" class="form-control" rows="4"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-info" value="Enviar Mensaje">
-                            </div>
+                        </div>
+                    <?php
+                    } ?>
+                </div>
+            </div>
+        </footer>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="chat-discussion" style="height: 800px;">
+                        <div class="chat-message left" id="comentario">
+
                         </div>
                     </div>
                 </div>
-            </form>
-        </footer>
+            </div>
+        </div>
     </main>
     <?php require_once 'linkfooter.php'; ?>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
+    <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/comentariocliente.min.js"></script>
 </body>
 
 </html>

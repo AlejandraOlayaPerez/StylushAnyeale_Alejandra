@@ -33,7 +33,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                     <div class="col-7 col-sm-9">
                         <div class="tab-content" id="vert-tabs-tabContent">
                             <div class="tab-pane text-left fade show <?php if ($ventana == "informacion") echo "active"; ?>" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-                                <form action="../controller/productoServicioController.php" method="GET" id="formInformacion" novalidate>
+                                <form action="../controller/productoserviciocontroller.php" method="GET" id="formInformacion" novalidate>
                                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                                     <input type="text" name="funcion" value="actualizarInformacion" style="display: none;">
                                     <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
@@ -109,7 +109,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "tags") echo "active"; ?>" id="vert-tabs-profile" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
-                                <form action="../controller/productoServicioController.php" method="GET" id="formTags" novalidate>
+                                <form action="../controller/productoserviciocontroller.php" method="GET" id="formTags" novalidate>
                                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                                     <input type="text" name="funcion" value="actualizarTagsServicio" style="display: none;">
                                     <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
@@ -134,7 +134,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "categoria") echo "active"; ?>" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
-                                <form action="../controller/productoServicioController.php" method="GET" id="formCategoria" novalidate>
+                                <form action="../controller/productoserviciocontroller.php" method="GET" id="formCategoria" novalidate>
                                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                                     <input type="text" name="funcion" value="actualizarCategoriaServicio" style="display: none;">
                                     <input type="text" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
@@ -165,7 +165,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
                                 </form>
                             </div>
                             <div class="tab-pane <?php if ($ventana == "producto") echo "active"; ?>" id="vert-tabs-producto" role="tabpanel" aria-labelledby="vert-tabs-producto-tab">
-                                <form action="../controller/productoServicioController.php" method="GET" id="formProducto" novalidate>
+                                <form action="../controller/productoserviciocontroller.php" method="GET" id="formProducto" novalidate>
                                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                                     <input type="text" name="funcion" value="actualizarProductoServicio" style="display: none;">
                                     <input type="text" id="idServicio" name="idServicio" value="<?php echo $_GET['idServicio']; ?> " style="display: none;">
@@ -204,7 +204,7 @@ $oTags = $oProductoServicioController->consultarTagsidServicio($_GET['idServicio
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/agregarproductos.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/validaciones.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
-<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarServicio.min.js"></script>
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/editarservicio.min.js"></script>
 
 <script>
     var campo = document.getElementById("costo");

@@ -5,6 +5,13 @@ require_once 'conexiondb.php';
 
 class foto
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $ifFoto = 0;
     public $idServicio = "";
     public $idProducto = "";
@@ -24,12 +31,12 @@ class foto
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT fotoPerfil FROM detalleFoto WHERE idUser=$idUser";
+        $sql = "SELECT fotoPerfil FROM detallefoto WHERE idUser=$idUser";
 
+        
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
         //retorna el resultado de la consulta.
-
         foreach ($result as $registro) {
             $this->fotoPerfil = $registro['fotoPerfil'];
         }
@@ -42,7 +49,7 @@ class foto
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "SELECT fotoPerfilCliente FROM detalleFoto WHERE idCliente=$idCliente";
+        $sql = "SELECT fotoPerfilCliente FROM detallefoto WHERE idCliente=$idCliente";
 
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
@@ -60,11 +67,11 @@ class foto
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "UPDATE detalleFoto SET fotoPerfil='$this->fotoPerfilUsuario' WHERE idUser=$idUser";
+        $sql = "UPDATE detallefoto SET fotoPerfil='$this->fotoPerfilUsuario' WHERE idUser=$idUser";
 
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
-echo $sql;
+        echo $sql;
         //retorna el resultado de la consulta.
         return $result;
     }
@@ -77,7 +84,7 @@ echo $sql;
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "UPDATE detalleFoto SET fotoPerfil='$this->fotoPerfilCliente' WHERE idCliente=$idCliente";
+        $sql = "UPDATE detallefoto SET fotoPerfil='$this->fotoPerfilCliente' WHERE idCliente=$idCliente";
 
         //ejecuta la consulta. query=ejecuta y se utiliza como parametros la conexion y la consulta.
         $result = mysqli_query($conexion, $sql);
@@ -92,7 +99,7 @@ echo $sql;
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO detalleFoto(idProducto, IdServicios, idUser, idCliente, fotoPerfil)
+        $sql = "INSERT INTO detallefoto(idProducto, IdServicios, idUser, idCliente, fotoPerfil)
     VALUES (NULL, NULL, NULL, $idCliente, '$url')";
 
         //se ejecuta la consulta en la base de datos
@@ -108,7 +115,7 @@ echo $sql;
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO detalleFoto(idProducto, IdServicios, idUser, idCliente, fotoPerfil)
+        $sql = "INSERT INTO detallefoto(idProducto, IdServicios, idUser, idCliente, fotoPerfil)
         VALUES (NULL, NULL, $idUser, NULL, '$url')";
 
         //se ejecuta la consulta en la base de datos
@@ -123,7 +130,7 @@ echo $sql;
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO detalleFoto(idProducto, IdServicios, idUser, idCliente, fotoProducto)
+        $sql = "INSERT INTO detallefoto(idProducto, IdServicios, idUser, idCliente, fotoProducto)
      VALUES ($this->idProducto, NULL, NULL, NULL, '$this->fotoProducto')";
 
         //se ejecuta la consulta en la base de datos
@@ -138,7 +145,7 @@ echo $sql;
         //se establece conexión con la base datos
         $conexion = $oConexion->conexion();
 
-        $sql = "INSERT INTO detalleFoto(idProducto, IdServicios, idUser, idCliente, fotoProducto)
+        $sql = "INSERT INTO detallefoto(idProducto, IdServicios, idUser, idCliente, fotoProducto)
      VALUES (NULL, $this->idServicio, NULL, NULL, '$this->fotoProducto')";
 
         //se ejecuta la consulta en la base de datos

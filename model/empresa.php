@@ -4,6 +4,13 @@ require_once 'conexiondb.php';
 
 class empresa
 {
+
+    //La funcion constructor se ejecuta cuando se intancia los objetos, se utiliza para configurar los elementos basicos.
+    //Siempre usar :(
+    public function __construct()
+    {
+    }
+
     public $idEmpresa = 0;
     public $nombreEmpresa = "";
     public $Nit = "";

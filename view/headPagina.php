@@ -86,7 +86,6 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
             require_once '../controller/imagencontroller.php';
             $oImagenController = new imagenController();
             $oFoto = $oImagenController->listarImagenPerfilUsuario($_SESSION['idUser']);
-
             ?>
             <img src="../<?php echo $oFoto->fotoPerfil; ?>" class="img-circle elevation-2" alt="User Image">
           </div>
@@ -148,5 +147,6 @@ if ($oPagina->requireSession and !isset($_SESSION['idUser'])) {
 
       <aside class="control-sidebar control-sidebar-dark">
       </aside>
+
 
       <?php require_once 'footer.php'; ?>

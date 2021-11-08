@@ -67,7 +67,7 @@ $idUser = $_SESSION['idUser'];
                             <th>Fecha Pedido</th>
                             <th>¿Pedido recibido?</th>
                             <th>Pedidos Cancelados</th>
-                            <th><a class="btn btn-info" href="nuevoPedido.php"><i class="fas fa-plus-circle"></i> Crear Pedido</a></th>
+                            <th><a class="btn btn-info" href="nuevopedido.php"><i class="fas fa-plus-circle"></i> Crear Pedido</a></th>
                         </tr>
                     </thead>
                     <tbody id="filtroPedido">
@@ -99,7 +99,7 @@ $idUser = $_SESSION['idUser'];
                 <p>¿Su pedido fue recibido?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/pedidoController.php" method="GET">
+                <form action="../controller/pedidocontroller.php" method="GET">
                     <input type="text" name="idPedido" id="validarPedido" style="display: none;">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -124,7 +124,7 @@ $idUser = $_SESSION['idUser'];
                 <p>¿Desea cancelar el pedido?</p>
             </div>
             <div class="modal-footer estiloModalBody">
-                <form action="../controller/pedidoController.php" method="GET">
+                <form action="../controller/pedidocontroller.php" method="GET">
                     <input type="text" name="idPedido" id="pedido" style="display: none;">
                     <input type="text" name="idUser" value="<?php echo $_SESSION['idUser']; ?>" style="display: none;">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
