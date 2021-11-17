@@ -206,6 +206,8 @@ if (isset($_GET['ventana'])) { //
 <?php require_once 'footercliente.php'; ?>
 
 
+
+<script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/plugins/jquery/jquery.min.js"></script>
 <?php require_once 'linkfooter.php'; ?>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/general.min.js"></script>
 <script src="/anyeale_proyecto/stylushanyeale_alejandra/assets/js/anyealejs/detalleProducto.min.js"></script>

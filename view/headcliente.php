@@ -1,6 +1,6 @@
-<?php 
+<?php
 date_default_timezone_set('America/Bogota');
-$fechaActual = Date("Y-m-d"); 
+$fechaActual = Date("Y-m-d");
 ?>
 
 <!DOCTYPE html>

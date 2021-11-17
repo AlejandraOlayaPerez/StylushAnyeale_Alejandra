@@ -1,4 +1,6 @@
-<?php require_once 'headreservacion.php'; ?>
+<?php
+require_once 'headreservacion.php';
+?>
 
 <head>
     <link rel="stylesheet" href="/anyeale_proyecto/stylushanyeale_alejandra/assets/css/anyealecss/listarreservacion.min.css" type="text/css">
